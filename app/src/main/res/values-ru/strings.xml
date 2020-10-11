@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email_hint">Введите email</string>
+    <string name="pass_hint">Пароль</string>
+    <string name="pass_reg_hint">Пароль*</string>
+    <string name="name_hint">Имя*</string>
+    <string name="surname_hint">Фамилия*</string>
+    <string name="country_hint">Страна*</string>
+    <string name="city_hint">Город*</string>
+    <string name="reg_button_text">Регистрация</string>
+    <string name="login_button_text">Вход</string>
+    <string name="reject_reg">Введите все графы со звездочкой *</string>
+    <string name="is_successful">Регистрацию выполнена</string>
+    <string name="is_not_successful">Регистрация не выполнена</string>
+    <string name="failed_login">Неверная регистрация или пароль</string>
+    <string name="logout_menu">Выход</string>
+    <string name="country">Страна:</string>
+    <string name="city">Город:</string>
+    <string name="region">Область/край:</string>
+    <string name="sex">Пол:</string>
+    <string name="age">Возраст:</string>
+    <string name="region_reg_hint">Область/край*</string>
+    <string name="age_reg_hint">Возраст*</string>
+    <string name="sex_reg_hint">Пол*</string>
+    <string name="myAccount">Профиль</string>
+    <string name="chat_list">Чаты</string>
+</resources>
