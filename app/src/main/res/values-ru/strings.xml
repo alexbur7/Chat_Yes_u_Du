@@ -24,4 +24,5 @@
     <string name="sex_reg_hint">Пол*</string>
     <string name="myAccount">Профиль</string>
     <string name="chat_list">Чаты</string>
+    <string name="upload_progress">Upload in progress</string>
 </resources>

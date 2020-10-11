@@ -25,4 +25,7 @@
     <string name="sex_reg_hint">Sex*</string>
     <string name="myAccount">My account</string>
     <string name="chat_list">Chats</string>
+    <string name="failed_update_photo">Failed update photo</string>
+    <string name="no_image_selected">No image selected</string>
+    <string name="upload_progress">Upload in progress</string>
 </resources>

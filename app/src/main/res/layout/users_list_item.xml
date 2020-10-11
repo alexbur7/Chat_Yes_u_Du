@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_margin="8dp">
 
@@ -11,23 +12,49 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="2dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/unnamed"
+            android:id="@+id/circle_image_user"/>
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/user_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/user_date"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/user_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:textStyle="italic"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"/>
+            android:layout_toLeftOf="@id/user_date"
+            android:layout_toRightOf="@+id/circle_image_user"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="16dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="NotSibling" />
+            <TextView
+                android:id="@+id/user_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textStyle="italic"
+                android:layout_toRightOf="@+id/circle_image_user"
+                android:layout_toEndOf="@+id/circle_image_user"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                tools:ignore="NotSibling" />
+        </LinearLayout>
+
+
     </RelativeLayout>
 
     <TextView

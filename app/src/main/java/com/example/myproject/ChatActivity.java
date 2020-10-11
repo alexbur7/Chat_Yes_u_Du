@@ -11,27 +11,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class ChatActivity extends AppCompatActivity implements View.OnClickListener{
 
     public static final String KEY_TO_RECEIVER_UUID="recevierID";
     public static final String KEY_TO_RECEIVER_NAME="recevierNAME";
+    private static final String KEY_TO_RECEIVER_PHOTO_URL = "recevierPHOTO_URL";
     private String receiverUuid;
     private String receiverName;
+    private String receiverPhotoUrl;
     private FloatingActionButton fab;
     private Toolbar toolbar;
     private EditText input;
     private TextView username;
     private FirebaseListAdapter<ChatMessage> adapter;
     private ListView listView;
+    private ImageView circleImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +48,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
         receiverUuid=getIntent().getStringExtra(KEY_TO_RECEIVER_UUID);
         receiverName=getIntent().getStringExtra(KEY_TO_RECEIVER_NAME);
+        receiverPhotoUrl = getIntent().getStringExtra(KEY_TO_RECEIVER_PHOTO_URL);
 
         listView = findViewById(R.id.list_of_messages);
         fab= findViewById(R.id.fab);
@@ -51,6 +60,13 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         username=findViewById(R.id.username_text);
         username.setText(receiverName);
+        circleImageView = findViewById(R.id.circle_image_chat);
+        if (receiverPhotoUrl.equals("default")){
+            circleImageView.setImageResource(R.drawable.unnamed);
+        }
+        else{
+            Glide.with(this).load(receiverPhotoUrl).into(circleImageView);
+        }
         displayChatMessages();
     }
 
@@ -127,10 +143,11 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         return templist.get(0)+templist.get(1);
     }
 
-    public static Intent newIntent(Context context, String toUserUUID,String toUserName){
+    public static Intent newIntent(Context context, String toUserUUID,String toUserName, String photo_url){
         Intent intent=new Intent(context,ChatActivity.class);
         intent.putExtra(KEY_TO_RECEIVER_UUID,toUserUUID);
         intent.putExtra(KEY_TO_RECEIVER_NAME,toUserName);
+        intent.putExtra(KEY_TO_RECEIVER_PHOTO_URL,photo_url);
         return intent;
     }
 }
