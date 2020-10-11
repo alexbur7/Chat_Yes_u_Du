@@ -78,9 +78,14 @@ public class AccountFragment extends Fragment {
                 openImage();
             }
         });
-        setCurrentUser();
-        ButterKnife.bind(this,v);
+        //ButterKnife.bind(this,v);
         return v;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setCurrentUser();
     }
 
     private void openImage() {
@@ -101,7 +106,6 @@ public class AccountFragment extends Fragment {
 
     private void setCurrentUser() {
         String uuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Log.e("USER CHECK IN", uuid);
         FirebaseDatabase.getInstance().getReference("users").child(uuid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -111,7 +115,8 @@ public class AccountFragment extends Fragment {
                     photoImageView.setImageResource(R.drawable.unnamed);
                 }
                 else {
-                    Glide.with(getContext()).load(user.getPhoto_url()).into(photoImageView);
+                    if (isAdded()) Glide.with(getContext()).load(user.getPhoto_url()).into(photoImageView);
+                    else Log.e("GLIDE","SOSI 4LEN");
                 }
                 setAllTextView();
             }
@@ -142,7 +147,6 @@ public class AccountFragment extends Fragment {
                 if (!task.isSuccessful()){
                     throw  task.getException();
                 }
-
                 return fileReference.getDownloadUrl();
             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                 @Override
@@ -184,13 +188,14 @@ public class AccountFragment extends Fragment {
         && data!=null && data.getData() !=null
         ){
             imageUri = data.getData();
-            if (uploadTask !=null){
+            /*if (uploadTask !=null){
              Toast
              .makeText(getContext(),R.string.upload_progress,Toast.LENGTH_SHORT).show();
             }
             else {
                 uploadImage();
-            }
+            }*/
+            uploadImage();
         }
     }
 }
