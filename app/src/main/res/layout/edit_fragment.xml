@@ -48,10 +48,10 @@
                 android:id="@+id/spinner_sex_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:entries="@array/sex_for_spinner"/>
             <EditText
                 android:id="@+id/age"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/age_reg_hint"

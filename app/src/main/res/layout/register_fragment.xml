@@ -3,74 +3,79 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp">
+    android:background="@color/login">
 
     <EditText
         android:id="@+id/name_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:hint="@string/name_hint"/>
 
     <EditText
         android:id="@+id/surname_edit_text"
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:hint="@string/surname_hint"/>
 
     <EditText
         android:id="@+id/country_edit_text"
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:hint="@string/country_hint"/>
     <EditText
         android:id="@+id/region_reg_edit_text"
         android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:hint="@string/region_reg_hint"/>
 
     <EditText
         android:id="@+id/city_edit_text"
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:hint="@string/city_hint"/>
     <Spinner
         android:id="@+id/spinner_sex"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/sex_for_spinner"/>
+        android:entries="@array/sex_for_spinner"
+        android:layout_margin="8dp"
+        />
     <EditText
         android:id="@+id/age_reg_edit_text"
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
+        android:layout_margin="8dp"
         android:hint="@string/age_reg_hint"/>
 
     <EditText
         android:id="@+id/email_reg_edit_text"
-        android:layout_marginTop="8dp"
         android:inputType="textEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:hint="@string/email_reg_hint"/>
 
     <EditText
         android:id="@+id/password_reg_edit_text"
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:hint="@string/pass_reg_hint"/>
+        android:hint="@string/pass_reg_hint"
+        android:layout_margin="8dp"/>
     <Button
         android:id="@+id/registration_button"
-        android:layout_marginTop="8dp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="?attr/colorAccent"
         android:text="@string/reg_button_text"/>
 
 </LinearLayout>

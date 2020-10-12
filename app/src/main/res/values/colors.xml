@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="dark_blue">#204062</color>
+    <color name="login">#9aceeb</color>
 </resources>
