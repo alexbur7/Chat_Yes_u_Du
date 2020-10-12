@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.myproject"
-        minSdkVersion 24
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -39,10 +39,7 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui:0.6.0'
     implementation 'com.google.firebase:firebase-storage:19.2.0'
     testImplementation 'junit:junit:4.12'
-    implementation 'com.jakewharton:butterknife:10.2.3'
     implementation 'com.github.bumptech.glide:glide:4.6.1'
-    implementation 'de.hdodenhof:circleimageview:1.1.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 

@@ -3,7 +3,6 @@ package com.example.myproject;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +21,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 public class LoginFragment extends Fragment {
 
@@ -37,26 +30,11 @@ public class LoginFragment extends Fragment {
     private static final String KEY_TO_PASSWORD = "KeyPassword";
 
     private Callback activityCallback;
-    private Unbinder unbinder;
 
-    @BindView(R.id.email_log_editText)
-    EditText emailEditText;
-    @BindView(R.id.password_log_editText)
-    EditText passEditText;
-    @BindView(R.id.reg_log_button)
-    Button regButton;
-    @BindView(R.id.login_log_button)
-    Button logButton;
-
-    @OnClick(R.id.reg_log_button)
-    public void onClickReg() {
-        activityCallback.onRegisterClicked();
-    }
-
-    @OnClick(R.id.login_log_button)
-    public void onClickLog(){
-        login();
-    }
+    private EditText emailEditText;
+    private EditText passEditText;
+    private Button regButton;
+    private Button logButton;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -83,16 +61,25 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.login_fragment, container, false);
-        unbinder = ButterKnife.bind(this, view);
+        emailEditText=view.findViewById(R.id.email_log_editText);
+        passEditText=view.findViewById(R.id.password_log_editText);
+        regButton=view.findViewById(R.id.reg_log_button);
+        regButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityCallback.onRegisterClicked();
+            }
+        });
+        logButton=view.findViewById(R.id.login_log_button);
+        logButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login();
+            }
+        });
         emailEditText.setText(getArguments().getString(KEY_TO_EMAIL));
         passEditText.setText(getArguments().getString(KEY_TO_PASSWORD));
         return view;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 
     public interface Callback {

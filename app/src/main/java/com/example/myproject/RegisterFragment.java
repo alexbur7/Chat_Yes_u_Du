@@ -21,11 +21,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
-
 
 public class RegisterFragment extends Fragment {
     private FirebaseAuth auth;
@@ -33,39 +28,41 @@ public class RegisterFragment extends Fragment {
     private DatabaseReference ref;
     private Callbacks callbacks;
     private Spinner spinner;
-
-    @BindView(R.id.name_edit_text)
-    EditText nameEditText;
-    @BindView(R.id.surname_edit_text)
-    EditText surnameEditText;
-    @BindView(R.id.country_edit_text)
-    EditText countryEditText;
-    @BindView(R.id.region_reg_edit_text)
-    EditText regionEditText;
-    @BindView(R.id.city_edit_text)
-    EditText cityEditText;
-    @BindView(R.id.email_reg_edit_text)
-    EditText emailEditText;
-    @BindView(R.id.password_reg_edit_text)
-    EditText passwordEditText;
-    @BindView(R.id.age_reg_edit_text)
-    EditText ageEditText;
-    @BindView(R.id.registration_button)
-    Button regButton;
-
-    @OnClick(R.id.registration_button)
-    public void onClick(){
-        setRegistration();
-    }
+    private EditText nameEditText;
+    private EditText surnameEditText;
+    private EditText countryEditText;
+    private EditText regionEditText;
+    private EditText cityEditText;
+    private EditText emailEditText;
+    private EditText passwordEditText;
+    private EditText ageEditText;
+    private Button regButton;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.register_fragment,container,false);
-        ButterKnife.bind(this,v);
+
+        nameEditText=v.findViewById(R.id.name_edit_text);
+        surnameEditText=v.findViewById(R.id.surname_edit_text);
+        countryEditText=v.findViewById(R.id.country_edit_text);
+        regionEditText=v.findViewById(R.id.region_reg_edit_text);
+        cityEditText=v.findViewById(R.id.city_edit_text);
+        emailEditText=v.findViewById(R.id.email_reg_edit_text);
+        passwordEditText=v.findViewById(R.id.password_reg_edit_text);
+        ageEditText=v.findViewById(R.id.age_reg_edit_text);
+        spinner = v.findViewById(R.id.spinner_sex);
+        regButton=v.findViewById(R.id.registration_button);
+        regButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setRegistration();
+            }
+        });
+
+
         auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
-        spinner = v.findViewById(R.id.spinner_sex);
         return v;
     }
 
