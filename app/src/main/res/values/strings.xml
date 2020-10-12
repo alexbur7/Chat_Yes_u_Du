@@ -40,4 +40,6 @@
     <string name="label_name">Name</string>
     <string name="name_edit_text_hint">Enter a name</string>
     <string name="search_pos_button_text">search</string>
+    <string name="enter_email_and_password">Enter email and password for login</string>
+    <string name="password_length_short">Password is short</string>
 </resources>

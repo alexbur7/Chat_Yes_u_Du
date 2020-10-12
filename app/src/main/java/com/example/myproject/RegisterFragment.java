@@ -80,8 +80,14 @@ public class RegisterFragment extends Fragment {
         final  String region = regionEditText.getText().toString();
         final  int age = Integer.parseInt(ageEditText.getText().toString());
 
-        if (name.isEmpty() || surname.isEmpty() || country.isEmpty() || city.isEmpty() || email.isEmpty() || password.isEmpty()){
+        if (name.isEmpty() || surname.isEmpty() || country.isEmpty() || city.isEmpty() || email.isEmpty() || password.isEmpty() || sex.isEmpty() || region.isEmpty() || age<0){
             Toast.makeText(getActivity(),R.string.reject_reg,Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (password.length()<6){
+            Toast.makeText(getActivity(),R.string.password_length_short,Toast.LENGTH_SHORT).show();
+            return;
         }
 
         auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -105,11 +111,8 @@ public class RegisterFragment extends Fragment {
                     Toast.makeText(getActivity(), R.string.is_not_successful, Toast.LENGTH_SHORT).show();
                     return;
                 }
-
             }
         });
-
-
     }
 
     @Override

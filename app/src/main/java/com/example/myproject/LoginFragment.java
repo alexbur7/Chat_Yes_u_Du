@@ -100,25 +100,26 @@ public class LoginFragment extends Fragment {
     }
 
     private void login() {
-        if (emailEditText.getText().toString() == null || passEditText.getText().toString() == null)
+        if (emailEditText.getText().toString().equals("")  || passEditText.getText().toString().equals("") ) {
+            Toast.makeText(getActivity(),R.string.enter_email_and_password,Toast.LENGTH_SHORT).show();
             return;
-        FirebaseAuth.getInstance().
-                signInWithEmailAndPassword(emailEditText.getText().toString(), passEditText.getText().toString())
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            setCurrentUser();
+        }
+            FirebaseAuth.getInstance().
+                    signInWithEmailAndPassword(emailEditText.getText().toString(), passEditText.getText().toString())
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                setCurrentUser();
 
-                            Intent intent = new Intent(getActivity(), MyAccountActivity.class);
-                            startActivity(intent);
-                            getActivity().finish();
+                                Intent intent = new Intent(getActivity(), MyAccountActivity.class);
+                                startActivity(intent);
+                                getActivity().finish();
+                            } else {
+                                Toast.makeText(getActivity(), R.string.failed_login, Toast.LENGTH_SHORT).show();
+                            }
                         }
-                        else{
-                            Toast.makeText(getActivity(),R.string.failed_login,Toast.LENGTH_SHORT);
-                        }
-                    }
-                });
+                    });
     }
     private void setCurrentUser(){
         String uuid=FirebaseAuth.getInstance().getCurrentUser().getUid();
