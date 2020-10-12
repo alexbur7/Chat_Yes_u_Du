@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,7 @@ public class RegisterFragment extends Fragment {
     private FirebaseDatabase db;
     private DatabaseReference ref;
     private Callbacks callbacks;
+    private Spinner spinner;
 
     @BindView(R.id.name_edit_text)
     EditText nameEditText;
@@ -47,8 +49,6 @@ public class RegisterFragment extends Fragment {
     EditText emailEditText;
     @BindView(R.id.password_reg_edit_text)
     EditText passwordEditText;
-    @BindView(R.id.sex_reg_edit_text)
-    EditText sexEditText;
     @BindView(R.id.age_reg_edit_text)
     EditText ageEditText;
     @BindView(R.id.registration_button)
@@ -66,6 +66,7 @@ public class RegisterFragment extends Fragment {
         ButterKnife.bind(this,v);
         auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
+        spinner = v.findViewById(R.id.spinner_sex);
         return v;
     }
 
@@ -76,11 +77,11 @@ public class RegisterFragment extends Fragment {
         final  String city = cityEditText.getText().toString();
         final  String email = emailEditText.getText().toString();
         final  String password = passwordEditText.getText().toString();
-        final  String sex = sexEditText.getText().toString();
+        final  String sex = spinner.getSelectedItem().toString();
         final  String region = regionEditText.getText().toString();
         final  int age = Integer.parseInt(ageEditText.getText().toString());
 
-        if (name.isEmpty() || surname.isEmpty() || country.isEmpty() || city.isEmpty() || email.isEmpty() || password.isEmpty() || sex.isEmpty() || region.isEmpty() || age<0){
+        if (name.isEmpty() || country.isEmpty() || city.isEmpty() || email.isEmpty() || password.isEmpty() || sex.isEmpty() || region.isEmpty() || age<0){
             Toast.makeText(getActivity(),R.string.reject_reg,Toast.LENGTH_SHORT).show();
             return;
         }

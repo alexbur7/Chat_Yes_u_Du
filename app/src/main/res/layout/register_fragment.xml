@@ -37,12 +37,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/city_hint"/>
-    <EditText
-        android:id="@+id/sex_reg_edit_text"
-        android:layout_marginTop="8dp"
+    <Spinner
+        android:id="@+id/spinner_sex"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/sex_reg_hint"/>
+        android:entries="@array/sex_for_spinner"/>
     <EditText
         android:id="@+id/age_reg_edit_text"
         android:layout_marginTop="8dp"

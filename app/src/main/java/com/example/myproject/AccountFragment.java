@@ -132,7 +132,10 @@ public class AccountFragment extends Fragment {
         cityTextView.setText(User.getCurrentUser().getCity());
         ageTextView.setText(String.valueOf(User.getCurrentUser().getAge()));
         sexTextView.setText(User.getCurrentUser().getSex());
-        nameTextView.setText(User.getCurrentUser().getName()+" "+User.getCurrentUser().getSurname());
+        if (User.getCurrentUser().getSurname().equals(""))
+        nameTextView.setText(User.getCurrentUser().getName());
+        else
+            nameTextView.setText(User.getCurrentUser().getName() +" "+User.getCurrentUser().getSurname());
     }
 
     private void setCurrentUser() {

@@ -5,7 +5,7 @@
     <string name="pass_hint">Password</string>
     <string name="pass_reg_hint">Password*</string>
     <string name="name_hint">Name*</string>
-    <string name="surname_hint">Surname*</string>
+    <string name="surname_hint">Surname</string>
     <string name="country_hint">Country*</string>
     <string name="city_hint">City*</string>
     <string name="reg_button_text">Register</string>
@@ -42,4 +42,8 @@
     <string name="search_pos_button_text">search</string>
     <string name="enter_email_and_password">Enter email and password for login</string>
     <string name="password_length_short">Password is short</string>
+    <string-array name="sex_for_spinner">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
 </resources>

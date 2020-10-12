@@ -4,7 +4,7 @@
     <string name="pass_hint">Пароль</string>
     <string name="pass_reg_hint">Пароль*</string>
     <string name="name_hint">Имя*</string>
-    <string name="surname_hint">Фамилия*</string>
+    <string name="surname_hint">Фамилия</string>
     <string name="country_hint">Страна*</string>
     <string name="city_hint">Город*</string>
     <string name="reg_button_text">Регистрация</string>
@@ -35,4 +35,8 @@
     <string name="name_edit_text_hint">Enter a name</string>
     <string name="enter_email_and_password">Enter email and password for login</string>
     <string name="password_length_short">Password is short</string>
+    <string-array name="sex_for_spinner">
+        <item>Мужчина</item>
+        <item>Женщина</item>
+    </string-array>
 </resources>
