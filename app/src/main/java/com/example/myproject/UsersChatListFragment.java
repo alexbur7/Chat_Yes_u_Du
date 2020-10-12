@@ -28,14 +28,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class UsersChatListFragment extends Fragment {
 
     private int CODE_TO_FILTER_DIALOG=0;
-
-    @BindView(R.id.chat_recycler_view)
     RecyclerView chatRecView;
 
 
@@ -43,7 +38,6 @@ public class UsersChatListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.chat_users_list,container,false);
-        ButterKnife.bind(this,v);
         chatRecView = v.findViewById(R.id.chat_recycler_view);
         //toolbar=v.findViewById(R.id.toolbarFr);
         //toolbar.inflateMenu(R.menu.filter_users_menu);
