@@ -19,13 +19,17 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MyAccountActivity extends BaseActivity {
+public class MyAccountActivity extends BaseActivity implements AccountFragment.Callbacks{
 
     @Override
     public Fragment getFragment() {
         return new ChatAndAccPager();
     }
 
+    @Override
+    public void setEditFragment() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new EditFragment()).commit();
+    }
 
     /*@Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -6,5 +6,9 @@
         <item name="colorPrimaryDark">#1976D2</item>
         <item name="colorAccent">#E040FB</item>
     </style>
-
+    <style name="ButtonMain">
+        ..
+        <item name="android:background">@drawable/edit_button</item>
+        ..
+    </style>
 </resources>

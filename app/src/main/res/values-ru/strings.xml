@@ -24,17 +24,24 @@
     <string name="sex_reg_hint">Пол*</string>
     <string name="myAccount">Профиль</string>
     <string name="chat_list">Чаты</string>
-    <string name="upload_progress">Upload in progress</string>
-    <string name="find_menu_item_title">find</string>
-    <string name="dialog_title">Filters</string>
-    <string name="label_sex">Sex</string>
-    <string name="label_female">male</string>
-    <string name="label_activity">Online</string>
-    <string name="label_only_with_photo">with photo</string>
-    <string name="label_name">Name</string>
-    <string name="name_edit_text_hint">Enter a name</string>
-    <string name="enter_email_and_password">Enter email and password for login</string>
-    <string name="password_length_short">Password is short</string>
+    <string name="upload_progress">Обновление прогресса</string>
+    <string name="find_menu_item_title">Поиск</string>
+    <string name="dialog_title">Фильтры</string>
+    <string name="label_sex">Пол</string>
+    <string name="label_female">Женщина</string>
+    <string name="label_activity">Онлайн</string>
+    <string name="label_only_with_photo">с фото</string>
+    <string name="label_name">Имя</string>
+    <string name="name_edit_text_hint">Введите имя</string>
+    <string name="enter_email_and_password">Введите email и пароль для входа</string>
+    <string name="password_length_short">Пароль слишком короткий</string>
+    <string name="edit_account">Редактировать</string>
+    <string name="search_pos_button_text">найти</string>
+    <string name="label_online">онлайн</string>
+    <string name="label_male">Мужчина</string>
+    <string name="failed_update_photo">Ошибка при обновлении фото</string>
+    <string name="no_image_selected">Картинка не выбрана</string>
+    <string name="label_additional">Добавить фильтры</string>
     <string-array name="sex_for_spinner">
         <item>Мужчина</item>
         <item>Женщина</item>

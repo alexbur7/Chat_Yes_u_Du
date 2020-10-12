@@ -58,12 +58,14 @@ public class AccountFragment extends Fragment {
     private TextView nameTextView;
     private TextView ageTextView;
     private TextView sexTextView;
+    private Button editButton;
 
     StorageReference storageReference;
     private static  final  int IMAGE_REQUEST=1;
     private Uri imageUri;
     private StorageTask uploadTask;
     private DatabaseReference reference;
+    private Callbacks callbacks;
 
     //private Toolbar toolbar
 
@@ -71,6 +73,13 @@ public class AccountFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.account_fragment,container,false);
+        editButton = v.findViewById(R.id.edit_button);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callbacks.setEditFragment();
+            }
+        });
         photoImageView = v.findViewById(R.id.photo_view);
         countryTextView = v.findViewById(R.id.country_textView);
         regionTextView = v.findViewById(R.id.region_textView);
@@ -235,5 +244,21 @@ public class AccountFragment extends Fragment {
             }*/
             uploadImage();
         }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        callbacks = null;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        callbacks = (Callbacks) context;
+    }
+
+    public interface Callbacks{
+        void setEditFragment();
     }
 }
