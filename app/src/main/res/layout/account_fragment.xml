@@ -2,13 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        style="?android:listSeparatorTextViewStyle">
+       >
 
         <ImageView
             android:id="@+id/photo_view"
@@ -25,12 +24,19 @@
             android:textStyle="italic"
             android:layout_gravity="center"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:listSeparatorTextViewStyle"
+        android:orientation="horizontal">
     <Button
         android:id="@+id/edit_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/ButtonMain"
-        android:text="@string/edit_account"/>
+        android:text="@string/edit_account"
+        android:layout_margin="4dp"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,6 +50,7 @@
             android:id="@+id/country_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:textStyle="bold"/>
     </LinearLayout>
     <LinearLayout
@@ -59,6 +66,7 @@
             android:id="@+id/region_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:textStyle="bold"/>
     </LinearLayout>
     <LinearLayout
@@ -74,6 +82,7 @@
             android:id="@+id/city_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:textStyle="bold"/>
     </LinearLayout>
     <LinearLayout
@@ -89,6 +98,7 @@
             android:id="@+id/sex_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:textStyle="bold"/>
     </LinearLayout>
     <LinearLayout
@@ -104,6 +114,7 @@
             android:id="@+id/age_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:textStyle="bold"/>
     </LinearLayout>
 </LinearLayout>

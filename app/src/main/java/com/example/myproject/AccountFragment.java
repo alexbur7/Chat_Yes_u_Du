@@ -54,7 +54,6 @@ public class AccountFragment extends Fragment {
     private Uri imageUri;
     private StorageTask uploadTask;
     private DatabaseReference reference;
-    private Callbacks callbacks;
 
     @Nullable
     @Override
@@ -64,7 +63,8 @@ public class AccountFragment extends Fragment {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callbacks.setEditFragment();
+                EditDialog editDialog = new EditDialog();
+                editDialog.show(getFragmentManager(),null);
             }
         });
         photoImageView = v.findViewById(R.id.photo_view);
@@ -125,7 +125,7 @@ public class AccountFragment extends Fragment {
         countryTextView.setText(User.getCurrentUser().getCountry());
         regionTextView.setText(User.getCurrentUser().getRegion());
         cityTextView.setText(User.getCurrentUser().getCity());
-        ageTextView.setText(String.valueOf(User.getCurrentUser().getAge()));
+        ageTextView.setText(User.getCurrentUser().getAge());
         sexTextView.setText(User.getCurrentUser().getSex());
         if (User.getCurrentUser().getSurname().equals(""))
         nameTextView.setText(User.getCurrentUser().getName());
@@ -229,21 +229,5 @@ public class AccountFragment extends Fragment {
             }*/
             uploadImage();
         }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        callbacks = null;
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        callbacks = (Callbacks) context;
-    }
-
-    public interface Callbacks{
-        void setEditFragment();
     }
 }

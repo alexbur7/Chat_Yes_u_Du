@@ -9,10 +9,10 @@ public class User {
     private String uuid;
     private String region;
     private String sex;
-    private  int age;
+    private String age;
     private static User currentUser;
     public User(){}
-    public User(String uuid,String name, String surname, String country, String city, String photo_url, String region,String sex,int age){
+    public User(String uuid,String name, String surname, String country, String city, String photo_url, String region,String sex,String age){
         this.name = name;
         this.surname = surname;
         this.country = country;
@@ -97,11 +97,11 @@ public class User {
         this.sex = sex;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 }

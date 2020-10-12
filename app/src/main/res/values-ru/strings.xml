@@ -10,9 +10,9 @@
     <string name="reg_button_text">Регистрация</string>
     <string name="login_button_text">Вход</string>
     <string name="reject_reg">Введите все графы со звездочкой *</string>
-    <string name="is_successful">Регистрацию выполнена</string>
+    <string name="is_successful">Регистрация выполнена</string>
     <string name="is_not_successful">Регистрация не выполнена</string>
-    <string name="failed_login">Неверная регистрация или пароль</string>
+    <string name="failed_login">Неверный email или пароль</string>
     <string name="logout_menu">Выход</string>
     <string name="country">Страна:</string>
     <string name="city">Город:</string>
@@ -42,6 +42,7 @@
     <string name="failed_update_photo">Ошибка при обновлении фото</string>
     <string name="no_image_selected">Картинка не выбрана</string>
     <string name="label_additional">Добавить фильтры</string>
+    <string name="uploading">загрузка</string>
     <string-array name="sex_for_spinner">
         <item>Мужчина</item>
         <item>Женщина</item>
