@@ -43,6 +43,7 @@
     <string name="enter_email_and_password">Enter email and password for login</string>
     <string name="password_length_short">Password is short</string>
     <string name="edit_account">Edit</string>
+    <string name="uploading">uploading</string>
     <string-array name="sex_for_spinner">
         <item>Male</item>
         <item>Female</item>

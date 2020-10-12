@@ -1,7 +1,6 @@
 package com.example.myproject;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,7 +54,7 @@ public class RegisterFragment extends Fragment {
     Button regButton;
 
     @OnClick(R.id.registration_button)
-    public void onClick(View view){
+    public void onClick(){
         setRegistration();
     }
 

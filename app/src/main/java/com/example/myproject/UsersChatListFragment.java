@@ -3,7 +3,6 @@ package com.example.myproject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,7 +23,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -40,8 +37,7 @@ public class UsersChatListFragment extends Fragment {
 
     @BindView(R.id.chat_recycler_view)
     RecyclerView chatRecView;
-    ChatRecViewAdapter adapter;
-    //private Toolbar toolbar;
+
 
     @Nullable
     @Override
@@ -49,10 +45,10 @@ public class UsersChatListFragment extends Fragment {
         View v=inflater.inflate(R.layout.chat_users_list,container,false);
         ButterKnife.bind(this,v);
         chatRecView = v.findViewById(R.id.chat_recycler_view);
-        //createUsers();
         //toolbar=v.findViewById(R.id.toolbarFr);
         //toolbar.inflateMenu(R.menu.filter_users_menu);
         chatRecView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        setChats();
         return v;
     }
 
@@ -76,45 +72,70 @@ public class UsersChatListFragment extends Fragment {
         inflater.inflate(R.menu.filter_users_menu,menu);
     }
 
-    /*private void createUsers(String name){
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
-                ref.addValueEventListener(new ValueEventListener() {
+    private void setChats(){
+                FirebaseDatabase.getInstance().getReference("message").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        ArrayList<User> users = new ArrayList<>();
-                        users.clear();
+                        ArrayList<String> usersID = new ArrayList<>();
+                        usersID.clear();
                         for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                            User user = snapshot1.getValue(User.class);
-                            if (name!=null && user.getName().equals(name)) {
-                                user.setUuid(snapshot1.getKey());
-                                users.add(user);
+                            for (DataSnapshot snapshot2:snapshot1.getChildren()) {
+                                ChatMessage msg = snapshot2.getValue(ChatMessage.class);
+                            if (msg.getFromUserUUID().equals(User.getCurrentUser().getUuid())) {
+                                usersID.add(msg.getToUserUUID()); }
+
+                            if (msg.getToUserUUID()!=null && msg.getToUserUUID().equals(User.getCurrentUser().getUuid())) {
+                                usersID.add(msg.getFromUserUUID());}
                             }
                         }
-                        ChatRecViewAdapter adapter = new ChatRecViewAdapter(users);
-                        chatRecView.setAdapter(adapter);
                         //ref.removeEventListener(this);
-                    }
+                        if (usersID.size()!=0) setUsersFromChats(usersID);
+                        }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                     }
                 });
-            }*/
+            }
+
+    private void setUsersFromChats(ArrayList<String> usersWithMsgId) {
+        ArrayList<User> usersList=new ArrayList<>();
+        FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                usersList.clear();
+                for (DataSnapshot snapshot1: snapshot.getChildren()){
+                    User user=snapshot1.getValue(User.class);
+                    user.setUuid(snapshot1.getKey());
+                    for (String id:usersWithMsgId){
+                        if (user.getUuid().equals(id)){
+                            if (!usersList.contains(user)) usersList.add(user);
+                        }
+                    }
+                }
+                ChatRecViewAdapter adapter = new ChatRecViewAdapter(usersList);
+                chatRecView.setAdapter(adapter);
+                //ref.removeEventListener(this);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private void filterUsersByName(String name){
-        System.out.println(name);
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").orderByChild("name").getRef();
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<User> users = new ArrayList<>();
                 users.clear();
-                //Log.e("NAME IS",name);
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     User user = snapshot1.getValue(User.class);
-                    System.out.println(user.getName());
                     if (name!=null && user.getName().equals(name)) {
                         user.setUuid(snapshot1.getKey());
                         users.add(user);
-                        System.out.println("GANVINA");
                     }
                 }
                 ChatRecViewAdapter adapter = new ChatRecViewAdapter(users);
@@ -167,6 +188,28 @@ public class UsersChatListFragment extends Fragment {
             this.userList=list;
         }
 
+        private void setLastMsg(String id,TextView view){
+            FirebaseDatabase.getInstance().getReference("message").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot snapshot1:snapshot.getChildren())
+                        for (DataSnapshot snapshot2:snapshot1.getChildren()){
+                            ChatMessage message=snapshot2.getValue(ChatMessage.class);
+                                if (message.getToUserUUID().equals(User.getCurrentUser().getUuid()) && message.getFromUserUUID().equals(id) ||
+                                        message.getToUserUUID().equals(id) && message.getFromUserUUID().equals(User.getCurrentUser().getUuid())) {
+                                    view.setText(message.getMessageText());
+                                }
+                        }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+
         @NonNull
         @Override
         public ChatHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -177,6 +220,7 @@ public class UsersChatListFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull ChatHolder holder, int position) {
             holder.onBind(userList.get(position));
+            setLastMsg(holder.user.getUuid(),holder.userText);
         }
 
         @Override

@@ -14,15 +14,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class ChatActivity extends AppCompatActivity implements View.OnClickListener{
@@ -92,7 +89,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
                 ChatMessage model = getItem(position);
                 View view2 = mActivity.getLayoutInflater().inflate(mLayout, viewGroup, false);
-                // Call out to subclass to marshall this model into the provided view
                 populateView(view2, model, position);
                 return view2;
             }
@@ -102,11 +98,9 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 ChatMessage chtm=super.getItem(position);
                 if (chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid())){
                     mLayout=R.layout.chat_list_item_right;
-                    Log.e(chtm.getMessageText().toUpperCase(), String.valueOf(mLayout));
                 }
                 else {
                     mLayout=R.layout.chat_list_item_left;
-                    Log.e(chtm.getMessageText().toUpperCase(), String.valueOf(mLayout));
                 }
                 return chtm;
             }

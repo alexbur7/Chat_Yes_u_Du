@@ -14,23 +14,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,12 +35,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
-
 import java.util.HashMap;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -60,14 +49,12 @@ public class AccountFragment extends Fragment {
     private TextView sexTextView;
     private Button editButton;
 
-    StorageReference storageReference;
+    private StorageReference storageReference;
     private static  final  int IMAGE_REQUEST=1;
     private Uri imageUri;
     private StorageTask uploadTask;
     private DatabaseReference reference;
     private Callbacks callbacks;
-
-    //private Toolbar toolbar
 
     @Nullable
     @Override
@@ -94,7 +81,6 @@ public class AccountFragment extends Fragment {
                 openImage();
             }
         });
-        //ButterKnife.bind(this,v);
         return v;
     }
 
@@ -118,8 +104,8 @@ public class AccountFragment extends Fragment {
                 startActivity(new Intent(getActivity(), LogActivity.class));
                 getActivity().finish();
             }
+            default: return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -149,7 +135,7 @@ public class AccountFragment extends Fragment {
 
     private void setCurrentUser() {
         final ProgressDialog pd = new ProgressDialog(getContext());
-        pd.setMessage("Uploading");
+        pd.setMessage(getResources().getString(R.string.uploading));
         pd.show();
         String uuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseDatabase.getInstance().getReference("users").child(uuid).addValueEventListener(new ValueEventListener() {
@@ -162,7 +148,6 @@ public class AccountFragment extends Fragment {
                 }
                 else {
                     if (isAdded()) Glide.with(getContext()).load(user.getPhoto_url()).into(photoImageView);
-                    else Log.e("GLIDE","SOSI 4LEN");
                 }
                 setAllTextView();
                 pd.dismiss();
@@ -183,7 +168,7 @@ public class AccountFragment extends Fragment {
 
     private void uploadImage(){
         final ProgressDialog pd = new ProgressDialog(getContext());
-        pd.setMessage("Uploading");
+        pd.setMessage(getResources().getString(R.string.uploading));
         pd.show();
 
         if (imageUri != null){

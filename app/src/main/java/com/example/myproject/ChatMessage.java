@@ -15,7 +15,6 @@ public class ChatMessage {
         this.fromUser = fromUser;
         this.fromUserUUID =fromUserUUID;
         this.toUserUUID=toUserUUID;
-        // Initialize to current time
         messageTime = new Date().getTime();
     }
 

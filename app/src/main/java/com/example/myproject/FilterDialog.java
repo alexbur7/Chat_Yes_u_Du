@@ -15,9 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-
 public class FilterDialog extends DialogFragment {
 
     private EditText nameEditText;
@@ -40,7 +37,6 @@ public class FilterDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         sendResult(nameEditText.getText().toString(),Activity.RESULT_OK);
-                        Log.e("FILTER DIALOG","RESULT SENT "+nameEditText.getText().toString());
                     }
                 }).create();
     }
