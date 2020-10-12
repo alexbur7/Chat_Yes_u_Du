@@ -25,4 +25,12 @@
     <string name="myAccount">Профиль</string>
     <string name="chat_list">Чаты</string>
     <string name="upload_progress">Upload in progress</string>
+    <string name="find_menu_item_title">find</string>
+    <string name="dialog_title">Filters</string>
+    <string name="label_sex">Sex</string>
+    <string name="label_female">male</string>
+    <string name="label_activity">Online</string>
+    <string name="label_only_with_photo">with photo</string>
+    <string name="label_name">Name</string>
+    <string name="name_edit_text_hint">Enter a name</string>
 </resources>

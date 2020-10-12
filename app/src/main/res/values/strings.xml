@@ -28,4 +28,16 @@
     <string name="failed_update_photo">Failed update photo</string>
     <string name="no_image_selected">No image selected</string>
     <string name="upload_progress">Upload in progress</string>
+    <string name="find_menu_item_title">find</string>
+    <string name="dialog_title">Filters</string>
+    <string name="label_sex">Sex</string>
+    <string name="label_male">Male</string>
+    <string name="label_female">Female</string>
+    <string name="label_activity">Online</string>
+    <string name="label_online">online</string>
+    <string name="label_additional">Additional filters</string>
+    <string name="label_only_with_photo">with photo</string>
+    <string name="label_name">Name</string>
+    <string name="name_edit_text_hint">Enter a name</string>
+    <string name="search_pos_button_text">search</string>
 </resources>

@@ -34,7 +34,7 @@
                 android:id="@+id/username_text"
                 android:textSize="18dp"
                 android:textStyle="bold"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="23dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </androidx.appcompat.widget.Toolbar>

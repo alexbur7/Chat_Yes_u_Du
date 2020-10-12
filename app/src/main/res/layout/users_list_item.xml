@@ -21,7 +21,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:cardCornerRadius="50dp"
-            app:cardElevation="2dp">
+            app:cardElevation="3dp">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,7 +37,6 @@
             android:layout_toLeftOf="@id/user_date"
             android:layout_toRightOf="@+id/circle_image_user"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="16dp"
             android:textSize="20sp"
             android:textStyle="bold"
             tools:ignore="NotSibling" />

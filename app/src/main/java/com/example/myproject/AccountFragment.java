@@ -1,11 +1,15 @@
 package com.example.myproject;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
@@ -14,10 +18,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -60,6 +64,9 @@ public class AccountFragment extends Fragment {
     private Uri imageUri;
     private StorageTask uploadTask;
     private DatabaseReference reference;
+
+    //private Toolbar toolbar
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -80,6 +87,30 @@ public class AccountFragment extends Fragment {
         });
         //ButterKnife.bind(this,v);
         return v;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.account_menu,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout: {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getActivity(), LogActivity.class));
+                getActivity().finish();
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -105,6 +136,9 @@ public class AccountFragment extends Fragment {
     }
 
     private void setCurrentUser() {
+        final ProgressDialog pd = new ProgressDialog(getContext());
+        pd.setMessage("Uploading");
+        pd.show();
         String uuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseDatabase.getInstance().getReference("users").child(uuid).addValueEventListener(new ValueEventListener() {
             @Override
@@ -119,6 +153,7 @@ public class AccountFragment extends Fragment {
                     else Log.e("GLIDE","SOSI 4LEN");
                 }
                 setAllTextView();
+                pd.dismiss();
             }
 
             @Override
