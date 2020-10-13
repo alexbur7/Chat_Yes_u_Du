@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
@@ -22,12 +21,14 @@ public class FilterDialog extends DialogFragment {
     private EditText cityEditText;
     private CheckBox maleCheckBox;
     private CheckBox femaleCheckBox;
+    private CheckBox onlineCheckBox;
     private Spinner ageSpinner;
 
     public static final String KEY_TO_NAME_FILTER="name_filter";
     public static final String KEY_TO_SEX_FILTER="sex_filter";
     public static final String KEY_TO_CITY_FILTER="city_filter";
     public static final String KEY_TO_AGE_FILTER="age_filter";
+    public static final String KEY_TO_ONLINE_FILTER="online_filter";
 
     @NonNull
     @Override
@@ -40,6 +41,7 @@ public class FilterDialog extends DialogFragment {
         maleCheckBox=view.findViewById(R.id.genderMaleCheckBox);
         femaleCheckBox=view.findViewById(R.id.genderFemaleCheckBox);
         ageSpinner=view.findViewById(R.id.spinner_age_filter);
+        onlineCheckBox=view.findViewById(R.id.onlineCheckBox);
         ageSpinner.setSelection(5);
 
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
@@ -50,19 +52,21 @@ public class FilterDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if ((femaleCheckBox.isChecked() && maleCheckBox.isChecked()) || (!femaleCheckBox.isChecked() && !maleCheckBox.isChecked()) )
-                        sendResult(nameEditText.getText().toString(),"",(ageSpinner.getSelectedItem().equals(getResources().getStringArray(R.array.age_for_spinner)[5]) ? null :ageSpinner.getSelectedItem().toString()),cityEditText.getText().toString(),Activity.RESULT_OK);
+                        sendResult(nameEditText.getText().toString(),"",(ageSpinner.getSelectedItem().equals(getResources().getStringArray(R.array.age_for_spinner)[5]) ? null :ageSpinner.getSelectedItem().toString()),cityEditText.getText().toString(),(onlineCheckBox.isChecked() ? "online":""),Activity.RESULT_OK);
+
                         else  sendResult(nameEditText.getText().toString(),(maleCheckBox.isChecked() ? getResources().getString(R.string.label_male) : getResources().getString(R.string.label_female)),
-                                (ageSpinner.getSelectedItem().equals(getResources().getStringArray(R.array.age_for_spinner)[5]) ? null :ageSpinner.getSelectedItem().toString()),cityEditText.getText().toString(),Activity.RESULT_OK);
+                                (ageSpinner.getSelectedItem().equals(getResources().getStringArray(R.array.age_for_spinner)[5]) ? null :ageSpinner.getSelectedItem().toString()),cityEditText.getText().toString(),(onlineCheckBox.isChecked() ? "online":""),Activity.RESULT_OK);
                     }
                 }).create();
     }
 
-    private void sendResult(String name,String sex,String age,String city,int result){
+    private void sendResult(String name,String sex,String age,String city,String online,int result){
         Intent intent=new Intent();
         intent.putExtra(KEY_TO_NAME_FILTER,name);
         intent.putExtra(KEY_TO_SEX_FILTER,sex);
         intent.putExtra(KEY_TO_AGE_FILTER,age);
         intent.putExtra(KEY_TO_CITY_FILTER,city);
+        intent.putExtra(KEY_TO_ONLINE_FILTER,online);
         getTargetFragment().onActivityResult(getTargetRequestCode(),result,intent);
     }
 

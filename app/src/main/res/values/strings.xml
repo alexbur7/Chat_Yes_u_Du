@@ -50,6 +50,7 @@
     <string name="back_menu">Back</string>
     <string name="seen_text">seen</string>
     <string name="not_seen_text">no seen</string>
+    <string name="remove_account_menu_item">remove account</string>
     <string-array name="sex_for_spinner">
         <item>Male</item>
         <item>Female</item>

@@ -79,18 +79,11 @@
                 android:layout_marginLeft="6dp" />
 
             <CheckBox
+                android:id="@+id/onlineCheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_online"
-                android:id="@+id/onlineCheckBox"
-                android:layout_gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_name"
-                android:id="@+id/textView8"
-                android:layout_marginLeft="6dp"/>
+                android:layout_gravity="center_horizontal"
+                android:text="@string/label_online" />
 
             <EditText
                 android:id="@+id/city_filter_edit_text"

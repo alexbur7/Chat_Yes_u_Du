@@ -6,4 +6,9 @@
         android:title="@string/logout_menu"
         app:showAsAction="ifRoom|withText"
         android:icon="@drawable/baseline_login_black_18dp" />
+
+    <item
+        android:id="@+id/delete_account"
+        android:title="@string/remove_account_menu_item"
+        app:showAsAction="never"/>
 </menu>

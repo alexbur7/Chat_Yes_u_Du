@@ -106,6 +106,16 @@ public class AccountFragment extends Fragment {
                 startActivity(new Intent(getActivity(), LogActivity.class));
                 getActivity().finish();
             }
+            case R.id.delete_account:{
+                FirebaseAuth.getInstance().getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(getActivity(),"Completed",Toast.LENGTH_SHORT);
+                        startActivity(new Intent(getActivity(), LogActivity.class));
+                        getActivity().finish();
+                    }
+                });
+            }
             default: return super.onOptionsItemSelected(item);
         }
     }
@@ -222,13 +232,6 @@ public class AccountFragment extends Fragment {
         && data!=null && data.getData() !=null
         ){
             imageUri = data.getData();
-            /*if (uploadTask !=null){
-             Toast
-             .makeText(getContext(),R.string.upload_progress,Toast.LENGTH_SHORT).show();
-            }
-            else {
-                uploadImage();
-            }*/
             uploadImage();
         }
     }

@@ -118,7 +118,7 @@ public class UsersChatListFragment extends Fragment {
         });
     }
 
-    private void filterUsers(String nameFilter, String sexFilter, String ageFilter, String cityFilter){
+    private void filterUsers(String nameFilter, String sexFilter, String ageFilter, String cityFilter, String onlineFilter){
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -127,22 +127,30 @@ public class UsersChatListFragment extends Fragment {
                     users.clear();
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                         User user = snapshot1.getValue(User.class);
-                            user.setUuid(snapshot1.getKey());
-                            users.add(user);
+                        user.setUuid(snapshot1.getKey());
+                        users.add(user);
                         filterUsersByName(users, user);
                         filterUserBySex(users, user);
                         filterUsersByAge(users, user);
                         filterUsersByCity(users, user);
+                        filterUsersByOnline(users, user);
                     }
                     ChatRecViewAdapter adapter = new ChatRecViewAdapter(users);
                     chatRecView.setAdapter(adapter);
+                }
+
+                private void filterUsersByOnline(ArrayList<User> users, User user) {
+                    if (!onlineFilter.isEmpty()) {
+                        if (!(user.getStatus().equals(onlineFilter))) {
+                            users.remove(user);
+                        }
+                    }
                 }
 
                 private void filterUsersByCity(ArrayList<User> users, User user) {
                     if (!(cityFilter.isEmpty())){
                         if (!user.getCity().equals(cityFilter)) {
                             users.remove(user);
-                            Log.e("DESTROYED BY CITY",user.getName());
                         }
                     }
                 }
@@ -291,6 +299,7 @@ public class UsersChatListFragment extends Fragment {
         String sexFilter=data.getStringExtra(FilterDialog.KEY_TO_SEX_FILTER);
         String ageFilter=data.getStringExtra(FilterDialog.KEY_TO_AGE_FILTER);
         String cityFilter=data.getStringExtra(FilterDialog.KEY_TO_CITY_FILTER);
-        filterUsers(nameFilter,sexFilter,ageFilter,cityFilter);
+        String onlineFilter=data.getStringExtra(FilterDialog.KEY_TO_ONLINE_FILTER);
+        filterUsers(nameFilter,sexFilter,ageFilter,cityFilter,onlineFilter);
     }
 }
