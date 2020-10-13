@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -77,8 +78,10 @@ public class LoginFragment extends Fragment {
                 login();
             }
         });
-        emailEditText.setText(getArguments().getString(KEY_TO_EMAIL));
-        passEditText.setText(getArguments().getString(KEY_TO_PASSWORD));
+        if (getArguments()!=null) {
+            emailEditText.setText(getArguments().getString(KEY_TO_EMAIL));
+            passEditText.setText(getArguments().getString(KEY_TO_PASSWORD));
+        }
         return view;
     }
 
@@ -131,4 +134,5 @@ public class LoginFragment extends Fragment {
         fragment.setArguments(bundle);
         return fragment;
     }
+
 }

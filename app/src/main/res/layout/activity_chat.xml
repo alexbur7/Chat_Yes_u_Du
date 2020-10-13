@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -29,7 +30,10 @@
                 android:src="@drawable/unnamed"
                 android:id="@+id/circle_image_chat"/>
             </androidx.cardview.widget.CardView>
-
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
             <TextView
                 android:id="@+id/username_text"
                 android:textSize="18dp"
@@ -37,6 +41,16 @@
                 android:layout_marginLeft="23dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/online_text_in_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:textSize="14dp"
+                android:layout_marginTop="3dp"
+                android:textStyle="italic"
+                />
+            </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 
 
@@ -62,6 +76,7 @@
             app:fabSize="mini" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/fab"
@@ -71,12 +86,12 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Input"
                 android:id="@+id/input"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ListView
+            android:id="@+id/list_of_messages"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
@@ -84,10 +99,9 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:layout_above="@id/fab"
+            android:layout_above="@id/text_input"
             android:dividerHeight="16dp"
             android:divider="@android:color/transparent"
-            android:id="@+id/list_of_messages"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp" />
     </RelativeLayout>
 </LinearLayout>

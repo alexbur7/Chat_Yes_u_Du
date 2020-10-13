@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
+    protected Toolbar toolbar;
 
     public abstract Fragment getFragment();
 
@@ -33,4 +33,5 @@ public abstract class BaseActivity extends AppCompatActivity {
                     .commit();
         }
     }
+
 }

@@ -45,6 +45,9 @@
     <string name="edit_account">Edit</string>
     <string name="uploading">uploading</string>
     <string name="ok_pos_button_text" translatable="false">OK</string>
+    <string name="back_menu">Back</string>
+    <string name="seen_text">seen</string>
+    <string name="not_seen_text">no seen</string>
     <string-array name="sex_for_spinner">
         <item>Male</item>
         <item>Female</item>

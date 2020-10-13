@@ -27,7 +27,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
 public class UsersChatListFragment extends Fragment {
 
     private int CODE_TO_FILTER_DIALOG=0;
@@ -147,6 +146,7 @@ public class UsersChatListFragment extends Fragment {
         TextView userName;
         TextView userDate;
         TextView userText;
+        TextView userStatus;
         ImageView photoImageView;
 
         public ChatHolder(@NonNull View itemView) {
@@ -154,6 +154,7 @@ public class UsersChatListFragment extends Fragment {
             userName = itemView.findViewById(R.id.user_name);
             userDate = itemView.findViewById(R.id.user_date);
             userText = itemView.findViewById(R.id.user_text);
+            userStatus = itemView.findViewById(R.id.text_online_list);
             photoImageView = itemView.findViewById(R.id.circle_image_user);
             itemView.setOnClickListener(this);
         }
@@ -167,11 +168,15 @@ public class UsersChatListFragment extends Fragment {
             else{
                 Glide.with(getContext()).load(user.getPhoto_url()).into(photoImageView);
             }
+            if (user.getStatus().equals("online")){
+                userStatus.setText("online");
+            }
+            else userStatus.setText("offline");
         }
 
         @Override
         public void onClick(View view) {
-            Intent intent=ChatActivity.newIntent(getActivity(),user.getUuid(),user.getName(),user.getPhoto_url());
+            Intent intent=ChatActivity.newIntent(getActivity(),user.getUuid(),user.getPhoto_url());
             startActivity(intent);
         }
     }
