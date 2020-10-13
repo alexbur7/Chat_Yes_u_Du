@@ -50,4 +50,14 @@
         <item>Мужчина</item>
         <item>Женщина</item>
     </string-array>
+    <string name="label_age">Возраст</string>
+    <string name="city_edit_text_hint">Город</string>
+    <string-array name="age_for_spinner">
+        <item>до 18</item>
+        <item>18-30</item>
+        <item>30-45</item>
+        <item>45-60</item>
+        <item>60+</item>
+        <item>нет</item>
+    </string-array>
 </resources>

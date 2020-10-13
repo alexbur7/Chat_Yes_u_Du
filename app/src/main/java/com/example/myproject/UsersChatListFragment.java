@@ -3,6 +3,7 @@ package com.example.myproject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -117,29 +118,75 @@ public class UsersChatListFragment extends Fragment {
         });
     }
 
-    private void filterUsersByName(String name){
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").orderByChild("name").getRef();
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<User> users = new ArrayList<>();
-                users.clear();
-                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                    User user = snapshot1.getValue(User.class);
-                    if (name!=null && user.getName().equals(name)) {
-                        user.setUuid(snapshot1.getKey());
-                        users.add(user);
+    private void filterUsers(String nameFilter, String sexFilter, String ageFilter, String cityFilter){
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    ArrayList<User> users = new ArrayList<>();
+                    users.clear();
+                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                        User user = snapshot1.getValue(User.class);
+                            user.setUuid(snapshot1.getKey());
+                            users.add(user);
+                        filterUsersByName(users, user);
+                        filterUserBySex(users, user);
+                        filterUsersByAge(users, user);
+                        filterUsersByCity(users, user);
+                    }
+                    ChatRecViewAdapter adapter = new ChatRecViewAdapter(users);
+                    chatRecView.setAdapter(adapter);
+                }
+
+                private void filterUsersByCity(ArrayList<User> users, User user) {
+                    if (!(cityFilter.isEmpty())){
+                        if (!user.getCity().equals(cityFilter)) {
+                            users.remove(user);
+                            Log.e("DESTROYED BY CITY",user.getName());
+                        }
                     }
                 }
-                ChatRecViewAdapter adapter = new ChatRecViewAdapter(users);
-                chatRecView.setAdapter(adapter);
-                //ref.removeEventListener(this);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
+
+                private void filterUsersByAge(ArrayList<User> users, User user) {
+                    if (ageFilter != null) {
+                        if (ageFilter.equals(getResources().getStringArray(R.array.age_for_spinner)[0]) && !(Integer.parseInt(user.getAge()) < 18)) {
+                            users.remove(user);
+                        } else if (ageFilter.equals(getResources().getStringArray(R.array.age_for_spinner)[1]) && !(Integer.parseInt(user.getAge()) >= 18 && Integer.parseInt(user.getAge()) < 30)) {
+                            users.remove(user);
+                        } else if (ageFilter.equals(getResources().getStringArray(R.array.age_for_spinner)[2]) && !(Integer.parseInt(user.getAge()) >= 30 && Integer.parseInt(user.getAge()) < 45)) {
+                            users.remove(user);
+                        } else if (ageFilter.equals(getResources().getStringArray(R.array.age_for_spinner)[3]) && !(Integer.parseInt(user.getAge()) >= 45 && Integer.parseInt(user.getAge()) < 60)) {
+                            users.remove(user);
+                        } else if (ageFilter.equals(getResources().getStringArray(R.array.age_for_spinner)[4]) && !(Integer.parseInt(user.getAge()) >= 60)) {
+                            users.remove(user);
+                        }
+                    }
+                }
+
+                private void filterUserBySex(ArrayList<User> users, User user) {
+                    if (!sexFilter.isEmpty()) {
+                        if (!(user.getSex().equals(sexFilter))) {
+                            users.remove(user);
+                        }
+                    }
+                }
+
+                private void filterUsersByName(ArrayList<User> users, User user) {
+                    if (!nameFilter.isEmpty()){
+                        if (!(user.getName().equals(nameFilter))) {
+                            users.remove(user);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
     }
+
+
+
 
     public class ChatHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private User user;
@@ -234,9 +281,16 @@ public class UsersChatListFragment extends Fragment {
         if (resultCode!= Activity.RESULT_OK) return;
         else{
             if (requestCode==CODE_TO_FILTER_DIALOG){
-                String nameFilter=data.getStringExtra(FilterDialog.KEY_TO_NAME_FILTER);
-                filterUsersByName(nameFilter);
+                filterUsers(data);
             }
         }
+    }
+
+    private void filterUsers(Intent data) {
+        String nameFilter=data.getStringExtra(FilterDialog.KEY_TO_NAME_FILTER);
+        String sexFilter=data.getStringExtra(FilterDialog.KEY_TO_SEX_FILTER);
+        String ageFilter=data.getStringExtra(FilterDialog.KEY_TO_AGE_FILTER);
+        String cityFilter=data.getStringExtra(FilterDialog.KEY_TO_CITY_FILTER);
+        filterUsers(nameFilter,sexFilter,ageFilter,cityFilter);
     }
 }

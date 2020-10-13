@@ -45,11 +45,21 @@
     <string name="edit_account">Edit</string>
     <string name="uploading">uploading</string>
     <string name="ok_pos_button_text" translatable="false">OK</string>
+    <string name="label_age">Age</string>
+    <string name="city_edit_text_hint">City</string>
     <string name="back_menu">Back</string>
     <string name="seen_text">seen</string>
     <string name="not_seen_text">no seen</string>
     <string-array name="sex_for_spinner">
         <item>Male</item>
         <item>Female</item>
+    </string-array>
+    <string-array name="age_for_spinner">
+        <item>under 18</item>
+        <item>18-30</item>
+        <item>30-45</item>
+        <item>45-60</item>
+        <item>60+</item>
+        <item>none</item>
     </string-array>
 </resources>

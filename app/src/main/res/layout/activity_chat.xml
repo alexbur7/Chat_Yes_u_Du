@@ -23,33 +23,33 @@
                 android:layout_height="50dp"
                 app:cardCornerRadius="50dp"
                 app:cardElevation="2dp">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
-                android:src="@drawable/unnamed"
-                android:id="@+id/circle_image_chat"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/unnamed"
+                    android:id="@+id/circle_image_chat"/>
             </androidx.cardview.widget.CardView>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-            <TextView
-                android:id="@+id/username_text"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:layout_marginLeft="23dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/online_text_in_chat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
-                android:textSize="14dp"
-                android:layout_marginTop="3dp"
-                android:textStyle="italic"
-                />
+                <TextView
+                    android:id="@+id/username_text"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="23dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/online_text_in_chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="23dp"
+                    android:textSize="14dp"
+                    android:layout_marginTop="3dp"
+                    android:textStyle="italic"
+                    />
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 
