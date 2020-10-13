@@ -43,6 +43,9 @@
     <string name="no_image_selected">Картинка не выбрана</string>
     <string name="label_additional">Добавить фильтры</string>
     <string name="uploading">загрузка</string>
+    <string name="back_menu">Back</string>
+    <string name="seen_text">seen</string>
+    <string name="not_seen_text">no seen</string>
     <string-array name="sex_for_spinner">
         <item>Мужчина</item>
         <item>Женщина</item>

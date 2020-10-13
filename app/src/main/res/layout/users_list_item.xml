@@ -29,6 +29,14 @@
             android:src="@drawable/unnamed"
             android:id="@+id/circle_image_user"/>
         </androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
         <TextView
             android:id="@+id/user_name"
@@ -44,15 +52,24 @@
                 android:id="@+id/user_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="15dp"
+                android:layout_marginLeft="8dp"
                 android:textStyle="italic"
                 android:layout_toRightOf="@+id/circle_image_user"
                 android:layout_toEndOf="@+id/circle_image_user"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 tools:ignore="NotSibling" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/text_online_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/circle_image_user"
+                />
+            </LinearLayout>
         </LinearLayout>
-
 
     </RelativeLayout>
 

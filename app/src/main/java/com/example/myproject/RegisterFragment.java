@@ -3,6 +3,9 @@ package com.example.myproject;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -42,7 +45,6 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.register_fragment,container,false);
-
         nameEditText=v.findViewById(R.id.name_edit_text);
         surnameEditText=v.findViewById(R.id.surname_edit_text);
         countryEditText=v.findViewById(R.id.country_edit_text);
@@ -101,6 +103,7 @@ public class RegisterFragment extends Fragment {
                     ref.child("region").setValue(region);
                     ref.child("sex").setValue(sex);
                     ref.child("age").setValue(age);
+                    ref.child("status").setValue("offline");
                     auth.signOut();
                     callbacks.returnLoginFragment(email,password);
                 }

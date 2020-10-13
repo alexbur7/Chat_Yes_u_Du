@@ -81,6 +81,7 @@ public class AccountFragment extends Fragment {
                 openImage();
             }
         });
+        status("online");
         return v;
     }
 
@@ -100,6 +101,7 @@ public class AccountFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout: {
+                status("offline");
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getActivity(), LogActivity.class));
                 getActivity().finish();
@@ -229,5 +231,11 @@ public class AccountFragment extends Fragment {
             }*/
             uploadImage();
         }
+    }
+
+    private void status(String status){
+        HashMap<String,Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
+        FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().getUid()).updateChildren(hashMap);
     }
 }

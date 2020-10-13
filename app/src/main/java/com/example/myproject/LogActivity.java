@@ -10,6 +10,7 @@ public class LogActivity extends BaseActivity implements LoginFragment.Callback,
     public Fragment getFragment() {
         return LoginFragment.newFragment(null,null);
     }
+    
 
     @Override
     public void onRegisterClicked() {

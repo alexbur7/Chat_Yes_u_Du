@@ -10,9 +10,11 @@ public class User {
     private String region;
     private String sex;
     private String age;
+    private String status;
     private static User currentUser;
     public User(){}
-    public User(String uuid,String name, String surname, String country, String city, String photo_url, String region,String sex,String age){
+    public User(String uuid,String name, String surname, String country, String city,
+                String photo_url, String region,String sex,String age, String status){
         this.name = name;
         this.surname = surname;
         this.country = country;
@@ -22,6 +24,7 @@ public class User {
         this.region = region;
         this.sex = sex;
         this.age = age;
+        this.status = status;
     }
 
     public static User getCurrentUser() {
@@ -103,5 +106,13 @@ public class User {
 
     public void setAge(String age) {
         this.age = age;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

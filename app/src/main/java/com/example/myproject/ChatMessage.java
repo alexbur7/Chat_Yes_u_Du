@@ -9,13 +9,15 @@ public class ChatMessage {
     private String fromUserUUID;
     private String toUserUUID;
     private long messageTime;
+    private boolean isSeen;
 
-    public ChatMessage(String messageText, String fromUser,String fromUserUUID,String toUserUUID) {
+    public ChatMessage(String messageText, String fromUser,String fromUserUUID,String toUserUUID, boolean isSeen) {
         this.messageText = messageText;
         this.fromUser = fromUser;
         this.fromUserUUID =fromUserUUID;
         this.toUserUUID=toUserUUID;
         messageTime = new Date().getTime();
+        this.isSeen=isSeen;
     }
 
     public ChatMessage(){}
@@ -58,6 +60,14 @@ public class ChatMessage {
 
     public void setToUserUUID(String toUserName) {
         this.toUserUUID = toUserName;
+    }
+
+    public boolean isSeen() {
+        return isSeen;
+    }
+
+    public void setSeen(boolean seen) {
+        isSeen = seen;
     }
 }
 
