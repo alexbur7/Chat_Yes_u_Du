@@ -11,8 +11,9 @@ public class ChatMessage {
     private long messageTime;
     private String firstKey;
     private String secondKey;
+    private String image_url;
 
-    public ChatMessage(String messageText, String fromUser,String fromUserUUID,String toUserUUID, String firstKey, String secondKey) {
+    public ChatMessage(String messageText, String fromUser,String fromUserUUID,String toUserUUID, String firstKey, String secondKey, String image_url) {
         this.messageText = messageText;
         this.fromUser = fromUser;
         this.fromUserUUID =fromUserUUID;
@@ -20,6 +21,7 @@ public class ChatMessage {
         messageTime = new Date().getTime();
         this.firstKey=firstKey;
         this.secondKey = secondKey;
+        this.image_url = image_url;
     }
 
     public ChatMessage(){}
@@ -78,6 +80,14 @@ public class ChatMessage {
 
     public void setSecondKey(String secondKey) {
         this.secondKey = secondKey;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 }
 

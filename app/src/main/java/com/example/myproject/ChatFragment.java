@@ -1,38 +1,58 @@
 package com.example.myproject;
 
+import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+
+import static android.app.Activity.RESULT_OK;
 
 public class ChatFragment extends Fragment implements View.OnClickListener{
     public static final String KEY_TO_RECEIVER_UUID="recevierID";
     public static final String KEY_TO_RECEIVER_PHOTO_URL = "recevierPHOTO_URL";
     private String receiverUuid;
     private String receiverPhotoUrl;
-    private FloatingActionButton fab;
+    private FloatingActionButton fab, send_image;
     private Toolbar toolbar;
     private EditText input;
     private TextView username;
@@ -43,7 +63,11 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
     private DatabaseReference reference;
     private String firstKey, secondKey;
     private ValueEventListener seenListener;
+    private StorageTask uploadTask;
+    private StorageReference storageReference;
 
+    private static  final  int IMAGE_REQUEST=1;
+    Uri image_rui;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,10 +78,14 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         statusText = v.findViewById(R.id.online_text_in_chat);
         listView = v.findViewById(R.id.list_of_messages);
         fab= v.findViewById(R.id.fab);
+        send_image = v.findViewById(R.id.send_image_button);
+        send_image.setOnClickListener(this);
         input = v.findViewById(R.id.input);
         fab.setOnClickListener(this);
         reference = FirebaseDatabase.getInstance().getReference("message");
         //reference.getDatabase().goOnline();
+        storageReference = FirebaseStorage.getInstance().getReference("uploads");
+        reference.getDatabase().goOnline();
         username=v.findViewById(R.id.username_text);
         circleImageView = v.findViewById(R.id.circle_image_chat);
         if (receiverPhotoUrl.equals("default")){
@@ -82,6 +110,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                 TextView messageUser = v.findViewById(R.id.message_user);
                 TextView messageTime = v.findViewById(R.id.message_time);
                 TextView seenText =    v.findViewById(R.id.text_seen);
+                ImageView imageView = v.findViewById(R.id.image_send);
 
                 messageText.setText(model.getMessageText());
                 messageUser.setText(model.getFromUser());
@@ -93,6 +122,11 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                 }
                 else
                     seenText.setText(model.getFirstKey());
+                    seenText.setText(model.getSecondKey());
+
+                if (model.getImage_url()!=null){
+                    Glide.with(getActivity()).load(model.getImage_url()).into(imageView);
+                }
             }
 
             @Override
@@ -130,18 +164,88 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         if (v.getId()==R.id.fab){
             sendMessage();
         }
+        if (v.getId()==R.id.send_image_button){
+            openImage();
+        }
     }
 
+    private void openImage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,IMAGE_REQUEST);
+    }
 
     private void sendMessage() {
-     FirebaseDatabase.getInstance().getReference("message").child(generateKey())
-                .push()
-                .setValue(new ChatMessage(input.getText().toString(),
-                        User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,"no seen",
-                        "no seen"));
+        if (!input.getText().toString().equals("")) {
+            reference = FirebaseDatabase.getInstance().getReference("message");
+            reference.child(generateKey())
+                    .push()
+                    .setValue(new ChatMessage(input.getText().toString(),
+                            User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,"no seen",
+                            "no seen",(image_rui!=null) ? image_rui.toString(): null));
+        }
         input.setText("");
     }
 
+    private String getFileExtension(Uri uri){
+        ContentResolver contentResolver = getContext().getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+    private void uploadImage(){
+        final ProgressDialog pd = new ProgressDialog(getContext());
+        pd.setMessage(getResources().getString(R.string.uploading));
+        pd.show();
+
+        if (image_rui != null){
+            final StorageReference fileReference= storageReference.child(System.currentTimeMillis()+
+                    "."+getFileExtension(image_rui));
+            uploadTask = fileReference.putFile(image_rui);
+            uploadTask.continueWithTask((Continuation<UploadTask.TaskSnapshot, Task<Uri>>) task -> {
+                if (!task.isSuccessful()){
+                    throw  task.getException();
+                }
+                return fileReference.getDownloadUrl();
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()){
+                        Uri downloadUri = task.getResult();
+                        image_rui = downloadUri;
+                        Toast.makeText(getContext(), R.string.image_attach,Toast.LENGTH_SHORT).show();
+                        pd.dismiss();
+                    }
+                    else {
+                        Toast.makeText(getContext(),R.string.failed_update_photo,Toast.LENGTH_SHORT).show();
+                        pd.dismiss();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+                    pd.dismiss();
+                }
+            });
+        }
+        else {
+            Toast.makeText(getContext(),R.string.no_image_selected,Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK
+                && data!=null && data.getData() !=null
+        ){
+            image_rui = data.getData();
+            uploadImage();
+        }
+    }
 
     private String generateKey(){
         ArrayList<String> templist=new ArrayList<>();
@@ -192,7 +296,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         //reference.getDatabase().goOffline();
         System.out.println(reference.orderByValue());
         seenListener=null;
-        reference=null;
     }
 
     @Override

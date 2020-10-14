@@ -51,6 +51,12 @@
     <string name="seen_text">seen</string>
     <string name="not_seen_text">no seen</string>
     <string name="remove_account_menu_item">remove account</string>
+    <string name="choose_image_from">Choose image from</string>
+    <string name="camera_storage_permission">Camera and Storage both permission are necessary</string>
+    <string name="temp_pick">Temp pick</string>
+    <string name="temp_description">Temp descr</string>
+    <string name="sending_image">Sending image...</string>
+    <string name="image_attach">Image attach</string>
     <string-array name="sex_for_spinner">
         <item>Male</item>
         <item>Female</item>
