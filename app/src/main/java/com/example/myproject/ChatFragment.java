@@ -1,7 +1,5 @@
 package com.example.myproject;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -13,12 +11,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,7 +23,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -52,23 +47,19 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.activity_chat,container,false);
-        //setContentView(R.layout.activity_chat);
+        View v=inflater.inflate(R.layout.chat_fragment,container,false);
+        //setContentView(R.layout.chat_fragment);
 
         receiverUuid=getArguments().getString(KEY_TO_RECEIVER_UUID);
         receiverPhotoUrl = getArguments().getString(KEY_TO_RECEIVER_PHOTO_URL);
-
+        toolbar=v.findViewById(R.id.toolbarFr);
         statusText = v.findViewById(R.id.online_text_in_chat);
         listView = v.findViewById(R.id.list_of_messages);
         fab= v.findViewById(R.id.fab);
         input = v.findViewById(R.id.input);
         fab.setOnClickListener(this);
-        //toolbar=v.findViewById(R.id.toolbar);
-        //toolbar.setTitle("");
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         reference = FirebaseDatabase.getInstance().getReference("message");
-        reference.getDatabase().goOnline();
+        //reference.getDatabase().goOnline();
         username=v.findViewById(R.id.username_text);
         circleImageView = v.findViewById(R.id.circle_image_chat);
         if (receiverPhotoUrl.equals("default")){
@@ -100,10 +91,10 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                 messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
                         model.getMessageTime()));
                 if (User.getCurrentUser().getUuid().equals(firstKey)){
-                    seenText.setText(model.getFirstKey());
+                    seenText.setText(model.getSecondKey());
                 }
                 else
-                    seenText.setText(model.getSecondKey());
+                    seenText.setText(model.getFirstKey());
             }
 
             @Override
@@ -145,12 +136,11 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
 
 
     private void sendMessage() {
-        reference = FirebaseDatabase.getInstance().getReference("message");
-        reference.child(generateKey())
+     FirebaseDatabase.getInstance().getReference("message").child(generateKey())
                 .push()
                 .setValue(new ChatMessage(input.getText().toString(),
-                        User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,(firstKey.equals(User.getCurrentUser().getUuid())) ? "no seen" : null,
-                        (secondKey.equals(User.getCurrentUser().getUuid())) ? "no seen" : null));
+                        User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,"no seen",
+                        "no seen"));
         input.setText("");
     }
 
@@ -165,7 +155,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         return templist.get(0)+templist.get(1);
     }
 
-    public static Fragment newInstance(Context context, String toUserUUID, String photo_url){
+    public static Fragment newInstance(String toUserUUID, String photo_url){
         ChatFragment fragment = new ChatFragment();
         Bundle bundle = new Bundle();
         bundle.putString(KEY_TO_RECEIVER_UUID, toUserUUID);
@@ -204,36 +194,64 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
     public void onPause() {
         super.onPause();
         reference.removeEventListener(seenListener);
-        reference.getDatabase().goOffline();
+        //reference.getDatabase().goOffline();
+        System.out.println(reference.orderByValue());
         seenListener=null;
         reference=null;
-        Log.e("LISTENER PAUSE", String.valueOf(seenListener!=null));
-        Log.e("PAUSE","PAUSE LOG");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("LISTENER STOP", String.valueOf(seenListener!=null));
-        Log.e("STOP","STOP LOG");
     }
 
+     /*for (DataSnapshot snapshot1 : snapshot.getChildren())
+            for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
+        ChatMessage message=snapshot2.getValue(ChatMessage.class);
+        Log.e("MESSAGE FROM ME", String.valueOf((message.getFromUserUUID().equals(User.getCurrentUser().getUuid()))));
+        if (User.getCurrentUser().getUuid().equals(firstKey)) {
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("secondKey", "seen");
+            snapshot1.getRef().updateChildren(hashMap);
+        } else {
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("firstKey", "seen");
+            snapshot1.getRef().updateChildren(hashMap);
+        }
+    }*/
+
+     /* if (User.getCurrentUser().getUuid().equals(firstKey)) {
+                            HashMap<String, Object> hashMap = new HashMap<>();
+                            hashMap.put("secondKey", "seen");
+                            snapshot1.getRef().updateChildren(hashMap);
+                        } else {
+                            HashMap<String, Object> hashMap = new HashMap<>();
+                            hashMap.put("firstKey", "seen");
+                            snapshot1.getRef().updateChildren(hashMap);
+                        }*/
+
     private void seenMessage(){
-        reference=FirebaseDatabase.getInstance().getReference("message").child(generateKey());
+        //reference=FirebaseDatabase.getInstance().getReference("message").child(generateKey());
         seenListener=reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                    if (User.getCurrentUser().getUuid().equals(firstKey)) {
-                        HashMap<String, Object> hashMap = new HashMap<>();
-                        hashMap.put("secondKey", "seen");
-                        snapshot1.getRef().updateChildren(hashMap);
-                    } else {
-                        HashMap<String, Object> hashMap = new HashMap<>();
-                        hashMap.put("firstKey", "seen");
-                        snapshot1.getRef().updateChildren(hashMap);
+                for (DataSnapshot snapshot1 : snapshot.getChildren())
+                    for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
+                        ChatMessage message=snapshot2.getValue(ChatMessage.class);
+                        if ((message.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && message.getToUserUUID().equals(getArguments().getString(KEY_TO_RECEIVER_UUID))) ||
+                                (message.getFromUserUUID().equals(getArguments().getString(KEY_TO_RECEIVER_UUID)) && message.getToUserUUID().equals(User.getCurrentUser().getUuid()))){
+
+                            //Если из нашей переписки
+                            Log.e("MESSAGE TO ME", String.valueOf((message.getToUserUUID().equals(User.getCurrentUser().getUuid()))));
+
+                            HashMap<String, Object> hashMap = new HashMap<>();
+                            if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(firstKey))) hashMap.put("firstKey", "seen");
+                            else if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(secondKey))) hashMap.put("secondKey", "seen");
+                            snapshot2.getRef().updateChildren(hashMap);
+
+                        }
+
                     }
-                }
             }
 
             @Override
@@ -242,6 +260,5 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
             }
         });
     }
-
 }
 

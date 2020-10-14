@@ -39,7 +39,7 @@ public class ChatActivity extends BaseActivity {
 
     @Override
     public Fragment getFragment() {
-        return ChatFragment.newInstance(this,getIntent().getStringExtra(KEY_TO_RECEIVER_UUID),
+        return ChatFragment.newInstance(getIntent().getStringExtra(KEY_TO_RECEIVER_UUID),
                 getIntent().getStringExtra(KEY_TO_RECEIVER_PHOTO_URL));
     }
 
