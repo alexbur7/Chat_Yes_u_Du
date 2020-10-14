@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
@@ -49,12 +50,15 @@ public class AccountFragment extends Fragment {
     private TextView ageTextView;
     private TextView sexTextView;
     private Button editButton;
+    private Toolbar toolbar;
 
     private StorageReference storageReference;
     private static  final  int IMAGE_REQUEST=1;
     private Uri imageUri;
     private StorageTask uploadTask;
+
     private DatabaseReference reference;
+    private ValueEventListener imageEventListener;
 
     @Nullable
     @Override
@@ -82,23 +86,19 @@ public class AccountFragment extends Fragment {
                 openImage();
             }
         });
+
+        toolbar=v.findViewById(R.id.toolbarFr);
+        toolbar.inflateMenu(R.menu.account_menu);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                return clickToolbarItems(item);
+            }
+        });
         return v;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.account_menu,menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    private boolean clickToolbarItems(MenuItem item){
         switch (item.getItemId()) {
             case R.id.logout: {
                 status("offline");
@@ -109,6 +109,7 @@ public class AccountFragment extends Fragment {
             }
             break;
             case R.id.delete_account:{
+                reference.removeEventListener(imageEventListener);
                 FirebaseAuth.getInstance().getCurrentUser().delete();
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(getActivity(), "Completed", Toast.LENGTH_SHORT);
@@ -119,7 +120,7 @@ public class AccountFragment extends Fragment {
             }
             break;
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     @Override
@@ -142,10 +143,8 @@ public class AccountFragment extends Fragment {
         cityTextView.setText(User.getCurrentUser().getCity());
         ageTextView.setText(User.getCurrentUser().getAge());
         sexTextView.setText(User.getCurrentUser().getSex());
-        if (User.getCurrentUser().getSurname().equals(""))
-        nameTextView.setText(User.getCurrentUser().getName());
-        else
-            nameTextView.setText(User.getCurrentUser().getName() +" "+User.getCurrentUser().getSurname());
+        if (User.getCurrentUser().getSurname().equals("")) nameTextView.setText(User.getCurrentUser().getName());
+        else nameTextView.setText(User.getCurrentUser().getName() +" "+User.getCurrentUser().getSurname());
     }
 
     private void setCurrentUser() {
@@ -153,8 +152,8 @@ public class AccountFragment extends Fragment {
         pd.setMessage(getResources().getString(R.string.uploading));
         pd.show();
         String uuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference ref=FirebaseDatabase.getInstance().getReference("users").child(uuid);
-        ref.addValueEventListener(new ValueEventListener() {
+        reference=FirebaseDatabase.getInstance().getReference("users").child(uuid);
+        imageEventListener=new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
@@ -167,14 +166,15 @@ public class AccountFragment extends Fragment {
                 }
                 setAllTextView();
                 pd.dismiss();
-                ref.removeEventListener(this);
+                //ref.removeEventListener(this);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
 
-        });
+        };
+        reference.addValueEventListener(imageEventListener);
     }
 
     private String getFileExtension(Uri uri){

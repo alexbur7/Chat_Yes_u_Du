@@ -16,6 +16,7 @@ public class LogActivity extends BaseActivity implements LoginFragment.Callback,
     public void onRegisterClicked() {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container,new RegisterFragment())
+                .addToBackStack(null)
                 .commit();
     }
 

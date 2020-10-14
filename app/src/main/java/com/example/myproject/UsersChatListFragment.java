@@ -3,22 +3,18 @@ package com.example.myproject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,10 +23,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
+
+
 public class UsersChatListFragment extends Fragment {
 
     private int CODE_TO_FILTER_DIALOG=0;
     private RecyclerView chatRecView;
+    private Toolbar toolbar;
 
 
     @Nullable
@@ -38,31 +37,26 @@ public class UsersChatListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.chat_users_list,container,false);
         chatRecView = v.findViewById(R.id.chat_recycler_view);
-        //toolbar=v.findViewById(R.id.toolbarFr);
-        //toolbar.inflateMenu(R.menu.filter_users_menu);
+        toolbar=v.findViewById(R.id.toolbarFr);
+        toolbar.inflateMenu(R.menu.filter_users_menu);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                return clickToolbarItems(item);
+            }
+        });
         chatRecView.setLayoutManager(new LinearLayoutManager(getActivity()));
         setChats();
         return v;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        FilterDialog dialog=new FilterDialog();
-        dialog.setTargetFragment(this,CODE_TO_FILTER_DIALOG);
-        dialog.show(getFragmentManager(),null);
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.filter_users_menu,menu);
+    private boolean clickToolbarItems(MenuItem item){
+        if (item.getItemId()==R.id.find_item) {
+            FilterDialog dialog = new FilterDialog();
+            dialog.setTargetFragment(this, CODE_TO_FILTER_DIALOG);
+            dialog.show(getFragmentManager(), null);
+        }
+        return true;
     }
 
     private void setChats(){
@@ -136,6 +130,7 @@ public class UsersChatListFragment extends Fragment {
                     }
                     ChatRecViewAdapter adapter = new ChatRecViewAdapter(users);
                     chatRecView.setAdapter(adapter);
+                    ref.removeEventListener(this);
                 }
 
                 private void filterUsersByOnline(ArrayList<User> users, User user) {
@@ -188,6 +183,7 @@ public class UsersChatListFragment extends Fragment {
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                 }
+
             });
     }
 
@@ -272,7 +268,9 @@ public class UsersChatListFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull ChatHolder holder, int position) {
             holder.onBind(userList.get(position));
-            setLastMsg(holder.user.getUuid(),holder.userText);
+            if (User.getCurrentUser()!=null) {
+                setLastMsg(holder.user.getUuid(), holder.userText);
+            }
         }
 
         @Override

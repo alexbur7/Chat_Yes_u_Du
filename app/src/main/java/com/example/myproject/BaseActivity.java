@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    protected Toolbar toolbar;
+    //protected Toolbar toolbar;
 
     public abstract Fragment getFragment();
 
@@ -23,8 +23,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutID());
-        toolbar=findViewById(R.id.toolbarFr);
-        setSupportActionBar(toolbar);
+        //toolbar=findViewById(R.id.toolbarFr);
+        //setSupportActionBar(toolbar);
         Fragment fragment;
         if (getSupportFragmentManager().findFragmentById(R.id.fragment_container)==null){
             fragment=getFragment();
