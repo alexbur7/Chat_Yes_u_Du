@@ -25,15 +25,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 public class UsersChatListFragment extends Fragment {
 
     private int CODE_TO_FILTER_DIALOG=0;
-    RecyclerView chatRecView;
+    private RecyclerView chatRecView;
 
 
     @Nullable
@@ -233,7 +230,6 @@ public class UsersChatListFragment extends Fragment {
         @Override
         public void onClick(View view) {
              Intent intent = ChatActivity.newIntent(getActivity(), user.getUuid(), user.getPhoto_url());
-            //TODO: обновить бд на предмет прочитанных сообщений
             startActivity(intent);
         }
     }

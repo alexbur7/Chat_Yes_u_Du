@@ -22,9 +22,11 @@ public class MyAccountActivity extends BaseActivity{
         status("offline");
     }
 
-    private void status(String status){
-        HashMap<String,Object> hashMap = new HashMap<>();
-        hashMap.put("status", status);
-        FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).updateChildren(hashMap);
+    private void status(String status) {
+        if (User.getCurrentUser() != null) {
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("status", status);
+            FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).updateChildren(hashMap);
+        }
     }
 }

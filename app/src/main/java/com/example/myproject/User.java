@@ -1,5 +1,7 @@
 package com.example.myproject;
 
+import android.util.Log;
+
 public class User {
     private String name;
     private String surname;
@@ -33,8 +35,10 @@ public class User {
 
     public static void setCurrentUser(User currentUser,String uuid) {
         User.currentUser = currentUser;
-        User.currentUser.setUuid(uuid);
-        User.currentUser.setStatus("offline");
+        if (currentUser!=null) {
+            User.currentUser.setUuid(uuid);
+            User.currentUser.setStatus("offline");
+        }
     }
 
     public String getName() {

@@ -26,6 +26,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -108,17 +109,13 @@ public class AccountFragment extends Fragment {
             }
             break;
             case R.id.delete_account:{
-                FirebaseAuth auth = FirebaseAuth.getInstance();
-                auth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(getActivity(),"Completed",Toast.LENGTH_SHORT);
-                        startActivity(new Intent(getActivity(), LogActivity.class));
-                        getActivity().finish();
-                    }
-                });
-                auth.signOut();
+                FirebaseAuth.getInstance().getCurrentUser().delete();
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(getActivity(), "Completed", Toast.LENGTH_SHORT);
                 FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).removeValue();
+                User.setCurrentUser(null,null);
+                startActivity(new Intent(getActivity(), LogActivity.class));
+                getActivity().finish();
             }
             break;
         }
@@ -156,7 +153,8 @@ public class AccountFragment extends Fragment {
         pd.setMessage(getResources().getString(R.string.uploading));
         pd.show();
         String uuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        FirebaseDatabase.getInstance().getReference("users").child(uuid).addValueEventListener(new ValueEventListener() {
+        DatabaseReference ref=FirebaseDatabase.getInstance().getReference("users").child(uuid);
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
@@ -169,6 +167,7 @@ public class AccountFragment extends Fragment {
                 }
                 setAllTextView();
                 pd.dismiss();
+                ref.removeEventListener(this);
             }
 
             @Override
@@ -244,8 +243,8 @@ public class AccountFragment extends Fragment {
 
 
     private void status(String status){
-        HashMap<String,Object> hashMap = new HashMap<>();
-        hashMap.put("status", status);
-        FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().getUid()).updateChildren(hashMap);
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("status", status);
+            FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().getUid()).updateChildren(hashMap);
     }
 }

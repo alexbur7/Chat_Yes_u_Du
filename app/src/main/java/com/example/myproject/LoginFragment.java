@@ -3,6 +3,7 @@ package com.example.myproject;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -101,7 +103,6 @@ public class LoginFragment extends Fragment {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 setCurrentUser();
-
                                 Intent intent = new Intent(getActivity(), MyAccountActivity.class);
                                 startActivity(intent);
                                 getActivity().finish();
@@ -113,17 +114,18 @@ public class LoginFragment extends Fragment {
     }
     private void setCurrentUser(){
         String uuid=FirebaseAuth.getInstance().getCurrentUser().getUid();
-        FirebaseDatabase.getInstance().getReference("users").child(uuid).addValueEventListener(new ValueEventListener() {
+        DatabaseReference ref=FirebaseDatabase.getInstance().getReference("users").child(uuid);
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User.setCurrentUser(snapshot.getValue(User.class),uuid);
+                ref.removeEventListener(this);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
 
         });
-
     }
 
     public static Fragment newFragment(String email,String pass){
