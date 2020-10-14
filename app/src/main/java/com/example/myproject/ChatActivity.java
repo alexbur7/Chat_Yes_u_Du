@@ -49,4 +49,24 @@ public class ChatActivity extends BaseActivity {
         intent.putExtra(KEY_TO_RECEIVER_PHOTO_URL,photo_url);
         return intent;
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("offline");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+    }
+
+    private void status(String status) {
+        if (User.getCurrentUser() != null) {
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("status", status);
+            FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).updateChildren(hashMap);
+        }
+    }
 }

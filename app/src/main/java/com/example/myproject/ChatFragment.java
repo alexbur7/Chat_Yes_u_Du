@@ -84,8 +84,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         fab.setOnClickListener(this);
         reference = FirebaseDatabase.getInstance().getReference("message");
         //reference.getDatabase().goOnline();
-        storageReference = FirebaseStorage.getInstance().getReference("uploads");
-        reference.getDatabase().goOnline();
+        storageReference = FirebaseStorage.getInstance().getReference("ChatImage");
         username=v.findViewById(R.id.username_text);
         circleImageView = v.findViewById(R.id.circle_image_chat);
         if (receiverPhotoUrl.equals("default")){
@@ -94,7 +93,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         else{
             Glide.with(this).load(receiverPhotoUrl).into(circleImageView);
         }
-        status("online");
         setStatus();
         displayChatMessages();
         return v;
@@ -110,7 +108,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                 TextView messageUser = v.findViewById(R.id.message_user);
                 TextView messageTime = v.findViewById(R.id.message_time);
                 TextView seenText =    v.findViewById(R.id.text_seen);
-                ImageView imageView = v.findViewById(R.id.image_send);
 
                 messageText.setText(model.getMessageText());
                 messageUser.setText(model.getFromUser());
@@ -124,9 +121,11 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                     seenText.setText(model.getFirstKey());
                     seenText.setText(model.getSecondKey());
 
+                ImageView imageView = v.findViewById(R.id.image_send);
                 if (model.getImage_url()!=null){
                     Glide.with(getActivity()).load(model.getImage_url()).into(imageView);
                 }
+
             }
 
             @Override
@@ -141,8 +140,14 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
             @Override
             public ChatMessage getItem(int position) {
                 ChatMessage chtm=super.getItem(position);
-                if (chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid())){
+                if (chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url()==null){
                     mLayout=R.layout.chat_list_item_right;
+                }
+                else if(chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url()!=null){
+                    mLayout=R.layout.chat_list_item_right_with_image;
+                }
+                else if(!chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url()!=null){
+                    mLayout = R.layout.chat_list_item_left_with_image;
                 }
                 else {
                     mLayout=R.layout.chat_list_item_left;
@@ -150,9 +155,9 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                 return chtm;
             }
         };
-        listView.setAdapter(adapter);
         listView.setStackFromBottom(true);
         listView.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+        listView.setAdapter(adapter);
         if (adapter!=null)
             adapter.notifyDataSetChanged();
 
@@ -185,6 +190,15 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                             User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,"no seen",
                             "no seen",(image_rui!=null) ? image_rui.toString(): null));
         }
+        else if (image_rui!=null){
+            reference = FirebaseDatabase.getInstance().getReference("message");
+            reference.child(generateKey())
+                    .push()
+                    .setValue(new ChatMessage(input.getText().toString(),
+                            User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,"no seen",
+                            "no seen",(image_rui!=null) ? image_rui.toString(): null));
+        }
+        image_rui=null;
         input.setText("");
     }
 
@@ -282,19 +296,12 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         });
     }
 
-    private void status(String status){
-        HashMap<String,Object> hashMap = new HashMap<>();
-        hashMap.put("status", status);
-        User.getCurrentUser().setStatus(status);
-        FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).updateChildren(hashMap);
-    }
 
     @Override
     public void onPause() {
         super.onPause();
+        if (seenListener!=null)
         reference.removeEventListener(seenListener);
-        //reference.getDatabase().goOffline();
-        System.out.println(reference.orderByValue());
         seenListener=null;
     }
 

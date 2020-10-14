@@ -3,8 +3,11 @@ package com.example.myproject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -190,7 +193,7 @@ public class UsersChatListFragment extends Fragment {
 
 
 
-    public class ChatHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ChatHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private User user;
         TextView userName;
         TextView userDate;
@@ -206,6 +209,7 @@ public class UsersChatListFragment extends Fragment {
             userStatus = itemView.findViewById(R.id.text_online_list);
             photoImageView = itemView.findViewById(R.id.circle_image_user);
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         void onBind(User user){
@@ -227,6 +231,13 @@ public class UsersChatListFragment extends Fragment {
         public void onClick(View view) {
              Intent intent = ChatActivity.newIntent(getActivity(), user.getUuid(), user.getPhoto_url());
             startActivity(intent);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            Log.e("LONG TOUCH", "TOOOOOUCh");
+            //TODO: на долгое нажатие удалять чат
+            return true;
         }
     }
 

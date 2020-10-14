@@ -22,6 +22,12 @@ public class MyAccountActivity extends BaseActivity{
         status("offline");
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+    }
+
     private void status(String status) {
         if (User.getCurrentUser() != null) {
             HashMap<String, Object> hashMap = new HashMap<>();
