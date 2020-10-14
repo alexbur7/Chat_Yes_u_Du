@@ -117,9 +117,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                 if (User.getCurrentUser().getUuid().equals(firstKey)){
                     seenText.setText(model.getSecondKey());
                 }
-                else
-                    seenText.setText(model.getFirstKey());
-                    seenText.setText(model.getSecondKey());
+                else seenText.setText(model.getFirstKey());
 
                 ImageView imageView = v.findViewById(R.id.image_send);
                 if (model.getImage_url()!=null){
