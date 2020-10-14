@@ -81,7 +81,6 @@ public class AccountFragment extends Fragment {
                 openImage();
             }
         });
-        status("online");
         return v;
     }
 
@@ -102,12 +101,15 @@ public class AccountFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.logout: {
                 status("offline");
+                User.getCurrentUser().setStatus("offline");
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getActivity(), LogActivity.class));
                 getActivity().finish();
             }
+            break;
             case R.id.delete_account:{
-                FirebaseAuth.getInstance().getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                auth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(getActivity(),"Completed",Toast.LENGTH_SHORT);
@@ -115,15 +117,19 @@ public class AccountFragment extends Fragment {
                         getActivity().finish();
                     }
                 });
+                auth.signOut();
+                FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).removeValue();
             }
-            default: return super.onOptionsItemSelected(item);
+            break;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setCurrentUser();
+        status("online");
     }
 
     private void openImage() {
@@ -235,6 +241,7 @@ public class AccountFragment extends Fragment {
             uploadImage();
         }
     }
+
 
     private void status(String status){
         HashMap<String,Object> hashMap = new HashMap<>();

@@ -9,15 +9,17 @@ public class ChatMessage {
     private String fromUserUUID;
     private String toUserUUID;
     private long messageTime;
-    private boolean isSeen;
+    private String firstKey;
+    private String secondKey;
 
-    public ChatMessage(String messageText, String fromUser,String fromUserUUID,String toUserUUID, boolean isSeen) {
+    public ChatMessage(String messageText, String fromUser,String fromUserUUID,String toUserUUID, String firstKey, String secondKey) {
         this.messageText = messageText;
         this.fromUser = fromUser;
         this.fromUserUUID =fromUserUUID;
         this.toUserUUID=toUserUUID;
         messageTime = new Date().getTime();
-        this.isSeen=isSeen;
+        this.firstKey=firstKey;
+        this.secondKey = secondKey;
     }
 
     public ChatMessage(){}
@@ -62,12 +64,20 @@ public class ChatMessage {
         this.toUserUUID = toUserName;
     }
 
-    public boolean isSeen() {
-        return isSeen;
+    public String getFirstKey() {
+        return firstKey;
     }
 
-    public void setSeen(boolean seen) {
-        isSeen = seen;
+    public void setFirstKey(String firstKey) {
+        this.firstKey = firstKey;
+    }
+
+    public String getSecondKey() {
+        return secondKey;
+    }
+
+    public void setSecondKey(String secondKey) {
+        this.secondKey = secondKey;
     }
 }
 

@@ -19,7 +19,7 @@
     <string name="region">Область/край:</string>
     <string name="sex">Пол:</string>
     <string name="age">Возраст:</string>
-    <string name="region_reg_hint">Область/край*</string>
+    <string name="region_reg_hint">Область/край</string>
     <string name="age_reg_hint">Возраст*</string>
     <string name="sex_reg_hint">Пол*</string>
     <string name="myAccount">Профиль</string>

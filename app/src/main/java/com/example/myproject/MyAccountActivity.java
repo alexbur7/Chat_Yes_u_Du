@@ -1,5 +1,7 @@
 package com.example.myproject;
 
+import android.util.Log;
+
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,8 +17,8 @@ public class MyAccountActivity extends BaseActivity{
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
         status("offline");
     }
 

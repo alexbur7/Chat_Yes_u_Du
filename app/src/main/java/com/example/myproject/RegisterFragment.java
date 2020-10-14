@@ -79,7 +79,7 @@ public class RegisterFragment extends Fragment {
         final  String region = regionEditText.getText().toString();
         final  String age = ageEditText.getText().toString();
 
-        if (name.isEmpty() || country.isEmpty() || city.isEmpty() || email.isEmpty() || password.isEmpty() || sex.isEmpty() || region.isEmpty() || Integer.parseInt(age)<0){
+        if (name.isEmpty() || country.isEmpty() || city.isEmpty() || email.isEmpty() || password.isEmpty() || sex.isEmpty() || Integer.parseInt(age)<0){
             Toast.makeText(getActivity(),R.string.reject_reg,Toast.LENGTH_SHORT).show();
             return;
         }

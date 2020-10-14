@@ -34,6 +34,7 @@ public class User {
     public static void setCurrentUser(User currentUser,String uuid) {
         User.currentUser = currentUser;
         User.currentUser.setUuid(uuid);
+        User.currentUser.setStatus("offline");
     }
 
     public String getName() {
