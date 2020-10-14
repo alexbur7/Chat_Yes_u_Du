@@ -48,8 +48,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.chat_fragment,container,false);
-        //setContentView(R.layout.chat_fragment);
-
         receiverUuid=getArguments().getString(KEY_TO_RECEIVER_UUID);
         receiverPhotoUrl = getArguments().getString(KEY_TO_RECEIVER_PHOTO_URL);
         toolbar=v.findViewById(R.id.toolbarFr);
@@ -161,9 +159,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         bundle.putString(KEY_TO_RECEIVER_UUID, toUserUUID);
         bundle.putString(KEY_TO_RECEIVER_PHOTO_URL,photo_url);
         fragment.setArguments(bundle);
-        //Intent intent=new Intent(context,ChatActivity.class);
-        //intent.putExtra(KEY_TO_RECEIVER_UUID,toUserUUID);
-        //intent.putExtra(KEY_TO_RECEIVER_PHOTO_URL,photo_url);
         return fragment;
     }
 
