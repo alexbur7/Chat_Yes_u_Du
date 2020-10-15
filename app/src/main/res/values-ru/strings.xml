@@ -57,6 +57,10 @@
     <string name="sending_image">Sending image...</string>
     <string name="image_attach">Image attach</string>
     <string name="delete_chat">Do you want to delete chat</string>
+    <string name="saved_image">Image saved</string>
+    <string name="dialog_title_edit">Edit account</string>
+    <string name="dialog_title_delete">Delete chat</string>
+    <string name="delete_image">Delete photo</string>
     <string-array name="age_for_spinner">
         <item>до 18</item>
         <item>18-30</item>

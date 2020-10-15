@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -17,7 +18,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 
@@ -29,11 +34,14 @@ public class EditDialog extends DialogFragment {
     private EditText regionText;
     private Spinner sexSpinner;
     private EditText ageText;
+    private CheckBox deletePhoto;
+    private FirebaseStorage storage;
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.edit_fragment,null);
+        storage = FirebaseStorage.getInstance();
         nameText = view.findViewById(R.id.name);
         nameText.setText(User.getCurrentUser().getName());
         surnameText = view.findViewById(R.id.surname);
@@ -50,20 +58,21 @@ public class EditDialog extends DialogFragment {
         else sexSpinner.setSelection(1);
         ageText = view.findViewById(R.id.age);
         ageText.setText(User.getCurrentUser().getAge());
+        deletePhoto = view.findViewById(R.id.check_delete_photo);
 
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
         return builder
-                .setTitle(getResources().getString(R.string.dialog_title))
+                .setTitle(getResources().getString(R.string.dialog_title_edit))
                 .setView(view)
                 .setPositiveButton(R.string.ok_pos_button_text, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        updateUser();
+                        updateUser(deletePhoto.isChecked());
                     }
                 }).create();
     }
 
-    private void updateUser(){
+    private void updateUser(boolean check){
         HashMap<String,Object> hashMap = new HashMap<>();
         hashMap.put("name",nameText.getText().toString());
         User.getCurrentUser().setName(nameText.getText().toString());
@@ -80,5 +89,18 @@ public class EditDialog extends DialogFragment {
         hashMap.put("age",ageText.getText().toString());
         User.getCurrentUser().setAge(ageText.getText().toString());
         FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).updateChildren(hashMap);
+        if (check) {
+            if (!User.getCurrentUser().getPhoto_url().equals("default")) {
+                StorageReference photoRef = storage.getReferenceFromUrl(User.getCurrentUser().getPhoto_url());
+                photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        hashMap.put("photo_url","default");
+                        User.getCurrentUser().setPhoto_url("default");
+                        FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).updateChildren(hashMap);
+                    }
+                });
+            }
+        }
     }
 }
