@@ -37,23 +37,35 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
     }
 
     private void setLastMsg(String id, TextView view){
-        FirebaseDatabase.getInstance().getReference("message").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("chats").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snapshot1:snapshot.getChildren())
                     for (DataSnapshot snapshot2:snapshot1.getChildren()){
-                        ChatMessage message=snapshot2.getValue(ChatMessage.class);
-                        if (User.getCurrentUser().getUuid().equals(generateKey(id))) {
-                            if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid()) && message.getFromUserUUID().equals(id) ||
-                                    message.getToUserUUID().equals(id) && message.getFromUserUUID().equals(User.getCurrentUser().getUuid()))
-                                    && !message.getFirstDelete().equals("delete")) {
-                                view.setText(message.getMessageText());
-                            }
-                        }
-                        else {
-                            if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid()) && message.getFromUserUUID().equals(id) ||
-                                    message.getToUserUUID().equals(id) && message.getFromUserUUID().equals(User.getCurrentUser().getUuid())) && !message.getSecondDelete().equals("delete")) {
-                                view.setText(message.getMessageText());
+                        if (!snapshot2.getKey().equals("firstBlock") && !snapshot2.getKey().equals("secondBlock")) {
+                            for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
+                                ChatMessage message = snapshot3.getValue(ChatMessage.class);
+                                if (User.getCurrentUser().getUuid().equals(generateKey(id))) {
+                                    if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid()) && message.getFromUserUUID().equals(id) ||
+                                            message.getToUserUUID().equals(id) && message.getFromUserUUID().equals(User.getCurrentUser().getUuid()))
+                                            ) {
+                                        if (message.getFirstDelete().equals("delete")){
+                                            view.setText("");
+                                        }
+                                        else
+                                        view.setText(message.getMessageText());
+                                    }
+                                } else {
+                                    if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid()) && message.getFromUserUUID().equals(id) ||
+                                            message.getToUserUUID().equals(id) && message.getFromUserUUID().equals(User.getCurrentUser().getUuid())) ) {
+                                        if (message.getSecondDelete().equals("delete")){
+                                            view.setText("");
+                                        }
+                                        else
+                                            view.setText(message.getMessageText());
+                                    }
+                                }
+
                             }
                         }
                     }

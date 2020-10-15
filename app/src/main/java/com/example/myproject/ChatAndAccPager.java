@@ -59,6 +59,9 @@ public class ChatAndAccPager extends Fragment {
 
             @Override
             public int getItemPosition(@NonNull Object object) {
+                if (object instanceof AccountFragment){
+                    return POSITION_UNCHANGED;
+                }
                 return POSITION_NONE;
             }
 

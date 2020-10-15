@@ -131,6 +131,7 @@ public class AccountFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setCurrentUser();
+        Log.e("ACCOUNT FRAGMENT", String.valueOf(User.getCurrentUser()!=null));
         status("online");
     }
 
@@ -157,7 +158,7 @@ public class AccountFragment extends Fragment {
         pd.show();
         String uuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         reference=FirebaseDatabase.getInstance().getReference("users").child(uuid);
-        imageEventListener=new ValueEventListener() {
+        imageEventListener=reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
@@ -176,9 +177,7 @@ public class AccountFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
-
-        };
-        reference.addValueEventListener(imageEventListener);
+        });
     }
 
     private String getFileExtension(Uri uri){
@@ -250,5 +249,11 @@ public class AccountFragment extends Fragment {
             HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("status", status);
             FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().getUid()).updateChildren(hashMap);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        reference.removeEventListener(imageEventListener);
     }
 }

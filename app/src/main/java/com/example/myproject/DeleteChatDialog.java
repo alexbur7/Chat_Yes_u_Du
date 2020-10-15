@@ -36,7 +36,7 @@ public class DeleteChatDialog extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.delete_chat_dialog,null);
-        reference = FirebaseDatabase.getInstance().getReference("message").child(generateKey());
+        reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey()).child("message");
         deleteBox = view.findViewById(R.id.check_delete_box);
 
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());

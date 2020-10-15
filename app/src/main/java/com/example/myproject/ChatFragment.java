@@ -83,7 +83,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         send_image.setOnClickListener(this);
         input = v.findViewById(R.id.input);
         fab.setOnClickListener(this);
-        reference = FirebaseDatabase.getInstance().getReference("message");
+        reference = FirebaseDatabase.getInstance().getReference("chats");
         //reference.getDatabase().goOnline();
         storageReference = FirebaseStorage.getInstance().getReference("ChatImage");
         username=v.findViewById(R.id.username_text);
@@ -101,7 +101,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
 
     private void displayChatMessages(){
         adapter = new FirebaseListAdapter<ChatMessage>(getActivity(), ChatMessage.class,
-                0, FirebaseDatabase.getInstance().getReference("message").child(generateKey())) {
+                0, FirebaseDatabase.getInstance().getReference("chats").child(generateKey()).child("message")) {
 
             @Override
             protected void populateView(View v, ChatMessage model, int position) {
@@ -222,16 +222,16 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
 
     private void sendMessage() {
         if (!input.getText().toString().equals("")) {
-            reference = FirebaseDatabase.getInstance().getReference("message");
-            reference.child(generateKey())
+            reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
+            reference.child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
                             User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,"no seen",
                             "no seen",(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete"));
         }
         else if (image_rui!=null){
-            reference = FirebaseDatabase.getInstance().getReference("message");
-            reference.child(generateKey())
+            reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
+            reference.child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
                             User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,"no seen",
@@ -324,8 +324,13 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
+                try {
                     statusText.setText(user.getStatus());
                     username.setText(user.getName());
+                }catch (Exception e){
+                    statusText.setText(getResources().getString(R.string.delete_users));
+                    username.setText("");
+                }
             }
 
             @Override
@@ -381,26 +386,29 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snapshot1 : snapshot.getChildren())
                     for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                        ChatMessage message=snapshot2.getValue(ChatMessage.class);
-                        if ((message.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && message.getToUserUUID().equals(getArguments().getString(KEY_TO_RECEIVER_UUID))) ||
-                                (message.getFromUserUUID().equals(getArguments().getString(KEY_TO_RECEIVER_UUID)) && message.getToUserUUID().equals(User.getCurrentUser().getUuid()))){
+                        if (!snapshot2.getKey().equals("firstBlock") && !snapshot2.getKey().equals("secondBlock")) {
+                            for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
+                                ChatMessage message = snapshot3.getValue(ChatMessage.class);
+                                if ((message.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && message.getToUserUUID().equals(getArguments().getString(KEY_TO_RECEIVER_UUID))) ||
+                                        (message.getFromUserUUID().equals(getArguments().getString(KEY_TO_RECEIVER_UUID)) && message.getToUserUUID().equals(User.getCurrentUser().getUuid()))) {
 
-                            //Если из нашей переписки
-                            Log.e("MESSAGE TO ME", String.valueOf((message.getToUserUUID().equals(User.getCurrentUser().getUuid()))));
+                                    //Если из нашей переписки
+                                    Log.e("MESSAGE TO ME", String.valueOf((message.getToUserUUID().equals(User.getCurrentUser().getUuid()))));
 
-                            HashMap<String, Object> hashMap = new HashMap<>();
-                            if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(firstKey))) hashMap.put("firstKey", "seen");
-                            else if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(secondKey))) hashMap.put("secondKey", "seen");
-                            snapshot2.getRef().updateChildren(hashMap);
+                                    HashMap<String, Object> hashMap = new HashMap<>();
+                                    if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(firstKey)))
+                                        hashMap.put("firstKey", "seen");
+                                    else if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(secondKey)))
+                                        hashMap.put("secondKey", "seen");
+                                    snapshot3.getRef().updateChildren(hashMap);
 
+                                }
+                            }
                         }
-
                     }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }

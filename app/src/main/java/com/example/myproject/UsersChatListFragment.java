@@ -57,19 +57,26 @@ public class UsersChatListFragment extends ChatListFragment{
 
     protected void setChats(){
         Log.e("ARGUMENTS SEEN","BY USERLIST");
-                FirebaseDatabase.getInstance().getReference("message").addValueEventListener(new ValueEventListener() {
+                FirebaseDatabase.getInstance().getReference("chats").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         ArrayList<String> usersID = new ArrayList<>();
                         usersID.clear();
                         for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                             for (DataSnapshot snapshot2:snapshot1.getChildren()) {
-                                ChatMessage msg = snapshot2.getValue(ChatMessage.class);
-                            if (msg.getFromUserUUID().equals(User.getCurrentUser().getUuid())) {
-                                usersID.add(msg.getToUserUUID()); }
-
-                            if (msg.getToUserUUID()!=null && msg.getToUserUUID().equals(User.getCurrentUser().getUuid())) {
-                                usersID.add(msg.getFromUserUUID());}
+                                if (!snapshot2.getKey().equals("firstBlock") && !snapshot2.getKey().equals("secondBlock")) {
+                                    for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
+                                        ChatMessage msg = snapshot3.getValue(ChatMessage.class);
+                                        Log.e("MESSAGE", String.valueOf(msg.getFromUserUUID()!=null));
+                                        Log.e("USER CHAT LIST FRAGMENT", String.valueOf(User.getCurrentUser().getUuid()!=null));
+                                        if (msg.getFromUserUUID().equals(User.getCurrentUser().getUuid())) {
+                                            usersID.add(msg.getToUserUUID());
+                                        }
+                                        if (msg.getToUserUUID() != null && msg.getToUserUUID().equals(User.getCurrentUser().getUuid())) {
+                                            usersID.add(msg.getFromUserUUID());
+                                        }
+                                    }
+                                }
                             }
                         }
                         //ref.removeEventListener(this);
@@ -78,6 +85,7 @@ public class UsersChatListFragment extends ChatListFragment{
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                     }
+
                 });
             }
 
@@ -107,8 +115,6 @@ public class UsersChatListFragment extends ChatListFragment{
             }
         });
     }
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

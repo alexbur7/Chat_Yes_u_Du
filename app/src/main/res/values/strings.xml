@@ -63,6 +63,7 @@
     <string name="dialog_title_edit">Edit account</string>
     <string name="dialog_title_delete">Delete chat</string>
     <string name="delete_image">Delete photo</string>
+    <string name="delete_users">User deleted this account</string>
     <string-array name="sex_for_spinner">
         <item>Male</item>
         <item>Female</item>
