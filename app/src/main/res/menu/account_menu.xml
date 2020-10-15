@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/blocklist"
+        android:title="@string/blocklist"
+        app:showAsAction="never"/>
+
     <item
         android:id="@+id/logout"
         android:title="@string/logout_menu"
-        app:showAsAction="ifRoom|withText"
+        app:showAsAction="never"
         android:icon="@drawable/baseline_login_black_18dp" />
 
     <item

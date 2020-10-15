@@ -1,5 +1,6 @@
 package com.example.myproject;
 
+import android.content.Intent;
 import android.util.Log;
 
 import androidx.fragment.app.Fragment;
@@ -9,7 +10,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
-public class MyAccountActivity extends BaseActivity{
+public class MyAccountActivity extends BaseActivity implements UsersChatListFragment.Callback{
+
+    public static final int CODE_NO_FILTER=0;
+    public static final int CODE_FILTER=1;
 
     @Override
     public Fragment getFragment() {
@@ -34,5 +38,20 @@ public class MyAccountActivity extends BaseActivity{
             hashMap.put("status", status);
             FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).updateChildren(hashMap);
         }
+    }
+
+    @Override
+    public void onUsersFilter(Intent data) {
+        Log.e("FILTER FRAGMENT","INCOMING");
+        ChatAndAccPager fragment= (ChatAndAccPager) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        fragment.checkUsersFragment(CODE_FILTER,data);
+    }
+
+    @Override
+    public void onBackPressed() {
+        ChatAndAccPager fragment= (ChatAndAccPager) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (fragment.getViewPager().getCurrentItem()==1 && fragment.TYPE_OF_LIST.equals("F"))
+            fragment.checkUsersFragment(CODE_NO_FILTER,null);
+        else super.onBackPressed();
     }
 }

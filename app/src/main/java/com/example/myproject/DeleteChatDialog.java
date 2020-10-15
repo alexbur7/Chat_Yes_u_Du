@@ -81,7 +81,7 @@ public class DeleteChatDialog extends DialogFragment {
     @Override
     public void onPause() {
         super.onPause();
-        reference.removeEventListener(deleteMessage);
+        if (deleteMessage!=null) reference.removeEventListener(deleteMessage);
     }
 
     private String generateKey(){

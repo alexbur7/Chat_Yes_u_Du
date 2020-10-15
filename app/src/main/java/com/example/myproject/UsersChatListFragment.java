@@ -1,24 +1,18 @@
 package com.example.myproject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,32 +23,30 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class UsersChatListFragment extends Fragment {
+public class UsersChatListFragment extends ChatListFragment{
 
-    private int CODE_TO_FILTER_DIALOG=0;
-    private RecyclerView chatRecView;
-    private Toolbar toolbar;
-
+    private Callback activityCallBack;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.chat_users_list,container,false);
-        chatRecView = v.findViewById(R.id.chat_recycler_view);
-        toolbar=v.findViewById(R.id.toolbarFr);
-        toolbar.inflateMenu(R.menu.filter_users_menu);
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                return clickToolbarItems(item);
-            }
-        });
-        chatRecView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        setChats();
-        return v;
+        Log.e("Fragment created:","USERCHATLIST");
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    private boolean clickToolbarItems(MenuItem item){
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        activityCallBack= (UsersChatListFragment.Callback) context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        activityCallBack=null;
+    }
+
+    protected boolean clickToolbarItems(MenuItem item){
         if (item.getItemId()==R.id.find_item) {
             FilterDialog dialog = new FilterDialog();
             dialog.setTargetFragment(this, CODE_TO_FILTER_DIALOG);
@@ -63,7 +55,8 @@ public class UsersChatListFragment extends Fragment {
         return true;
     }
 
-    private void setChats(){
+    protected void setChats(){
+        Log.e("ARGUMENTS SEEN","BY USERLIST");
                 FirebaseDatabase.getInstance().getReference("message").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -103,7 +96,7 @@ public class UsersChatListFragment extends Fragment {
                         }
                     }
                 }
-                ChatRecViewAdapter adapter = new ChatRecViewAdapter(usersList);
+                ChatRecViewAdapter adapter = new ChatRecViewAdapter(usersList,getActivity(),getFragmentManager());
                 chatRecView.setAdapter(adapter);
                 //ref.removeEventListener(this);
             }
@@ -115,215 +108,29 @@ public class UsersChatListFragment extends Fragment {
         });
     }
 
-    private void filterUsers(String nameFilter, String sexFilter, String ageFilter, String cityFilter, String onlineFilter){
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
-            ref.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    ArrayList<User> users = new ArrayList<>();
-                    users.clear();
-                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                        User user = snapshot1.getValue(User.class);
-                        user.setUuid(snapshot1.getKey());
-                        users.add(user);
-                        filterUsersByName(users, user);
-                        filterUserBySex(users, user);
-                        filterUsersByAge(users, user);
-                        filterUsersByCity(users, user);
-                        filterUsersByOnline(users, user);
-                    }
-                    ChatRecViewAdapter adapter = new ChatRecViewAdapter(users);
-                    chatRecView.setAdapter(adapter);
-                    ref.removeEventListener(this);
-                }
 
-                private void filterUsersByOnline(ArrayList<User> users, User user) {
-                    if (!onlineFilter.isEmpty()) {
-                        if (!(user.getStatus().equals(onlineFilter))) {
-                            users.remove(user);
-                        }
-                    }
-                }
-
-                private void filterUsersByCity(ArrayList<User> users, User user) {
-                    if (!(cityFilter.isEmpty())){
-                        if (!user.getCity().equals(cityFilter)) {
-                            users.remove(user);
-                        }
-                    }
-                }
-
-                private void filterUsersByAge(ArrayList<User> users, User user) {
-                    if (ageFilter != null) {
-                        if (ageFilter.equals(getResources().getStringArray(R.array.age_for_spinner)[0]) && !(Integer.parseInt(user.getAge()) < 18)) {
-                            users.remove(user);
-                        } else if (ageFilter.equals(getResources().getStringArray(R.array.age_for_spinner)[1]) && !(Integer.parseInt(user.getAge()) >= 18 && Integer.parseInt(user.getAge()) < 30)) {
-                            users.remove(user);
-                        } else if (ageFilter.equals(getResources().getStringArray(R.array.age_for_spinner)[2]) && !(Integer.parseInt(user.getAge()) >= 30 && Integer.parseInt(user.getAge()) < 45)) {
-                            users.remove(user);
-                        } else if (ageFilter.equals(getResources().getStringArray(R.array.age_for_spinner)[3]) && !(Integer.parseInt(user.getAge()) >= 45 && Integer.parseInt(user.getAge()) < 60)) {
-                            users.remove(user);
-                        } else if (ageFilter.equals(getResources().getStringArray(R.array.age_for_spinner)[4]) && !(Integer.parseInt(user.getAge()) >= 60)) {
-                            users.remove(user);
-                        }
-                    }
-                }
-
-                private void filterUserBySex(ArrayList<User> users, User user) {
-                    if (!sexFilter.isEmpty()) {
-                        if (!(user.getSex().equals(sexFilter))) {
-                            users.remove(user);
-                        }
-                    }
-                }
-
-                private void filterUsersByName(ArrayList<User> users, User user) {
-                    if (!nameFilter.isEmpty()){
-                        if (!(user.getName().equals(nameFilter))) {
-                            users.remove(user);
-                        }
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-
-            });
-    }
-
-    public class ChatHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        private User user;
-        TextView userName;
-        TextView userDate;
-        TextView userText;
-        TextView userStatus;
-        ImageView photoImageView;
-
-        public ChatHolder(@NonNull View itemView) {
-            super(itemView);
-            userName = itemView.findViewById(R.id.user_name);
-            userDate = itemView.findViewById(R.id.user_date);
-            userText = itemView.findViewById(R.id.user_text);
-            userStatus = itemView.findViewById(R.id.text_online_list);
-            photoImageView = itemView.findViewById(R.id.circle_image_user);
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
-        }
-
-        void onBind(User user){
-            this.user=user;
-            userName.setText(user.getName());
-            if (user.getPhoto_url().equals("default")){
-                photoImageView.setImageResource(R.drawable.unnamed);
-            }
-            else{
-                Glide.with(getContext()).load(user.getPhoto_url()).into(photoImageView);
-            }
-            if (user.getStatus().equals("online")){
-                userStatus.setText("online");
-            }
-            else userStatus.setText("offline");
-        }
-
-        @Override
-        public void onClick(View view) {
-             Intent intent = ChatActivity.newIntent(getActivity(), user.getUuid(), user.getPhoto_url());
-            startActivity(intent);
-        }
-
-        @Override
-        public boolean onLongClick(View v) {
-            Log.e("LONG TOUCH", "TOOOOOUCh");
-            DeleteChatDialog deleteChatDialog = new DeleteChatDialog(user.getUuid());
-            deleteChatDialog.show(getFragmentManager(),null);
-            return true;
-        }
-    }
-
-    public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatHolder>{
-        private List<User> userList;
-        public ChatRecViewAdapter(List<User> list){
-            this.userList=list;
-        }
-
-        private void setLastMsg(String id,TextView view){
-            FirebaseDatabase.getInstance().getReference("message").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot snapshot1:snapshot.getChildren())
-                        for (DataSnapshot snapshot2:snapshot1.getChildren()){
-                            ChatMessage message=snapshot2.getValue(ChatMessage.class);
-                            if (User.getCurrentUser().getUuid().equals(generateKey(id))) {
-                                if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid()) && message.getFromUserUUID().equals(id) ||
-                                        message.getToUserUUID().equals(id) && message.getFromUserUUID().equals(User.getCurrentUser().getUuid()))
-                                        && !message.getFirstDelete().equals("delete")) {
-                                    view.setText(message.getMessageText());
-                                }
-                            }
-                            else {
-                                if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid()) && message.getFromUserUUID().equals(id) ||
-                                        message.getToUserUUID().equals(id) && message.getFromUserUUID().equals(User.getCurrentUser().getUuid())) && !message.getSecondDelete().equals("delete")) {
-                                    view.setText(message.getMessageText());
-                                }
-                            }
-                        }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-        }
-
-        private String generateKey(String receiverUuid){
-            ArrayList<String> templist=new ArrayList<>();
-            templist.add(User.getCurrentUser().getUuid());
-            templist.add(receiverUuid);
-            Collections.sort(templist);
-            String firstKey=templist.get(0);
-            return firstKey;
-        }
-
-        @NonNull
-        @Override
-        public ChatHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View v=LayoutInflater.from(getActivity()).inflate(R.layout.users_list_item,parent,false);
-            return new ChatHolder(v);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ChatHolder holder, int position) {
-            holder.onBind(userList.get(position));
-            if (User.getCurrentUser()!=null) {
-                setLastMsg(holder.user.getUuid(), holder.userText);
-            }
-        }
-
-        @Override
-        public int getItemCount() {
-            return userList.size();
-        }
-
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode!= Activity.RESULT_OK) return;
         else{
             if (requestCode==CODE_TO_FILTER_DIALOG){
-                filterUsers(data);
+                activityCallBack.onUsersFilter(data);
+                //filterUsers(data);
             }
         }
     }
 
-    private void filterUsers(Intent data) {
+    /*private void filterUsers(Intent data) {
         String nameFilter=data.getStringExtra(FilterDialog.KEY_TO_NAME_FILTER);
         String sexFilter=data.getStringExtra(FilterDialog.KEY_TO_SEX_FILTER);
         String ageFilter=data.getStringExtra(FilterDialog.KEY_TO_AGE_FILTER);
         String cityFilter=data.getStringExtra(FilterDialog.KEY_TO_CITY_FILTER);
         String onlineFilter=data.getStringExtra(FilterDialog.KEY_TO_ONLINE_FILTER);
-        filterUsers(nameFilter,sexFilter,ageFilter,cityFilter,onlineFilter);
+        String photoFilter=data.getStringExtra(FilterDialog.KEY_TO_PHOTO_FILTER);
+        filterUsers(nameFilter,sexFilter,ageFilter,cityFilter,onlineFilter,photoFilter);
+    }*/
+    public interface Callback {
+        void onUsersFilter(Intent data);
     }
 }

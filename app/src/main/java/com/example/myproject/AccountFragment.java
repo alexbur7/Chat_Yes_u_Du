@@ -119,6 +119,10 @@ public class AccountFragment extends Fragment {
                 getActivity().finish();
             }
             break;
+            case R.id.blocklist:{
+                Intent intent=new Intent(getActivity(),BlockListActivity.class);
+                startActivity(intent);
+            }
         }
         return true;
     }

@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -47,7 +46,6 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-
 import static android.app.Activity.RESULT_OK;
 
 public class ChatFragment extends Fragment implements View.OnClickListener{
@@ -70,7 +68,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
     private StorageReference storageReference;
 
     private static  final  int IMAGE_REQUEST=1;
-    Uri image_rui;
+    private Uri image_rui;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
