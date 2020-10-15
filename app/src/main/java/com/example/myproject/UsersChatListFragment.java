@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -190,9 +191,6 @@ public class UsersChatListFragment extends Fragment {
             });
     }
 
-
-
-
     public class ChatHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private User user;
         TextView userName;
@@ -236,7 +234,8 @@ public class UsersChatListFragment extends Fragment {
         @Override
         public boolean onLongClick(View v) {
             Log.e("LONG TOUCH", "TOOOOOUCh");
-            //TODO: на долгое нажатие удалять чат
+            DeleteChatDialog deleteChatDialog = new DeleteChatDialog(user.getUuid());
+            deleteChatDialog.show(getFragmentManager(),null);
             return true;
         }
     }
@@ -254,10 +253,19 @@ public class UsersChatListFragment extends Fragment {
                     for (DataSnapshot snapshot1:snapshot.getChildren())
                         for (DataSnapshot snapshot2:snapshot1.getChildren()){
                             ChatMessage message=snapshot2.getValue(ChatMessage.class);
-                                if (message.getToUserUUID().equals(User.getCurrentUser().getUuid()) && message.getFromUserUUID().equals(id) ||
-                                        message.getToUserUUID().equals(id) && message.getFromUserUUID().equals(User.getCurrentUser().getUuid())) {
+                            if (User.getCurrentUser().getUuid().equals(generateKey(id))) {
+                                if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid()) && message.getFromUserUUID().equals(id) ||
+                                        message.getToUserUUID().equals(id) && message.getFromUserUUID().equals(User.getCurrentUser().getUuid()))
+                                        && !message.getFirstDelete().equals("delete")) {
                                     view.setText(message.getMessageText());
                                 }
+                            }
+                            else {
+                                if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid()) && message.getFromUserUUID().equals(id) ||
+                                        message.getToUserUUID().equals(id) && message.getFromUserUUID().equals(User.getCurrentUser().getUuid())) && !message.getSecondDelete().equals("delete")) {
+                                    view.setText(message.getMessageText());
+                                }
+                            }
                         }
                 }
 
@@ -267,6 +275,15 @@ public class UsersChatListFragment extends Fragment {
                 }
             });
 
+        }
+
+        private String generateKey(String receiverUuid){
+            ArrayList<String> templist=new ArrayList<>();
+            templist.add(User.getCurrentUser().getUuid());
+            templist.add(receiverUuid);
+            Collections.sort(templist);
+            String firstKey=templist.get(0);
+            return firstKey;
         }
 
         @NonNull

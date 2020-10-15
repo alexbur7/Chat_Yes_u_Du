@@ -104,56 +104,94 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
 
             @Override
             protected void populateView(View v, ChatMessage model, int position) {
-                TextView messageText = v.findViewById(R.id.message_text);
-                TextView messageUser = v.findViewById(R.id.message_user);
-                TextView messageTime = v.findViewById(R.id.message_time);
-                TextView seenText =    v.findViewById(R.id.text_seen);
+                if (User.getCurrentUser().getUuid().equals(firstKey)) {
+                    if (!model.getFirstDelete().equals("delete")) {
+                        TextView messageText = v.findViewById(R.id.message_text);
+                        TextView messageUser = v.findViewById(R.id.message_user);
+                        TextView messageTime = v.findViewById(R.id.message_time);
+                        TextView seenText = v.findViewById(R.id.text_seen);
 
-                messageText.setText(model.getMessageText());
-                messageUser.setText(model.getFromUser());
+                        messageText.setText(model.getMessageText());
+                        messageUser.setText(model.getFromUser());
 
-                messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
-                        model.getMessageTime()));
-                if (User.getCurrentUser().getUuid().equals(firstKey)){
-                    seenText.setText(model.getSecondKey());
+                        messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
+                                model.getMessageTime()));
+                        if (User.getCurrentUser().getUuid().equals(firstKey)) {
+                            seenText.setText(model.getSecondKey());
+                        } else
+                            seenText.setText(model.getFirstKey());
+
+                        ImageView imageView = v.findViewById(R.id.image_send);
+                        if (model.getImage_url() != null) {
+                            Glide.with(getActivity()).load(model.getImage_url()).into(imageView);
+                        }
+                    }
                 }
-                else
-                    seenText.setText(model.getFirstKey());
-                    seenText.setText(model.getSecondKey());
+                else {
+                    if (!model.getSecondDelete().equals("delete")) {
+                        TextView messageText = v.findViewById(R.id.message_text);
+                        TextView messageUser = v.findViewById(R.id.message_user);
+                        TextView messageTime = v.findViewById(R.id.message_time);
+                        TextView seenText = v.findViewById(R.id.text_seen);
 
-                ImageView imageView = v.findViewById(R.id.image_send);
-                if (model.getImage_url()!=null){
-                    Glide.with(getActivity()).load(model.getImage_url()).into(imageView);
+                        messageText.setText(model.getMessageText());
+                        messageUser.setText(model.getFromUser());
+
+                        messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
+                                model.getMessageTime()));
+                        if (User.getCurrentUser().getUuid().equals(firstKey)) {
+                            seenText.setText(model.getSecondKey());
+                        } else
+                            seenText.setText(model.getFirstKey());
+
+                        ImageView imageView = v.findViewById(R.id.image_send);
+                        if (model.getImage_url() != null) {
+                            Glide.with(getActivity()).load(model.getImage_url()).into(imageView);
+                        }
+                    }
                 }
 
             }
 
             @Override
             public View getView(int position, View view, ViewGroup viewGroup) {
-
                 ChatMessage model = getItem(position);
-                View view2 = mActivity.getLayoutInflater().inflate(mLayout, viewGroup, false);
-                populateView(view2, model, position);
-                return view2;
+                    View view2 = mActivity.getLayoutInflater().inflate(mLayout, viewGroup, false);
+                    populateView(view2, model, position);
+                    return view2;
             }
 
             @Override
             public ChatMessage getItem(int position) {
-                ChatMessage chtm=super.getItem(position);
-                if (chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url()==null){
-                    mLayout=R.layout.chat_list_item_right;
-                }
-                else if(chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url()!=null){
-                    mLayout=R.layout.chat_list_item_right_with_image;
-                }
-                else if(!chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url()!=null){
-                    mLayout = R.layout.chat_list_item_left_with_image;
+                ChatMessage chtm = super.getItem(position);
+                if (User.getCurrentUser().getUuid().equals(firstKey)) {
+                    if (!chtm.getFirstDelete().equals("delete")) {
+                        if (chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url() == null) {
+                            mLayout = R.layout.chat_list_item_right;
+                        } else if (chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url() != null) {
+                            mLayout = R.layout.chat_list_item_right_with_image;
+                        } else if (!chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url() != null) {
+                            mLayout = R.layout.chat_list_item_left_with_image;
+                        } else {
+                            mLayout = R.layout.chat_list_item_left;
+                        }
+                    } else mLayout = R.layout.delete_message;
                 }
                 else {
-                    mLayout=R.layout.chat_list_item_left;
+                    if (!chtm.getSecondDelete().equals("delete")) {
+                        if (chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url() == null) {
+                            mLayout = R.layout.chat_list_item_right;
+                        } else if (chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url() != null) {
+                            mLayout = R.layout.chat_list_item_right_with_image;
+                        } else if (!chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url() != null) {
+                            mLayout = R.layout.chat_list_item_left_with_image;
+                        } else {
+                            mLayout = R.layout.chat_list_item_left;
+                        }
+                    } else mLayout = R.layout.delete_message;
                 }
-                return chtm;
-            }
+                    return chtm;
+                }
         };
         listView.setStackFromBottom(true);
         listView.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
@@ -188,7 +226,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
                             User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,"no seen",
-                            "no seen",(image_rui!=null) ? image_rui.toString(): null));
+                            "no seen",(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete"));
         }
         else if (image_rui!=null){
             reference = FirebaseDatabase.getInstance().getReference("message");
@@ -196,7 +234,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
                             User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,"no seen",
-                            "no seen",(image_rui!=null) ? image_rui.toString(): null));
+                            "no seen",(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete"));
         }
         image_rui=null;
         input.setText("");
@@ -285,8 +323,8 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                statusText.setText(user.getStatus());
-                username.setText(user.getName());
+                    statusText.setText(user.getStatus());
+                    username.setText(user.getName());
             }
 
             @Override

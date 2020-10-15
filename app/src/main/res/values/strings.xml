@@ -57,6 +57,7 @@
     <string name="temp_description">Temp descr</string>
     <string name="sending_image">Sending image...</string>
     <string name="image_attach">Image attach</string>
+    <string name="delete_chat">Do you want to delete chat</string>
     <string-array name="sex_for_spinner">
         <item>Male</item>
         <item>Female</item>

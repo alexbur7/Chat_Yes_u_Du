@@ -12,8 +12,11 @@ public class ChatMessage {
     private String firstKey;
     private String secondKey;
     private String image_url;
+    private String firstDelete;
+    private String secondDelete;
 
-    public ChatMessage(String messageText, String fromUser,String fromUserUUID,String toUserUUID, String firstKey, String secondKey, String image_url) {
+    public ChatMessage(String messageText, String fromUser,String fromUserUUID,String toUserUUID,
+                       String firstKey, String secondKey, String image_url, String firstDelete,String secondDelete) {
         this.messageText = messageText;
         this.fromUser = fromUser;
         this.fromUserUUID =fromUserUUID;
@@ -22,6 +25,8 @@ public class ChatMessage {
         this.firstKey=firstKey;
         this.secondKey = secondKey;
         this.image_url = image_url;
+        this.firstDelete = firstDelete;
+        this.secondDelete = secondDelete;
     }
 
     public ChatMessage(){}
@@ -88,6 +93,22 @@ public class ChatMessage {
 
     public void setImage_url(String image_url) {
         this.image_url = image_url;
+    }
+
+    public String getFirstDelete() {
+        return firstDelete;
+    }
+
+    public void setFirstDelete(String firstDelete) {
+        this.firstDelete = firstDelete;
+    }
+
+    public String getSecondDelete() {
+        return secondDelete;
+    }
+
+    public void setSecondDelete(String secondDelete) {
+        this.secondDelete = secondDelete;
     }
 }
 

@@ -56,6 +56,7 @@
     <string name="camera_storage_permission">Camera and Storage both permission are necessary</string>
     <string name="sending_image">Sending image...</string>
     <string name="image_attach">Image attach</string>
+    <string name="delete_chat">Do you want to delete chat</string>
     <string-array name="age_for_spinner">
         <item>до 18</item>
         <item>18-30</item>
