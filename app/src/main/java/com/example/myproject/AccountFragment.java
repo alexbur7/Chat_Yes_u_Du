@@ -143,6 +143,7 @@ public class AccountFragment extends Fragment {
     }
 
     private void setAllTextView(){
+        Log.e("USET ID",User.getCurrentUser().getUuid());
         countryTextView.setText(User.getCurrentUser().getCountry());
         regionTextView.setText(User.getCurrentUser().getRegion());
         cityTextView.setText(User.getCurrentUser().getCity());

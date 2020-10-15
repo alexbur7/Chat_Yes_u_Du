@@ -1,6 +1,7 @@
 package com.example.myproject;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,7 +42,15 @@ public class UsersChatListFragment extends ChatListFragment{
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         activityCallBack= (UsersChatListFragment.Callback) context;
+        Log.e("ON ATTACH", "SET CURRENT USER");
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("ON RESUME", "SET CURRENT USER");
+    }
+
 
     @Override
     public void onDetach() {
@@ -68,11 +80,10 @@ public class UsersChatListFragment extends ChatListFragment{
                                     for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
                                         ChatMessage msg = snapshot3.getValue(ChatMessage.class);
                                         Log.e("MESSAGE", String.valueOf(msg.getFromUserUUID()!=null));
-                                        Log.e("USER CHAT LIST FRAGMENT", String.valueOf(User.getCurrentUser().getUuid()!=null));
-                                        if (msg.getFromUserUUID().equals(User.getCurrentUser().getUuid())) {
+                                        if (msg.getFromUserUUID().equals(FirebaseAuth.getInstance().getUid())) {
                                             usersID.add(msg.getToUserUUID());
                                         }
-                                        if (msg.getToUserUUID() != null && msg.getToUserUUID().equals(User.getCurrentUser().getUuid())) {
+                                        if (msg.getToUserUUID() != null && msg.getToUserUUID().equals(FirebaseAuth.getInstance().getUid())) {
                                             usersID.add(msg.getFromUserUUID());
                                         }
                                     }
@@ -138,5 +149,10 @@ public class UsersChatListFragment extends ChatListFragment{
     }*/
     public interface Callback {
         void onUsersFilter(Intent data);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }
