@@ -3,11 +3,8 @@ package com.example.myproject;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,12 +37,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
-
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+
 import static android.app.Activity.RESULT_OK;
 
 public class ChatFragment extends Fragment implements View.OnClickListener{
@@ -64,11 +59,13 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
     private DatabaseReference reference;
     private String firstKey, secondKey;
     private ValueEventListener seenListener;
+    private ValueEventListener blockListener;
     private StorageTask uploadTask;
     private StorageReference storageReference;
 
     private static  final  int IMAGE_REQUEST=1;
     private Uri image_rui;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -94,8 +91,42 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         else{
             Glide.with(this).load(receiverPhotoUrl).into(circleImageView);
         }
+
+        blockListener=reference.child(generateKey()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1:snapshot.getChildren()){
+
+                    if (snapshot1.getKey().equals("firstBlock") && User.getCurrentUser().getUuid().equals(secondKey) && snapshot1.getValue().equals("block")){
+                        input.setText("Этот чат был заблокирован");
+                        input.setEnabled(false);
+                        fab.setEnabled(false);
+                        send_image.setEnabled(false);
+                        //reference.removeEventListener(blockListener);
+                    }
+
+                   else if (snapshot1.getKey().equals("secondBlock") && User.getCurrentUser().getUuid().equals(firstKey) && snapshot1.getValue().equals("block")){
+                        input.setText("Этот чат был заблокирован");
+                        input.setEnabled(false);
+                        fab.setEnabled(false);
+                        send_image.setEnabled(false);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         setStatus();
         displayChatMessages();
+
+
+
         return v;
     }
 
@@ -223,6 +254,25 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
     private void sendMessage() {
         if (!input.getText().toString().equals("")) {
             reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
+            HashMap<String,Object> map=new HashMap<>();
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()){
+                        Log.e("SNAPSHOT CONTAIN","null");
+                        map.put("firstBlock","no block");
+                        map.put("secondBlock","no block");
+                        reference.updateChildren(map);
+                        reference.removeEventListener(this);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
             reference.child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
@@ -231,6 +281,25 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         }
         else if (image_rui!=null){
             reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
+            HashMap<String,Object> map=new HashMap<>();
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()){
+                        Log.e("SNAPSHOT CONTAIN","null");
+                        map.put("firstBlock","no block");
+                        map.put("secondBlock","no block");
+                        reference.updateChildren(map);
+                        reference.removeEventListener(this);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
             reference.child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
