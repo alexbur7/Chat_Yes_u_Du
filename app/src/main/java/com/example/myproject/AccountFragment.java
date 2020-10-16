@@ -25,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -211,8 +212,10 @@ public class AccountFragment extends Fragment {
                         reference = FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid());
                         HashMap<String,Object> map = new HashMap<>();
                         map.put("photo_url",mUri);
-
+                        //TODO: удалить старую картинку
+                        deleteImage();
                         reference.updateChildren(map);
+                        User.getCurrentUser().setPhoto_url(mUri);
                         pd.dismiss();
                     }
                     else {
@@ -230,6 +233,13 @@ public class AccountFragment extends Fragment {
         }
         else {
             Toast.makeText(getContext(),R.string.no_image_selected,Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void deleteImage(){
+        if (!User.getCurrentUser().getPhoto_url().equals("default")) {
+            StorageReference photoRef = FirebaseStorage.getInstance().getReferenceFromUrl(User.getCurrentUser().getPhoto_url());
+            photoRef.delete();
         }
     }
 

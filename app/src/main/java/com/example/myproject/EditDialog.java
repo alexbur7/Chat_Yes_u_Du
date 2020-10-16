@@ -1,24 +1,21 @@
 package com.example.myproject;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -34,13 +31,13 @@ public class EditDialog extends DialogFragment {
     private EditText regionText;
     private Spinner sexSpinner;
     private EditText ageText;
-    private CheckBox deletePhoto;
+    private Button deletePhoto;
     private FirebaseStorage storage;
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.edit_fragment,null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.edit_dialog,null);
         storage = FirebaseStorage.getInstance();
         nameText = view.findViewById(R.id.name);
         nameText.setText(User.getCurrentUser().getName());
@@ -58,7 +55,28 @@ public class EditDialog extends DialogFragment {
         else sexSpinner.setSelection(1);
         ageText = view.findViewById(R.id.age);
         ageText.setText(User.getCurrentUser().getAge());
-        deletePhoto = view.findViewById(R.id.check_delete_photo);
+        deletePhoto = view.findViewById(R.id.delete_image_button);
+        deletePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!User.getCurrentUser().getPhoto_url().equals("default")) {
+                    StorageReference photoRef = storage.getReferenceFromUrl(User.getCurrentUser().getPhoto_url());
+                    photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            HashMap<String,Object> hashMap = new HashMap<>();
+                            hashMap.put("photo_url","default");
+                            User.getCurrentUser().setPhoto_url("default");
+                            FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).updateChildren(hashMap);
+                            Toast.makeText(getContext(),getResources().getString(R.string.photo_delete),Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else {
+                    Toast.makeText(getContext(),getResources().getString(R.string.have_not_photo),Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
         return builder
@@ -67,12 +85,12 @@ public class EditDialog extends DialogFragment {
                 .setPositiveButton(R.string.ok_pos_button_text, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        updateUser(deletePhoto.isChecked());
+                        updateUser();
                     }
                 }).create();
     }
 
-    private void updateUser(boolean check){
+    private void updateUser(){
         HashMap<String,Object> hashMap = new HashMap<>();
         hashMap.put("name",nameText.getText().toString());
         User.getCurrentUser().setName(nameText.getText().toString());
@@ -89,18 +107,5 @@ public class EditDialog extends DialogFragment {
         hashMap.put("age",ageText.getText().toString());
         User.getCurrentUser().setAge(ageText.getText().toString());
         FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).updateChildren(hashMap);
-        if (check) {
-            if (!User.getCurrentUser().getPhoto_url().equals("default")) {
-                StorageReference photoRef = storage.getReferenceFromUrl(User.getCurrentUser().getPhoto_url());
-                photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        hashMap.put("photo_url","default");
-                        User.getCurrentUser().setPhoto_url("default");
-                        FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).updateChildren(hashMap);
-                    }
-                });
-            }
-        }
     }
 }

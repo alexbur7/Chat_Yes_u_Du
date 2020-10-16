@@ -56,20 +56,11 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/age_reg_hint"
                 android:inputType="number" />
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/delete_image_button"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            <CheckBox
-                android:id="@+id/check_delete_photo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/delete_image"
-                    />
-            </LinearLayout>
+                android:background="?attr/colorAccent"
+                android:text="@string/delete_image"/>
         </LinearLayout>
 </LinearLayout>

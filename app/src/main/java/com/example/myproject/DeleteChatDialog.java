@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioButton;
@@ -59,7 +60,7 @@ public class DeleteChatDialog extends DialogFragment {
 
     private void deleteChat(boolean check){
         if (check){
-            deleteMessageListener =reference.child("message").addValueEventListener(new ValueEventListener() {
+            deleteMessageListener=reference.child("message").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot snapshot1:snapshot.getChildren()){
@@ -80,7 +81,6 @@ public class DeleteChatDialog extends DialogFragment {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     sendResult(Activity.RESULT_OK);
-                                    reference.removeEventListener(deleteMessageListener);
                                 }
                             });
                         }
@@ -93,7 +93,7 @@ public class DeleteChatDialog extends DialogFragment {
                 }
             });
         }
-        sendResult(Activity.RESULT_CANCELED);
+       sendResult(Activity.RESULT_CANCELED);
     }
 
     private void blockChat(boolean block){
@@ -142,11 +142,12 @@ public class DeleteChatDialog extends DialogFragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (deleteMessageListener !=null) reference.removeEventListener(deleteMessageListener);
-        if (blockChatListener !=null) reference.removeEventListener(blockChatListener);
+    public void onPause() {
+        super.onPause();
+        if (deleteMessageListener !=null) reference.child("message").removeEventListener(deleteMessageListener);
+        if (blockChatListener != null) reference.removeEventListener(blockChatListener);
     }
+
 
     private String generateKey(){
         ArrayList<String> templist=new ArrayList<>();
@@ -157,5 +158,5 @@ public class DeleteChatDialog extends DialogFragment {
         secondKey =templist.get(1);
         return templist.get(0)+templist.get(1);
     }
-    
+
 }

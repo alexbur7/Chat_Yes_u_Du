@@ -62,6 +62,8 @@
     <string name="dialog_title_delete">Delete chat</string>
     <string name="delete_image">Delete photo</string>
     <string name="delete_users">User deleted this account</string>
+    <string name="have_not_photo">You have not photo</string>
+    <string name="photo_delete">Photo deleted</string>
     <string-array name="age_for_spinner">
         <item>до 18</item>
         <item>18-30</item>

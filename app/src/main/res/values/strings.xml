@@ -65,6 +65,8 @@
     <string name="delete_image">Delete photo</string>
     <string name="delete_users">User deleted this account</string>
     <string name="block_chat">do you want to block chat?</string>
+    <string name="have_not_photo">You have not photo</string>
+    <string name="photo_delete">Photo deleted</string>
     <string name="unblock_msg_text">do you want to unblock user?</string>
     <string-array name="sex_for_spinner">
         <item>Male</item>
