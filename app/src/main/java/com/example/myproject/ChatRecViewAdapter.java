@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,15 +26,17 @@ import java.util.Collections;
 import java.util.List;
 
 public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.ChatHolder>{
-    private List<User> userList;
 
+    private List<User> userList;
     private Context context;
     private FragmentManager fragmentManager;
+    private int viewType;
 
-    public ChatRecViewAdapter(List<User> list, Context context, FragmentManager manager){
+    public ChatRecViewAdapter(List<User> list, Context context, FragmentManager manager,int viewType){
         this.userList=list;
         this.context=context;
         this.fragmentManager=manager;
+        this.viewType=viewType;
     }
 
     private void setLastMsg(String id, TextView view){
@@ -91,8 +94,12 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
     @NonNull
     @Override
     public ChatRecViewAdapter.ChatHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(context).inflate(R.layout.users_list_item,parent,false);
-        return new ChatRecViewAdapter.ChatHolder(v);
+        View v = LayoutInflater.from(context).inflate(R.layout.users_list_item, parent, false);
+        switch (viewType) {
+            case ChatHolder.VIEW_TYPE: return new ChatRecViewAdapter.ChatHolder(v, context, fragmentManager);
+            case BlockListHolder.VIEW_TYPE: return new BlockListHolder(v,context,fragmentManager);
+            default: throw new NullPointerException("HOLDER TYPE IS INVALID");
+        }
     }
 
     @Override
@@ -104,22 +111,33 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return viewType;
+    }
+
+    @Override
     public int getItemCount() {
         return userList.size();
     }
 
 
     ///////////////////////////////////////////////////
-    public class ChatHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        private User user;
+    public static class ChatHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+
+        public static final int VIEW_TYPE=0;
+        protected User user;
         TextView userName;
         TextView userDate;
         TextView userText;
         TextView userStatus;
         ImageView photoImageView;
+        protected Context context;
+        protected FragmentManager fragmentManager;
 
-        public ChatHolder(@NonNull View itemView) {
+        public ChatHolder(@NonNull View itemView,Context context,FragmentManager manager) {
             super(itemView);
+            this.context=context;
+            this.fragmentManager=manager;
             userName = itemView.findViewById(R.id.user_name);
             userDate = itemView.findViewById(R.id.user_date);
             userText = itemView.findViewById(R.id.user_text);
@@ -154,7 +172,27 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
         public boolean onLongClick(View v) {
             Log.e("LONG TOUCH", "TOOOOOUCh");
             DeleteChatDialog deleteChatDialog = new DeleteChatDialog(user.getUuid());
+            Fragment fragment=fragmentManager.findFragmentById(R.id.fragment_container);
+            deleteChatDialog.setTargetFragment(fragment,ChatListFragment.KEY_DELETE_DIAOG);
             deleteChatDialog.show(fragmentManager,null);
+            return true;
+        }
+    }
+
+    public static class BlockListHolder extends ChatRecViewAdapter.ChatHolder{
+        public static final int VIEW_TYPE=1;
+
+        public BlockListHolder(@NonNull View itemView, Context context, FragmentManager manager) {
+            super(itemView, context, manager);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            UnblockDialog dialog=new UnblockDialog(user.getUuid());
+            Fragment fragment= fragmentManager.findFragmentById(R.id.fragment_container);
+            Log.e("FRAGMENT WE TARGET", String.valueOf(fragment instanceof BlockListFragment));
+            dialog.setTargetFragment(fragment,BlockListFragment.KEY_TO_UNBLOCK);
+            dialog.show(fragmentManager,null);
             return true;
         }
     }

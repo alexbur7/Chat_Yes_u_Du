@@ -112,6 +112,12 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                         send_image.setEnabled(false);
                     }
 
+                   /*else {
+                        input.setEnabled(true);
+                        fab.setEnabled(true);
+                        send_image.setEnabled(true);
+                    }*/
+
                 }
             }
 

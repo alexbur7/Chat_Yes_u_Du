@@ -1,5 +1,6 @@
 package com.example.myproject;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +22,7 @@ public class ChatAndAccPager extends Fragment {
     private int activity_code;
     private Intent activity_data;
     private FragmentStatePagerAdapter pagerAdapter;
-
+    private ChatListFragment currentChatFragment;
     public String TYPE_OF_LIST;
 
     @Nullable
@@ -48,12 +49,13 @@ public class ChatAndAccPager extends Fragment {
                 } else {
                     if (activity_code==MyAccountActivity.CODE_NO_FILTER){
                         TYPE_OF_LIST="N0_F";
-                        return new UsersChatListFragment();
+                        currentChatFragment=new UsersChatListFragment();
                     }
                     else{
                         TYPE_OF_LIST="F";
-                        return FilteredChatListFragment.newInstance(activity_data);
+                        currentChatFragment= FilteredChatListFragment.newInstance(activity_data);
                     }
+                    return currentChatFragment;
                 }
             }
 
@@ -92,5 +94,17 @@ public class ChatAndAccPager extends Fragment {
 
     public ViewPager getViewPager() {
         return viewPager;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.e("ON PAGER RESULT","COMPLETED");
+        if (resultCode!= Activity.RESULT_OK) return;
+        else switch (requestCode){
+            case ChatListFragment.KEY_DELETE_DIAOG:{
+           Updatable upd=currentChatFragment;
+           upd.update();
+        }
+        }
     }
 }

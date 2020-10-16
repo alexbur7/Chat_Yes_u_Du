@@ -1,5 +1,6 @@
 package com.example.myproject;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -7,10 +8,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioButton;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,12 +66,23 @@ public class DeleteChatDialog extends DialogFragment {
                         if (User.getCurrentUser().getUuid().equals(firstKey)) {
                             HashMap<String, Object> hashMap = new HashMap<>();
                             hashMap.put("firstDelete", "delete");
-                            snapshot1.getRef().updateChildren(hashMap);
+                            snapshot1.getRef().updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    sendResult(Activity.RESULT_OK);
+                                }
+                            });
                         }
                         else {
                             HashMap<String, Object> hashMap = new HashMap<>();
                             hashMap.put("secondDelete", "delete");
-                            snapshot1.getRef().updateChildren(hashMap);
+                            snapshot1.getRef().updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    sendResult(Activity.RESULT_OK);
+                                    reference.removeEventListener(deleteMessageListener);
+                                }
+                            });
                         }
                     }
                 }
@@ -79,6 +93,7 @@ public class DeleteChatDialog extends DialogFragment {
                 }
             });
         }
+        sendResult(Activity.RESULT_CANCELED);
     }
 
     private void blockChat(boolean block){
@@ -90,13 +105,23 @@ public class DeleteChatDialog extends DialogFragment {
                         if (snapshot1.getKey().equals("firstBlock") && User.getCurrentUser().getUuid().equals(firstKey)){
                             //HashMap<String,Object> map =new HashMap<>();
                             //map.put("firstBlock","block");
-                            snapshot1.getRef().setValue("block");
+                            snapshot1.getRef().setValue("block").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    sendResult(Activity.RESULT_OK);
+                                }
+                            });
                             //snapshot1.getRef().updateChildren(map);
                         }
                         else if (snapshot1.getKey().equals("secondBlock") && User.getCurrentUser().getUuid().equals(secondKey)){
                             //HashMap<String,Object> map =new HashMap<>();
                             //map.put("firstBlock","block");
-                            snapshot1.getRef().setValue("block");
+                            snapshot1.getRef().setValue("block").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    sendResult(Activity.RESULT_OK);
+                                }
+                            });
                             //snapshot1.getRef().updateChildren(map);
                         }
                     }
@@ -108,14 +133,19 @@ public class DeleteChatDialog extends DialogFragment {
 
                 }
             });
-
         }
+        sendResult(Activity.RESULT_CANCELED);
+}
+
+    private void sendResult(int result) {
+        getTargetFragment().onActivityResult(getTargetRequestCode(),result,null);
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onDestroy() {
+        super.onDestroy();
         if (deleteMessageListener !=null) reference.removeEventListener(deleteMessageListener);
+        if (blockChatListener !=null) reference.removeEventListener(blockChatListener);
     }
 
     private String generateKey(){
@@ -127,4 +157,5 @@ public class DeleteChatDialog extends DialogFragment {
         secondKey =templist.get(1);
         return templist.get(0)+templist.get(1);
     }
+    
 }

@@ -13,9 +13,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public abstract class ChatListFragment extends Fragment {
+public abstract class ChatListFragment extends Fragment implements Updatable {
 
-    protected int CODE_TO_FILTER_DIALOG=0;
+    protected static final int CODE_TO_FILTER_DIALOG=0;
+    public static final int KEY_DELETE_DIAOG=-1;
     protected RecyclerView chatRecView;
     protected Toolbar toolbar;
 

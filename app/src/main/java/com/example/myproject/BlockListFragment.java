@@ -1,5 +1,7 @@
 package com.example.myproject;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,16 +16,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 public class BlockListFragment extends ChatListFragment {
 
-    private DatabaseReference reference;
+    public static final int KEY_TO_UNBLOCK=0;
+
     private ValueEventListener listener;
+    private DatabaseReference reference;
 
     private void setChatsFromMsg(){
-        Log.e("ARGUMENTS SEEN","BY USERLIST");
-        FirebaseDatabase.getInstance().getReference("chats").addValueEventListener(new ValueEventListener() {
+        listener=reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<String> usersID = new ArrayList<>();
@@ -48,11 +52,10 @@ public class BlockListFragment extends ChatListFragment {
                                 }
                             }
                         }
-                        //}
                     }
                 }
                 //ref.removeEventListener(this);
-                if (usersID.size()!=0) setUsersFromChats(usersID);
+                setUsersFromChats(usersID);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -61,6 +64,11 @@ public class BlockListFragment extends ChatListFragment {
         });
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (listener!=null) reference.removeEventListener(listener);
+    }
 
     private void setUsersFromChats(ArrayList<String> usersWithMsgId) {
         ArrayList<User> usersList=new ArrayList<>();
@@ -77,9 +85,8 @@ public class BlockListFragment extends ChatListFragment {
                         }
                     }
                 }
-                ChatRecViewAdapter adapter = new ChatRecViewAdapter(usersList,getActivity(),getFragmentManager());
+                ChatRecViewAdapter adapter = new ChatRecViewAdapter(usersList,getActivity(),getFragmentManager(),ChatRecViewAdapter.BlockListHolder.VIEW_TYPE);
                 chatRecView.setAdapter(adapter);
-                //ref.removeEventListener(this);
             }
 
             @Override
@@ -89,15 +96,21 @@ public class BlockListFragment extends ChatListFragment {
         });
     }
 
-
-
-
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode== Activity.RESULT_OK){
+            if (requestCode==KEY_TO_UNBLOCK) {
+                //Log.e("BLOCKLIST ACCEPT","true");
+                reference=FirebaseDatabase.getInstance().getReference("chats");
+                setChatsFromMsg();
+            }
+        }
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        reference= FirebaseDatabase.getInstance().getReference("chats").child("");
+        reference=FirebaseDatabase.getInstance().getReference("chats");
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -115,4 +128,7 @@ public class BlockListFragment extends ChatListFragment {
     }
 
 
+
+    @Override
+    public void update() {}
 }

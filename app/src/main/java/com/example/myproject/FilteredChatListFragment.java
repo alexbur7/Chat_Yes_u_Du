@@ -68,7 +68,7 @@ public class FilteredChatListFragment extends ChatListFragment {
                     filterUsersByOnline(users, user);
                     filterUsersByPhoto(users,user);
                 }
-                ChatRecViewAdapter adapter = new ChatRecViewAdapter(users,getActivity(),getFragmentManager());
+                ChatRecViewAdapter adapter = new ChatRecViewAdapter(users,getActivity(),getFragmentManager(),ChatRecViewAdapter.ChatHolder.VIEW_TYPE);
                 chatRecView.setAdapter(adapter);
                 ref.removeEventListener(this);
             }
@@ -141,18 +141,21 @@ public class FilteredChatListFragment extends ChatListFragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode!= Activity.RESULT_OK) return;
         else{
-            if (requestCode==CODE_TO_FILTER_DIALOG){
-                getFilterInfoAndFilter(data);
+            switch (requestCode) {
+                case CODE_TO_FILTER_DIALOG:getFilterInfoAndFilter(data);
             }
         }
     }
 
 
-    public static Fragment newInstance(Intent data){
+    public static FilteredChatListFragment newInstance(Intent data){
         FilteredChatListFragment fragment=new FilteredChatListFragment();
         Bundle args=new Bundle();
         args.putParcelable(KEY_TO_INTENT_DATA,data);
         fragment.setArguments(args);
         return fragment;
     }
+
+    @Override
+    public void update() {}
 }

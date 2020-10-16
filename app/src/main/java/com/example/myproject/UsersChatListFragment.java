@@ -75,15 +75,20 @@ public class UsersChatListFragment extends ChatListFragment{
                         ArrayList<String> usersID = new ArrayList<>();
                         usersID.clear();
                         for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                            String genKey=snapshot1.getKey();
                             for (DataSnapshot snapshot2:snapshot1.getChildren()) {
                                 if (!snapshot2.getKey().equals("firstBlock") && !snapshot2.getKey().equals("secondBlock")) {
                                     for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
                                         ChatMessage msg = snapshot3.getValue(ChatMessage.class);
                                         Log.e("MESSAGE", String.valueOf(msg.getFromUserUUID()!=null));
-                                        if (msg.getFromUserUUID().equals(FirebaseAuth.getInstance().getUid())) {
+                                        if (msg.getFromUserUUID().equals(FirebaseAuth.getInstance().getUid()) &&!(
+                                                    msg.getFirstDelete().equals("delete") && genKey.startsWith(FirebaseAuth.getInstance().getUid()) ||
+                                                            (msg.getSecondDelete().equals("delete") && !genKey.startsWith(FirebaseAuth.getInstance().getUid())))) {
                                             usersID.add(msg.getToUserUUID());
                                         }
-                                        if (msg.getToUserUUID() != null && msg.getToUserUUID().equals(FirebaseAuth.getInstance().getUid())) {
+                                        if (msg.getToUserUUID() != null && msg.getToUserUUID().equals(FirebaseAuth.getInstance().getUid()) &&!(
+                                                msg.getFirstDelete().equals("delete") && genKey.startsWith(FirebaseAuth.getInstance().getUid()) ||
+                                                        (msg.getSecondDelete().equals("delete") && !genKey.startsWith(FirebaseAuth.getInstance().getUid())))) {
                                             usersID.add(msg.getFromUserUUID());
                                         }
                                     }
@@ -91,7 +96,8 @@ public class UsersChatListFragment extends ChatListFragment{
                             }
                         }
                         //ref.removeEventListener(this);
-                        if (usersID.size()!=0) setUsersFromChats(usersID);
+                       // if (usersID.size()!=0)
+                            setUsersFromChats(usersID);
                         }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
@@ -115,7 +121,7 @@ public class UsersChatListFragment extends ChatListFragment{
                         }
                     }
                 }
-                ChatRecViewAdapter adapter = new ChatRecViewAdapter(usersList,getActivity(),getFragmentManager());
+                ChatRecViewAdapter adapter = new ChatRecViewAdapter(usersList,getActivity(),getFragmentManager(),ChatRecViewAdapter.ChatHolder.VIEW_TYPE);
                 chatRecView.setAdapter(adapter);
                 //ref.removeEventListener(this);
             }
@@ -131,11 +137,16 @@ public class UsersChatListFragment extends ChatListFragment{
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode!= Activity.RESULT_OK) return;
         else{
-            if (requestCode==CODE_TO_FILTER_DIALOG){
-                activityCallBack.onUsersFilter(data);
-                //filterUsers(data);
+            switch (requestCode){
+                case CODE_TO_FILTER_DIALOG:activityCallBack.onUsersFilter(data);
+                //case KEY_DELETE_DIAOG:setChats();
             }
         }
+    }
+
+    @Override
+    public void update() {
+        setChats();
     }
 
     /*private void filterUsers(Intent data) {
