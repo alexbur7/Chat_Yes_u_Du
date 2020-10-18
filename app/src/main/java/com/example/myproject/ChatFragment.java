@@ -76,14 +76,10 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (User.getCurrentUser().getAdmin().equals("true")) {
-                    Intent intent = UserAccountActivity.newIntent(getContext(), receiverUuid);
-                    startActivity(intent);
-                }
+                Intent intent = UserAccountActivity.newIntent(getContext(), receiverUuid);
+                startActivity(intent);
             }
         });
-
-
         statusText = v.findViewById(R.id.online_text_in_chat);
         listView = v.findViewById(R.id.list_of_messages);
         fab= v.findViewById(R.id.fab);

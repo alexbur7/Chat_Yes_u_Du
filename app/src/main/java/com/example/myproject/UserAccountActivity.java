@@ -10,7 +10,7 @@ public class UserAccountActivity extends BaseActivity {
         if (User.getCurrentUser().getAdmin().equals("true")) {
             return AdminAccountFragment.newInstance(getIntent().getStringExtra(AdminAccountFragment.KEY_TO_RECEIVER_UUID));
         }
-        return null;
+        return UserAccountFragment.newInstance(getIntent().getStringExtra(AdminAccountFragment.KEY_TO_RECEIVER_UUID));
     }
 
     public static Intent newIntent(Context context, String toUserUUID){
