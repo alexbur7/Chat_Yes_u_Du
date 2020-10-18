@@ -109,7 +109,6 @@ public class MyAccountFragment extends AccountFragment {
             }
             break;
             case R.id.panel_admin:{
-                Toast.makeText(getContext(),"YOU admin",Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(getActivity(),AdminActivity.class);
                 startActivity(intent);
             }
@@ -142,7 +141,6 @@ public class MyAccountFragment extends AccountFragment {
                 setAllTextView(user);
                 setEditButton();
                 pd.dismiss();
-                //ref.removeEventListener(this);
             }
 
             @Override
@@ -209,12 +207,11 @@ public class MyAccountFragment extends AccountFragment {
                         deleteImage(User.getCurrentUser());
                         reference.updateChildren(map);
                         User.getCurrentUser().setPhoto_url(mUri);
-                        pd.dismiss();
                     }
                     else {
                         Toast.makeText(getContext(),R.string.failed_update_photo,Toast.LENGTH_SHORT).show();
-                        pd.dismiss();
                     }
+                    pd.dismiss();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

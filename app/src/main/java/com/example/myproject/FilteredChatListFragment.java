@@ -1,26 +1,19 @@
 package com.example.myproject;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class FilteredChatListFragment extends ChatListFragment {
@@ -30,7 +23,6 @@ public class FilteredChatListFragment extends ChatListFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.e("FRAGMENT CRATED","FILTERED");
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -40,7 +32,6 @@ public class FilteredChatListFragment extends ChatListFragment {
     }
 
     private void getFilterInfoAndFilter(Intent data) {
-        Log.e("ARGUMENTS ON FILTER",data.getStringExtra(FilterDialog.KEY_TO_SEX_FILTER));
         String nameFilter=data.getStringExtra(FilterDialog.KEY_TO_NAME_FILTER);
         String sexFilter=data.getStringExtra(FilterDialog.KEY_TO_SEX_FILTER);
         String ageFilter=data.getStringExtra(FilterDialog.KEY_TO_AGE_FILTER);

@@ -68,7 +68,6 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
                                             view.setText(message.getMessageText());
                                     }
                                 }
-
                             }
                         }
                     }
@@ -86,8 +85,6 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
         ArrayList<String> templist=new ArrayList<>();
         templist.add(User.getCurrentUser().getUuid());
         templist.add(receiverUuid);
-        Log.e("OUR KEY",User.getCurrentUser().getUuid());
-        Log.e("ANOTHER KEY",receiverUuid);
         Collections.sort(templist);
         String firstKey=templist.get(0);
         return firstKey;
@@ -123,16 +120,15 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
     }
 
 
-    ///////////////////////////////////////////////////
     public static class ChatHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         public static final int VIEW_TYPE=0;
         protected User user;
-        TextView userName;
-        TextView userDate;
-        TextView userText;
-        TextView userStatus;
-        ImageView photoImageView;
+        private TextView userName;
+        private TextView userDate;
+        private TextView userText;
+        private TextView userStatus;
+        private ImageView photoImageView;
         protected Context context;
         protected FragmentManager fragmentManager;
 
@@ -172,8 +168,6 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
 
         @Override
         public boolean onLongClick(View v) {
-            Log.e("LONG TOUCH", "TOOOOOUCh");
-            Log.e("LAST MSG EMPTY?", String.valueOf(userText.getText().toString().isEmpty()));
             DeleteChatDialog deleteChatDialog = new DeleteChatDialog(user.getUuid(),userText.getText().toString().isEmpty());
             Fragment fragment= fragmentManager.findFragmentById(R.id.fragment_container);
             deleteChatDialog.setTargetFragment(fragment,ChatListFragment.KEY_DELETE_DIAOG);
@@ -193,7 +187,6 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
         public boolean onLongClick(View v) {
             UnblockDialog dialog=new UnblockDialog(user.getUuid());
             Fragment fragment= fragmentManager.findFragmentById(R.id.fragment_container);
-            Log.e("FRAGMENT WE TARGET", String.valueOf(fragment instanceof BlockListFragment));
             dialog.setTargetFragment(fragment,BlockListFragment.KEY_TO_UNBLOCK);
             dialog.show(fragmentManager,null);
             return true;

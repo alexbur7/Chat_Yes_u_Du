@@ -66,8 +66,6 @@ public class UnblockDialog extends DialogFragment {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot snapshot1:snapshot.getChildren()){
                         if (snapshot1.getKey().equals("firstBlock") && User.getCurrentUser().getUuid().equals(firstKey)){
-                            //HashMap<String,Object> map =new HashMap<>();
-                            //map.put("firstBlock","block");
                             snapshot1.getRef().setValue("no block").addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -75,12 +73,8 @@ public class UnblockDialog extends DialogFragment {
                                     else sendResult(Activity.RESULT_CANCELED);
                                 }
                             });
-                            //snapshot1.getRef().updateChildren(map);
-                            Log.e("CHAT UNBLOCK","DONE");
                         }
                         else if (snapshot1.getKey().equals("secondBlock") && User.getCurrentUser().getUuid().equals(secondKey)){
-                            //HashMap<String,Object> map =new HashMap<>();
-                            //map.put("firstBlock","block");
                             snapshot1.getRef().setValue("no block").addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -88,19 +82,14 @@ public class UnblockDialog extends DialogFragment {
                                     else sendResult(Activity.RESULT_CANCELED);
                                 }
                             });
-                            //snapshot1.getRef().updateChildren(map);
-                            Log.e("CHAT UNBLOCK","DONE");
                         }
                     }
 
                 }
 
                 @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
+                public void onCancelled(@NonNull DatabaseError error) {}
             });
-
     }
 
     @Override

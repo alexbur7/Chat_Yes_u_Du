@@ -1,7 +1,5 @@
 package com.example.myproject;
 
-import android.util.Log;
-
 public class User {
     private String name;
     private String surname;

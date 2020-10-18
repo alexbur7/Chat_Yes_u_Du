@@ -78,5 +78,4 @@
         android:padding="8dp"
         android:background="?attr/colorAccent"
         android:text="@string/reg_button_text"/>
-
 </LinearLayout>

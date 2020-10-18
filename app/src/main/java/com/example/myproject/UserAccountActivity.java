@@ -2,10 +2,7 @@ package com.example.myproject;
 
 import android.content.Context;
 import android.content.Intent;
-
 import androidx.fragment.app.Fragment;
-
-
 
 public class UserAccountActivity extends BaseActivity {
     @Override

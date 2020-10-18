@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -15,15 +13,12 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
 import java.util.HashMap;
 
 public class AdminAccountFragment extends AccountFragment {
@@ -84,9 +79,7 @@ public class AdminAccountFragment extends AccountFragment {
     }
 
     @Override
-    void setPhotoImageView() {
-
-    }
+    void setPhotoImageView() {}
 
     @Override
     boolean clickToolbarItems(MenuItem item) {
@@ -119,7 +112,6 @@ public class AdminAccountFragment extends AccountFragment {
                 setAllTextView(user);
                 setEditButton();
                 pd.dismiss();
-                //ref.removeEventListener(this);
             }
 
             @Override

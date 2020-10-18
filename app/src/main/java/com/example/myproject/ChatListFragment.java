@@ -24,8 +24,6 @@ public abstract class ChatListFragment extends Fragment implements Updatable {
         toolbar.inflateMenu(R.menu.filter_users_menu);
     }
 
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

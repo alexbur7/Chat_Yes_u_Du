@@ -78,5 +78,4 @@ public abstract class AccountFragment extends Fragment {
         if (user.getSurname().equals("")) nameTextView.setText(user.getName());
         else nameTextView.setText(user.getName() +" "+user.getSurname());
     }
-
 }

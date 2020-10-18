@@ -73,6 +73,5 @@ public class FilterDialog extends DialogFragment {
         intent.putExtra(KEY_TO_PHOTO_FILTER,photo);
         getTargetFragment().onActivityResult(getTargetRequestCode(),result,intent);
     }
-
 }
 

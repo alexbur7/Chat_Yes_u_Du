@@ -45,6 +45,5 @@
         android:layout_margin="8dp"
         android:text="@string/reg_button_text"/>
 
-
 </LinearLayout>
 </LinearLayout>

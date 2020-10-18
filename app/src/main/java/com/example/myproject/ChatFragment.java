@@ -108,42 +108,30 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                 for (DataSnapshot snapshot1:snapshot.getChildren()){
 
                     if (snapshot1.getKey().equals("firstBlock") && User.getCurrentUser().getUuid().equals(secondKey) && snapshot1.getValue().equals("block")){
-                        input.setText("Этот чат был заблокирован");
+                        input.setText(getResources().getString(R.string.blocked_chat));
                         input.setEnabled(false);
                         fab.setEnabled(false);
                         send_image.setEnabled(false);
-                        //reference.removeEventListener(blockListener);
                     }
 
                    else if (snapshot1.getKey().equals("secondBlock") && User.getCurrentUser().getUuid().equals(firstKey) && snapshot1.getValue().equals("block")){
-                        input.setText("Этот чат был заблокирован");
+                        input.setText(getResources().getString(R.string.blocked_chat));
                         input.setEnabled(false);
                         fab.setEnabled(false);
                         send_image.setEnabled(false);
                     }
-
-                   /*else {
-                        input.setEnabled(true);
-                        fab.setEnabled(true);
-                        send_image.setEnabled(true);
-                    }*/
-
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
-
         if (User.getCurrentUser().getAdmin_block().equals("block")){
-            input.setText("Вы заблокированы администратором");
+            input.setText(getResources().getString(R.string.blocked_by_admin));
             input.setEnabled(false);
             fab.setEnabled(false);
             send_image.setEnabled(false);
         }
-
         setStatus();
         displayChatMessages();
         return v;
@@ -278,7 +266,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()){
-                        Log.e("SNAPSHOT CONTAIN","null");
                         map.put("firstBlock","no block");
                         map.put("secondBlock","no block");
                         reference.updateChildren(map);
@@ -287,16 +274,14 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                 }
 
                 @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
+                public void onCancelled(@NonNull DatabaseError error) {}
             });
 
             reference.child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
-                            User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,"no seen",
-                            "no seen",(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete"));
+                            User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,getResources().getString(R.string.not_seen_text),
+                            getResources().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete"));
         }
         else if (image_rui!=null){
             reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
@@ -305,7 +290,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()){
-                        Log.e("SNAPSHOT CONTAIN","null");
                         map.put("firstBlock","no block");
                         map.put("secondBlock","no block");
                         reference.updateChildren(map);
@@ -322,8 +306,8 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
             reference.child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
-                            User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,"no seen",
-                            "no seen",(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete"));
+                            User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,getResources().getString(R.string.not_seen_text),
+                            getResources().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete"));
         }
         image_rui=null;
         input.setText("");
@@ -356,12 +340,11 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                         Uri downloadUri = task.getResult();
                         image_rui = downloadUri;
                         Toast.makeText(getContext(), R.string.image_attach,Toast.LENGTH_SHORT).show();
-                        pd.dismiss();
                     }
                     else {
                         Toast.makeText(getContext(),R.string.failed_update_photo,Toast.LENGTH_SHORT).show();
-                        pd.dismiss();
                     }
+                    pd.dismiss();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -414,7 +397,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                 User user = snapshot.getValue(User.class);
                 try {
                     if (user.getStatus().equals("offline"))
-                    statusText.setText(user.getStatus()+"  user was online in "+DateFormat.format("dd-MM-yyyy (HH:mm)", user.getOnline_time()));
+                    statusText.setText(user.getStatus()+": "+DateFormat.format("dd-MM-yyyy (HH:mm)", user.getOnline_time()));
                     else statusText.setText(user.getStatus());
                     username.setText(user.getName());
                 }catch (Exception e){
@@ -445,7 +428,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
     }
 
     private void seenMessage(){
-        //reference=FirebaseDatabase.getInstance().getReference("message").child(generateKey());
         seenListener=reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -456,17 +438,12 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                                 ChatMessage message = snapshot3.getValue(ChatMessage.class);
                                 if ((message.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && message.getToUserUUID().equals(getArguments().getString(KEY_TO_RECEIVER_UUID))) ||
                                         (message.getFromUserUUID().equals(getArguments().getString(KEY_TO_RECEIVER_UUID)) && message.getToUserUUID().equals(User.getCurrentUser().getUuid()))) {
-
-                                    //Если из нашей переписки
-                                    Log.e("MESSAGE TO ME", String.valueOf((message.getToUserUUID().equals(User.getCurrentUser().getUuid()))));
-
                                     HashMap<String, Object> hashMap = new HashMap<>();
                                     if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(firstKey)))
-                                        hashMap.put("firstKey", "seen");
+                                        hashMap.put("firstKey", getResources().getString(R.string.seen_text));
                                     else if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(secondKey)))
-                                        hashMap.put("secondKey", "seen");
+                                        hashMap.put("secondKey", getResources().getString(R.string.seen_text));
                                     snapshot3.getRef().updateChildren(hashMap);
-
                                 }
                             }
                         }

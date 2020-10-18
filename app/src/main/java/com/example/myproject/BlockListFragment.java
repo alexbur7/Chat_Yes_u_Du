@@ -41,7 +41,6 @@ public class BlockListFragment extends ChatListFragment {
                                 if (!snapshot3.getKey().equals("firstBlock") && !snapshot3.getKey().equals("secondBlock")) {
                                     for (DataSnapshot snapshot4 : snapshot3.getChildren()) {
                                         ChatMessage msg = snapshot4.getValue(ChatMessage.class);
-                                        Log.e("MESSAGE", String.valueOf(msg.getFromUserUUID() != null));
                                         if (msg.getFromUserUUID().equals(FirebaseAuth.getInstance().getUid())) {
                                             usersID.add(msg.getToUserUUID());
                                         }
@@ -54,7 +53,6 @@ public class BlockListFragment extends ChatListFragment {
                         }
                     }
                 }
-                //ref.removeEventListener(this);
                 setUsersFromChats(usersID);
             }
             @Override
@@ -100,7 +98,6 @@ public class BlockListFragment extends ChatListFragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode== Activity.RESULT_OK){
             if (requestCode==KEY_TO_UNBLOCK) {
-                //Log.e("BLOCKLIST ACCEPT","true");
                 reference=FirebaseDatabase.getInstance().getReference("chats");
                 setChatsFromMsg();
             }
@@ -126,8 +123,6 @@ public class BlockListFragment extends ChatListFragment {
     protected boolean clickToolbarItems(MenuItem item) {
         return false;
     }
-
-
 
     @Override
     public void update() {}

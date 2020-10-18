@@ -5,14 +5,12 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -107,35 +105,27 @@ public class DeleteChatDialog extends DialogFragment {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot snapshot1:snapshot.getChildren()){
                         if (snapshot1.getKey().equals("firstBlock") && User.getCurrentUser().getUuid().equals(firstKey)){
-                            //HashMap<String,Object> map =new HashMap<>();
-                            //map.put("firstBlock","block");
                             snapshot1.getRef().setValue("block").addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     sendResult(Activity.RESULT_OK);
                                 }
                             });
-                            //snapshot1.getRef().updateChildren(map);
                         }
                         else if (snapshot1.getKey().equals("secondBlock") && User.getCurrentUser().getUuid().equals(secondKey)){
-                            //HashMap<String,Object> map =new HashMap<>();
-                            //map.put("firstBlock","block");
                             snapshot1.getRef().setValue("block").addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     sendResult(Activity.RESULT_OK);
                                 }
                             });
-                            //snapshot1.getRef().updateChildren(map);
                         }
                     }
 
                 }
 
                 @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
+                public void onCancelled(@NonNull DatabaseError error) {}
             });
         }
         sendResult(Activity.RESULT_CANCELED);
@@ -162,5 +152,4 @@ public class DeleteChatDialog extends DialogFragment {
         secondKey =templist.get(1);
         return templist.get(0)+templist.get(1);
     }
-
 }

@@ -15,8 +15,6 @@ import java.util.HashMap;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    //protected Toolbar toolbar;
-
     public abstract Fragment getFragment();
 
     @LayoutRes
@@ -28,8 +26,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutID());
-        //toolbar=findViewById(R.id.toolbarFr);
-        //setSupportActionBar(toolbar);
         Fragment fragment;
         if (getSupportFragmentManager().findFragmentById(R.id.fragment_container)==null){
             fragment=getFragment();
@@ -50,5 +46,4 @@ public abstract class BaseActivity extends AppCompatActivity {
             FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).updateChildren(hashMap);
         }
     }
-
 }

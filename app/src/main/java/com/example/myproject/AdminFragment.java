@@ -56,7 +56,6 @@ public class AdminFragment extends ChatListFragment{
     }
 
     private void getFilterInfoAndFilter(Intent data) {
-        Log.e("ARGUMENTS ON FILTER",data.getStringExtra(FilterDialog.KEY_TO_SEX_FILTER));
         String nameFilter=data.getStringExtra(FilterDialog.KEY_TO_NAME_FILTER);
         String sexFilter=data.getStringExtra(FilterDialog.KEY_TO_SEX_FILTER);
         String ageFilter=data.getStringExtra(FilterDialog.KEY_TO_AGE_FILTER);
@@ -90,8 +89,6 @@ public class AdminFragment extends ChatListFragment{
             }
 
             private void filterUsersByPhoto(ArrayList<User> users, User user){
-                System.out.println(user.getPhoto_url());
-                System.out.println(photoFilter);
                 if (!photoFilter.isEmpty()){
                     if (user.getPhoto_url().equals("default")){
                         users.remove(user);
@@ -158,8 +155,8 @@ public class AdminFragment extends ChatListFragment{
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode!= Activity.RESULT_OK) return;
         else{
-            switch (requestCode) {
-                case CODE_TO_FILTER_DIALOG:getFilterInfoAndFilter(data);
+            if (requestCode == CODE_TO_FILTER_DIALOG) {
+                getFilterInfoAndFilter(data);
             }
         }
     }
