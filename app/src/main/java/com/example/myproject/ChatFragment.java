@@ -76,7 +76,10 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (User.getCurrentUser().getAdmin().equals("true")) {
+                    Intent intent = UserAccountActivity.newIntent(getContext(), receiverUuid);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -89,7 +92,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         input = v.findViewById(R.id.input);
         fab.setOnClickListener(this);
         reference = FirebaseDatabase.getInstance().getReference("chats");
-        //reference.getDatabase().goOnline();
         storageReference = FirebaseStorage.getInstance().getReference("ChatImage");
         username=v.findViewById(R.id.username_text);
         circleImageView = v.findViewById(R.id.circle_image_chat);
@@ -135,12 +137,15 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
             }
         });
 
+        if (User.getCurrentUser().getAdmin_block().equals("block")){
+            input.setText("Вы заблокированы администратором");
+            input.setEnabled(false);
+            fab.setEnabled(false);
+            send_image.setEnabled(false);
+        }
 
         setStatus();
         displayChatMessages();
-
-
-
         return v;
     }
 
@@ -438,31 +443,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
     public void onDestroy() {
         super.onDestroy();
     }
-
-     /*for (DataSnapshot snapshot1 : snapshot.getChildren())
-            for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-        ChatMessage message=snapshot2.getValue(ChatMessage.class);
-        Log.e("MESSAGE FROM ME", String.valueOf((message.getFromUserUUID().equals(User.getCurrentUser().getUuid()))));
-        if (User.getCurrentUser().getUuid().equals(firstKey)) {
-            HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("secondKey", "seen");
-            snapshot1.getRef().updateChildren(hashMap);
-        } else {
-            HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("firstKey", "seen");
-            snapshot1.getRef().updateChildren(hashMap);
-        }
-    }*/
-
-     /* if (User.getCurrentUser().getUuid().equals(firstKey)) {
-                            HashMap<String, Object> hashMap = new HashMap<>();
-                            hashMap.put("secondKey", "seen");
-                            snapshot1.getRef().updateChildren(hashMap);
-                        } else {
-                            HashMap<String, Object> hashMap = new HashMap<>();
-                            hashMap.put("firstKey", "seen");
-                            snapshot1.getRef().updateChildren(hashMap);
-                        }*/
 
     private void seenMessage(){
         //reference=FirebaseDatabase.getInstance().getReference("message").child(generateKey());

@@ -77,4 +77,6 @@
     <string name="remove_account_menu_item">Удалить аккаунт</string>
     <string name="block_chat">Вы хотите заблокировать этого пользователя?</string>
     <string name="unblock_msg_text">Вы хотите разблокировать данного пользователя?</string>
+    <string name="block_account">Block account</string>
+    <string name="unblock_account">Unblock account</string>
 </resources>

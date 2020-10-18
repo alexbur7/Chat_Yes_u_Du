@@ -70,6 +70,8 @@
     <string name="unblock_msg_text">Do you want to unblock user?</string>
     <string name="panel_admin">Administrator panel</string>
     <string name="you_dont_verification">You dont verification</string>
+    <string name="block_account">Block account</string>
+    <string name="unblock_account">Unblock account</string>
     <string-array name="sex_for_spinner">
         <item>Male</item>
         <item>Female</item>

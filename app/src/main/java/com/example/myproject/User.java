@@ -14,12 +14,13 @@ public class User {
     private String age;
     private String status;
     private String admin;
+    private String admin_block;
 
     private long online_time;
     private static User currentUser;
     public User(){}
     public User(String uuid,String name, String surname, String country, String city,
-                String photo_url, String region,String sex,String age, String status, String admin, long online_time){
+                String photo_url, String region,String sex,String age, String status, String admin, long online_time , String admin_block){
         this.name = name;
         this.surname = surname;
         this.country = country;
@@ -32,6 +33,7 @@ public class User {
         this.status = status;
         this.admin = admin;
         this.online_time = online_time;
+        this.admin_block = admin_block;
     }
 
     public static User getCurrentUser() {
@@ -140,5 +142,13 @@ public class User {
 
     public void setOnline_time(long online_time) {
         this.online_time = online_time;
+    }
+
+    public String getAdmin_block() {
+        return admin_block;
+    }
+
+    public void setAdmin_block(String admin_block) {
+        this.admin_block = admin_block;
     }
 }

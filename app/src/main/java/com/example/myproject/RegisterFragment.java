@@ -109,6 +109,7 @@ public class RegisterFragment extends Fragment {
                     ref.child("status").setValue("offline");
                     ref.child("admin").setValue("false");
                     ref.child("online_time").setValue((new Date()).getTime());
+                    ref.child("admin_block").setValue("unblock");
                     //auth.getCurrentUser().sendEmailVerification();
                     auth.signOut();
                     callbacks.returnLoginFragment(email,password);

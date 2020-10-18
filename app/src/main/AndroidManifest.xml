@@ -16,10 +16,12 @@
         <activity android:name=".MyAccountActivity" />
         <activity android:name=".BlockListActivity" />
         <activity android:name=".AdminActivity"
-            android:parentActivityName=".MyAccountActivity"></activity>
+            android:parentActivityName=".MyAccountActivity"/>
+        <activity android:name=".UserAccountActivity"
+            android:parentActivityName=".ChatActivity"/>
         <activity
             android:name=".ChatActivity"
-            android:parentActivityName=".MyAccountActivity"></activity>
+            android:parentActivityName=".MyAccountActivity"/>
         <activity android:name=".LogActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

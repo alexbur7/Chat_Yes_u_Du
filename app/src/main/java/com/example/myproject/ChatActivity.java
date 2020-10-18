@@ -62,15 +62,4 @@ public class ChatActivity extends BaseActivity {
         super.onResume();
         status("online");
     }
-
-    private void status(String status) {
-        if (User.getCurrentUser() != null) {
-            HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("status", status);
-            if (status.equals("offline")){
-                hashMap.put("online_time",(new Date()).getTime());
-            }
-            FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).updateChildren(hashMap);
-        }
-    }
 }
