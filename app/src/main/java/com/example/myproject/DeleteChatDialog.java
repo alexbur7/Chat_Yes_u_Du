@@ -29,13 +29,15 @@ public class DeleteChatDialog extends DialogFragment {
     private RadioButton blockBox;
     private DatabaseReference reference;
     private String receiverUuid;
+    private boolean empty;
     private ValueEventListener deleteMessageListener;
     private ValueEventListener blockChatListener;
     private String firstKey;
     private String secondKey;
 
-    public DeleteChatDialog(String receiverUuid){
+    public DeleteChatDialog(String receiverUuid, boolean empty){
         this.receiverUuid = receiverUuid;
+        this.empty=empty;
     }
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class DeleteChatDialog extends DialogFragment {
         reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
         deleteBox = view.findViewById(R.id.check_delete_box);
         blockBox = view.findViewById(R.id.check_blocklist_box);
+
+        if (empty) blockBox.setEnabled(false);
 
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
         return builder

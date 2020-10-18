@@ -73,6 +73,14 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         receiverUuid=getArguments().getString(KEY_TO_RECEIVER_UUID);
         receiverPhotoUrl = getArguments().getString(KEY_TO_RECEIVER_PHOTO_URL);
         toolbar=v.findViewById(R.id.toolbarFr);
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
         statusText = v.findViewById(R.id.online_text_in_chat);
         listView = v.findViewById(R.id.list_of_messages);
         fab= v.findViewById(R.id.fab);

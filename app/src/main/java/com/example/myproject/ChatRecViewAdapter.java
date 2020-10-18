@@ -86,6 +86,8 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
         ArrayList<String> templist=new ArrayList<>();
         templist.add(User.getCurrentUser().getUuid());
         templist.add(receiverUuid);
+        Log.e("OUR KEY",User.getCurrentUser().getUuid());
+        Log.e("ANOTHER KEY",receiverUuid);
         Collections.sort(templist);
         String firstKey=templist.get(0);
         return firstKey;
@@ -171,8 +173,9 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
         @Override
         public boolean onLongClick(View v) {
             Log.e("LONG TOUCH", "TOOOOOUCh");
-            DeleteChatDialog deleteChatDialog = new DeleteChatDialog(user.getUuid());
-            Fragment fragment=fragmentManager.findFragmentById(R.id.fragment_container);
+            Log.e("LAST MSG EMPTY?", String.valueOf(userText.getText().toString().isEmpty()));
+            DeleteChatDialog deleteChatDialog = new DeleteChatDialog(user.getUuid(),userText.getText().toString().isEmpty());
+            Fragment fragment= fragmentManager.findFragmentById(R.id.fragment_container);
             deleteChatDialog.setTargetFragment(fragment,ChatListFragment.KEY_DELETE_DIAOG);
             deleteChatDialog.show(fragmentManager,null);
             return true;
@@ -196,5 +199,4 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
             return true;
         }
     }
-
 }

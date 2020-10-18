@@ -45,7 +45,7 @@ public class ChatAndAccPager extends Fragment {
             @Override
             public Fragment getItem(int position) {
                 if (position == 0) {
-                    return new AccountFragment();
+                    return new MyAccountFragment();
                 } else {
                     if (activity_code==MyAccountActivity.CODE_NO_FILTER){
                         TYPE_OF_LIST="N0_F";
@@ -61,7 +61,7 @@ public class ChatAndAccPager extends Fragment {
 
             @Override
             public int getItemPosition(@NonNull Object object) {
-                if (object instanceof AccountFragment){
+                if (object instanceof MyAccountFragment){
                     return POSITION_UNCHANGED;
                 }
                 return POSITION_NONE;

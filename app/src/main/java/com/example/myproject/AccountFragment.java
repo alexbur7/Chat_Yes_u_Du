@@ -1,14 +1,12 @@
 package com.example.myproject;
+
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,18 +15,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,6 +43,7 @@ import java.util.HashMap;
 import static android.app.Activity.RESULT_OK;
 
 public class AccountFragment extends Fragment {
+
     private ImageView photoImageView;
     private TextView countryTextView;
     private TextView regionTextView;
@@ -52,11 +51,11 @@ public class AccountFragment extends Fragment {
     private TextView nameTextView;
     private TextView ageTextView;
     private TextView sexTextView;
-    private Button editButton;
-    private Toolbar toolbar;
+    protected Button editButton;
+    protected Toolbar toolbar;
 
     private StorageReference storageReference;
-    private static  final  int IMAGE_REQUEST=1;
+    protected static  final  int IMAGE_REQUEST=1;
     private Uri imageUri;
     private StorageTask uploadTask;
 
@@ -69,13 +68,7 @@ public class AccountFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.account_fragment,container,false);
         editButton = v.findViewById(R.id.edit_button);
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditDialog editDialog = new EditDialog();
-                editDialog.show(getFragmentManager(),null);
-            }
-        });
+        setEditButton();
         photoImageView = v.findViewById(R.id.photo_view);
         countryTextView = v.findViewById(R.id.country_textView);
         regionTextView = v.findViewById(R.id.region_textView);
@@ -84,15 +77,15 @@ public class AccountFragment extends Fragment {
         ageTextView = v.findViewById(R.id.age_textView);
         sexTextView = v.findViewById(R.id.sex_textView);
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
-        photoImageView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                openImage();
-            }
-        });
-        setCurrentUser();
+        setImageView();
+        //setCurrentUser();
 
         toolbar=v.findViewById(R.id.toolbarFr);
+        setToolbar();
+        return v;
+    }
+
+    private void setToolbar() {
         toolbar.inflateMenu(R.menu.account_menu);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -100,10 +93,28 @@ public class AccountFragment extends Fragment {
                 return clickToolbarItems(item);
             }
         });
-        return v;
     }
 
-    private boolean clickToolbarItems(MenuItem item){
+    private void setImageView() {
+        photoImageView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                openImage();
+            }
+        });
+    }
+
+    protected void setEditButton() {
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditDialog editDialog = new EditDialog();
+                editDialog.show(getFragmentManager(),null);
+            }
+        });
+    }
+
+    protected boolean clickToolbarItems(MenuItem item){
         switch (item.getItemId()) {
             case R.id.logout: {
                 status("offline");
@@ -131,6 +142,8 @@ public class AccountFragment extends Fragment {
             break;
             case R.id.panel_admin:{
                 Toast.makeText(getContext(),"YOU admin",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(getActivity(),AdminActivity.class);
+                startActivity(intent);
             }
             break;
         }
@@ -259,7 +272,7 @@ public class AccountFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK
-        && data!=null && data.getData() !=null
+                && data!=null && data.getData() !=null
         ){
             imageUri = data.getData();
             uploadImage();
@@ -268,8 +281,8 @@ public class AccountFragment extends Fragment {
 
 
     private void status(String status){
-            HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("status", status);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
         if (status.equals("offline")){
             hashMap.put("online_time",(new Date()).getTime());
         }
