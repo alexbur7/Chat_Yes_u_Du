@@ -57,17 +57,19 @@
     <string name="temp_description">Temp descr</string>
     <string name="sending_image">Sending image...</string>
     <string name="image_attach">Image attach</string>
-    <string name="delete_chat">Do you want to delete chat</string>
+    <string name="delete_chat">Do you want to delete chat?</string>
     <string name="blocklist">BlockList</string>
-    <string name="saved_image">Image saved</string>
+    <string name="saved_image">Photo saved</string>
     <string name="dialog_title_edit">Edit account</string>
     <string name="dialog_title_delete">Delete chat</string>
     <string name="delete_image">Delete photo</string>
     <string name="delete_users">User deleted this account</string>
-    <string name="block_chat">do you want to block chat?</string>
+    <string name="block_chat">Do you want to block user?</string>
     <string name="have_not_photo">You have not photo</string>
     <string name="photo_delete">Photo deleted</string>
-    <string name="unblock_msg_text">do you want to unblock user?</string>
+    <string name="unblock_msg_text">Do you want to unblock user?</string>
+    <string name="panel_admin">Administrator panel</string>
+    <string name="you_dont_verification">You dont verification</string>
     <string-array name="sex_for_spinner">
         <item>Male</item>
         <item>Female</item>

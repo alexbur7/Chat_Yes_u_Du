@@ -400,7 +400,9 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 try {
-                    statusText.setText(user.getStatus());
+                    if (user.getStatus().equals("offline"))
+                    statusText.setText(user.getStatus()+"  user was online in "+DateFormat.format("dd-MM-yyyy (HH:mm)", user.getOnline_time()));
+                    else statusText.setText(user.getStatus());
                     username.setText(user.getName());
                 }catch (Exception e){
                     statusText.setText(getResources().getString(R.string.delete_users));

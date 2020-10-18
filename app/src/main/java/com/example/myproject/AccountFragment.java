@@ -38,6 +38,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.Date;
 import java.util.HashMap;
 
 import static android.app.Activity.RESULT_OK;
@@ -60,6 +62,7 @@ public class AccountFragment extends Fragment {
 
     private DatabaseReference reference;
     private ValueEventListener imageEventListener;
+
 
     @Nullable
     @Override
@@ -87,6 +90,7 @@ public class AccountFragment extends Fragment {
                 openImage();
             }
         });
+        setCurrentUser();
 
         toolbar=v.findViewById(R.id.toolbarFr);
         toolbar.inflateMenu(R.menu.account_menu);
@@ -124,6 +128,11 @@ public class AccountFragment extends Fragment {
                 Intent intent=new Intent(getActivity(),BlockListActivity.class);
                 startActivity(intent);
             }
+            break;
+            case R.id.panel_admin:{
+                Toast.makeText(getContext(),"YOU admin",Toast.LENGTH_SHORT).show();
+            }
+            break;
         }
         return true;
     }
@@ -131,10 +140,9 @@ public class AccountFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setCurrentUser();
-        Log.e("ACCOUNT FRAGMENT", String.valueOf(User.getCurrentUser()!=null));
         status("online");
     }
+
 
     private void openImage() {
         Intent intent = new Intent();
@@ -161,10 +169,14 @@ public class AccountFragment extends Fragment {
         String uuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         reference=FirebaseDatabase.getInstance().getReference("users").child(uuid);
         imageEventListener=reference.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 User.setCurrentUser(user, uuid);
+                if (user.getAdmin().equals("true")){
+                    toolbar.getMenu().getItem(3).setVisible(true);
+                }
                 if(user.getPhoto_url().equals("default")){
                     photoImageView.setImageResource(R.drawable.unnamed);
                 }
@@ -212,7 +224,6 @@ public class AccountFragment extends Fragment {
                         reference = FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid());
                         HashMap<String,Object> map = new HashMap<>();
                         map.put("photo_url",mUri);
-                        //TODO: удалить старую картинку
                         deleteImage();
                         reference.updateChildren(map);
                         User.getCurrentUser().setPhoto_url(mUri);
@@ -259,7 +270,10 @@ public class AccountFragment extends Fragment {
     private void status(String status){
             HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("status", status);
-            FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().getUid()).updateChildren(hashMap);
+        if (status.equals("offline")){
+            hashMap.put("online_time",(new Date()).getTime());
+        }
+        FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().getUid()).updateChildren(hashMap);
     }
 
     @Override

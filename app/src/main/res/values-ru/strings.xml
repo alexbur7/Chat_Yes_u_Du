@@ -44,26 +44,28 @@
     <string name="label_additional">Добавить фильтры</string>
     <string name="uploading">загрузка</string>
     <string name="back_menu">Back</string>
-    <string name="seen_text">seen</string>
-    <string name="not_seen_text">no seen</string>
+    <string name="seen_text">прочитано</string>
+    <string name="not_seen_text">не прочитано</string>
     <string-array name="sex_for_spinner">
         <item>Мужчина</item>
         <item>Женщина</item>
     </string-array>
     <string name="label_age">Возраст</string>
     <string name="city_edit_text_hint">Город</string>
-    <string name="choose_image_from">Choose image from</string>
+    <string name="choose_image_from">Выберете картинку из</string>
     <string name="camera_storage_permission">Camera and Storage both permission are necessary</string>
-    <string name="sending_image">Sending image...</string>
-    <string name="image_attach">Image attach</string>
-    <string name="delete_chat">Do you want to delete chat</string>
-    <string name="saved_image">Image saved</string>
-    <string name="dialog_title_edit">Edit account</string>
-    <string name="dialog_title_delete">Delete chat</string>
-    <string name="delete_image">Delete photo</string>
-    <string name="delete_users">User deleted this account</string>
-    <string name="have_not_photo">You have not photo</string>
-    <string name="photo_delete">Photo deleted</string>
+    <string name="sending_image">Отправка картинки...</string>
+    <string name="image_attach">Картинка прикреплена</string>
+    <string name="delete_chat">Вы хотите удалить чат?</string>
+    <string name="saved_image">Фото сохранено</string>
+    <string name="dialog_title_edit">Изменить аккаунт</string>
+    <string name="dialog_title_delete">Удалить чат</string>
+    <string name="delete_image">Удалить фото</string>
+    <string name="delete_users">Пользователь удалил этот аккаунт</string>
+    <string name="have_not_photo">У вас нет фото</string>
+    <string name="photo_delete">Фото удалено</string>
+    <string name="panel_admin">Панель администратора</string>
+    <string name="you_dont_verification">Вы не подтвердили почту, вам на почту выслано повторное письмо с подтверждением, если вы вдруг не заметили первое письмо</string>
     <string-array name="age_for_spinner">
         <item>до 18</item>
         <item>18-30</item>
@@ -72,4 +74,7 @@
         <item>60+</item>
         <item>нет</item>
     </string-array>
+    <string name="remove_account_menu_item">Удалить аккаунт</string>
+    <string name="block_chat">Вы хотите заблокировать этого пользователя?</string>
+    <string name="unblock_msg_text">Вы хотите разблокировать данного пользователя?</string>
 </resources>

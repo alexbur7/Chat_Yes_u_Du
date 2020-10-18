@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Date;
 import java.util.HashMap;
 
 public class MyAccountActivity extends BaseActivity implements UsersChatListFragment.Callback{
@@ -36,6 +37,9 @@ public class MyAccountActivity extends BaseActivity implements UsersChatListFrag
         if (User.getCurrentUser() != null) {
             HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("status", status);
+            if (status.equals("offline")){
+                hashMap.put("online_time",(new Date()).getTime());
+            }
             FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).updateChildren(hashMap);
         }
     }

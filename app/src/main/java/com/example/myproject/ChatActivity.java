@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 
 import static com.example.myproject.ChatFragment.KEY_TO_RECEIVER_PHOTO_URL;
@@ -66,6 +67,9 @@ public class ChatActivity extends BaseActivity {
         if (User.getCurrentUser() != null) {
             HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("status", status);
+            if (status.equals("offline")){
+                hashMap.put("online_time",(new Date()).getTime());
+            }
             FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).updateChildren(hashMap);
         }
     }

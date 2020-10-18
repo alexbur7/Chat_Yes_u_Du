@@ -102,6 +102,11 @@ public class LoginFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                /*if (!FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()){
+                                    Toast.makeText(getActivity(),getResources().getString(R.string.you_dont_verification),Toast.LENGTH_SHORT).show();
+                                    FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification();
+                                    return;
+                                }*/
                                 setCurrentUser();
                                 Intent intent = new Intent(getActivity(), MyAccountActivity.class);
                                 startActivity(intent);
