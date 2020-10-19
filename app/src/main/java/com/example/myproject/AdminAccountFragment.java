@@ -110,6 +110,7 @@ public class AdminAccountFragment extends AccountFragment {
                     if (isAdded()) Glide.with(getContext()).load(user.getPhoto_url()).into(photoImageView);
                 }
                 setAllTextView(user);
+                setUpGallery(user);
                 setEditButton();
                 pd.dismiss();
             }

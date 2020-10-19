@@ -6,6 +6,9 @@ public class User {
     private String country;
     private String city;
     private String photo_url;
+    private String photo_url1;
+    private String photo_url2;
+    private String photo_url3;
     private String uuid;
     private String region;
     private String sex;
@@ -19,7 +22,9 @@ public class User {
     private static User currentUser;
     public User(){}
     public User(String uuid,String name, String surname, String country, String city,
-                String photo_url, String region,String sex,String age, String status, String admin, long online_time , String admin_block,String about){
+                String photo_url, String region,String sex,String age, String status,
+                String admin, long online_time , String admin_block,String about,
+                String photo_url1, String photo_url2, String photo_url3){
         this.name = name;
         this.surname = surname;
         this.country = country;
@@ -35,6 +40,9 @@ public class User {
         this.admin_block = admin_block;
         //changed
         this.about=about;
+        this.photo_url1 = photo_url1;
+        this.photo_url2 = photo_url2;
+        this.photo_url3 = photo_url3;
     }
 
     public static User getCurrentUser() {
@@ -159,5 +167,29 @@ public class User {
 
     public void setAbout(String about) {
         this.about = about;
+    }
+
+    public String getPhoto_url1() {
+        return photo_url1;
+    }
+
+    public void setPhoto_url1(String photo_url1) {
+        this.photo_url1 = photo_url1;
+    }
+
+    public String getPhoto_url2() {
+        return photo_url2;
+    }
+
+    public void setPhoto_url2(String photo_url2) {
+        this.photo_url2 = photo_url2;
+    }
+
+    public String getPhoto_url3() {
+        return photo_url3;
+    }
+
+    public void setPhoto_url3(String photo_url3) {
+        this.photo_url3 = photo_url3;
     }
 }

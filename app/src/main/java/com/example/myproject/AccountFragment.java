@@ -13,12 +13,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AccountFragment extends Fragment {
 
@@ -35,6 +40,8 @@ public abstract class AccountFragment extends Fragment {
     protected StorageReference storageReference;
     protected ValueEventListener imageEventListener;
     protected DatabaseReference reference;
+    protected PhotoAdapter photoAdapter;
+    protected RecyclerView recyclerView;
 
 
     @Nullable
@@ -50,6 +57,7 @@ public abstract class AccountFragment extends Fragment {
         ageTextView = v.findViewById(R.id.age_textView);
         sexTextView = v.findViewById(R.id.sex_textView);
         aboutTextView=v.findViewById(R.id.about_textView);
+        recyclerView =v.findViewById(R.id.photo_recycler_view);
         toolbar=v.findViewById(R.id.toolbarFr);
         reference = FirebaseDatabase.getInstance().getReference("users");
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
@@ -80,5 +88,27 @@ public abstract class AccountFragment extends Fragment {
         aboutTextView.setText(user.getAbout());
         if (user.getSurname().equals("")) nameTextView.setText(user.getName());
         else nameTextView.setText(user.getName() +" "+user.getSurname());
+    }
+
+    private void setGallery(List<String> urlPhotos){
+        photoAdapter = new PhotoAdapter(getContext(),urlPhotos);
+        recyclerView.setAdapter(photoAdapter);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        manager.setOrientation(RecyclerView.HORIZONTAL);
+        recyclerView.setLayoutManager(manager);
+    }
+
+    protected void setUpGallery(User user) {
+        List<String> urlPhotos= new ArrayList<>();
+        if (!user.getPhoto_url1().equals("default")){
+            urlPhotos.add(user.getPhoto_url1());
+        }
+        if (!user.getPhoto_url2().equals("default")){
+            urlPhotos.add(user.getPhoto_url2());
+        }
+        if (!user.getPhoto_url3().equals("default")){
+            urlPhotos.add(user.getPhoto_url3());
+        }
+        setGallery(urlPhotos);
     }
 }

@@ -27,8 +27,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -144,6 +147,7 @@ public class MyAccountFragment extends AccountFragment {
                 else {
                     if (isAdded()) Glide.with(getContext()).load(user.getPhoto_url()).into(photoImageView);
                 }
+                setUpGallery(user);
                 setAllTextView(user);
                 setEditButton();
                 pd.dismiss();
@@ -154,6 +158,7 @@ public class MyAccountFragment extends AccountFragment {
             }
         });
     }
+
 
     @Override
     void deleteImage(User user) {
@@ -238,7 +243,7 @@ public class MyAccountFragment extends AccountFragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK
-        && data!=null && data.getData() !=null
+                && data!=null && data.getData() !=null
         ){
             imageUri = data.getData();
             uploadImage();
@@ -247,8 +252,8 @@ public class MyAccountFragment extends AccountFragment {
 
 
     private void status(String status){
-            HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("status", status);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
         if (status.equals(status_offline)){
             hashMap.put("online_time",(new Date()).getTime());
         }

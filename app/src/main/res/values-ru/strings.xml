@@ -93,4 +93,5 @@
     <string name="incorrect_old_password">Неверный прошлый пароль</string>
     <string name="saved_password">Сохранить</string>
     <string name="about">О себе:</string>
+    <string name="required_photos">Put photos, it is require for registration</string>
 </resources>
