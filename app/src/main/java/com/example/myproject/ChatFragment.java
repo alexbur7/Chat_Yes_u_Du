@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,12 +65,14 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
     private static  final  int IMAGE_REQUEST=1;
     private Uri image_rui;
 
+    private String delete_string;
     private String offline_string;
+    private String online_string;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        offline_string=getResources().getString(R.string.delete_users);
+        delete_string =getResources().getString(R.string.delete_users);
 
         View v=inflater.inflate(R.layout.chat_fragment,container,false);
         receiverUuid=getArguments().getString(KEY_TO_RECEIVER_UUID);
@@ -401,7 +402,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                     else statusText.setText(user.getStatus());
                     username.setText(user.getName());
                 }catch (Exception e){
-                    statusText.setText(offline_string);
+                    statusText.setText(delete_string);
                     username.setText("");
                 }
             }

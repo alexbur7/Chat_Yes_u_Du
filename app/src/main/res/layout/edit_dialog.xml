@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    android:orientation="vertical"
-    android:background="#fff">
+    android:orientation="vertical">
 
         <LinearLayout
             android:orientation="vertical"
@@ -12,6 +11,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:padding="20dp">
+
             <EditText
                 android:id="@+id/name"
                 android:layout_width="match_parent"
@@ -56,7 +56,17 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/age_reg_hint"
                 android:inputType="number" />
+
+            <EditText
+                android:layout_marginTop="8dp"
+                android:id="@+id/about_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/about_hint"
+                android:inputType="text" />
+
             <Button
+                android:layout_marginTop="8dp"
                 android:id="@+id/delete_image_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

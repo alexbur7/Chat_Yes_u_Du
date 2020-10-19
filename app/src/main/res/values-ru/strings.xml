@@ -93,5 +93,7 @@
     <string name="incorrect_old_password">Неверный прошлый пароль</string>
     <string name="saved_password">Сохранить</string>
     <string name="about">О себе:</string>
-    <string name="required_photos">Put photos, it is require for registration</string>
+    <string name="verify_text">На указанную почту будет выслано письмо для потверждения электронной почты</string>
+    <string name="required_photos">Выберите фотографии,они обязательны для регистрации</string>
+    <string name="reject_update">Вы назначили пустыми обязательные поля.Изменения не приняты</string>
 </resources>

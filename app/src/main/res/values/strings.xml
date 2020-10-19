@@ -95,5 +95,8 @@
     <string name="about_hint">Tell about yourself</string>
     <string name="set_photo">Set photo</string>
     <string name="about">About:</string>
+    <string name="verify_text">We will send the verification message on this email</string>
     <string name="required_photos">Put photos, it is require for registration</string>
+    <string name="reject_update">You entered empty important strings.Update rejected</string>
+    <string name="gallery_text">Gallery</string>
 </resources>

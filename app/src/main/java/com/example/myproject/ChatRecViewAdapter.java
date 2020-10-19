@@ -2,6 +2,7 @@ package com.example.myproject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -143,16 +144,17 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
         void onBind(User user){
             this.user=user;
             userName.setText(user.getName());
+            Log.e("UUID USER",user.getUuid());
             if (user.getPhoto_url().equals("default")){
                 photoImageView.setImageResource(R.drawable.unnamed);
             }
             else{
                 Glide.with(context).load(user.getPhoto_url()).into(photoImageView);
             }
-            if (user.getStatus().equals(R.string.label_online)){
-                userStatus.setText(R.string.label_online);
+            if (user.getStatus().equals(context.getResources().getString(R.string.label_online))){
+                userStatus.setText(context.getResources().getString(R.string.label_online));
             }
-            else userStatus.setText(R.string.label_offline);
+            else userStatus.setText(context.getResources().getString(R.string.label_offline));
         }
 
         @Override

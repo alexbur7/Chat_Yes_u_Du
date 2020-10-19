@@ -21,13 +21,21 @@
 
         <TextView
             android:id="@+id/my_name_text"
+            style="@android:style/TextAppearance.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@android:style/TextAppearance.Large"
-            android:textStyle="italic"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:textStyle="italic" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:listSeparatorTextViewStyle"
+        android:text="@string/gallery_text"/>
+
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="4dp"
         android:id="@+id/photo_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -44,112 +52,11 @@
         style="@style/ButtonMain"
         android:layout_margin="4dp"/>
     </LinearLayout>
-    <LinearLayout
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/text_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="?android:listSeparatorTextViewStyle"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@android:style/TextAppearance.Medium"
-            android:text="@string/country"/>
-        <TextView
-            android:id="@+id/country_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            style="@android:style/TextAppearance.Medium"
-            android:textStyle="bold"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="?android:listSeparatorTextViewStyle"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@android:style/TextAppearance.Medium"
-            android:text="@string/region"/>
-        <TextView
-            android:id="@+id/region_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            style="@android:style/TextAppearance.Medium"
-            android:textStyle="bold"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="?android:listSeparatorTextViewStyle"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@android:style/TextAppearance.Medium"
-            android:text="@string/city"/>
-        <TextView
-            android:id="@+id/city_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            style="@android:style/TextAppearance.Medium"
-            android:textStyle="bold"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="?android:listSeparatorTextViewStyle"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@android:style/TextAppearance.Medium"
-            android:text="@string/sex"/>
-        <TextView
-            android:id="@+id/sex_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            style="@android:style/TextAppearance.Medium"
-            android:textStyle="bold"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="?android:listSeparatorTextViewStyle"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@android:style/TextAppearance.Medium"
-            android:text="@string/age"/>
-        <TextView
-            android:id="@+id/age_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            style="@android:style/TextAppearance.Medium"
-            android:textStyle="bold"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="?android:listSeparatorTextViewStyle"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@android:style/TextAppearance.Medium"
-            android:text="@string/about"/>
-        <TextView
-            android:id="@+id/about_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            style="@android:style/TextAppearance.Medium"
-            android:textStyle="bold"/>
-    </LinearLayout>
+        android:scrollbars="vertical"/>
+
 </LinearLayout>

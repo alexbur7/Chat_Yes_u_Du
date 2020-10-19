@@ -15,25 +15,18 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AccountFragment extends Fragment {
 
-    private TextView countryTextView;
-    private TextView regionTextView;
-    private TextView cityTextView;
     private TextView nameTextView;
-    private TextView ageTextView;
-    private TextView sexTextView;
-    private TextView aboutTextView;
+
     protected Button editButton;
     protected Toolbar toolbar;
     protected ImageView photoImageView;
@@ -41,23 +34,19 @@ public abstract class AccountFragment extends Fragment {
     protected ValueEventListener imageEventListener;
     protected DatabaseReference reference;
     protected PhotoAdapter photoAdapter;
-    protected RecyclerView recyclerView;
+    protected RecyclerView photoRecView;
+    protected RecyclerView textRecView;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.account_fragment,container,false);
+        nameTextView=v.findViewById(R.id.my_name_text);
         editButton = v.findViewById(R.id.edit_button);
         photoImageView = v.findViewById(R.id.photo_view);
-        countryTextView = v.findViewById(R.id.country_textView);
-        regionTextView = v.findViewById(R.id.region_textView);
-        cityTextView = v.findViewById(R.id.city_textView);
-        nameTextView = v.findViewById(R.id.my_name_text);
-        ageTextView = v.findViewById(R.id.age_textView);
-        sexTextView = v.findViewById(R.id.sex_textView);
-        aboutTextView=v.findViewById(R.id.about_textView);
-        recyclerView =v.findViewById(R.id.photo_recycler_view);
+        photoRecView =v.findViewById(R.id.photo_recycler_view);
+        textRecView=v.findViewById(R.id.text_recycler_view);
         toolbar=v.findViewById(R.id.toolbarFr);
         reference = FirebaseDatabase.getInstance().getReference("users");
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
@@ -80,22 +69,36 @@ public abstract class AccountFragment extends Fragment {
     abstract void deleteImage(User user);
 
     protected void setAllTextView(User user){
-        countryTextView.setText(user.getCountry());
-        regionTextView.setText(user.getRegion());
-        cityTextView.setText(user.getCity());
-        ageTextView.setText(user.getAge());
-        sexTextView.setText(user.getSex());
-        aboutTextView.setText(user.getAbout());
-        if (user.getSurname().equals("")) nameTextView.setText(user.getName());
-        else nameTextView.setText(user.getName() +" "+user.getSurname());
+        //AccountAdapter adapter=new AccountAdapter(getActivity(),hashMap);
+        nameTextView.setText(user.getName()+" "+user.getSurname());
+        ArrayList<String> tempListUser=new ArrayList<>();
+        ArrayList<String> tempListLabels=new ArrayList<>();
+        tempListUser.add(user.getCountry());
+        if (!user.getRegion().isEmpty())
+        tempListUser.add(user.getRegion());
+        tempListUser.add(user.getCity());
+        tempListUser.add(user.getSex());
+        tempListUser.add(user.getAge());
+        if (!user.getAbout().isEmpty())
+        tempListUser.add(user.getAbout());
+        tempListLabels.add(getActivity().getString(R.string.country));
+        if (!user.getRegion().isEmpty())
+        tempListLabels.add(getActivity().getString(R.string.region));
+        tempListLabels.add(getActivity().getString(R.string.city));
+        tempListLabels.add(getActivity().getString(R.string.sex));
+        tempListLabels.add(getActivity().getString(R.string.age));
+        if (!user.getAbout().isEmpty())
+        tempListLabels.add(getResources().getString(R.string.about));
+        textRecView.setAdapter(new AccountAdapter(getActivity(),tempListUser,tempListLabels));
+        textRecView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     private void setGallery(List<String> urlPhotos){
         photoAdapter = new PhotoAdapter(getContext(),urlPhotos);
-        recyclerView.setAdapter(photoAdapter);
+        photoRecView.setAdapter(photoAdapter);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.HORIZONTAL);
-        recyclerView.setLayoutManager(manager);
+        photoRecView.setLayoutManager(manager);
     }
 
     protected void setUpGallery(User user) {

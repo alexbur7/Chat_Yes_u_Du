@@ -137,7 +137,7 @@ public class MyAccountFragment extends AccountFragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                User.setCurrentUser(user, uuid,getResources().getString(R.string.label_offline));
+                User.setCurrentUser(user, uuid,status_offline);
                 if (user.getAdmin().equals("true")){
                     toolbar.getMenu().getItem(3).setVisible(true);
                 }

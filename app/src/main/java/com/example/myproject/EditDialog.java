@@ -26,8 +26,9 @@ public class EditDialog extends DialogFragment {
     private EditText countryText;
     private EditText cityText;
     private EditText regionText;
-    private Spinner sexSpinner;
     private EditText ageText;
+    private EditText aboutText;
+    private Spinner sexSpinner;
     private Button deletePhoto;
     private FirebaseStorage storage;
     @NonNull
@@ -46,6 +47,8 @@ public class EditDialog extends DialogFragment {
         regionText.setText(User.getCurrentUser().getRegion());
         cityText = view.findViewById(R.id.city);
         cityText.setText(User.getCurrentUser().getCity());
+        aboutText=view.findViewById(R.id.about_edit_text);
+        aboutText.setText(User.getCurrentUser().getAbout());
         sexSpinner = view.findViewById(R.id.spinner_sex_edit);
         if (User.getCurrentUser().getSex().equals(getResources().getStringArray(R.array.sex_for_spinner)[0]))
             sexSpinner.setSelection(0);
@@ -89,25 +92,35 @@ public class EditDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         updateUser();
                     }
-                }).create();
+                })
+                .create();
     }
 
     private void updateUser(){
-        HashMap<String,Object> hashMap = new HashMap<>();
-        hashMap.put("name",nameText.getText().toString());
-        User.getCurrentUser().setName(nameText.getText().toString());
-        hashMap.put("surname",surnameText.getText().toString());
-        User.getCurrentUser().setSurname(surnameText.getText().toString());
-        hashMap.put("city",cityText.getText().toString());
-        User.getCurrentUser().setCity(cityText.getText().toString());
-        hashMap.put("country",countryText.getText().toString());
-        User.getCurrentUser().setCountry(countryText.getText().toString());
-        hashMap.put("region",regionText.getText().toString());
-        User.getCurrentUser().setRegion(regionText.getText().toString());
-        hashMap.put("sex",sexSpinner.getSelectedItem().toString());
-        User.getCurrentUser().setSex(sexSpinner.getSelectedItem().toString());
-        hashMap.put("age",ageText.getText().toString());
-        User.getCurrentUser().setAge(ageText.getText().toString());
-        FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).updateChildren(hashMap);
+        if (nameText.getText().toString().isEmpty() || countryText.getText().toString().isEmpty() || cityText.getText().toString().isEmpty()
+                || Integer.parseInt(ageText.getText().toString())<0){
+            Toast.makeText(getActivity(),R.string.reject_update,Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else {
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("name", nameText.getText().toString());
+            User.getCurrentUser().setName(nameText.getText().toString());
+            hashMap.put("surname", surnameText.getText().toString());
+            User.getCurrentUser().setSurname(surnameText.getText().toString());
+            hashMap.put("city", cityText.getText().toString());
+            User.getCurrentUser().setCity(cityText.getText().toString());
+            hashMap.put("country", countryText.getText().toString());
+            User.getCurrentUser().setCountry(countryText.getText().toString());
+            hashMap.put("region", regionText.getText().toString());
+            User.getCurrentUser().setRegion(regionText.getText().toString());
+            hashMap.put("sex", sexSpinner.getSelectedItem().toString());
+            User.getCurrentUser().setSex(sexSpinner.getSelectedItem().toString());
+            hashMap.put("age", ageText.getText().toString());
+            User.getCurrentUser().setAge(ageText.getText().toString());
+            hashMap.put("about",aboutText.getText().toString());
+            User.getCurrentUser().setAbout(aboutText.getText().toString());
+            FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).updateChildren(hashMap);
+        }
     }
 }

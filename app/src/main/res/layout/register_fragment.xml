@@ -86,8 +86,18 @@
         android:inputType="textEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="3dp"
         android:hint="@string/email_reg_hint"/>
+
+            <TextView
+                style="@android:style/TextAppearance.Small"
+                android:text="@string/verify_text"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_height="wrap_content"/>
 
     <EditText
         android:id="@+id/password_reg_edit_text"
