@@ -9,8 +9,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:background="@color/login">
+    android:gravity="center">
 
 
     <EditText
@@ -44,6 +43,5 @@
         android:padding="8dp"
         android:layout_margin="8dp"
         android:text="@string/reg_button_text"/>
-
 </LinearLayout>
 </LinearLayout>

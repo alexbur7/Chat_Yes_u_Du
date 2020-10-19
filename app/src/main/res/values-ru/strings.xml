@@ -82,6 +82,9 @@
     <string name="photo_cant_delete">Не удалось удалить фото</string>
     <string name="blocked_chat">Этот чат был заблокирован</string>
     <string name="blocked_by_admin">Вы заблокированы администратором</string>
+    <string name="about_hint">Расскажите о себе</string>
+    <string name="label_offline">офлайн</string>
+    <string name="set_photo">Выбрать фото</string>
     <string name="reset_password">Сменить пароль</string>
     <string name="enter_old_password">Введите прошлый пароль</string>
     <string name="enter_new_password">Введите новый пароль</string>
@@ -89,4 +92,5 @@
     <string name="password_not_reset">Пароль не был изменен</string>
     <string name="incorrect_old_password">Неверный прошлый пароль</string>
     <string name="saved_password">Сохранить</string>
+    <string name="about">О себе:</string>
 </resources>

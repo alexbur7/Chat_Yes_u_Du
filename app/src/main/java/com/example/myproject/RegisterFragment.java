@@ -2,6 +2,7 @@ package com.example.myproject;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,12 +37,17 @@ public class RegisterFragment extends Fragment {
     private EditText emailEditText;
     private EditText passwordEditText;
     private EditText ageEditText;
+    private EditText aboutEditText;
     private Button regButton;
+    private Button photoButton;
+
+    private String status_offline;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.register_fragment,container,false);
+        status_offline=getResources().getString(R.string.label_offline);
         nameEditText=v.findViewById(R.id.name_edit_text);
         surnameEditText=v.findViewById(R.id.surname_edit_text);
         countryEditText=v.findViewById(R.id.country_edit_text);
@@ -50,12 +56,21 @@ public class RegisterFragment extends Fragment {
         emailEditText=v.findViewById(R.id.email_reg_edit_text);
         passwordEditText=v.findViewById(R.id.password_reg_edit_text);
         ageEditText=v.findViewById(R.id.age_reg_edit_text);
+        aboutEditText=v.findViewById(R.id.about_edit_text);
         spinner = v.findViewById(R.id.spinner_sex);
         regButton=v.findViewById(R.id.registration_button);
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setRegistration();
+            }
+        });
+        photoButton=v.findViewById(R.id.set_photo_button);
+        photoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("Photo tapped", String.valueOf(RegisterFragment.class));
+                //TODO adding a photo on register
             }
         });
 
@@ -75,6 +90,7 @@ public class RegisterFragment extends Fragment {
         final  String sex = spinner.getSelectedItem().toString();
         final  String region = regionEditText.getText().toString();
         final  String age = ageEditText.getText().toString();
+        final  String about=aboutEditText.getText().toString();
 
         if (name.isEmpty() || country.isEmpty() || city.isEmpty() || email.isEmpty() || password.isEmpty() || sex.isEmpty() || Integer.parseInt(age)<0){
             Toast.makeText(getActivity(),R.string.reject_reg,Toast.LENGTH_SHORT).show();
@@ -100,10 +116,12 @@ public class RegisterFragment extends Fragment {
                     ref.child("region").setValue(region);
                     ref.child("sex").setValue(sex);
                     ref.child("age").setValue(age);
-                    ref.child("status").setValue("offline");
+                    ref.child("status").setValue(status_offline);
                     ref.child("admin").setValue("false");
                     ref.child("online_time").setValue((new Date()).getTime());
                     ref.child("admin_block").setValue("unblock");
+                    //changed
+                    ref.child("about").setValue(about);
                     auth.getCurrentUser().sendEmailVerification();
                     auth.signOut();
                     callbacks.returnLoginFragment(email,password);

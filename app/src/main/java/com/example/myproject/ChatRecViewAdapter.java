@@ -1,26 +1,21 @@
 package com.example.myproject;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -154,10 +149,10 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
             else{
                 Glide.with(context).load(user.getPhoto_url()).into(photoImageView);
             }
-            if (user.getStatus().equals("online")){
-                userStatus.setText("online");
+            if (user.getStatus().equals(R.string.label_online)){
+                userStatus.setText(R.string.label_online);
             }
-            else userStatus.setText("offline");
+            else userStatus.setText(R.string.label_offline);
         }
 
         @Override

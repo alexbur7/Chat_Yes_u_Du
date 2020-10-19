@@ -13,7 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,10 +38,15 @@ public class MyAccountFragment extends AccountFragment {
     private Uri imageUri;
     private StorageTask uploadTask;
 
+    private String status_online;
+    private String status_offline;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        status_online=getResources().getString(R.string.label_online);
+        status_offline=getResources().getString(R.string.label_offline);
         return super.onCreateView(inflater,container,savedInstanceState);
     }
 
@@ -84,7 +88,7 @@ public class MyAccountFragment extends AccountFragment {
     boolean clickToolbarItems(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout: {
-                User.getCurrentUser().setStatus("offline");
+                User.getCurrentUser().setStatus(getResources().getString(R.string.label_offline));
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getActivity(), LogActivity.class));
                 getActivity().finish();
@@ -96,7 +100,7 @@ public class MyAccountFragment extends AccountFragment {
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(getActivity(), "Completed", Toast.LENGTH_SHORT);
                 FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).removeValue();
-                User.setCurrentUser(null,null);
+                User.setCurrentUser(null,null,null);
                 startActivity(new Intent(getActivity(), LogActivity.class));
                 getActivity().finish();
             }
@@ -130,7 +134,7 @@ public class MyAccountFragment extends AccountFragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                User.setCurrentUser(user, uuid);
+                User.setCurrentUser(user, uuid,getResources().getString(R.string.label_offline));
                 if (user.getAdmin().equals("true")){
                     toolbar.getMenu().getItem(3).setVisible(true);
                 }
@@ -163,7 +167,7 @@ public class MyAccountFragment extends AccountFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        status("online");
+        status(status_online);
     }
 
 
@@ -245,7 +249,7 @@ public class MyAccountFragment extends AccountFragment {
     private void status(String status){
             HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("status", status);
-        if (status.equals("offline")){
+        if (status.equals(status_offline)){
             hashMap.put("online_time",(new Date()).getTime());
         }
         FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().getUid()).updateChildren(hashMap);

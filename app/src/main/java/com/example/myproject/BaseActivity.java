@@ -40,7 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (User.getCurrentUser() != null) {
             HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("status", status);
-            if (status.equals("offline")){
+            if (status.equals(getResources().getString(R.string.label_offline))){
                 hashMap.put("online_time",(new Date()).getTime());
             }
             FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).updateChildren(hashMap);

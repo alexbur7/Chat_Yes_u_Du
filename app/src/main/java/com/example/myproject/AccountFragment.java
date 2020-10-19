@@ -28,6 +28,7 @@ public abstract class AccountFragment extends Fragment {
     private TextView nameTextView;
     private TextView ageTextView;
     private TextView sexTextView;
+    private TextView aboutTextView;
     protected Button editButton;
     protected Toolbar toolbar;
     protected ImageView photoImageView;
@@ -48,6 +49,7 @@ public abstract class AccountFragment extends Fragment {
         nameTextView = v.findViewById(R.id.my_name_text);
         ageTextView = v.findViewById(R.id.age_textView);
         sexTextView = v.findViewById(R.id.sex_textView);
+        aboutTextView=v.findViewById(R.id.about_textView);
         toolbar=v.findViewById(R.id.toolbarFr);
         reference = FirebaseDatabase.getInstance().getReference("users");
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
@@ -75,6 +77,7 @@ public abstract class AccountFragment extends Fragment {
         cityTextView.setText(user.getCity());
         ageTextView.setText(user.getAge());
         sexTextView.setText(user.getSex());
+        aboutTextView.setText(user.getAbout());
         if (user.getSurname().equals("")) nameTextView.setText(user.getName());
         else nameTextView.setText(user.getName() +" "+user.getSurname());
     }

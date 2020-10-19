@@ -66,9 +66,13 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
     private static  final  int IMAGE_REQUEST=1;
     private Uri image_rui;
 
+    private String offline_string;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        offline_string=getResources().getString(R.string.delete_users);
+
         View v=inflater.inflate(R.layout.chat_fragment,container,false);
         receiverUuid=getArguments().getString(KEY_TO_RECEIVER_UUID);
         receiverPhotoUrl = getArguments().getString(KEY_TO_RECEIVER_PHOTO_URL);
@@ -392,12 +396,12 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 try {
-                    if (user.getStatus().equals("offline"))
+                    if (user.getStatus().equals(getResources().getString(R.string.label_offline)))
                     statusText.setText(user.getStatus()+": "+DateFormat.format("dd-MM-yyyy (HH:mm)", user.getOnline_time()));
                     else statusText.setText(user.getStatus());
                     username.setText(user.getName());
                 }catch (Exception e){
-                    statusText.setText(getResources().getString(R.string.delete_users));
+                    statusText.setText(offline_string);
                     username.setText("");
                 }
             }

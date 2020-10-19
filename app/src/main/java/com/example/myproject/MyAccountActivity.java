@@ -19,13 +19,13 @@ public class MyAccountActivity extends BaseActivity implements UsersChatListFrag
     @Override
     protected void onPause() {
         super.onPause();
-        status("offline");
+        status(getResources().getString(R.string.label_offline));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        status("online");
+        status(getResources().getString(R.string.label_online));
     }
 
     @Override

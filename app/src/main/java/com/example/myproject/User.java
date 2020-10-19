@@ -13,12 +13,13 @@ public class User {
     private String status;
     private String admin;
     private String admin_block;
+    private String about;
 
     private long online_time;
     private static User currentUser;
     public User(){}
     public User(String uuid,String name, String surname, String country, String city,
-                String photo_url, String region,String sex,String age, String status, String admin, long online_time , String admin_block){
+                String photo_url, String region,String sex,String age, String status, String admin, long online_time , String admin_block,String about){
         this.name = name;
         this.surname = surname;
         this.country = country;
@@ -32,17 +33,19 @@ public class User {
         this.admin = admin;
         this.online_time = online_time;
         this.admin_block = admin_block;
+        //changed
+        this.about=about;
     }
 
     public static User getCurrentUser() {
         return currentUser;
     }
 
-    public static void setCurrentUser(User currentUser,String uuid) {
+    public static void setCurrentUser(User currentUser, String uuid, String string) {
         User.currentUser = currentUser;
         if (currentUser!=null) {
             User.currentUser.setUuid(uuid);
-            User.currentUser.setStatus("offline");
+            User.currentUser.setStatus(string);
         }
     }
 
@@ -148,5 +151,13 @@ public class User {
 
     public void setAdmin_block(String admin_block) {
         this.admin_block = admin_block;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 }

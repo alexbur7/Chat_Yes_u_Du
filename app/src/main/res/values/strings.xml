@@ -35,6 +35,7 @@
     <string name="label_female">Female</string>
     <string name="label_activity">Online</string>
     <string name="label_online">online</string>
+    <string name="label_offline">offline</string>
     <string name="label_additional">Additional filters</string>
     <string name="label_only_with_photo">with photo</string>
     <string name="label_name">Name</string>
@@ -69,7 +70,7 @@
     <string name="you_dont_verification">You dont verification</string>
     <string name="block_account">Block account</string>
     <string name="unblock_account">Unblock account</string>
-    <string name="photo_cant_delete">cant delete photo</string>
+    <string name="photo_cant_delete">can\'t delete photo</string>
     <string-array name="sex_for_spinner">
         <item>Male</item>
         <item>Female</item>
@@ -91,4 +92,7 @@
     <string name="password_not_reset">Password was not reset</string>
     <string name="incorrect_old_password">Incorrect old password</string>
     <string name="saved_password">Save</string>
+    <string name="about_hint">Tell about yourself</string>
+    <string name="set_photo">Set photo</string>
+    <string name="about">About:</string>
 </resources>

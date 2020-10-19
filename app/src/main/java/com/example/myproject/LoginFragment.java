@@ -33,6 +33,7 @@ public class LoginFragment extends Fragment {
     private EditText passEditText;
     private Button regButton;
     private Button logButton;
+    private String offline_string;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -58,6 +59,8 @@ public class LoginFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        offline_string =getResources().getString(R.string.label_offline);
+
         View view = inflater.inflate(R.layout.login_fragment, container, false);
         emailEditText=view.findViewById(R.id.email_log_editText);
         passEditText=view.findViewById(R.id.password_log_editText);
@@ -118,7 +121,7 @@ public class LoginFragment extends Fragment {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User.setCurrentUser(snapshot.getValue(User.class),uuid);
+                User.setCurrentUser(snapshot.getValue(User.class),uuid,offline_string);
                 ref.removeEventListener(this);
             }
 
