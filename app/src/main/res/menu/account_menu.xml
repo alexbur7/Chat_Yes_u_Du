@@ -7,6 +7,10 @@
         android:title="@string/blocklist"
         app:showAsAction="never"/>
 
+    <item android:id="@+id/reset_menu_password"
+        android:title="@string/reset_password"
+        app:showAsAction="never"/>
+
     <item
         android:id="@+id/logout"
         android:title="@string/logout_menu"
