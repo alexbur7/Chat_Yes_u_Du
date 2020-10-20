@@ -29,7 +29,6 @@ public class EditDialog extends DialogFragment {
     private EditText ageText;
     private EditText aboutText;
     private Spinner sexSpinner;
-    private Button deletePhoto;
     private FirebaseStorage storage;
     @NonNull
     @Override
@@ -55,33 +54,7 @@ public class EditDialog extends DialogFragment {
         else sexSpinner.setSelection(1);
         ageText = view.findViewById(R.id.age);
         ageText.setText(User.getCurrentUser().getAge());
-        deletePhoto = view.findViewById(R.id.delete_image_button);
-        deletePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!User.getCurrentUser().getPhoto_url().equals("default")) {
-                    StorageReference photoRef = storage.getReferenceFromUrl(User.getCurrentUser().getPhoto_url());
-                    photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            HashMap<String,Object> hashMap = new HashMap<>();
-                            hashMap.put("photo_url","default");
-                            User.getCurrentUser().setPhoto_url("default");
-                            FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).updateChildren(hashMap);
-                            Toast.makeText(getContext(),getResources().getString(R.string.photo_delete),Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getContext(),getResources().getString(R.string.photo_cant_delete),Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-                else {
-                    Toast.makeText(getContext(),getResources().getString(R.string.have_not_photo),Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+
 
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
         return builder

@@ -96,4 +96,7 @@
     <string name="verify_text">На указанную почту будет выслано письмо для потверждения электронной почты</string>
     <string name="required_photos">Выберите фотографии,они обязательны для регистрации</string>
     <string name="reject_update">Вы назначили пустыми обязательные поля.Изменения не приняты</string>
+    <string name="look_all">Look all</string>
+    <string name="you_photo">add only your photos otherwise the account will be blocked by the administrator</string>
+    <string name="add_image">Add image</string>
 </resources>

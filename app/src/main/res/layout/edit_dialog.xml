@@ -64,13 +64,5 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/about_hint"
                 android:inputType="text" />
-
-            <Button
-                android:layout_marginTop="8dp"
-                android:id="@+id/delete_image_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorAccent"
-                android:text="@string/delete_image"/>
         </LinearLayout>
 </LinearLayout>

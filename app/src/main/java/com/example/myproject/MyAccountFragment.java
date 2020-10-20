@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -149,6 +150,7 @@ public class MyAccountFragment extends AccountFragment {
                 }
                 setUpGallery(user);
                 setAllTextView(user);
+                openGallery(user);
                 setEditButton();
                 pd.dismiss();
             }

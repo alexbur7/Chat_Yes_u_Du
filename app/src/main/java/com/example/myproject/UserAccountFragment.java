@@ -75,6 +75,7 @@ public class UserAccountFragment extends AccountFragment {
                 }
                 setAllTextView(user);
                 setUpGallery(user);
+                openGallery(user);
                 setEditButton();
                 pd.dismiss();
             }

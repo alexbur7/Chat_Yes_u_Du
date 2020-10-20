@@ -1,6 +1,8 @@
 package com.example.myproject;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +38,7 @@ public abstract class AccountFragment extends Fragment {
     protected PhotoAdapter photoAdapter;
     protected RecyclerView photoRecView;
     protected RecyclerView textRecView;
+    private Button lookAll;
 
 
     @Nullable
@@ -48,6 +51,7 @@ public abstract class AccountFragment extends Fragment {
         photoRecView =v.findViewById(R.id.photo_recycler_view);
         textRecView=v.findViewById(R.id.text_recycler_view);
         toolbar=v.findViewById(R.id.toolbarFr);
+        lookAll = v.findViewById(R.id.look_all_button);
         reference = FirebaseDatabase.getInstance().getReference("users");
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
         setToolbar();
@@ -93,8 +97,8 @@ public abstract class AccountFragment extends Fragment {
         textRecView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
-    private void setGallery(List<String> urlPhotos){
-        photoAdapter = new PhotoAdapter(getContext(),urlPhotos);
+    private void setGallery(List<String> urlPhotos, String userId){
+        photoAdapter = new PhotoAdapter(getContext(),urlPhotos, userId,getFragmentManager(), PhotoAdapter.PhotoHolder.VIEW_TYPE);
         photoRecView.setAdapter(photoAdapter);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.HORIZONTAL);
@@ -112,6 +116,17 @@ public abstract class AccountFragment extends Fragment {
         if (!user.getPhoto_url3().equals("default")){
             urlPhotos.add(user.getPhoto_url3());
         }
-        setGallery(urlPhotos);
+        setGallery(urlPhotos, user.getUuid());
+    }
+
+    protected void openGallery(User user){
+        lookAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = GalleryActivity.newIntent(getActivity(),user.getUuid()
+                        ,user.getPhoto_url1(),user.getPhoto_url2(),user.getPhoto_url3());
+                startActivity(intent);
+            }
+        });
     }
 }

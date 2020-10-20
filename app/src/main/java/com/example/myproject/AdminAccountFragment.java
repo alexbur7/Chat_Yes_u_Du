@@ -111,6 +111,7 @@ public class AdminAccountFragment extends AccountFragment {
                 }
                 setAllTextView(user);
                 setUpGallery(user);
+                openGallery(user);
                 setEditButton();
                 pd.dismiss();
             }
