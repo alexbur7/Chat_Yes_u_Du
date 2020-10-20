@@ -69,7 +69,8 @@ public class MyGalleryFragment extends Fragment {
         return v;
     }
 
-    private void setGallery(List<String> urlPhotos, String userId){
+
+    private void setGallery(ArrayList<String> urlPhotos, String userId){
         photoAdapter = new PhotoAdapter(getContext(),urlPhotos, userId,getFragmentManager(), PhotoAdapter.GalleryHolder.VIEW_TYPE);
         galleryRecyclerView.setAdapter(photoAdapter);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
@@ -78,7 +79,7 @@ public class MyGalleryFragment extends Fragment {
     }
 
     private void setUpGallery() {
-        List<String> urlPhotos= new ArrayList<>();
+        ArrayList<String> urlPhotos= new ArrayList<>();
         if (!photo_url1.equals("default")){
             urlPhotos.add(photo_url1);
         }
@@ -104,10 +105,6 @@ public class MyGalleryFragment extends Fragment {
 
     private void setToolbar() {
         toolbar.inflateMenu(R.menu.gallery_menu);
-        if (!photo_url3.equals("default"))
-        {
-            toolbar.getMenu().getItem(0).setVisible(false);
-        }
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -127,12 +124,16 @@ public class MyGalleryFragment extends Fragment {
     }
 
     private void openImage() {
+        if (!photo_url3.equals("default") && !photo_url2.equals("default") && !photo_url1.equals("default"))
+        {
+            Toast.makeText(getContext(),getActivity().getResources().getString(R.string.you_cant_add_4_photo),Toast.LENGTH_SHORT).show();
+            return;
+        }
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent,IMAGE_REQUEST);
     }
-
 
 
     private String getFileExtension(Uri uri){
@@ -163,14 +164,24 @@ public class MyGalleryFragment extends Fragment {
                         String mUri = downloadUri.toString();
                         reference = FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid());
                         HashMap<String,Object> map = new HashMap<>();
-                        if (User.getCurrentUser().getPhoto_url2().equals("default")) {
+                        if (User.getCurrentUser().getPhoto_url1().equals("default")){
+                            map.put("photo_url1", mUri);
+                            photo_url1=mUri;
+                            User.getCurrentUser().setPhoto_url1(mUri);
+                        }
+                        else if (User.getCurrentUser().getPhoto_url2().equals("default")) {
                             map.put("photo_url2", mUri);
+                            photo_url2=mUri;
                             User.getCurrentUser().setPhoto_url2(mUri);
                         }
-                        else {
+                        else if (User.getCurrentUser().getPhoto_url3().equals("default")){
                             map.put("photo_url3", mUri);
+                            photo_url3=mUri;
                             User.getCurrentUser().setPhoto_url3(mUri);
                         }
+                        else {
+                        }
+                        setUpGallery();
                         reference.updateChildren(map);
                     }
                     else {

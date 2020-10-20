@@ -97,7 +97,7 @@ public abstract class AccountFragment extends Fragment {
         textRecView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
-    private void setGallery(List<String> urlPhotos, String userId){
+    private void setGallery(ArrayList<String> urlPhotos, String userId){
         photoAdapter = new PhotoAdapter(getContext(),urlPhotos, userId,getFragmentManager(), PhotoAdapter.PhotoHolder.VIEW_TYPE);
         photoRecView.setAdapter(photoAdapter);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
@@ -106,7 +106,7 @@ public abstract class AccountFragment extends Fragment {
     }
 
     protected void setUpGallery(User user) {
-        List<String> urlPhotos= new ArrayList<>();
+        ArrayList<String> urlPhotos= new ArrayList<>();
         if (!user.getPhoto_url1().equals("default")){
             urlPhotos.add(user.getPhoto_url1());
         }

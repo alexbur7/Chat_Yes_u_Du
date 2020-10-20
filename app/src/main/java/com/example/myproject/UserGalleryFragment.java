@@ -2,7 +2,6 @@ package com.example.myproject;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,10 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.storage.FirebaseStorage;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class UserGalleryFragment extends Fragment {
     private RecyclerView galleryRecyclerView;
@@ -43,8 +39,8 @@ public class UserGalleryFragment extends Fragment {
         return v;
     }
 
-    private void setGallery(List<String> urlPhotos, String userId){
-        photoAdapter = new PhotoAdapter(getContext(),urlPhotos,userId,getFragmentManager(), PhotoAdapter.PhotoHolder.VIEW_TYPE);
+    private void setGallery(ArrayList<String> urlPhotos, String userId){
+        photoAdapter = new PhotoAdapter(getContext(),urlPhotos,userId,getFragmentManager(), PhotoAdapter.UserGalleryHolder.VIEW_TYPE);
         galleryRecyclerView.setAdapter(photoAdapter);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(RecyclerView.HORIZONTAL);
@@ -52,7 +48,7 @@ public class UserGalleryFragment extends Fragment {
     }
 
     private void setUpGallery() {
-        List<String> urlPhotos= new ArrayList<>();
+        ArrayList<String> urlPhotos= new ArrayList<>();
         if (!photo_url1.equals("default")){
             urlPhotos.add(photo_url1);
         }

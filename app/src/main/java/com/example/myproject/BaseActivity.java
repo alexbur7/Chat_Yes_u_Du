@@ -25,13 +25,15 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getLayoutID());
-        Fragment fragment;
-        if (getSupportFragmentManager().findFragmentById(R.id.fragment_container)==null){
-            fragment=getFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container,fragment)
-                    .commit();
+        if (getFragment()!=null) {
+            setContentView(getLayoutID());
+            Fragment fragment;
+            if (getSupportFragmentManager().findFragmentById(R.id.fragment_container) == null) {
+                fragment = getFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.fragment_container, fragment)
+                        .commit();
+            }
         }
     }
 
