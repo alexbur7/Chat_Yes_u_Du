@@ -85,7 +85,22 @@ public class AdminAccountFragment extends AccountFragment {
     boolean clickToolbarItems(MenuItem item) {
         switch (item.getItemId()){
             case R.id.delete_image_menu:{
-                deleteImage(user);
+                deleteImage(user,0);
+            }
+            break;
+            case R.id.delete_image1_menu:{
+                if (!user.getPhoto_url1().equals("default"))
+                deleteImage(user,1);
+            }
+            break;
+            case R.id.delete_image2_menu:{
+                if (!user.getPhoto_url2().equals("default"))
+                deleteImage(user,2);
+            }
+            break;
+            case R.id.delete_image3_menu:{
+                if (!user.getPhoto_url3().equals("default"))
+                deleteImage(user,3);
             }
             break;
         }
@@ -123,18 +138,27 @@ public class AdminAccountFragment extends AccountFragment {
     }
 
     @Override
-    protected void deleteImage(User user) {
-        if (!user.getPhoto_url().equals("default")) {
-            StorageReference photoRef = FirebaseStorage.getInstance().getReferenceFromUrl(user.getPhoto_url());
+    protected void deleteImage(User user, int i) {
+        StorageReference photoRef;
+            if (i==0) photoRef = FirebaseStorage.getInstance().getReferenceFromUrl(user.getPhoto_url());
+            else if(i==1) photoRef = FirebaseStorage.getInstance().getReferenceFromUrl(user.getPhoto_url1());
+            else if(i==2) photoRef = FirebaseStorage.getInstance().getReferenceFromUrl(user.getPhoto_url2());
+            else  photoRef = FirebaseStorage.getInstance().getReferenceFromUrl(user.getPhoto_url3());
             photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     HashMap<String,Object> hashMap = new HashMap<>();
+                    if (i==0)
                     hashMap.put("photo_url","default");
+                    else if(i==1)
+                    hashMap.put("photo_url1","default");
+                    else if (i==2)
+                    hashMap.put("photo_url2","default");
+                    else
+                    hashMap.put("photo_url3","default");
                     FirebaseDatabase.getInstance().getReference("users").child(user.getUuid()).updateChildren(hashMap);
                 }
             });
-        }
     }
 
     private void setUserParameter(User user){

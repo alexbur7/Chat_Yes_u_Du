@@ -87,7 +87,7 @@ public class UserAccountFragment extends AccountFragment {
     }
 
     @Override
-    void deleteImage(User user) {
+    void deleteImage(User user,int i) {
 
     }
 

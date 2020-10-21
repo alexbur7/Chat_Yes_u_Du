@@ -70,7 +70,7 @@ public abstract class AccountFragment extends Fragment {
 
     abstract void setUser();
 
-    abstract void deleteImage(User user);
+    abstract void deleteImage(User user,int i);
 
     protected void setAllTextView(User user){
         //AccountAdapter adapter=new AccountAdapter(getActivity(),hashMap);

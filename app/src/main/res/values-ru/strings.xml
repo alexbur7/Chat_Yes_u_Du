@@ -105,4 +105,7 @@
     <string name="admin">Администратор</string>
     <string name="gallery_text">Галерея</string>
     <string name="complain_menu">Пожаловаться</string>
+    <string name="delete_image1">Delete photo1</string>
+    <string name="delete_image2">Delete photo2</string>
+    <string name="delete_image3">Delete photo3</string>
 </resources>

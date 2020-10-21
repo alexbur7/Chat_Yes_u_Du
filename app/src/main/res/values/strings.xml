@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">MyProject</string>
+    <string name="app_name" translatable="false">Yes u Du</string>
     <string name="email_hint">Enter an Email</string>
     <string name="email_reg_hint" translatable="false">Email*</string>
     <string name="pass_hint">Password</string>
@@ -108,4 +108,7 @@
     <string name="you_cant_add_4_photo">you cannot add more than 4 photos</string>
     <string name="you_cannot_delete_photo">you cannot have less than 2 photos in the gallery</string>
     <string name="reset_image">Reset image</string>
+    <string name="delete_image1">Delete photo1</string>
+    <string name="delete_image2">Delete photo2</string>
+    <string name="delete_image3">Delete photo3</string>
 </resources>

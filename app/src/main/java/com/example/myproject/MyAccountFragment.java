@@ -99,10 +99,14 @@ public class MyAccountFragment extends AccountFragment {
             }
             break;
             case R.id.delete_account:{
-                reference.removeEventListener(imageEventListener);
+                reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).removeEventListener(imageEventListener);
                 FirebaseAuth.getInstance().getCurrentUser().delete();
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(getActivity(), "Completed", Toast.LENGTH_SHORT);
+                deleteImage(User.getCurrentUser(),0);
+                deleteImage(User.getCurrentUser(),1);
+                deleteImage(User.getCurrentUser(),2);
+                deleteImage(User.getCurrentUser(),3);
                 FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).removeValue();
                 User.setCurrentUser(null,null,null);
                 startActivity(new Intent(getActivity(), LogActivity.class));
@@ -163,9 +167,21 @@ public class MyAccountFragment extends AccountFragment {
 
 
     @Override
-    void deleteImage(User user) {
-        if (!user.getPhoto_url().equals("default")) {
+    void deleteImage(User user,int i) {
+        if (!user.getPhoto_url().equals("default") && i==0) {
             StorageReference photoRef = FirebaseStorage.getInstance().getReferenceFromUrl(user.getPhoto_url());
+            photoRef.delete();
+        }
+        else if (!user.getPhoto_url1().equals("default") && i==1){
+            StorageReference photoRef = FirebaseStorage.getInstance().getReferenceFromUrl(user.getPhoto_url1());
+            photoRef.delete();
+        }
+        else if (!user.getPhoto_url2().equals("default") && i==2){
+            StorageReference photoRef = FirebaseStorage.getInstance().getReferenceFromUrl(user.getPhoto_url2());
+            photoRef.delete();
+        }
+        else if (!user.getPhoto_url3().equals("default") && i==3){
+            StorageReference photoRef = FirebaseStorage.getInstance().getReferenceFromUrl(user.getPhoto_url3());
             photoRef.delete();
         }
     }
@@ -217,7 +233,7 @@ public class MyAccountFragment extends AccountFragment {
                         reference = FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid());
                         HashMap<String,Object> map = new HashMap<>();
                         map.put("photo_url",mUri);
-                        deleteImage(User.getCurrentUser());
+                        deleteImage(User.getCurrentUser(),0);
                         reference.updateChildren(map);
                         User.getCurrentUser().setPhoto_url(mUri);
                     }
@@ -265,6 +281,7 @@ public class MyAccountFragment extends AccountFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (User.getCurrentUser()!=null)
         reference.child(User.getCurrentUser().getUuid()).removeEventListener(imageEventListener);
     }
 }

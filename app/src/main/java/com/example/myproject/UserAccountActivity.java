@@ -28,6 +28,6 @@ public class UserAccountActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        status(getResources().getString(R.string.label_offline));
+        status(getResources().getString(R.string.label_online));
     }
 }
