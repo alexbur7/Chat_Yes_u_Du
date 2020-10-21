@@ -99,6 +99,9 @@
     <string name="required_photos">Put photos, it is require for registration</string>
     <string name="reject_update">You entered empty important strings.Update rejected</string>
     <string name="gallery_text">Gallery</string>
+    <string name="admin">Administrator</string>
+    <string name="admin_key" translatable="false">admin</string>
+    <string name="complain_menu">Complain to admin</string>
     <string name="look_all">Look all</string>
     <string name="you_photo">add only your photos otherwise the account will be blocked by the administrator</string>
     <string name="add_image">Add image</string>

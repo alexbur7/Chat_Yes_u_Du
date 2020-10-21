@@ -2,10 +2,12 @@ package com.example.myproject;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,38 +44,56 @@ import java.util.HashMap;
 
 import static android.app.Activity.RESULT_OK;
 
-public class ChatFragment extends Fragment implements View.OnClickListener{
+public class ChatFragment extends ChatBaseFragment{
     public static final String KEY_TO_RECEIVER_UUID="recevierID";
     public static final String KEY_TO_RECEIVER_PHOTO_URL = "recevierPHOTO_URL";
-    private String receiverUuid;
-    private String receiverPhotoUrl;
-    private FloatingActionButton fab, send_image;
+    protected String receiverUuid;
+    protected String receiverPhotoUrl;
+    protected FloatingActionButton fab, send_image;
     private Toolbar toolbar;
-    private EditText input;
-    private TextView username;
-    private TextView statusText;
-    private FirebaseListAdapter<ChatMessage> adapter;
-    private ListView listView;
-    private ImageView circleImageView;
-    private DatabaseReference reference;
-    private String firstKey, secondKey;
+    protected EditText input;
+    protected TextView username;
+    protected TextView statusText;
+    protected ImageView complainView;
+    protected FirebaseListAdapter<ChatMessage> adapter;
+    protected ListView listView;
+    protected ImageView circleImageView;
+    protected DatabaseReference reference;
+    protected String firstKey, secondKey;
     private ValueEventListener seenListener;
-    private ValueEventListener blockListener;
+    protected ValueEventListener blockListener;
     private StorageTask uploadTask;
-    private StorageReference storageReference;
+    protected StorageReference storageReference;
 
+    protected CallBack activity;
     private static  final  int IMAGE_REQUEST=1;
-    private Uri image_rui;
+    protected Uri image_rui;
 
-    private String delete_string;
-    private String offline_string;
-    private String online_string;
+    protected String delete_string;
+    protected String admin_string;
+    private String seenText;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        activity=(CallBack) context;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        activity=null;
+    }
+
+
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         delete_string =getResources().getString(R.string.delete_users);
-
+        admin_string=getResources().getString(R.string.admin);
+        seenText= getResources().getString(R.string.seen_text);
         View v=inflater.inflate(R.layout.chat_fragment,container,false);
         receiverUuid=getArguments().getString(KEY_TO_RECEIVER_UUID);
         receiverPhotoUrl = getArguments().getString(KEY_TO_RECEIVER_PHOTO_URL);
@@ -85,6 +105,17 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent);
             }
         });
+        complainView =v.findViewById(R.id.complain_button);
+        complainView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.goToAdmin();
+            }
+        });
+        if (receiverUuid.equals(getResources().getString(R.string.admin_key))){
+            complainView.setVisibility(View.GONE);
+            toolbar.setEnabled(false);
+        }
         statusText = v.findViewById(R.id.online_text_in_chat);
         listView = v.findViewById(R.id.list_of_messages);
         fab= v.findViewById(R.id.fab);
@@ -115,7 +146,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                         send_image.setEnabled(false);
                     }
 
-                   else if (snapshot1.getKey().equals("secondBlock") && User.getCurrentUser().getUuid().equals(firstKey) && snapshot1.getValue().equals("block")){
+                    else if (snapshot1.getKey().equals("secondBlock") && User.getCurrentUser().getUuid().equals(firstKey) && snapshot1.getValue().equals("block")){
                         input.setText(getResources().getString(R.string.blocked_chat));
                         input.setEnabled(false);
                         fab.setEnabled(false);
@@ -133,12 +164,18 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
             fab.setEnabled(false);
             send_image.setEnabled(false);
         }
-        setStatus();
+
+        if (receiverUuid.equals(getActivity().getResources().getString(R.string.admin_key))){
+            statusText.setText("");
+            username.setText(admin_string);
+        }
+        else setStatus();
         displayChatMessages();
         return v;
     }
 
-    private void displayChatMessages(){
+    @Override
+    void displayChatMessages(){
         adapter = new FirebaseListAdapter<ChatMessage>(getActivity(), ChatMessage.class,
                 0, FirebaseDatabase.getInstance().getReference("chats").child(generateKey()).child("message")) {
 
@@ -196,9 +233,9 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
             @Override
             public View getView(int position, View view, ViewGroup viewGroup) {
                 ChatMessage model = getItem(position);
-                    View view2 = mActivity.getLayoutInflater().inflate(mLayout, viewGroup, false);
-                    populateView(view2, model, position);
-                    return view2;
+                View view2 = mActivity.getLayoutInflater().inflate(mLayout, viewGroup, false);
+                populateView(view2, model, position);
+                return view2;
             }
 
             @Override
@@ -230,8 +267,8 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                         }
                     } else mLayout = R.layout.delete_message;
                 }
-                    return chtm;
-                }
+                return chtm;
+            }
         };
         listView.setStackFromBottom(true);
         listView.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
@@ -252,14 +289,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-    private void openImage() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent,IMAGE_REQUEST);
-    }
-
-    private void sendMessage() {
+    protected void sendMessage() {
         if (!input.getText().toString().equals("")) {
             reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
             HashMap<String,Object> map=new HashMap<>();
@@ -314,65 +344,8 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         input.setText("");
     }
 
-    private String getFileExtension(Uri uri){
-        ContentResolver contentResolver = getContext().getContentResolver();
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
-    }
-
-    private void uploadImage(){
-        final ProgressDialog pd = new ProgressDialog(getContext());
-        pd.setMessage(getResources().getString(R.string.uploading));
-        pd.show();
-
-        if (image_rui != null){
-            final StorageReference fileReference= storageReference.child(System.currentTimeMillis()+
-                    "."+getFileExtension(image_rui));
-            uploadTask = fileReference.putFile(image_rui);
-            uploadTask.continueWithTask((Continuation<UploadTask.TaskSnapshot, Task<Uri>>) task -> {
-                if (!task.isSuccessful()){
-                    throw  task.getException();
-                }
-                return fileReference.getDownloadUrl();
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()){
-                        Uri downloadUri = task.getResult();
-                        image_rui = downloadUri;
-                        Toast.makeText(getContext(), R.string.image_attach,Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        Toast.makeText(getContext(),R.string.failed_update_photo,Toast.LENGTH_SHORT).show();
-                    }
-                    pd.dismiss();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
-                    pd.dismiss();
-                }
-            });
-        }
-        else {
-            Toast.makeText(getContext(),R.string.no_image_selected,Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK
-                && data!=null && data.getData() !=null
-        ){
-            image_rui = data.getData();
-            uploadImage();
-        }
-    }
-
-    private String generateKey(){
+     String generateKey(){
+        Log.e("CHAT FRAGMENT ORIG KEY", String.valueOf(ChatFragment.class));
         ArrayList<String> templist=new ArrayList<>();
         templist.add(User.getCurrentUser().getUuid());
         templist.add(receiverUuid);
@@ -382,7 +355,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         return templist.get(0)+templist.get(1);
     }
 
-    public static Fragment newInstance(String toUserUUID, String photo_url){
+    public static ChatFragment newInstance(String toUserUUID, String photo_url){
         ChatFragment fragment = new ChatFragment();
         Bundle bundle = new Bundle();
         bundle.putString(KEY_TO_RECEIVER_UUID, toUserUUID);
@@ -391,20 +364,20 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
         return fragment;
     }
 
-    private void setStatus(){
+    protected void setStatus(){
         FirebaseDatabase.getInstance().getReference("users").child(receiverUuid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                try {
-                    if (user.getStatus().equals(getResources().getString(R.string.label_offline)))
-                    statusText.setText(user.getStatus()+": "+DateFormat.format("dd-MM-yyyy (HH:mm)", user.getOnline_time()));
-                    else statusText.setText(user.getStatus());
-                    username.setText(user.getName());
-                }catch (Exception e){
-                    statusText.setText(delete_string);
-                    username.setText("");
-                }
+                    try {
+                        if (user.getStatus().equals(getResources().getString(R.string.label_offline)))
+                            statusText.setText(user.getStatus() + ": " + DateFormat.format("dd-MM-yyyy (HH:mm)", user.getOnline_time()));
+                        else statusText.setText(user.getStatus());
+                        username.setText(user.getName());
+                    } catch (Exception e) {
+                        statusText.setText(delete_string);
+                        username.setText("");
+                    }
             }
 
             @Override
@@ -419,16 +392,11 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
     public void onPause() {
         super.onPause();
         if (seenListener!=null)
-        reference.removeEventListener(seenListener);
+            reference.removeEventListener(seenListener);
         seenListener=null;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    private void seenMessage(){
+    protected void seenMessage(){
         seenListener=reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -441,7 +409,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
                                         (message.getFromUserUUID().equals(getArguments().getString(KEY_TO_RECEIVER_UUID)) && message.getToUserUUID().equals(User.getCurrentUser().getUuid()))) {
                                     HashMap<String, Object> hashMap = new HashMap<>();
                                     if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(firstKey)))
-                                        hashMap.put("firstKey", getResources().getString(R.string.seen_text));
+                                        hashMap.put("firstKey",seenText);
                                     else if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(secondKey)))
                                         hashMap.put("secondKey", getResources().getString(R.string.seen_text));
                                     snapshot3.getRef().updateChildren(hashMap);
@@ -455,5 +423,8 @@ public class ChatFragment extends Fragment implements View.OnClickListener{
             }
         });
     }
-}
 
+    public interface CallBack{
+        void goToAdmin();
+    }
+}

@@ -139,9 +139,9 @@ public class MyAccountFragment extends AccountFragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 User.setCurrentUser(user, uuid,status_offline);
-                if (user.getAdmin().equals("true")){
-                    toolbar.getMenu().getItem(4).setVisible(true);
-                }
+                    if (user.getAdmin().equals("true")) {
+                        toolbar.getMenu().getItem(4).setVisible(true);
+                    }
                 if(user.getPhoto_url().equals("default")){
                     photoImageView.setImageResource(R.drawable.unnamed);
                 }

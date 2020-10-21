@@ -11,12 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorAccent"
+            android:orientation="horizontal">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarFr"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
-            android:background="?attr/colorAccent">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:layout_scrollFlags="scroll|enterAlways">
             <androidx.cardview.widget.CardView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -40,19 +45,25 @@
                     android:layout_marginLeft="23dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
                 <TextView
                     android:id="@+id/online_text_in_chat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="23dp"
-                    android:textSize="14dp"
                     android:layout_marginTop="3dp"
-                    android:textStyle="italic"
-                    />
+                    android:textSize="14dp"
+                    android:textStyle="italic" />
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 
-
+            <ImageButton
+                android:id="@+id/complain_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:src="@drawable/baseline_admin_panel_settings_black_18dp" />
+        </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <RelativeLayout

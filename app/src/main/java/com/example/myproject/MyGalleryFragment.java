@@ -40,6 +40,8 @@ import static android.app.Activity.RESULT_OK;
 
 public class MyGalleryFragment extends Fragment {
     private static  final  int IMAGE_REQUEST=1;
+    public static  final  int DELETE_IMAGE_REQUEST=1;
+
     private Uri imageUri;
     private StorageTask uploadTask;
     private DatabaseReference reference;
@@ -91,6 +93,27 @@ public class MyGalleryFragment extends Fragment {
         }
         setGallery(urlPhotos,userID);
     }
+
+    private void updateGallery() {
+        photoAdapter.getUrlPhotos().clear();
+        if (!photo_url1.equals("default")){
+            photoAdapter.getUrlPhotos().add(photo_url1);
+        }
+        if (!photo_url2.equals("default")){
+            photoAdapter.getUrlPhotos().add(photo_url2);
+        }
+        if (!photo_url3.equals("default")){
+            photoAdapter.getUrlPhotos().add(photo_url3);
+        }
+        photoAdapter.notifyDataSetChanged();
+        //setGallery(urlPhotos,userID);
+    }
+
+    private void updateGallery(int num){
+        photoAdapter.getUrlPhotos().listIterator(num).set("default");
+        photoAdapter.notifyDataSetChanged();
+    }
+
 
     public static Fragment newInstance(String photoUrl1, String photoUrl2, String photoUrl3, String userId ){
         MyGalleryFragment fragment = new MyGalleryFragment();
@@ -181,7 +204,8 @@ public class MyGalleryFragment extends Fragment {
                         }
                         else {
                         }
-                        setUpGallery();
+                        //setUpGallery();
+                        updateGallery();
                         reference.updateChildren(map);
                     }
                     else {
@@ -208,10 +232,27 @@ public class MyGalleryFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK
-                && data!=null && data.getData() !=null
-        ){
+                && data!=null && data.getData() !=null){
             imageUri = data.getData();
             uploadImage();
+        }
+        else if (requestCode == DELETE_IMAGE_REQUEST && resultCode == RESULT_OK){
+            Log.e("DELETE ACTIVITY TRIG", String.valueOf(MyGalleryFragment.class));
+            switch (data.getExtras().getInt(String.valueOf(DELETE_IMAGE_REQUEST))){
+                case 1:{
+                    photo_url1="default";
+                    break;
+                }
+                case 2:{
+                    photo_url2="default";
+                    break;
+                }
+                case 3:{
+                    photo_url3="default";
+                    break;
+                }
+            }
+            updateGallery();
         }
     }
 }

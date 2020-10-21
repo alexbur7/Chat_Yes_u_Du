@@ -20,27 +20,64 @@ public class AdminFragment extends ChatListFragment{
 
     private DatabaseReference reference;
     private ValueEventListener userListener;
+    private String admin_key_string;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         reference=FirebaseDatabase.getInstance().getReference("users");
+        admin_key_string=getResources().getString(R.string.admin_key);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    @Override
-    protected void setChats() {
+    protected void setChats(){
+        userListener=FirebaseDatabase.getInstance().getReference("chats").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<String> usersID = new ArrayList<>();
+                usersID.clear();
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    Log.e("ADMINFRAGMENT",snapshot1.getKey());
+                    //String genKey=snapshot1.getKey();
+                    // usersID.add(msg.getToUserUUID());
+                    for (DataSnapshot snapshot2:snapshot1.getChildren()) {
+                        if (!snapshot2.getKey().equals("firstBlock") && !snapshot2.getKey().equals("secondBlock")) {
+                            for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
+                                ChatMessage msg=snapshot3.getValue(ChatMessage.class);
+                                if (msg.getFromUserUUID().equals(admin_key_string)) usersID.add(msg.getToUserUUID());
+                                if (msg.getToUserUUID().equals(admin_key_string)) usersID.add(msg.getFromUserUUID());
+                            }
+                        }
+                    }
+                }
+                Log.e("USERS AFTER SETCHAT",usersID.get(0));
+                setUsersFromChats(usersID);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+
+        });
+    }
+
+
+
+    private void setUsersFromChats(ArrayList<String> usersWithMsgId) {
         ArrayList<User> usersList=new ArrayList<>();
-        userListener=reference.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 usersList.clear();
-                for (DataSnapshot snapshot1:snapshot.getChildren()){
+                for (DataSnapshot snapshot1: snapshot.getChildren()){
                     User user=snapshot1.getValue(User.class);
                     user.setUuid(snapshot1.getKey());
-                    usersList.add(user);
+                    for (String id:usersWithMsgId){
+                        if (user.getUuid().equals(id)){
+                            if (!usersList.contains(user)) usersList.add(user);
+                        }
+                    }
                 }
-                ChatRecViewAdapter adapter = new ChatRecViewAdapter(usersList,getActivity(),getFragmentManager(),ChatRecViewAdapter.ChatHolder.VIEW_TYPE);
+                ChatRecViewAdapter adapter = new ChatRecViewAdapter(usersList,getActivity(),getFragmentManager(),ChatRecViewAdapter.AdminChatHolder.VIEW_TYPE);
                 chatRecView.setAdapter(adapter);
             }
 

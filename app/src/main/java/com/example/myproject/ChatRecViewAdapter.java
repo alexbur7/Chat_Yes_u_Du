@@ -35,57 +35,6 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
         this.viewType=viewType;
     }
 
-    private void setLastMsg(String id, TextView view){
-        FirebaseDatabase.getInstance().getReference("chats").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot snapshot1:snapshot.getChildren())
-                    for (DataSnapshot snapshot2:snapshot1.getChildren()){
-                        if (!snapshot2.getKey().equals("firstBlock") && !snapshot2.getKey().equals("secondBlock")) {
-                            for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
-                                ChatMessage message = snapshot3.getValue(ChatMessage.class);
-                                if (User.getCurrentUser().getUuid().equals(generateKey(id))) {
-                                    if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid()) && message.getFromUserUUID().equals(id) ||
-                                            message.getToUserUUID().equals(id) && message.getFromUserUUID().equals(User.getCurrentUser().getUuid()))
-                                            ) {
-                                        if (message.getFirstDelete().equals("delete")){
-                                            view.setText("");
-                                        }
-                                        else
-                                        view.setText(message.getMessageText());
-                                    }
-                                } else {
-                                    if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid()) && message.getFromUserUUID().equals(id) ||
-                                            message.getToUserUUID().equals(id) && message.getFromUserUUID().equals(User.getCurrentUser().getUuid())) ) {
-                                        if (message.getSecondDelete().equals("delete")){
-                                            view.setText("");
-                                        }
-                                        else
-                                            view.setText(message.getMessageText());
-                                    }
-                                }
-                            }
-                        }
-                    }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
-
-    private String generateKey(String receiverUuid){
-        ArrayList<String> templist=new ArrayList<>();
-        templist.add(User.getCurrentUser().getUuid());
-        templist.add(receiverUuid);
-        Collections.sort(templist);
-        String firstKey=templist.get(0);
-        return firstKey;
-    }
-
     @NonNull
     @Override
     public ChatRecViewAdapter.ChatHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -93,6 +42,7 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
         switch (viewType) {
             case ChatHolder.VIEW_TYPE: return new ChatRecViewAdapter.ChatHolder(v, context, fragmentManager);
             case BlockListHolder.VIEW_TYPE: return new BlockListHolder(v,context,fragmentManager);
+            case AdminChatHolder.VIEW_TYPE: return new AdminChatHolder(v,context,fragmentManager);
             default: throw new NullPointerException("HOLDER TYPE IS INVALID");
         }
     }
@@ -101,7 +51,7 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
     public void onBindViewHolder(@NonNull ChatHolder holder, int position) {
         holder.onBind(userList.get(position));
         if (User.getCurrentUser()!=null) {
-            setLastMsg(holder.user.getUuid(), holder.userText);
+            holder.setLastMsg(holder.user.getUuid(), holder.userText);
         }
     }
 
@@ -119,6 +69,7 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
     public static class ChatHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         public static final int VIEW_TYPE=0;
+
         protected User user;
         private TextView userName;
         private TextView userDate;
@@ -141,10 +92,61 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
             itemView.setOnLongClickListener(this);
         }
 
+        protected String generateKey(String receiverUuid){
+            ArrayList<String> templist=new ArrayList<>();
+            templist.add(User.getCurrentUser().getUuid());
+            templist.add(receiverUuid);
+            Collections.sort(templist);
+            String firstKey=templist.get(0);
+            return firstKey;
+        }
+
+        public void setLastMsg(String id, TextView view){
+            FirebaseDatabase.getInstance().getReference("chats").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot snapshot1:snapshot.getChildren())
+                        for (DataSnapshot snapshot2:snapshot1.getChildren()){
+                            if (!snapshot2.getKey().equals("firstBlock") && !snapshot2.getKey().equals("secondBlock")) {
+                                for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
+                                    ChatMessage message = snapshot3.getValue(ChatMessage.class);
+                                    //если я первый
+                                    if (User.getCurrentUser().getUuid().equals(generateKey(id))) {
+                                        if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid()) && message.getFromUserUUID().equals(id) ||
+                                                message.getToUserUUID().equals(id) && message.getFromUserUUID().equals(User.getCurrentUser().getUuid()))
+                                        ) {
+                                            if (message.getFirstDelete().equals("delete")){
+                                                view.setText("");
+                                            }
+                                            else
+                                                view.setText(message.getMessageText());
+                                        }
+                                    } else {
+                                        if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid()) && message.getFromUserUUID().equals(id) ||
+                                                message.getToUserUUID().equals(id) && message.getFromUserUUID().equals(User.getCurrentUser().getUuid())) ) {
+                                            if (message.getSecondDelete().equals("delete")){
+                                                view.setText("");
+                                            }
+                                            else
+                                                view.setText(message.getMessageText());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+
         void onBind(User user){
             this.user=user;
             userName.setText(user.getName());
-            Log.e("UUID USER",user.getUuid());
             if (user.getPhoto_url().equals("default")){
                 photoImageView.setImageResource(R.drawable.unnamed);
             }
@@ -159,7 +161,8 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
 
         @Override
         public void onClick(View view) {
-            Intent intent = ChatActivity.newIntent(context, user.getUuid(), user.getPhoto_url());
+            Log.e("CHATHOLDER","clicked");
+            Intent intent = ChatActivity.newIntent(context, user.getUuid(), user.getPhoto_url(), VIEW_TYPE);
             context.startActivity(intent);
         }
 
@@ -170,6 +173,75 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
             deleteChatDialog.setTargetFragment(fragment,ChatListFragment.KEY_DELETE_DIAOG);
             deleteChatDialog.show(fragmentManager,null);
             return true;
+        }
+    }
+
+    public static class AdminChatHolder extends ChatRecViewAdapter.ChatHolder{
+
+        public static final int VIEW_TYPE=2;
+
+        public AdminChatHolder(@NonNull View itemView, Context context, FragmentManager manager) {
+            super(itemView, context, manager);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Log.e("USER UUID",user.getUuid());
+            Intent intent = ChatActivity.newIntent(context, user.getUuid(), user.getPhoto_url(),VIEW_TYPE);
+            context.startActivity(intent);
+        }
+
+        @Override
+        public void setLastMsg(String id, TextView view) {
+            FirebaseDatabase.getInstance().getReference("chats").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot snapshot1:snapshot.getChildren())
+                        for (DataSnapshot snapshot2:snapshot1.getChildren()){
+                            if (!snapshot2.getKey().equals("firstBlock") && !snapshot2.getKey().equals("secondBlock")) {
+                                for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
+                                    ChatMessage message = snapshot3.getValue(ChatMessage.class);
+                                    //если я первый
+                                    if (context.getResources().getString(R.string.admin_key).equals(generateKey(id))) {
+                                        if ((message.getToUserUUID().equals(context.getResources().getString(R.string.admin_key)) && message.getFromUserUUID().equals(id) ||
+                                                message.getToUserUUID().equals(id) && message.getFromUserUUID().equals(context.getResources().getString(R.string.admin_key)))) {
+                                            if (message.getFirstDelete().equals("delete")){
+                                                view.setText("");
+                                            }
+                                            else
+                                                view.setText(message.getMessageText());
+                                        }
+                                    } else {
+                                        if ((message.getToUserUUID().equals(context.getResources().getString(R.string.admin_key)) && message.getFromUserUUID().equals(id) ||
+                                                message.getToUserUUID().equals(id) && message.getFromUserUUID().equals(context.getResources().getString(R.string.admin_key))) ) {
+                                            if (message.getSecondDelete().equals("delete")){
+                                                view.setText("");
+                                            }
+                                            else
+                                                view.setText(message.getMessageText());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+
+        @Override
+        protected String generateKey(String receiverUuid) {
+            ArrayList<String> templist=new ArrayList<>();
+            templist.add(context.getResources().getString(R.string.admin_key));
+            templist.add(receiverUuid);
+            Collections.sort(templist);
+            String firstKey=templist.get(0);
+            return firstKey;
         }
     }
 

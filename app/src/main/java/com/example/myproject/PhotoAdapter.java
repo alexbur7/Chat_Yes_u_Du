@@ -33,6 +33,14 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoHolder>
         this.viewType = viewType;
     }
 
+    public ArrayList<String> getUrlPhotos() {
+        return urlPhotos;
+    }
+
+    public void setUrlPhotos(ArrayList<String> urlPhotos) {
+        this.urlPhotos = urlPhotos;
+    }
+
     @NonNull
     @Override
     public PhotoHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -111,6 +119,8 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoHolder>
                 }
                 else {
                     EditPhotoDialog deletePhotoDialog = new EditPhotoDialog(url, userId, i + 1);
+                    //Log.e("GALLERY HOLDER TARGET", String.valueOf(manager.findFragmentById(R.id.fragment_container) instanceof MyGalleryFragment));
+                    deletePhotoDialog.setTargetFragment(manager.findFragmentById(R.id.fragment_container),MyGalleryFragment.DELETE_IMAGE_REQUEST);
                     deletePhotoDialog.show(manager, null);
                     urlPhotos.remove(url);
                 }

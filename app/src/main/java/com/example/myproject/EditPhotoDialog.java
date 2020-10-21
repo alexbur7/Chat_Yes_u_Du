@@ -72,9 +72,21 @@ public class EditPhotoDialog extends DialogFragment {
             public void onSuccess(Void aVoid) {
                 HashMap<String,Object> hashMap = new HashMap<>();
                 hashMap.put("photo_url"+i,"default");
-                FirebaseDatabase.getInstance().getReference("users").child(userId).updateChildren(hashMap);
+                FirebaseDatabase.getInstance().getReference("users").child(userId).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Log.e("DELETE COMPLETED", String.valueOf(EditPhotoDialog.class));
+                        sendResult(RESULT_OK,i);
+                    }
+                });
             }
         });
+    }
+
+    private void sendResult(int result,int i) {
+        Intent intent=new Intent();
+        intent.putExtra(String.valueOf(getTargetRequestCode()),i);
+        getTargetFragment().onActivityResult(getTargetRequestCode(),result,intent);
     }
 
 
