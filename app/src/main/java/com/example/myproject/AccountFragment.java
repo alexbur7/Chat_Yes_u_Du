@@ -30,7 +30,7 @@ public abstract class AccountFragment extends Fragment {
 
     private TextView nameTextView;
 
-    protected Button editButton;
+    //protected Button editButton;
     protected Toolbar toolbar;
     protected ImageView photoImageView;
     protected StorageReference storageReference;
@@ -47,7 +47,7 @@ public abstract class AccountFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.account_fragment,container,false);
         nameTextView=v.findViewById(R.id.my_name_text);
-        editButton = v.findViewById(R.id.edit_button);
+        //editButton = v.findViewById(R.id.edit_button);
         photoImageView = v.findViewById(R.id.photo_view);
         photoRecView =v.findViewById(R.id.photo_recycler_view);
         textRecView=v.findViewById(R.id.text_recycler_view);
@@ -63,7 +63,7 @@ public abstract class AccountFragment extends Fragment {
 
     abstract void setToolbar();
 
-    abstract void setEditButton();
+    //abstract void setEditButton();
 
     @SuppressLint("ClickableViewAccessibility")
     protected void setPhotoImageView(User user){

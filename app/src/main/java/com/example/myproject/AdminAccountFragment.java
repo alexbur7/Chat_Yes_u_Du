@@ -52,8 +52,8 @@ public class AdminAccountFragment extends AccountFragment {
         });
     }
 
-    @Override
-    void setEditButton() {
+
+    /*void setEditButton() {
       if (user.getAdmin_block().equals("unblock")) {
           editButton.setText(getResources().getString(R.string.block_account));
           editButton.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +76,7 @@ public class AdminAccountFragment extends AccountFragment {
               }
           });
       }
-    }
+    }*/
 
     @Override
     boolean clickToolbarItems(MenuItem item) {
@@ -98,6 +98,21 @@ public class AdminAccountFragment extends AccountFragment {
             case R.id.delete_image3_menu:{
                 if (!user.getPhoto_url3().equals("default"))
                 deleteImage(user,3);
+            }
+            break;
+            case R.id.block_account:{
+                HashMap<String, Object> hashMap = new HashMap<>();
+                if (user.getAdmin_block().equals("unblock")) {
+                    hashMap.put("admin_block", "block");
+                reference.child(user.getUuid()).updateChildren(hashMap);
+                item.setTitle(R.string.unblock_account);
+            }
+            else {
+                hashMap.put("admin_block", "unblock");
+                reference.child(user.getUuid()).updateChildren(hashMap);
+                item.setTitle(R.string.block_account);
+                }
+
             }
             break;
         }
@@ -125,7 +140,7 @@ public class AdminAccountFragment extends AccountFragment {
                 setAllTextView(user);
                 setUpGallery(user);
                 openGallery(user);
-                setEditButton();
+                //setEditButton();
                 pd.dismiss();
             }
 

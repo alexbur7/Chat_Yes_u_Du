@@ -41,10 +41,10 @@ public class UserAccountFragment extends AccountFragment {
 
     }
 
-    @Override
+    /*@Override
     void setEditButton() {
         editButton.setVisibility(View.INVISIBLE);
-    }
+    }*/
 
 
     @Override
@@ -73,7 +73,6 @@ public class UserAccountFragment extends AccountFragment {
                 setAllTextView(user);
                 setUpGallery(user);
                 openGallery(user);
-                setEditButton();
                 pd.dismiss();
             }
 

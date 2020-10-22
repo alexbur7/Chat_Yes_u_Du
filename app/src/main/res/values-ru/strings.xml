@@ -103,7 +103,7 @@
     <string name="you_cannot_delete_photo">В профиле должны присутствовать как минимум 2 фотографии</string>
     <string name="reset_image">Обновить фото</string>
     <string name="admin">Администратор</string>
-    <string name="gallery_text">Галерея</string>
+    <string name="gallery_text">Фотографии</string>
     <string name="complain_menu">Пожаловаться</string>
     <string name="delete_image1">Delete photo1</string>
     <string name="delete_image2">Delete photo2</string>

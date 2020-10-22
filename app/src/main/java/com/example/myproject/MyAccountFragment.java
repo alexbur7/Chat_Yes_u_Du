@@ -65,8 +65,7 @@ public class MyAccountFragment extends AccountFragment {
         });
     }
 
-    @Override
-    void setEditButton() {
+    /*void setEditButton() {
         editButton.setText(getResources().getString(R.string.edit_account));
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +74,7 @@ public class MyAccountFragment extends AccountFragment {
                 editDialog.show(getFragmentManager(),null);
             }
         });
-    }
+    }*/
 
 
     @Override
@@ -129,6 +128,13 @@ public class MyAccountFragment extends AccountFragment {
                 Intent intent = new Intent(getActivity(),ResetPasswordActivity.class);
                 startActivity(intent);
             }
+            break;
+
+            case R.id.custmoize:{
+                EditDialog editDialog = new EditDialog();
+                editDialog.show(getFragmentManager(),null);
+            }
+            break;
         }
         return true;
     }
@@ -146,7 +152,7 @@ public class MyAccountFragment extends AccountFragment {
                 User user = snapshot.getValue(User.class);
                 User.setCurrentUser(user, uuid,status_offline);
                     if (user.getAdmin().equals("true")) {
-                        toolbar.getMenu().getItem(4).setVisible(true);
+                        toolbar.getMenu().getItem(5).setVisible(true);
                     }
                 if(user.getPhoto_url().equals("default")){
                     photoImageView.setImageResource(R.drawable.unnamed);
@@ -158,7 +164,7 @@ public class MyAccountFragment extends AccountFragment {
                 setUpGallery(user);
                 setAllTextView(user);
                 openGallery(user);
-                setEditButton();
+                //setEditButton();
                 pd.dismiss();
             }
 

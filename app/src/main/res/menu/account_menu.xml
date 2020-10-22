@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/custmoize"
+        android:title="@string/edit_account"
+        android:icon="@drawable/edit_acc_item"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/blocklist"
         android:title="@string/blocklist"
         app:showAsAction="never"/>
@@ -21,6 +27,7 @@
         android:id="@+id/delete_account"
         android:title="@string/remove_account_menu_item"
         app:showAsAction="never"/>
+
     <item
         android:id="@+id/panel_admin"
         android:title="@string/panel_admin"
