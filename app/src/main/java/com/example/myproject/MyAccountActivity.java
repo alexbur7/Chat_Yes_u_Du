@@ -36,9 +36,12 @@ public class MyAccountActivity extends BaseActivity implements UsersChatListFrag
 
     @Override
     public void onBackPressed() {
+        if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container) instanceof PhotoViewPagerItemFragment)) {
             ChatAndAccPager fragment = (ChatAndAccPager) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
             if (fragment.getViewPager().getCurrentItem() == 1 && fragment.TYPE_OF_LIST.equals("F"))
                 fragment.checkUsersFragment(CODE_NO_FILTER, null);
             else super.onBackPressed();
         }
+        else super.onBackPressed();
+    }
 }

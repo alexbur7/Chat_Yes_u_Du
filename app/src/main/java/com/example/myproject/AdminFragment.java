@@ -3,7 +3,6 @@ package com.example.myproject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +36,6 @@ public class AdminFragment extends ChatListFragment{
                 ArrayList<String> usersID = new ArrayList<>();
                 usersID.clear();
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                    Log.e("ADMINFRAGMENT",snapshot1.getKey());
                     //String genKey=snapshot1.getKey();
                     // usersID.add(msg.getToUserUUID());
                     for (DataSnapshot snapshot2:snapshot1.getChildren()) {
@@ -50,13 +48,10 @@ public class AdminFragment extends ChatListFragment{
                         }
                     }
                 }
-                Log.e("USERS AFTER SETCHAT",usersID.get(0));
                 setUsersFromChats(usersID);
             }
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
 

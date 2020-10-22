@@ -3,7 +3,6 @@ package com.example.myproject;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -24,7 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
-import java.util.List;
 
 public abstract class AccountFragment extends Fragment {
 
@@ -63,8 +60,6 @@ public abstract class AccountFragment extends Fragment {
 
     abstract void setToolbar();
 
-    //abstract void setEditButton();
-
     @SuppressLint("ClickableViewAccessibility")
     protected void setPhotoImageView(User user){
         //photoImageView.setOnTouchListener(new ZoomInZoomOut());
@@ -72,7 +67,9 @@ public abstract class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Fragment newDetail = PhotoViewPagerItemFragment.newInstance(user.getPhoto_url());
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container,newDetail)
+                getFragmentManager().beginTransaction()
+                        .addToBackStack(null)
+                        .add(R.id.fragment_container,newDetail)
                         .commit();
             }
         });
