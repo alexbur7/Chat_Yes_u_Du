@@ -46,10 +46,6 @@ public class UserAccountFragment extends AccountFragment {
         editButton.setVisibility(View.INVISIBLE);
     }
 
-    @Override
-    void setPhotoImageView() {
-
-    }
 
     @Override
     boolean clickToolbarItems(MenuItem item) {
@@ -73,6 +69,7 @@ public class UserAccountFragment extends AccountFragment {
                 else {
                     if (isAdded()) Glide.with(getContext()).load(user.getPhoto_url()).into(photoImageView);
                 }
+                setPhotoImageView(user);
                 setAllTextView(user);
                 setUpGallery(user);
                 openGallery(user);

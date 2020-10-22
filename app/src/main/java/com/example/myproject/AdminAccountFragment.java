@@ -79,9 +79,6 @@ public class AdminAccountFragment extends AccountFragment {
     }
 
     @Override
-    void setPhotoImageView() {}
-
-    @Override
     boolean clickToolbarItems(MenuItem item) {
         switch (item.getItemId()){
             case R.id.delete_image_menu:{
@@ -124,6 +121,7 @@ public class AdminAccountFragment extends AccountFragment {
                 else {
                     if (isAdded()) Glide.with(getContext()).load(user.getPhoto_url()).into(photoImageView);
                 }
+                setPhotoImageView(user);
                 setAllTextView(user);
                 setUpGallery(user);
                 openGallery(user);

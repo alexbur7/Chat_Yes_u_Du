@@ -1,5 +1,6 @@
 package com.example.myproject;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,7 +57,7 @@ public abstract class AccountFragment extends Fragment {
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
         setToolbar();
         setUser();
-        setPhotoImageView();
+        //setPhotoImageView();
         return v;
     }
 
@@ -64,7 +65,18 @@ public abstract class AccountFragment extends Fragment {
 
     abstract void setEditButton();
 
-    abstract void setPhotoImageView();
+    @SuppressLint("ClickableViewAccessibility")
+    protected void setPhotoImageView(User user){
+        //photoImageView.setOnTouchListener(new ZoomInZoomOut());
+        photoImageView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Fragment newDetail = PhotoViewPagerItemFragment.newInstance(user.getPhoto_url());
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,newDetail)
+                        .commit();
+            }
+        });
+    }
 
     abstract boolean clickToolbarItems(MenuItem item);
 

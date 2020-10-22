@@ -371,7 +371,7 @@ public class ChatFragment extends ChatBaseFragment{
                 User user = snapshot.getValue(User.class);
                     try {
                         if (user.getStatus().equals(getResources().getString(R.string.label_offline)))
-                            statusText.setText(user.getStatus() + ": " + DateFormat.format("dd-MM-yyyy (HH:mm)", user.getOnline_time()));
+                            statusText.setText("был в сети " + DateFormat.format("dd-MM-yyyy (HH:mm)", user.getOnline_time()));
                         else statusText.setText(user.getStatus());
                         username.setText(user.getName());
                     } catch (Exception e) {

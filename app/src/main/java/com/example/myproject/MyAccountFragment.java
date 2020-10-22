@@ -79,11 +79,13 @@ public class MyAccountFragment extends AccountFragment {
 
 
     @Override
-    void setPhotoImageView() {
-        photoImageView.setOnClickListener(new View.OnClickListener(){
+    protected void setPhotoImageView(User user) {
+        super.setPhotoImageView(user);
+        photoImageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onLongClick(View v) {
                 openImage();
+                return true;
             }
         });
     }
@@ -152,6 +154,7 @@ public class MyAccountFragment extends AccountFragment {
                 else {
                     if (isAdded()) Glide.with(getContext()).load(user.getPhoto_url()).into(photoImageView);
                 }
+                setPhotoImageView(user);
                 setUpGallery(user);
                 setAllTextView(user);
                 openGallery(user);
