@@ -37,7 +37,7 @@
     <string name="password_length_short">Пароль слишком короткий</string>
     <string name="edit_account">Редактировать</string>
     <string name="search_pos_button_text">найти</string>
-    <string name="label_online">онлайн</string>
+    <string name="label_online">он-лайн</string>
     <string name="label_male">Мужской</string>
     <string name="failed_update_photo">Ошибка при обновлении фото</string>
     <string name="no_image_selected">Картинка не выбрана</string>
@@ -105,11 +105,11 @@
     <string name="admin">Администратор</string>
     <string name="gallery_text">Фотографии</string>
     <string name="complain_menu">Пожаловаться</string>
-    <string name="delete_image1">Delete photo1</string>
-    <string name="delete_image2">Delete photo2</string>
-    <string name="delete_image3">Delete photo3</string>
-    <string name="rule_and_policy">Rule and Policy</string>
-    <string name="about_us">About us</string>
-    <string name="licence">License</string>
-    <string name="rule_and_resources">Rules of resourses</string>
+    <string name="delete_image1">Удалить фото1</string>
+    <string name="delete_image2">Удалить фото2</string>
+    <string name="delete_image3">Удалить фото3</string>
+    <string name="rule_and_policy">Правила и политика</string>
+    <string name="about_us">О нас</string>
+    <string name="licence">Лицензия</string>
+    <string name="rule_and_resources">Правила ресурса</string>
 </resources>

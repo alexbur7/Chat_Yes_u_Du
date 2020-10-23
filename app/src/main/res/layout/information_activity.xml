@@ -3,26 +3,29 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal">
+    android:gravity="center">
     <TextView
         android:id="@+id/rule_and_policy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/rule_and_policy"
-        android:textColor="@color/login"/>
+        style="@android:style/TextAppearance.Medium"
+        android:textColor="?attr/colorPrimaryDark"/>
     <TextView
         android:id="@+id/license"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/licence"
-        android:textColor="@color/login"/>
+        style="@android:style/TextAppearance.Medium"
+        android:textColor="?attr/colorPrimaryDark"/>
     <TextView
         android:id="@+id/rules_of_resources"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/rule_and_resources"
-        android:textColor="@color/login"/>
+        style="@android:style/TextAppearance.Medium"
+        android:textColor="?attr/colorPrimaryDark"/>
 </LinearLayout>
