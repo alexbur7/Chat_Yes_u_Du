@@ -120,7 +120,6 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoHolder>
                     //Log.e("GALLERY HOLDER TARGET", String.valueOf(manager.findFragmentById(R.id.fragment_container) instanceof MyGalleryFragment));
                     deletePhotoDialog.setTargetFragment(manager.findFragmentById(R.id.fragment_container),MyGalleryFragment.DELETE_IMAGE_REQUEST);
                     deletePhotoDialog.show(manager, null);
-                    urlPhotos.remove(url);
                 }
             }
             return true;

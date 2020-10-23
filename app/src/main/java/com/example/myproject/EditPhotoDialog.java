@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -40,7 +41,7 @@ public class EditPhotoDialog extends DialogFragment {
     private String photo_url;
     private String userId;
     private int i;
-    private RadioButton deletePhoto;
+    private CheckBox deletePhoto;
 
     public EditPhotoDialog(String photo_url, String userId, int i){
         this.photo_url = photo_url;
