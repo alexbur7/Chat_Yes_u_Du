@@ -17,16 +17,21 @@
         android:title="@string/reset_password"
         app:showAsAction="never"/>
 
-    <item
-        android:id="@+id/logout"
-        android:title="@string/logout_menu"
-        app:showAsAction="never"
-        android:icon="@drawable/baseline_login_black_18dp" />
+    <item android:id="@+id/information_menu"
+        android:title="@string/about_us"
+        app:showAsAction="never"/>
+
 
     <item
         android:id="@+id/delete_account"
         android:title="@string/remove_account_menu_item"
         app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/logout"
+        android:title="@string/logout_menu"
+        app:showAsAction="never"
+        android:icon="@drawable/baseline_login_black_18dp" />
 
     <item
         android:id="@+id/panel_admin"

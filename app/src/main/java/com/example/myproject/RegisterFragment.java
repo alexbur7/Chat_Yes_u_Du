@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +14,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.myproject.rules_and_policy.InformationActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -35,7 +36,6 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.Date;
-import java.util.HashMap;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -62,6 +62,7 @@ public class RegisterFragment extends Fragment {
     private String uri1,uri2;
     private int i;
     private StorageTask uploadTask;
+    private TextView ruleText;
 
     private String status_offline;
 
@@ -92,6 +93,15 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 openImage(2);
+            }
+        });
+        ruleText = v.findViewById(R.id.rule);
+        ruleText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String informationText = getActivity().getString(R.string.text_rule_policy);
+                Intent intent = InformationActivity.newIntent(getActivity(),informationText);
+                startActivity(intent);
             }
         });
         regButton=v.findViewById(R.id.registration_button);

@@ -96,12 +96,12 @@
         android:layout_marginBottom="3dp"
         android:hint="@string/email_reg_hint"/>
 
-            <TextView
-                style="@android:style/TextAppearance.Small"
-                android:text="@string/verify_text"
-                android:layout_width="wrap_content"
-                android:layout_marginLeft="14dp"
-                android:layout_height="wrap_content"/>
+    <TextView
+        style="@android:style/TextAppearance.Small"
+        android:text="@string/verify_text"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_height="wrap_content"/>
 
     <EditText
         android:id="@+id/password_reg_edit_text"
@@ -111,23 +111,31 @@
         android:hint="@string/pass_reg_hint"
         android:layout_margin="8dp"/>
 
-            <EditText
-                android:id="@+id/about_edit_text"
-                android:hint="@string/about_hint"
-                android:inputType="text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"/>
+    <EditText
+        android:id="@+id/about_edit_text"
+        android:hint="@string/about_hint"
+        android:inputType="text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"/>
+    <TextView
+        android:id="@+id/rule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rule_and_policy"
+        android:textColor="@color/login"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="8dp"/>
 
-            <Button
-                android:id="@+id/registration_button"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:padding="8dp"
-                android:background="?attr/colorAccent"
-                android:text="@string/reg_button_text"/>
+    <Button
+        android:id="@+id/registration_button"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:background="?attr/colorAccent"
+        android:text="@string/reg_button_text"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

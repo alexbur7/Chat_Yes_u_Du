@@ -2,11 +2,13 @@ package com.example.myproject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -78,9 +80,11 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
         private ImageView photoImageView;
         protected Context context;
         protected FragmentManager fragmentManager;
+        private LinearLayout linearLayout;
 
         public ChatHolder(@NonNull View itemView,Context context,FragmentManager manager) {
             super(itemView);
+            linearLayout = itemView.findViewById(R.id.chat_list_item_layout);
             this.context=context;
             this.fragmentManager=manager;
             userName = itemView.findViewById(R.id.user_name);
@@ -118,8 +122,12 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
                                             if (message.getFirstDelete().equals("delete")){
                                                 view.setText("");
                                             }
-                                            else
+                                            else {
                                                 view.setText(message.getMessageText());
+                                            }
+                                            if(message.getFirstKey().equals(context.getString(R.string.not_seen_text))){
+                                                linearLayout.setBackgroundResource(R.color.no_seen);
+                                            }
                                         }
                                     } else {
                                         if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid()) && message.getFromUserUUID().equals(id) ||
@@ -129,6 +137,9 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
                                             }
                                             else
                                                 view.setText(message.getMessageText());
+                                            if(message.getSecondKey().equals(context.getString(R.string.not_seen_text))){
+                                                linearLayout.setBackgroundResource(R.color.no_seen);
+                                            }
                                         }
                                     }
                                 }

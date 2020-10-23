@@ -28,7 +28,7 @@
     <string name="find_menu_item_title">Поиск</string>
     <string name="dialog_title">Фильтры</string>
     <string name="label_sex">Пол</string>
-    <string name="label_female">Женщина</string>
+    <string name="label_female">Женский</string>
     <string name="label_activity">Онлайн</string>
     <string name="label_only_with_photo">с фото</string>
     <string name="label_name">Имя</string>
@@ -38,7 +38,7 @@
     <string name="edit_account">Редактировать</string>
     <string name="search_pos_button_text">найти</string>
     <string name="label_online">онлайн</string>
-    <string name="label_male">Мужчина</string>
+    <string name="label_male">Мужской</string>
     <string name="failed_update_photo">Ошибка при обновлении фото</string>
     <string name="no_image_selected">Картинка не выбрана</string>
     <string name="label_additional">Добавить фильтры</string>
@@ -108,4 +108,8 @@
     <string name="delete_image1">Delete photo1</string>
     <string name="delete_image2">Delete photo2</string>
     <string name="delete_image3">Delete photo3</string>
+    <string name="rule_and_policy">Rule and Policy</string>
+    <string name="about_us">About us</string>
+    <string name="licence">License</string>
+    <string name="rule_and_resources">Rules of resourses</string>
 </resources>

@@ -24,7 +24,7 @@ public class PhotoViewPagerItemFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.photo_view_pager_item,null);
         imageView = v.findViewById(R.id.photo_view_pager_item);
-        imageView.setOnTouchListener(new ZoomInZoomOut());
+        //imageView.setOnTouchListener(new ZoomInZoomOut());
         url = getArguments().getString(KEY_URL);
         Glide.with(getActivity()).load(url).into(imageView);
         return v;

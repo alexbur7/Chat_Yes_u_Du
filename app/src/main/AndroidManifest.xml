@@ -24,6 +24,8 @@
             android:parentActivityName=".MyAccountActivity"/>
         <activity android:name=".PhotoViewPager"
             android:parentActivityName=".GalleryActivity"/>
+        <activity android:name=".rules_and_policy.InformationListActivity"/>
+        <activity android:name=".rules_and_policy.InformationActivity"/>
         <activity android:name=".GalleryActivity"/>
         <activity android:name=".ResetPasswordActivity"
             android:parentActivityName=".MyAccountActivity"/>

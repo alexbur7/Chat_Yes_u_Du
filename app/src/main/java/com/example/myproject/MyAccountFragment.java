@@ -4,7 +4,6 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import com.bumptech.glide.Glide;
+import com.example.myproject.rules_and_policy.InformationListActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,10 +29,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -129,7 +127,11 @@ public class MyAccountFragment extends AccountFragment {
                 startActivity(intent);
             }
             break;
-
+            case R.id.information_menu:{
+                Intent intent = new Intent(getActivity(), InformationListActivity.class);
+                startActivity(intent);
+            }
+            break;
             case R.id.custmoize:{
                 EditDialog editDialog = new EditDialog();
                 editDialog.show(getFragmentManager(),null);
@@ -152,7 +154,7 @@ public class MyAccountFragment extends AccountFragment {
                 User user = snapshot.getValue(User.class);
                 User.setCurrentUser(user, uuid,status_offline);
                     if (user.getAdmin().equals("true")) {
-                        toolbar.getMenu().getItem(5).setVisible(true);
+                        toolbar.getMenu().getItem(6).setVisible(true);
                     }
                 if(user.getPhoto_url().equals("default")){
                     photoImageView.setImageResource(R.drawable.unnamed);
