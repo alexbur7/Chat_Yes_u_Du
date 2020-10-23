@@ -23,7 +23,7 @@ public class FilterDialog extends DialogFragment {
     private CheckBox femaleCheckBox;
     private CheckBox onlineCheckBox;
     private Spinner ageSpinner;
-    private CheckBox photoCheckBox;
+    //private CheckBox photoCheckBox;
 
     public static final String KEY_TO_NAME_FILTER="name_filter";
     public static final String KEY_TO_SEX_FILTER="sex_filter";
@@ -42,7 +42,7 @@ public class FilterDialog extends DialogFragment {
         cityEditText=view.findViewById(R.id.city_filter_edit_text);
         maleCheckBox=view.findViewById(R.id.genderMaleCheckBox);
         femaleCheckBox=view.findViewById(R.id.genderFemaleCheckBox);
-        photoCheckBox=view.findViewById(R.id.photoCheckBox);
+        //photoCheckBox=view.findViewById(R.id.photoCheckBox);
         ageSpinner=view.findViewById(R.id.spinner_age_filter);
         onlineCheckBox=view.findViewById(R.id.onlineCheckBox);
         ageSpinner.setSelection(5);
@@ -55,10 +55,10 @@ public class FilterDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if ((femaleCheckBox.isChecked() && maleCheckBox.isChecked()) || (!femaleCheckBox.isChecked() && !maleCheckBox.isChecked()) )
-                        sendResult(nameEditText.getText().toString(),"",(ageSpinner.getSelectedItem().equals(getResources().getStringArray(R.array.age_for_spinner)[5]) ? null :ageSpinner.getSelectedItem().toString()),cityEditText.getText().toString(),(onlineCheckBox.isChecked() ? getResources().getString(R.string.label_online):""),(photoCheckBox.isChecked() ? "default" : ""),Activity.RESULT_OK);
+                        sendResult(nameEditText.getText().toString(),"",(ageSpinner.getSelectedItem().equals(getResources().getStringArray(R.array.age_for_spinner)[5]) ? null :ageSpinner.getSelectedItem().toString()),cityEditText.getText().toString(),(onlineCheckBox.isChecked() ? getResources().getString(R.string.label_online):""),(true ? "default" : ""),Activity.RESULT_OK);
 
                         else  sendResult(nameEditText.getText().toString(),(maleCheckBox.isChecked() ? getResources().getString(R.string.label_male) : getResources().getString(R.string.label_female)),
-                                (ageSpinner.getSelectedItem().equals(getResources().getStringArray(R.array.age_for_spinner)[5]) ? null :ageSpinner.getSelectedItem().toString()),cityEditText.getText().toString(),(onlineCheckBox.isChecked() ? getResources().getString(R.string.label_online):""),(photoCheckBox.isChecked() ? "default" : ""),Activity.RESULT_OK);
+                                (ageSpinner.getSelectedItem().equals(getResources().getStringArray(R.array.age_for_spinner)[5]) ? null :ageSpinner.getSelectedItem().toString()),cityEditText.getText().toString(),(onlineCheckBox.isChecked() ? getResources().getString(R.string.label_online):""),(true ? "default" : ""),Activity.RESULT_OK);
                     }
                 }).create();
     }

@@ -113,7 +113,7 @@ public class AdminFragment extends ChatListFragment{
                     filterUsersByAge(users, user);
                     filterUsersByCity(users, user);
                     filterUsersByOnline(users, user);
-                    filterUsersByPhoto(users,user);
+                    //filterUsersByPhoto(users,user);
                 }
                 ChatRecViewAdapter adapter = new ChatRecViewAdapter(users,getActivity(),getFragmentManager(),ChatRecViewAdapter.ChatHolder.VIEW_TYPE);
                 chatRecView.setAdapter(adapter);

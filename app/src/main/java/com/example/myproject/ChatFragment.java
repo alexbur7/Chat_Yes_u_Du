@@ -337,15 +337,14 @@ public class ChatFragment extends ChatBaseFragment{
             reference.child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
-                            User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,getResources().getString(R.string.not_seen_text),
-                            getResources().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete"));
+                            User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,"",
+                            "",(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete"));
         }
         image_rui=null;
         input.setText("");
     }
 
      String generateKey(){
-        Log.e("CHAT FRAGMENT ORIG KEY", String.valueOf(ChatFragment.class));
         ArrayList<String> templist=new ArrayList<>();
         templist.add(User.getCurrentUser().getUuid());
         templist.add(receiverUuid);

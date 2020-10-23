@@ -47,8 +47,8 @@
     <string name="seen_text">прочитано</string>
     <string name="not_seen_text">не прочитано</string>
     <string-array name="sex_for_spinner">
-        <item>Мужчина</item>
-        <item>Женщина</item>
+        <item>Мужской</item>
+        <item>Женский</item>
     </string-array>
     <string name="label_age">Возраст</string>
     <string name="city_edit_text_hint">Город</string>

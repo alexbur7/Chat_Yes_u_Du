@@ -44,11 +44,11 @@ public class LoginFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        /*if (FirebaseAuth.getInstance().getCurrentUser()!=null){
+        if (FirebaseAuth.getInstance().getCurrentUser()!=null){
             Intent intent=new Intent(getActivity(),MyAccountActivity.class);
             startActivity(intent);
             getActivity().finish();
-        }*/
+        }
     }
 
     @Override
