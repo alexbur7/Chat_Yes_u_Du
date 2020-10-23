@@ -8,10 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.myproject.rules_and_policy.InformationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -34,6 +37,8 @@ public class LoginFragment extends Fragment {
     private Button regButton;
     private Button logButton;
     private String offline_string;
+    private TextView policeRule;
+    private TextView resourceRule;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -76,6 +81,25 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 login();
+            }
+        });
+        policeRule = view.findViewById(R.id.rule_and_pol);
+        policeRule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String informationText = getResources().getString(R.string.text_rule_policy);
+                Intent intent = InformationActivity.newIntent(getActivity(),informationText);
+                startActivity(intent);
+            }
+        });
+        resourceRule = view.findViewById(R.id.rules_of_res);
+        resourceRule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String informationText = getResources().getString(R.string.rules_resources_text);
+                String resourceText = getResources().getString(R.string.resources_text_part);
+                Intent intent = InformationActivity.newIntent(getActivity(),informationText+resourceText);
+                startActivity(intent);
             }
         });
         if (getArguments()!=null) {

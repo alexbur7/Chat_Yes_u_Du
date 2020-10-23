@@ -357,4 +357,5 @@ Unless required by applicable law or agreed to in writing, software distributed 
     <string name="about_us">About us</string>
     <string name="licence">License</string>
     <string name="rule_and_resources">Rules of resource</string>
+    <string name="read_rules">before registering, read the rules of the service</string>
 </resources>

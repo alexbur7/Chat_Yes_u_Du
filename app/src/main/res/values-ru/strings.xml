@@ -108,8 +108,9 @@
     <string name="delete_image1">Удалить фото1</string>
     <string name="delete_image2">Удалить фото2</string>
     <string name="delete_image3">Удалить фото3</string>
-    <string name="rule_and_policy">Правила и политика</string>
+    <string name="rule_and_policy">Политика конфиденциальности</string>
     <string name="about_us">О нас</string>
     <string name="licence">Лицензия</string>
     <string name="rule_and_resources">Правила ресурса</string>
+    <string name="read_rules">Прежде чем зарегистрироваться, пожалуйста, ознакомьтесь с нашей политикой и правилами</string>
 </resources>
