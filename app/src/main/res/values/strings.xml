@@ -16,6 +16,7 @@
     <string name="failed_login">False email or password</string>
     <string name="logout_menu">Logout</string>
     <string name="country">Country:</string>
+    <string name="country_label">Country</string>
     <string name="city">City:</string>
     <string name="region">Region:</string>
     <string name="sex">Sex:</string>
@@ -358,4 +359,20 @@ Unless required by applicable law or agreed to in writing, software distributed 
     <string name="licence">License</string>
     <string name="rule_and_resources">Rules of resource</string>
     <string name="read_rules">before registering, read the rules of the service</string>
+    <string name="region_label">Region</string>
+
+
+    <string-array name="country_filter">
+        <item>Россия</item>
+        <item>Армения</item>
+    </string-array>
+
+    <string-array name="region_filter_rus">
+        <item>Московская обл.</item>
+        <item>Ленинградская обл.</item>
+    </string-array>
+
+    <string-array name="region_filter_arm">
+        <item>Области не добавлены</item>
+    </string-array>
 </resources>

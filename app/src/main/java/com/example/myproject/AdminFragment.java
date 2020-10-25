@@ -94,10 +94,12 @@ public class AdminFragment extends ChatListFragment{
         String cityFilter=data.getStringExtra(FilterDialog.KEY_TO_CITY_FILTER);
         String onlineFilter=data.getStringExtra(FilterDialog.KEY_TO_ONLINE_FILTER);
         String photoFilter=data.getStringExtra(FilterDialog.KEY_TO_PHOTO_FILTER);
-        filterUsers(nameFilter,sexFilter,ageFilter,cityFilter,onlineFilter,photoFilter);
+        String countryFilter=data.getStringExtra(FilterDialog.KEY_TO_COUNTRY_FILTER);
+        String regionFilter=data.getStringExtra(FilterDialog.KEY_TO_REGION_FILTER);
+        filterUsers(nameFilter,sexFilter,ageFilter,cityFilter,onlineFilter,photoFilter,countryFilter,regionFilter);
     }
 
-    private void filterUsers(String nameFilter, String sexFilter, String ageFilter, String cityFilter, String onlineFilter,String photoFilter){
+    private void filterUsers(String nameFilter, String sexFilter, String ageFilter, String cityFilter, String onlineFilter, String photoFilter, String countryFilter, String regionFilter){
         reference = FirebaseDatabase.getInstance().getReference("users");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -113,11 +115,29 @@ public class AdminFragment extends ChatListFragment{
                     filterUsersByAge(users, user);
                     filterUsersByCity(users, user);
                     filterUsersByOnline(users, user);
+                    filterUsersByCountry(users,user);
+                    filterUsersByRegion(users,user);
                     //filterUsersByPhoto(users,user);
                 }
                 ChatRecViewAdapter adapter = new ChatRecViewAdapter(users,getActivity(),getFragmentManager(),ChatRecViewAdapter.ChatHolder.VIEW_TYPE);
                 chatRecView.setAdapter(adapter);
                 reference.removeEventListener(this);
+            }
+
+            private void filterUsersByRegion(ArrayList<User> users, User user) {
+                if (!regionFilter.isEmpty()){
+                    if (!user.getRegion().equals(regionFilter)){
+                        users.remove(user);
+                    }
+                }
+            }
+
+            private void filterUsersByCountry(ArrayList<User> users, User user) {
+                if (!countryFilter.isEmpty()){
+                    if (!user.getCountry().equals(countryFilter)){
+                        users.remove(user);
+                    }
+                }
             }
 
             private void filterUsersByPhoto(ArrayList<User> users, User user){

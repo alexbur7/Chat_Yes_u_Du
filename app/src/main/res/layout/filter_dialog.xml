@@ -73,6 +73,32 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/country"
+                android:id="@+id/textView8"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="6dp" />
+
+            <Spinner
+                android:id="@+id/spinner_country_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/region_label"
+                android:id="@+id/textView9"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="6dp" />
+
+            <Spinner
+                android:id="@+id/spinner_region_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/label_activity"
                 android:id="@+id/textView4"
                 android:layout_marginTop="16dp"

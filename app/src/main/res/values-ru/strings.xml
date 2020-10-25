@@ -15,6 +15,7 @@
     <string name="failed_login">Неверный email или пароль</string>
     <string name="logout_menu">Выход</string>
     <string name="country">Страна:</string>
+    <string name="country_label">Страна</string>
     <string name="city">Город:</string>
     <string name="region">Область/край:</string>
     <string name="sex">Пол:</string>
@@ -113,4 +114,5 @@
     <string name="licence">Лицензия</string>
     <string name="rule_and_resources">Правила ресурса</string>
     <string name="read_rules">Прежде чем зарегистрироваться, пожалуйста, ознакомьтесь с нашей политикой и правилами</string>
+    <string name="region_label">Регион</string>
 </resources>

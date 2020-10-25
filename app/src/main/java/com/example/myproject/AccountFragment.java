@@ -3,6 +3,7 @@ package com.example.myproject;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +37,10 @@ public abstract class AccountFragment extends Fragment {
     protected PhotoAdapter photoAdapter;
     protected RecyclerView photoRecView;
     protected RecyclerView textRecView;
+
+    private String[] countryArray;
+    private String[] regionArray;
+
     private Button lookAll;
 
 
@@ -83,12 +88,24 @@ public abstract class AccountFragment extends Fragment {
 
     protected void setAllTextView(User user){
         //AccountAdapter adapter=new AccountAdapter(getActivity(),hashMap);
+        countryArray=getResources().getStringArray(R.array.country_filter);
+        Log.e("COUNTRY",user.getCountry());
+        switch (Integer.parseInt(user.getCountry())){
+            case 0:{
+                regionArray=getResources().getStringArray(R.array.region_filter_rus);
+            }
+            break;
+            case 1:{
+                regionArray=getResources().getStringArray(R.array.region_filter_arm);
+            }
+            break;
+        }
         nameTextView.setText(user.getName()+" "+user.getSurname());
         ArrayList<String> tempListUser=new ArrayList<>();
         ArrayList<String> tempListLabels=new ArrayList<>();
-        tempListUser.add(user.getCountry());
+        tempListUser.add(countryArray[Integer.parseInt(user.getCountry())]);
         if (!user.getRegion().isEmpty())
-        tempListUser.add(user.getRegion());
+        tempListUser.add(regionArray[Integer.parseInt(user.getRegion())]);
         tempListUser.add(user.getCity());
         tempListUser.add(user.getSex());
         tempListUser.add(user.getAge());

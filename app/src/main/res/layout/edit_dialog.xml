@@ -25,18 +25,17 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/surname_hint"/>
 
-            <EditText
+            <Spinner
                 android:id="@+id/country"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/country_hint"/>
-            <EditText
+                android:layout_marginTop="8dp" />
+
+            <Spinner
                 android:id="@+id/region"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/region_reg_hint"/>
+                android:layout_height="wrap_content"/>
 
             <EditText
                 android:id="@+id/city"

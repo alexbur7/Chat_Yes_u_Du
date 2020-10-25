@@ -6,8 +6,11 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -23,7 +26,12 @@ public class FilterDialog extends DialogFragment {
     private CheckBox femaleCheckBox;
     private CheckBox onlineCheckBox;
     private Spinner ageSpinner;
+    private Spinner regionSpinner;
+    private Spinner countrySpinner;
     //private CheckBox photoCheckBox;
+
+    private ArrayAdapter<CharSequence> countryAdapter;
+    private ArrayAdapter<CharSequence> regionAdapter;
 
     public static final String KEY_TO_NAME_FILTER="name_filter";
     public static final String KEY_TO_SEX_FILTER="sex_filter";
@@ -31,6 +39,8 @@ public class FilterDialog extends DialogFragment {
     public static final String KEY_TO_AGE_FILTER="age_filter";
     public static final String KEY_TO_ONLINE_FILTER="online_filter";
     public static final String KEY_TO_PHOTO_FILTER="photo_filter";
+    public static final String KEY_TO_COUNTRY_FILTER="country_filter";
+    public static final String KEY_TO_REGION_FILTER="region_filter";
 
     @NonNull
     @Override
@@ -42,11 +52,42 @@ public class FilterDialog extends DialogFragment {
         cityEditText=view.findViewById(R.id.city_filter_edit_text);
         maleCheckBox=view.findViewById(R.id.genderMaleCheckBox);
         femaleCheckBox=view.findViewById(R.id.genderFemaleCheckBox);
+        regionSpinner=view.findViewById(R.id.spinner_region_filter);
+        countrySpinner=view.findViewById(R.id.spinner_country_filter);
+        regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_rus, android.R.layout.simple_spinner_item);
+        regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        regionSpinner.setAdapter(regionAdapter);
+        countryAdapter =ArrayAdapter.createFromResource(getActivity(), R.array.country_filter, android.R.layout.simple_spinner_item);
+        countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        countrySpinner.setAdapter(countryAdapter);
+        countrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0: {
+                        regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_rus, android.R.layout.simple_spinner_item);
+                        regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        regionSpinner.setAdapter(regionAdapter);
+                        break;
+                    }
+                    case 1: {
+                        regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_arm, android.R.layout.simple_spinner_item);
+                        regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        regionSpinner.setAdapter(regionAdapter);
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         //photoCheckBox=view.findViewById(R.id.photoCheckBox);
         ageSpinner=view.findViewById(R.id.spinner_age_filter);
-        onlineCheckBox=view.findViewById(R.id.onlineCheckBox);
         ageSpinner.setSelection(5);
-
+        onlineCheckBox=view.findViewById(R.id.onlineCheckBox);
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
         return builder
                 .setTitle(getResources().getString(R.string.dialog_title))
@@ -55,15 +96,15 @@ public class FilterDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if ((femaleCheckBox.isChecked() && maleCheckBox.isChecked()) || (!femaleCheckBox.isChecked() && !maleCheckBox.isChecked()) )
-                        sendResult(nameEditText.getText().toString(),"",(ageSpinner.getSelectedItem().equals(getResources().getStringArray(R.array.age_for_spinner)[5]) ? null :ageSpinner.getSelectedItem().toString()),cityEditText.getText().toString(),(onlineCheckBox.isChecked() ? getResources().getString(R.string.label_online):""),(true ? "default" : ""),Activity.RESULT_OK);
+                        sendResult(nameEditText.getText().toString(),"",(ageSpinner.getSelectedItem().equals(getResources().getStringArray(R.array.age_for_spinner)[5]) ? null :ageSpinner.getSelectedItem().toString()),cityEditText.getText().toString(),(onlineCheckBox.isChecked() ? getResources().getString(R.string.label_online):""),(true ? "default" : ""), String.valueOf(countrySpinner.getSelectedItemPosition()), String.valueOf(regionSpinner.getSelectedItemPosition()),Activity.RESULT_OK);
 
                         else  sendResult(nameEditText.getText().toString(),(maleCheckBox.isChecked() ? getResources().getString(R.string.label_male) : getResources().getString(R.string.label_female)),
-                                (ageSpinner.getSelectedItem().equals(getResources().getStringArray(R.array.age_for_spinner)[5]) ? null :ageSpinner.getSelectedItem().toString()),cityEditText.getText().toString(),(onlineCheckBox.isChecked() ? getResources().getString(R.string.label_online):""),(true ? "default" : ""),Activity.RESULT_OK);
+                                (ageSpinner.getSelectedItem().equals(getResources().getStringArray(R.array.age_for_spinner)[5]) ? null :ageSpinner.getSelectedItem().toString()),cityEditText.getText().toString(),(onlineCheckBox.isChecked() ? getResources().getString(R.string.label_online):""),(true ? "default" : ""), String.valueOf(countrySpinner.getSelectedItemPosition()), String.valueOf(regionSpinner.getSelectedItemPosition()),Activity.RESULT_OK);
                     }
                 }).create();
     }
 
-    private void sendResult(String name,String sex,String age,String city,String online,String photo,int result){
+    private void sendResult(String name,String sex,String age,String city,String online,String photo,String country,String region,int result){
         Intent intent=new Intent();
         intent.putExtra(KEY_TO_NAME_FILTER,name);
         intent.putExtra(KEY_TO_SEX_FILTER,sex);
@@ -71,6 +112,8 @@ public class FilterDialog extends DialogFragment {
         intent.putExtra(KEY_TO_CITY_FILTER,city);
         intent.putExtra(KEY_TO_ONLINE_FILTER,online);
         intent.putExtra(KEY_TO_PHOTO_FILTER,photo);
+        intent.putExtra(KEY_TO_COUNTRY_FILTER,country);
+        intent.putExtra(KEY_TO_REGION_FILTER,region);
         getTargetFragment().onActivityResult(getTargetRequestCode(),result,intent);
     }
 }

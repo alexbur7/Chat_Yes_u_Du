@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -46,11 +48,11 @@ public class RegisterFragment extends Fragment {
     private FirebaseDatabase db;
     private DatabaseReference ref;
     private Callbacks callbacks;
-    private Spinner spinner;
+    private Spinner sexSpinner;
     private EditText nameEditText;
     private EditText surnameEditText;
-    private EditText countryEditText;
-    private EditText regionEditText;
+    private Spinner countrySpinner;
+    private Spinner regionSpinner;
     private EditText cityEditText;
     private EditText emailEditText;
     private EditText passwordEditText;
@@ -60,42 +62,79 @@ public class RegisterFragment extends Fragment {
     private ImageView photoImageView, photoImageView1;
     private Uri imageUri;
     private String uri1,uri2;
-    private int i;
+    private int imageNumber;
     private StorageTask uploadTask;
     private TextView ruleText;
 
     private String status_offline;
 
+    private ArrayAdapter<CharSequence> countryAdapter;
+    private ArrayAdapter<CharSequence> regionAdapter;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.register_fragment,container,false);
+        View view=inflater.inflate(R.layout.register_fragment,container,false);
         status_offline=getResources().getString(R.string.label_offline);
-        nameEditText=v.findViewById(R.id.name_edit_text);
-        surnameEditText=v.findViewById(R.id.surname_edit_text);
-        countryEditText=v.findViewById(R.id.country_edit_text);
-        regionEditText=v.findViewById(R.id.region_reg_edit_text);
-        cityEditText=v.findViewById(R.id.city_edit_text);
-        emailEditText=v.findViewById(R.id.email_reg_edit_text);
-        passwordEditText=v.findViewById(R.id.password_reg_edit_text);
-        ageEditText=v.findViewById(R.id.age_reg_edit_text);
-        aboutEditText=v.findViewById(R.id.about_edit_text);
-        spinner = v.findViewById(R.id.spinner_sex);
-        photoImageView = v.findViewById(R.id.photo1);
+        nameEditText=view.findViewById(R.id.name_edit_text);
+        surnameEditText=view.findViewById(R.id.surname_edit_text);
+
+        regionSpinner=view.findViewById(R.id.region_reg_spinner);
+        countrySpinner=view.findViewById(R.id.country_spinner);
+        regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_rus, android.R.layout.simple_spinner_item);
+        regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        regionSpinner.setAdapter(regionAdapter);
+        countryAdapter =ArrayAdapter.createFromResource(getActivity(), R.array.country_filter, android.R.layout.simple_spinner_item);
+        countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        countrySpinner.setAdapter(countryAdapter);
+        countrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0: {
+                        regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_rus, android.R.layout.simple_spinner_item);
+                        regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        regionSpinner.setAdapter(regionAdapter);
+                        break;
+                    }
+                    case 1: {
+                        regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_arm, android.R.layout.simple_spinner_item);
+                        regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        regionSpinner.setAdapter(regionAdapter);
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+        cityEditText=view.findViewById(R.id.city_edit_text);
+        emailEditText=view.findViewById(R.id.email_reg_edit_text);
+        passwordEditText=view.findViewById(R.id.password_reg_edit_text);
+        ageEditText=view.findViewById(R.id.age_reg_edit_text);
+        aboutEditText=view.findViewById(R.id.about_edit_text);
+        sexSpinner = view.findViewById(R.id.spinner_sex);
+        photoImageView = view.findViewById(R.id.photo1);
         photoImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openImage(1);
             }
         });
-        photoImageView1 = v.findViewById(R.id.photo2);
+        photoImageView1 = view.findViewById(R.id.photo2);
         photoImageView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openImage(2);
             }
         });
-        ruleText = v.findViewById(R.id.rule);
+        ruleText = view.findViewById(R.id.rule);
         ruleText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +143,7 @@ public class RegisterFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        regButton=v.findViewById(R.id.registration_button);
+        regButton=view.findViewById(R.id.registration_button);
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,22 +152,23 @@ public class RegisterFragment extends Fragment {
         });
         auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
-        return v;
+        return view;
     }
 
     private void setRegistration(){
         final  String name = nameEditText.getText().toString();
         final  String surname = surnameEditText.getText().toString();
-        final  String country = countryEditText.getText().toString();
+        final  String country = String.valueOf(countrySpinner.getSelectedItemPosition());
         final  String city = cityEditText.getText().toString();
         final  String email = emailEditText.getText().toString();
         final  String password = passwordEditText.getText().toString();
-        final  String sex = spinner.getSelectedItem().toString();
-        final  String region = regionEditText.getText().toString();
+        final  String sex = sexSpinner.getSelectedItem().toString();
+        //final  String region = regionSpinner.getSelectedItem().toString();
+        final  String region = String.valueOf(regionSpinner.getSelectedItemPosition());
         final  String age = ageEditText.getText().toString();
         final  String about=aboutEditText.getText().toString();
 
-        if (name.isEmpty() || country.isEmpty() || city.isEmpty() || email.isEmpty() || password.isEmpty() || sex.isEmpty() || Integer.parseInt(age)<0){
+        if (name.isEmpty() || city.isEmpty() || email.isEmpty() || password.isEmpty() || sex.isEmpty() || Integer.parseInt(age)<0){
             Toast.makeText(getActivity(),R.string.reject_reg,Toast.LENGTH_SHORT).show();
             return;
         }
@@ -161,7 +201,6 @@ public class RegisterFragment extends Fragment {
                     ref.child("sex").setValue(sex);
                     ref.child("age").setValue(age);
                     ref.child("status").setValue(status_offline);
-                    //TODO admin gavnina
                     ref.child(getActivity().getResources().getString(R.string.admin_key)).setValue("false");
                     ref.child("online_time").setValue((new Date()).getTime());
                     ref.child("admin_block").setValue("unblock");
@@ -196,7 +235,7 @@ public class RegisterFragment extends Fragment {
     }
 
     private void openImage(int i) {
-        this.i=i;
+        this.imageNumber =i;
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -257,7 +296,7 @@ public class RegisterFragment extends Fragment {
                 && data!=null && data.getData() !=null
         ){
             imageUri = data.getData();
-            uploadImage(i);
+            uploadImage(imageNumber);
         }
     }
 
