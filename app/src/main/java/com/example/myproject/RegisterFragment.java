@@ -64,7 +64,7 @@ public class RegisterFragment extends Fragment {
     private String uri1,uri2;
     private int imageNumber;
     private StorageTask uploadTask;
-    private TextView ruleText;
+    //private TextView ruleText;
 
     private String status_offline;
 
@@ -134,7 +134,7 @@ public class RegisterFragment extends Fragment {
                 openImage(2);
             }
         });
-        ruleText = view.findViewById(R.id.rule);
+       /* ruleText = view.findViewById(R.id.rule);
         ruleText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,7 +142,7 @@ public class RegisterFragment extends Fragment {
                 Intent intent = InformationActivity.newIntent(getActivity(),informationText);
                 startActivity(intent);
             }
-        });
+        });*/
         regButton=view.findViewById(R.id.registration_button);
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override

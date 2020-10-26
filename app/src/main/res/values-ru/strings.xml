@@ -30,7 +30,7 @@
     <string name="dialog_title">Фильтры</string>
     <string name="label_sex">Пол</string>
     <string name="label_female">Женский</string>
-    <string name="label_activity">Онлайн</string>
+    <string name="label_activity">Он-лайн</string>
     <string name="label_only_with_photo">с фото</string>
     <string name="label_name">Имя</string>
     <string name="name_edit_text_hint">Введите имя</string>

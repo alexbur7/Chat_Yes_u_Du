@@ -52,6 +52,7 @@ public class ResetPasswordFragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId()==R.id.saved_password){
+                    if(!oldPassword.getText().toString().isEmpty())
                     passwordReconciliation();
                 }
                 return true;

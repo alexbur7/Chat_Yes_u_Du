@@ -42,6 +42,7 @@
                     android:id="@+id/username_text"
                     android:textSize="18dp"
                     android:textStyle="bold"
+                    android:textColor="@color/chat_text"
                     android:layout_marginLeft="23dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -52,6 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="23dp"
                     android:layout_marginTop="3dp"
+                    android:textColor="@color/chat_text"
                     android:textSize="14dp"
                     android:textStyle="italic" />
             </LinearLayout>
@@ -79,8 +81,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="1dp"
-            android:layout_marginRight="2dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
         android:layout_marginBottom="8dp"
         android:clickable="true"
         android:src="@drawable/baseline_send_black_24dp"
@@ -94,7 +96,7 @@
             android:clickable="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="9dp"
-            android:layout_marginLeft="2dp"
+            android:layout_marginLeft="4dp"
             android:background="?attr/colorAccent"
             android:src="@drawable/baseline_attach_file_black_18dp"
             android:tint="@android:color/white"
