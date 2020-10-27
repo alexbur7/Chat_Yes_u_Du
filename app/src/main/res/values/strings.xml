@@ -113,233 +113,243 @@
     <string name="delete_image2">Delete photo2</string>
     <string name="delete_image3">Delete photo3</string>
     <string name="rule_and_policy">Rule and Policy</string>
-    <string name="text_rule_policy" translatable="false">
-    ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ\n
-
-Настоящая Политика конфиденциальности персональных данных (далее – Политика конфиденциальности) действует в отношении всей информации, которую Мобильное приложение «Yes u Du»,может получить о Пользователе во время использования Мобильного -Приложения.\n
-1. ОПРЕДЕЛЕНИЕ ТЕРМИНОВ\n
-1.1 В настоящей Политике конфиденциальности используются следующие термины:\n
-1.1.1. «Администрация Мобильного приложения  (далее – Администрация приложения) » – уполномоченные сотрудники на управления Приложением, действующие от имени, которые организуют и (или) осуществляет обработку персональных данных, а также определяет цели обработки персональных данных, состав персональных данных, подлежащих обработке, действия (операции), совершаемые с персональными данными.\n
-1.1.2. «Персональные данные» - любая информация, относящаяся к прямо или косвенно определенному или определяемому физическому лицу (субъекту персональных данных).\n
-1.1.3. «Обработка персональных данных» - любое действие (операция) или совокупность действий (операций), совершаемых с использованием средств автоматизации или без использования таких средств с персональными данными, включая сбор, запись, систематизацию, накопление, хранение, уточнение (обновление, изменение), извлечение, использование, передачу (распространение, предоставление, доступ), обезличивание, блокирование, удаление, уничтожение персональных данных.\n
-1.1.4. «Конфиденциальность персональных данных» - обязательное для соблюдения Оператором или иным получившим доступ к персональным данным лицом требование не допускать их распространения без согласия субъекта персональных данных или наличия иного законного основания.\n
-1.1.5. «Пользователь Мобильного приложения «Yes u Du», (далее - Пользователь)» – лицо, имеющее доступ к Приложению, посредством сети Интернет и использующее Мобильное Приложение.\n
-2. ОБЩИЕ ПОЛОЖЕНИЯ\n
-2.1. Использование Пользователем Мобильного Приложения означает согласие с настоящей Политикой конфиденциальности и условиями обработки персональных данных Пользователя.\n
-2.2. В случае несогласия с условиями Политики конфиденциальности Пользователь должен прекратить использование Мобильного Приложения.\n
-2.3.Настоящая Политика конфиденциальности применяется только к Мобильному Приложению «Yes u Du», Название магазина. Приложение не контролирует и не несёт ответственность за сайты третьих лиц, на которые Пользователь может перейти по ссылкам, отправляемым Пользователями друг другу.\n
-2.4. Администрация  не проверяет достоверность персональных данных, предоставляемых Пользователем Мобильного  Приложения «Yes u Du».\n
+    <string name="text_rule_policy" >
+        PRIVACY POLICY\n
+This Privacy Policy of personal data (hereinafter - the Privacy Policy) applies to all information that the "Yes u Du" Mobile Application can receive about the User while using the Mobile Application.\n
+1. DEFINITION OF TERMS\n
+1.1 The following terms are used in this Privacy Policy:\n
+1.1.1. "Administration of the Mobile Application (hereinafter referred to as the Application Administration)" - employees authorized to manage the Application, acting on behalf of who organize and (or) process personal data, and also determine the purposes of processing personal data, the composition of personal data to be processed, actions ( operations) performed with personal data.\n
+1.1.2. "Personal data" - any information relating directly or indirectly to a specific or identifiable individual (subject of personal data).\n
+1.1.3. "Processing of personal data" - any action (operation) or a set of actions (operations) performed using automation tools or without using such tools with personal data, including collection, recording, systematization, accumulation, storage, clarification (update, change), extraction, use, transfer (distribution, provision, access), depersonalization, blocking, deletion, destruction of personal data.\n
+1.1.4. "Confidentiality of personal data" is a mandatory requirement for the Operator or other person who has gained access to personal data to prevent their dissemination without the consent of the subject of personal data or other legal grounds.\n
+1.1.5. "User of the Mobile Application" Yes u Du "(hereinafter referred to as the User)" - a person who has access to the Application via the Internet and uses the Mobile Application.\n
 \n
-3. ПРЕДМЕТ ПОЛИТИКИ КОНФИДЕНЦИАЛЬНОСТИ\n
-
-3.1. Настоящая Политика конфиденциальности устанавливает обязательства Администрации Мобильного Приложения «Yes u Du» по неразглашению и обеспечению режима защиты конфиденциальности персональных данных, которые Пользователь предоставляет по запросу Администрации Мобильного Приложения при регистрации.\n
-3.2. Персональные данные, разрешённые к обработке в рамках настоящей Политики конфиденциальности, предоставляются Пользователем путём заполнения регистрационной формы в Приложении в разделе "Регистрация" и в разделе "Профиль" и включают в себя следующую информацию:\n
-3.2.1. имя, фамилию(по желанию Пользователя);\n
-3.2.2. контактный телефон Пользователя;\n
-3.2.3. адрес электронной почты (e-mail);\n
-3.2.4. . место жительство Пользователя(страна,область,город)\n
+2. GENERAL PROVISIONS\n
+2.1. The use of the Mobile Application by the User means acceptance of this Privacy Policy and the terms of processing of the User`s personal data. 2.2. In case of disagreement with the terms of the Privacy Policy, the User must stop using the Mobile Application.\n
+2.3. This Privacy Policy applies only to the Mobile Application "Yes u Du", Store Name. The Application does not control and is not responsible for third-party sites to which the User can click on the links sent by the Users to each other.\n
+2.4. The administration does not verify the accuracy of the personal data provided by the User of the Yes u Du Mobile Application.\n
 \n
-3.3. Любая иная персональная информация неоговоренная выше подлежит надежному хранению и нераспространению, за исключением случаев, предусмотренных в п.п. 5.2. и 5.3. настоящей Политики конфиденциальности.\n
-4. ЦЕЛИ СБОРА ПЕРСОНАЛЬНОЙ ИНФОРМАЦИИ ПОЛЬЗОВАТЕЛЯ\n
-4.1. Персональные данные Пользователя Администрация Мобильного Приложения может использовать в целях:\n
-4.1.1. Идентификации Пользователя, зарегистрированного в Мобильном Приложении.\n
-4.1.2. Предоставления Пользователю доступа к персонализированным ресурсам Мобильного Приложения.\n
-4.1.3. Установления с Пользователем обратной связи, включая направление уведомлений, запросов, касающихся использования Мобильного Приложения «Yes u Du», оказания услуг, обработка сообщений или жалоб от Пользователя.\n
-4.1.4. Определения места нахождения Пользователя для обеспечения безопасности, предотвращения мошенничества.\n
-4.1.5. Подтверждения достоверности и полноты персональных данных, предоставленных Пользователем.\n
-4.1.6. Предоставления Пользователю эффективной клиентской и технической поддержки при возникновении проблем связанных с использованием Мобильного Приложения «Yes u Du».\n
-4.1.7. Осуществления рекламной деятельности с согласия Пользователя.\n
-5. СПОСОБЫ И СРОКИ ОБРАБОТКИ ПЕРСОНАЛЬНОЙ ИНФОРМАЦИИ\n
-5.1. Обработка персональных данных Пользователя осуществляется без ограничения срока, любым законным способом, в том числе в информационных системах персональных данных с использованием средств автоматизации или без использования таких средств.\n
-5.2. Персональные данные Пользователя могут быть переданы уполномоченным органам государственной власти Российской Федерации только по основаниям и в порядке, установленным законодательством Российской Федерации.\n
-5.3. При утрате или разглашении персональных данных Администрация Мобильного Приложения «Yes u Du», информирует Пользователя об утрате или разглашении персональных данных.\n
-5.4. Администрация Мобильного Приложения «Yes u Du»,  принимает необходимые организационные и технические меры для защиты персональной информации Пользователя от неправомерного или случайного доступа, уничтожения, изменения, блокирования, копирования, распространения, а также от иных неправомерных действий третьих лиц.\n
-5.5. Администрация Мобильного Приложения «Yes u Du»,   совместно с Пользователем принимает все необходимые меры по предотвращению убытков или иных отрицательных последствий, вызванных утратой или разглашением персональных данных Пользователя.\n
-6. ОБЯЗАТЕЛЬСТВА СТОРОН\n
-6.1. Пользователь обязан:\n
-6.1.1. Предоставить информацию о персональных данных, необходимую для пользования Мобильным Приложением «Yes u Du».\n
-6.1.2. Обновить, дополнить предоставленную информацию о персональных данных в случае изменения данной информации.\n
-6.2. Администрация сайта обязана:\n
-6.2.1. Использовать полученную информацию исключительно для целей, указанных в п. 4 настоящей Политики конфиденциальности.\n
-6.2.2. Обеспечить хранение конфиденциальной информации в тайне, не разглашать без предварительного письменного разрешения Пользователя, а также не осуществлять продажу, обмен, опубликование, либо разглашение иными возможными способами переданных персональных данных Пользователя, за исключением п.п. 5.2. и 5.3. настоящей Политики Конфиденциальности.\n
-6.2.3. Принимать меры предосторожности для защиты конфиденциальности персональных данных Пользователя согласно порядку, обычно используемого для защиты такого рода информации в существующем деловом обороте.\n
-6.2.4. Осуществить блокирование персональных данных, относящихся к соответствующему Пользователю, с момента обращения или запроса Пользователя или его законного представителя либо уполномоченного органа по защите прав субъектов персональных данных на период проверки, в случае выявления недостоверных персональных данных или неправомерных действий.\n
-7. ОТВЕТСТВЕННОСТЬ СТОРОН\n
-7.1. Администрация сайта, не исполнившая свои обязательства, несёт ответственность за убытки, понесённые Пользователем в связи с неправомерным использованием персональных данных, в соответствии с законодательством Российской Федерации, за исключением случаев, предусмотренных п.п. 5.2., 5.3. и 7.2. настоящей Политики Конфиденциальности.\n
-7.2. В случае утраты или разглашения Конфиденциальной информации Администрация Мобильного Приложения не несёт ответственность, если данная конфиденциальная информация:\n
-7.2.1. Стала публичным достоянием до её утраты или разглашения.\n
-7.2.2. Была получена от третьей стороны до момента её получения Администрацией Мобильного Приложения «Yes u Du».\n
-7.2.3. Была разглашена с согласия Пользователя.\n
-8. РАЗРЕШЕНИЕ СПОРОВ\n
-8.1. До обращения в суд с иском по спорам, возникающим из отношений между Пользователем Мобильного Приложения «Yes u Du»,   и Администрацией Мобильного Приложения, обязательным является предъявление претензии (письменного предложения о добровольном урегулировании спора).\n
-8.2 .Получатель претензии в течение 30 календарных дней со дня получения претензии, письменно уведомляет заявителя претензии о результатах рассмотрения претензии.\n
-8.3. При не достижении соглашения спор будет передан на рассмотрение в судебный орган в соответствии с действующим законодательством Российской Федерации.\n
-8.4. К настоящей Политике конфиденциальности и отношениям между Пользователем и Администрацией Мобильного Приложения «Yes u Du»,  применяется действующее законодательство Российской Федерации.\n
-9. ДОПОЛНИТЕЛЬНЫЕ УСЛОВИЯ\n
-9.1. Администрация Мобильного Приложения вправе вносить изменения в настоящую Политику конфиденциальности без согласия Пользователя.\n
-9.2. Новая Политика конфиденциальности вступает в силу с момента ее размещения в Мобильном Приложении, если иное не предусмотрено новой редакцией Политики конфиденциальности.\n
-9.3. Все предложения или вопросы по настоящей Политике конфиденциальности следует сообщать в Администрацию Мобильного Приложения «Yes u Du»\n
+3. SUBJECT OF THE PRIVACY POLICY\n
+ \n
+3.1. This Privacy Policy establishes the obligations of the Administration of the "Yes u Du" Mobile Application to not disclose and ensure the protection of the confidentiality of personal data that the User provides upon the request of the Administration of the Mobile Application during registration.\n
+3.2. Personal data allowed for processing under this Privacy Policy is provided by the User by filling out the registration form in the Application in the "Registration" section and in the "Profile" section and includes the following information:\n
+3.2.1. name, surname (at the request of the User);\n
+3.2.2. e-mail address;\n
+3.2.3. User`s place of residence (country, city)\n
+\n
+3.3. Any other personal information not specified above is subject to reliable storage and non-proliferation, with the exception of cases provided for in paragraphs. 5.2. and 5.3. of this Privacy Policy.\n
+\n
+4. PURPOSE OF COLLECTING PERSONAL USER INFORMATION\n
+4.1. The User`s personal data may be used by the Mobile Application Administration for the following purposes:\n
+ 4.1.1. Identification of the User registered in the Mobile Application.\n
+ 4.1.2. Providing the User with access to personalized resources of the Mobile Application.\n
+4.1.3. Establishing feedback with the User, including sending notifications, requests regarding the use of the “Yes u Du” Mobile Application, provision of services, processing messages or complaints from the User.\n
+4.1.4. Determining the location of the User to ensure security, prevent fraud.\n
+4.1.5. Confirmation of the accuracy and completeness of personal data provided by the User.\n
+4.1.6. Providing the User with effective customer and technical support in case of problems associated with the use of the Mobile Application "Yes u Du".\n
+4.1.7. Implementation of advertising activities with the consent of the User.\n
+\n
+5. METHODS AND TERMS OF PROCESSING PERSONAL INFORMATION\n
+5.1. The processing of the User`s personal data is carried out without any time limit, in any legal way, including in personal data information systems using automation tools or without using such tools.\n
+5.2. The User`s personal data can be transferred to the authorized state authorities of the country in which the user lives at the time of the incident, only on the grounds and in the manner established by the legislation of this country.\n
+5.3. In case of loss or disclosure of personal data, the Administration of the Mobile Application "Yes u Du" informs the User about the loss or disclosure of personal data.\n
+5.4. Administration of the "Yes u Du" Mobile Application takes the necessary organizational and technical measures to protect the User`s personal information from unauthorized or accidental access, destruction, modification, blocking, copying, distribution, as well as from other illegal actions of third parties.\n
+5.5. Administration of the "Yes u Du" Mobile Application, together with the User, takes all necessary measures to prevent losses or other negative consequences caused by the loss or disclosure of the User`s personal data.\n
+\n
+6. OBLIGATIONS OF THE PARTIES\n
+6.1. The user is obliged:\n
+6.1.1. Provide information about personal data necessary to use the Mobile Application "Yes u Du".\n
+6.1.2. Update, supplement the provided information about personal data in case of changes in this information.\n
+\n
+6.2. The administration of the mobile application is obliged to: 6.2.1. Use the information received solely for the purposes specified in clause 4 of this Privacy Policy.\n
+6.2.2. Ensure that confidential information is kept secret, not disclosed without the prior written permission of the User, and also not to sell, exchange, publish, or disclose in other possible ways the transferred personal data of the User, with the exception of clauses cl. 5.2. and 5.3. of this Privacy Policy.\n
+6.2.3. Take precautions to protect the confidentiality of the User`s personal data in accordance with the procedure usually used to protect this kind of information in the existing business.\n
+6.2.4. Block personal data related to the relevant User from the moment the User or his legal representative or the authorized body for the protection of the rights of personal data subjects apply or request for the verification period, in case of revealing inaccurate personal data or illegal actions.\n
+\n
+7. RESPONSIBILITY OF THE PARTIES\n
+7.1. The Administration of the Mobile Application, which has not fulfilled its obligations, is liable for losses incurred by the User in connection with the illegal use of personal data, in accordance with the legislation of the country in which the user is registered, with the exception of cases provided for in cl. 5.2., 5.3. and 7.2. of this Privacy Policy.\n
+7.2. In case of loss or disclosure of Confidential Information, the Administration of the Mobile Application is not responsible if this confidential information:\n
+7.2.1. Became public domain before its loss or disclosure.\n
+7.2.2. Was received from a third party prior to its receipt by the Administration of the "Yes u Du" Mobile Application.\n
+7.2.3. Was disclosed with the consent of the User.\n
+\n
+8. DISPUTE RESOLUTION\n
+8.1. Before going to court with a claim for disputes arising from the relationship between the User of the "Yes u Du" Mobile Application and the Administration of the Mobile Application, it is mandatory to submit a claim (a written proposal for a voluntary settlement of the dispute).\n
+8.2. The recipient of the claim within 30 calendar days from the date of receipt of the claim shall notify the applicant of the claim in writing about the results of the consideration of the claim.\n
+8.3. If an agreement is not reached, the dispute will be referred to a judicial authority in accordance with the current legislation of the country in which the User lives at the time of the incident.\n
+8.4. The current legislation of the country in which the User lives at the time of the incident applies to this Privacy Policy and the relationship between the User and the Administration of the Yes u Du Mobile Application.\n
+\n
+9. ADDITIONAL TERMS\n
+9.1. The Administration of the Mobile Application has the right to make changes to this Privacy Policy without the consent of the User.\n
+9.2. The new Privacy Policy comes into force from the moment it is posted in the Mobile Application, unless otherwise provided by the new edition of the Privacy Policy.\n
+9.3. All suggestions or questions about this Privacy Policy should be reported to the Administration of the Mobile Application «Yes u Duty section of the site\n
+   </string>
+<string name="rules_resources_text">
+    Resource Use Agreement (Resource Rules)\n
+\n
+Part I. Universal provisions\n
+The Resource offers services for the exchange of information between users of the Mobile Application "Yes u Du", which are the subject of this Agreement on the use of the Mobile Application (Resource). In this regard, you need to carefully read the terms of this Agreement, which are considered by the Resource "Yes u Du" as a public offer in accordance with the Civil Code of the country in which the user is registered (hereinafter referred to as the "Public Offer")\n
+The terms of use of the “Yes u Du” Resource are governed by this Agreement.\n
+ Part I “Universal Provisions” applies to the relations established by Part II and Part III, unless otherwise provided for in Part II or Part III.\n
+The provisions provided for in Part II shall apply to the relationship established by Part III, unless otherwise provided for in Part III.\n
+Please note that Part II and Part III contain different conditions for using the Mobile Application (Services), depending on which type of interaction on the Mobile Application you choose.\n
+ 1. Terms used in the Agreement\n
+Mobile application, Resource - an Internet resource, including the “Yes u Du” Mobile Application, which provides access to the functionality of the “Yes u Du” Mobile Application. The resource and the Mobile application are the intellectual property of an individual.\n
+Administration - an individual, owner of intellectual property and a resource, as well as persons duly authorized by the owner of the Resource to manage this Resource, within the framework of the use of the Mobile application and the Internet interface, by end users.\n
+Visitor - any individual over 18 years old using the Resource, in cases expressly provided for in this Agreement.\n
+ User - a Visitor who has passed the registration procedure. The term User in this Agreement refers to both Verified and Unverified Users.\n
+Login - the email address of the User chosen by him during registration and used by him in the process of using the Resource. It is forbidden to register and use several Logins by the same Visitor.\n
+  \n
+Mobile application is a hardware and software complex based on Android.\n
+Password is a symbolic combination chosen by the User independently and providing, together with the Login, his identification when using the Resource.\n
+Unverified User - a User who has passed the registration procedure.\n
+Verified User - A User who has passed the verification procedure in accordance with Section 3 of Part II.\n
+Resource Services - services provided by the Resource to Verified Users for the exchange of information of any nature between them in the Mobile Application.\n
+  Acceptance of the rules of the resource (Public Offer) - full and unconditional acceptance by the Visitor of the Agreement of Use by downloading and installing the "Yes u Du" Mobile Application and taking actions to use the "Yes u Du" Mobile Application.\n
+Chat is a service, part of the Mobile Application, that allows Verified Users to exchange private messages.\n
+At the time the Visitor makes the Acceptance of the service rules (public offer), the Visitor and the Resource are considered to have entered into this Agreement.\n
+  Part II. Agreement on the use of the Mobile Application / Resource "Yes u Du" by individuals\n
+(hereinafter referred to as this Part II - "Part II of the Agreement")\n
+1. General Provisions\n
+This Part II of the Agreement governs the procedure for using the Mobile Application, as well as the relationship arising when Visitors use the Mobile Application for the purpose of publishing and exchanging information. The resource has the right at any time to refuse any Visitor, including the User, to use the Site and Services in case of violation of the Agreement.  The Resource provides Visitors, Users with a personal non-exclusive and non-transferable right to use the Internet interface and the Mobile Application in accordance with this Agreement, provided that neither the Visitor / User, nor any other persons, with the assistance of the Visitor / User, will take actions:\n
+to copy or modify the software of the Resource; for the creation of programs derived from the software of the Mobile Application; on penetration into software in order to obtain program codes; on the sale, assignment, lease, transfer to third parties in any other form of rights in relation to the material of the Mobile Application; to modify the Mobile Application, including in order to obtain unauthorized access to it; and other actions similar to those listed above and violating the rights of the Resource and third parties.\n
+The Visitor / User is responsible for the observance of the rights (material and intangible) of third parties to information transferred (provided) to the Administration or to third parties when using the Mobile application and the Internet interface. Users independently assess the legality of their use of the Mobile Application, including from the point of view of the legislation of the country of which they are residents.\n
+The visitor, performing any actions on the use of the Mobile application and the Internet interface (viewing the Mobile application, Registration, Verification, sending messages and other specified in the Mobile application and Internet interface, and others), expresses his full and unconditional consent to the terms of the Agreement on the use of the Mobile application " Yes u Du "posted in the Mobile Application\n
+Mobile application "Yes u Du" located in the Mobile application\n
+The agreement on the use of the "Yes u Du" Mobile Application concluded in the form of a public offer is stipulated by the Civil Code of the country in which the user lives at the time of the incident and does not require a bilateral signature and is indeed in electronic form.\n
+2. User registration\n
+A person wishing to become a User must complete the Registration procedure in the appropriate section of the Mobile Application. When registering, the User is assigned a chosen pair of Login (e-mail) plus Password, which is used later by the User when working with the Mobile Application. The User can go through the Registration procedure only once.\n
+When registering in the Mobile Application, the User is obliged to provide the Resource Administration with the necessary reliable and up-to-date information to form the User Profile, including the Login (email address) and Password for access to the Mobile Application, unique for each User, and the Username. Administration "Yes u Du", recommends to indicate the real Name, Photo, Age, Place of residence (Country, City) of the user in order to avoid situations of misleading users and to avoid creating fake accounts.\n
+In case of revealing false user data: Name, Age, Place of residence (Country, City), the Administration of the "Yes u Du" Mobile Application has the right to delete fake user photos without warning, and also block such accounts.\n
+The registration form of the Mobile Application may request additional information from the User.\n
+The User independently chooses the Password for himself, however, the Resource strongly recommends using Passwords that are at least 6 (six) characters long and include both lowercase and uppercase letters, as well as numbers.\n
+The user is responsible for the accuracy, relevance, completeness and compliance with the legislation of the country in which the user lives at the time of the incident, the information provided during Registration and its purity from third-party claims\n
+The User is solely responsible for keeping the Password secret from third parties.\n
+The Company does not bear any responsibility in case of violation of the User`s rights by third parties who have received unauthorized access to the pair of Username plus Password.\n
+When registering, the User agrees with this Agreement and assumes the rights and obligations specified therein related to the use and operation of the Mobile Application.\n
+After successful registration of the User in the Mobile Application, the Resource assumes the rights and obligations to the User specified in this Agreement.\n
+3. User verification. \n
+Full use of the Mobile Application is possible only after Verification.\n
+After completing the Registration procedure, the User must go through the Verification procedure, which implies posting on the site and confirmation by the User of the following data: name, surname (optional), email address, date of birth, country, city of residence and at least two photos of the user that differ from each other from a friend, photos and other data are checked by the Administration for reliability and for the use of various graphic editors by the User, also during verification.\n
+ The status of a Verified User is provided by the Administration at its discretion after receiving full information from the User, the Administration has the right to refuse the User in Verification without explaining the reasons for the refusal, regardless of the costs and efforts incurred by the User during the verification procedure.\n
+After successfully passing the verification procedure, the User fills in the Profile.\n
+By filling out the Profile, the User hereby confirms that he makes the information contained in his profile publicly available, i.e. potentially available to all Visitors.\n
+The status of the Verified User can be removed from the User at any time at the discretion of the Administration without explaining the reasons.\n
+Violations that may entail a strict warning or deprivation of the Contractor`s status: \n
+• The user used profanity, criticism, incited conflict situations, called for a violation of the rules of the Resource or the Legislation of the country in which the user is registered, used offensive language to address other Users;\n
+• The User has received more than three complaints from other Users of the Resource, while the Administration checks all complaints about the legality and violations of the rules of the Resource, and does not restrict access to the Resource without a valid reason;\n
+• The user specified the personal data of another individual, without his knowledge and consent;\n
+• The User has published in his profile links to third-party resources using materials that are contrary to or prohibited by the legislation of the country in which the User is registered;\n
+• The user has published materials that are contrary to or prohibited by the laws of the country in which the user is registered.\n
+• When exchanging information with other Users, the User called for illegal or illegal actions, and also published materials of an explicit or pornographic nature (photos of uncovered genitals, or scenes of sexual intercourse between people, people and animals);\n
+• The user has violated the requirements for photos posted in the Profile. One photograph must show the User himself (close-up) without strangers, objects or animals, the other must show the User himself (not necessarily close-up) with the presence of strangers, objects or animals.\n
+• The user has violated the rules of communication with the Administration. The Administration is called upon to monitor compliance with the Agreement on the use of the Resource by all Users of this Resource, as well as to give recommendations to Users on the correct filling of the Profile. To discuss controversial issues with the Administration, Users need to use only direct contacts: personal chat, e-mail. It is forbidden to publicly argue with the Administration and discuss its actions. You can complain about the actions or inaction of the Administration by sending an appropriate message to the Administration of the mobile application.\n
+4. Rules for posting information\n
+It is prohibited to post information, the purpose or subject of which is:\n
+• granting and receiving loans, replenishing accounts in payment systems, making money transfers, accepting payments in favor of payment systems: Alert Pay (alertpay.com), c-gold (c-gold.com), e-bullion (e-bullion.com ), e-gold (e-gold.com), Liberty Reserve (libertyreserve.com), Pecunix (pecunix.com), Perfect Money (perfectmoney.com), Bit Coin (including exchanges that exchange);\n
+• attraction of Users to third-party resources, sites, or registration of Users on such resources, sites;\n
+• advertising of your services and goods or services and goods belonging to third parties;\n
+• services of an erotic nature;\n
+• cheat or change site statistics, the number of subscribers in social networks, etc .;\n
+ • ordering of automatic or manual distribution of invitations and messages to users of social networks, email newsletters;\n
+• provision of services for the distribution of goods;\n
+• medicines, food additives, biologically active additives;\n
+• poisons;\n
+• medicinal raw materials obtained from reindeer husbandry (antlers and endocrine raw materials);\n
+• narcotic drugs, psychotropic substances and their precursors, cultivation of narcotic plants;\n
+• services of storage, transportation, manufacture, processing of narcotic drugs, precursors, psychotropic substances or their analogues, as well as illegal acquisition, storage, transportation of plants containing narcotic drugs or psychotropic substances, or their parts containing narcotic drugs or psychotropic substances;\n
+•  services for the organization of prostitution, involvement in prostitution;\n
+•  content for adults, any pornography, sex video chats, sites indicating the placement of candid photos;\n
+• tobacco products;\n
+•  alcoholic beverages, ethyl alcohol;\n
+•  precious, rare metals and stones, jewelry, including waste containing precious and rare earth metals and precious stones;\n
+•  gold bars, investments in gold bars, any turnover of precious metals, natural precious stones or pearls, including the sale of items made of precious metals;\n
+• services to assist in the conduct of hostilities, regardless of the side of the conflict, the form of support (humanitarian aid, supply of weapons, communications, medicines, etc.);\n
+• weapons and ammunition (civil, service, firearms):\n
 </string>
-<string name="rules_resources_text" translatable="false">
-    Соглашение об использовании Ресурса (Правила Ресурса).\n
-\n
-Часть I. Универсальные положения\n
-Ресурс предлагает услуги по обмену информации между пользователями Мобильного Приложения «Yes u Du», являющихся предметом настоящего Соглашения об использовании Мобильного Приложения(Ресурса). В этой связи Вам необходимо внимательно ознакомиться с условиями настоящего Соглашения, которые рассматриваются Ресурсом «Yes u Du» как публичная оферта в соответствии с Гражданским кодексом страны,в которой зарегистрирован пользователь (далее по тексту — «Публичная оферта»)\n
-Условия использования Ресурса «Yes u Du» регулируются настоящим Соглашением.\n
-Часть I «Универсальные положения» применяется к отношениям, установление которых предусмотрено Частью II и Частью III, если иное не предусмотрено Частью II или Частью III.\n
-Положения, предусмотренные Частью II применяются к отношениям, установление которых предусмотрено Частью III, если иное не предусмотрено Частью III.\n
-Обращаем ваше внимание, что в Части II и в Части III содержатся различные условия использования Сайта (Сервисов) в зависимости от того, какой тип взаимодействия на Сайте Вы выберите.\n
-1. Термины, используемые в Соглашении\n
-Мобильное приложение, Ресурс — интернет ресурс, в том числе Мобильное приложение «Yes u Du», обеспечивающее доступ к функциональности Мобильного приложения «Yes u Du». Ресурс и Мобильное приложение является интеллектуальной собственностью физического лица.\n
-Администрация — физическое лицо, владелец интеллектуальной собственности и ресурса, а также лица, уполномоченные надлежащим образом владельцем Ресурса на управление данного Ресурса, в рамках использования Мобильного приложения и Интернет интерфейса, конечными пользователями.\n
-Посетитель — любое физическое лицо, старше 18 лет, использующее Ресурс, в случаях, прямо предусмотренном настоящим Соглашением.\n
-Пользователь — Посетитель, прошедший процедуру регистрации. Термином Пользователь в настоящем Соглашении обозначаются как Верифицированные пользователи, так и Неверифицированные пользователи.\n
-Логин — адрес электронной почты Пользователя, выбранный им при регистрации и используемый им в процессе пользования Ресурса. Запрещается регистрировать и использовать несколько Логинов одним и тем же Посетителем.\n
-Мобильное приложение – программно-аппаратный комплекс на базе Android.\n
-Пароль — символьная комбинация, выбираемая Пользователем самостоятельно и обеспечивающая в совокупности с Логином его идентификацию при использовании Ресурса.\n
-Неверифицированный пользователь — Пользователь, прошедший процедуру регистрации.\n
-Верифицированный пользователь — Пользователь, прошедший процедуру верификации, в соответствии с Разделом 3 Части II.\n
-Услуги Ресурса — услуги, оказываемые Ресурсом Верифицированным пользователям по обмену информации любого характера между ними в Мобильном приложении.\n
-Принятие правил ресурса (Публичной оферты) — полное и безоговорочное принятие Посетителем Соглашения об использовании  путём скачивания и установки Мобильного приложения «Yes u Du» и  осуществления действий по использованию Мобильного приложения «Yes u Du».\n
-Чат – сервис, часть Мобильного приложения, позволяющая Верифицированным пользователям обмениваться личными сообщениями.\n
-В момент совершения Посетителем Принятия правил сервиса (публичной оферты), Посетитель и Ресурс считаются заключившими настоящее Соглашение.\n
-Часть II. Соглашение об использовании Мобильного приложения/Ресурса «Yes u Du» физическими лицами \n
-(далее по тексту настоящей Части II — «Часть II Соглашения»)\n
-1. Общие положения\n
-Настоящая Часть II Соглашения регулирует порядок использования Мобильного приложения, а также взаимоотношения, возникающие при использовании Мобильного приложения Посетителями в целях публикации и обмена информацией. Ресурс имеет право в любой момент отказать любому Посетителю, в том числе Пользователю, в использовании Сайта и Сервисов при нарушении Соглашения. Ресурс предоставляет Посетителям, Пользователям личное неисключительное и непередаваемое право использовать Интернет интерфейс и Мобильное приложение в соответствии с настоящим Соглашением, при условии, что ни Посетитель/Пользователь, ни любые иные лица при содействии Посетителя/Пользователя не будут совершать действий: по копированию или изменению программного обеспечение Ресурса; по созданию программ, производных от программного обеспечения Мобильного приложения; по проникновению в программное обеспечение с целью получения кодов программ; по осуществлению продажи, уступки, сдачи в аренду, передачи третьим лицам в любой иной форме прав в отношении материала Мобильного приложения; по модифицированию Мобильного приложения в том числе с целью получения несанкционированного доступа к нему; и иных действий, аналогичных перечисленным выше и нарушающих права Ресурса и третьих лиц. Посетитель/Пользователь несёт ответственность за соблюдение прав (материальных и нематериальных) третьих лиц на информацию, переданную (предоставленную) Администрации или третьим лицам при использовании Мобильного приложения и Интернет интерфейса. Пользователи самостоятельно оценивают правомерность использования ими Мобильного приложения, в том числе и с точки зрения законодательства страны, резидентами которой они являются.\n
-Посетитель, совершая любые действия по использованию Мобильного приложения и Интернет интерфейса(просмотра Мобильного приложения, Регистрация, Верификация, отправка сообщений и прочим указанным в Мобильном приложении и Интернет интерфейсе и иные), выражает своё полное и безоговорочное согласие с условиями Соглашения об использовании Мобильного приложения «Yes u Du», размещённого в Мобильном приложении\n
-Соглашение об использовании Мобильного приложения «Yes u Du» заключаемое в форме публичной оферты, предусмотрено Гражданским Кодексом страны, в которой зарегистрирован пользователь и не требует двустороннего подписания и действительно в электронном виде.\n
-2. Регистрация Пользователя\n
-Лицо, желающее стать Пользователем, обязано пройти процедуру Регистрации в соответствующем разделе Мобильного приложения. При Регистрации Пользователю присваивается выбранная им пара Логин(e-mail) плюс Пароль, которая используется в дальнейшем Пользователем при работе с Мобильным приложением. Пользователь может пройти процедуру Регистрации только один раз.\n
-При регистрации в Мобильном приложении Пользователь обязан предоставить Администрации Ресурса необходимую достоверную и актуальную информацию для формирования Профиля Пользователя, включая уникальные для каждого Пользователя Логин (адрес электронной почты) и Пароль доступа к Мобильному приложению, а также Имя пользователя. Администрация «Yes u Du», рекомендует указывать реальное Имя, Фотографию, Возраст, Место проживания (Страна, Город) пользователя во избежание ситуаций вводящих пользователей в заблуждение и во избежание создания фейковых аккаунтов.\n
- В случае выявления ненастоящих данных пользователей: Имя, Возраст, Место проживания(Страна, Город) Администрация Мобильного Приложения «Yes u Du»,вправе удалять ненастоящие фотографии пользователя без предупреждения, а также блокировать такие аккаунты.\n
-Регистрационная форма Мобильного Приложения может запрашивать у Пользователя дополнительную информацию.\n
-Пользователь самостоятельно выбирает себе Пароль, однако Ресурс настоятельно рекомендует использовать Пароли, длиной не менее 6 (шести) символов и включающие одновременно строчные и заглавные буквы, а также цифры.\n
-Пользователь несёт ответственность за достоверность, актуальность, полноту и соответствие законодательству Российской Федерации предоставленной при Регистрации информации и её чистоту от претензий третьих лиц. Пользователь самостоятельно несёт ответственность за сохранность Пароля в тайне от третьих лиц.\n
-Компания не несёт никакой ответственности в случае нарушения прав Пользователя третьими лицами, получившими несанкционированный доступ к паре Логин плюс Пароль Пользователя.\n
-При Регистрации Пользователь выражает своё согласие с настоящим Соглашением и принимает на себя указанные в нем права и обязанности, связанные с использованием и функционированием Мобильного приложения.\n
-После успешной регистрации Пользователя в Мобильном приложении Ресурс принимает на себя права и обязанности перед Пользователем, указанные в настоящем Соглашении.\n
-3. Верификация Пользователя\n
-Использование Мобильного приложения в полном объёме, возможно только после Верификации.\n
-После прохождения процедуры Регистрации Пользователю необходимо пройти процедуру Верификации, что подразумевает под собой размещение на сайте и подтверждение Пользователем следующих данных: имя, фамилия, адрес электронной почты, дата рождения, город проживания  и не менее двух фотографий пользователя отличающихся друг от друга, фотографии и другие данные проверяются Администрацией на достоверность и на применение Пользователем различных графических редакторов, также при верификации\n
-Статус Верифицированного пользователя предоставляется Администрацией по своему усмотрению после получения от Пользователя полной информации, Администрация имеет право отказать Пользователю в Верификации без объяснения причин отказа независимо от затрат и усилий, понесённых Пользователем при прохождении процедуры Верификации.\n
-После успешного прохождения процедуры верификации Пользователь заполняет Профиль.\n
-Заполняя Профиль, Пользователь настоящим подтверждает, что делает информацию, содержащуюся в своём профиле, общедоступной, т. е. потенциально доступной всем Посетителям.\n
-Статус Верифицированного Пользователя может быть снят с Пользователя в любой момент по усмотрению Администрации без объяснения причин.\n
-Нарушения, которые могут повлечь за собой строгое предупреждение или лишение статуса Исполнителя:\n
-•	Пользователь использовал ненормативную лексику, критику, разжигал конфликтные ситуации, призывал к нарушению правил Ресурса или Законодательства той страны в которой зарегистрирован пользователь, оскорбительно выражался в адрес других Пользователей;\n
-•	Пользователь получил более трех жалоб от других Пользователей Ресурса, при этом Администрация проверяет все жалобы на правомерность и на нарушения правил Ресурса, и не ограничивает доступ к Ресурсу без уважительной причины;\n
-•	Пользователь указал персональные данные другого физического лица, без его ведома и согласия;\n
-•	Пользователь опубликовал в своём профиле ссылки на сторонние ресурсы использующие материалы противоречащие или запрещенные законодательством той страны, в которой зарегистрирован Пользователь;\n
-•	Пользователь опубликовал материалы, противоречащие или запрещенные законодательством той страны, в которой зарегистрирован пользователь.\n
-•	Пользователь при обмене информацией с другими Пользователями призывал противоправным или противозаконным действиям, а также публиковал материалы откровенного или порнографического характера (фотографии не прикрытых гениталий, или сцен половых актов между людьми, людьми и животными);\n
-•	Пользователь нарушил требования к фотографиям, размещаемой в Профиле. На одной фотографии должен быть изображён непосредственно сам Пользователь (лицо крупным планом) без посторонних людей, предметов или животных, на другой должен быть изображён непосредственно сам Пользователь (не обязательно крупным планом) с присутствием посторонних людей, предметов или животных.\n
-•	Пользователь нарушил правила общения с Администрацией. Администрация призвана следить за соблюдением Соглашения об использовании Ресурса всеми Пользователями данного Ресурса, а также давать рекомендации Пользователям о правильном заполнении Профиля. Для обсуждения спорных вопросов с Администрацией Пользователям необходимо использовать только прямые контакты: личный чат, e-mail. Запрещается публично спорить с Администрацией и обсуждать её действия. Пожаловаться на действия или бездействие Администрации можно путём направления соответствующего сообщения в Администрацию мобильного приложения.\n
-4. Правила размещения информации\n
-Запрещается размещение информации, целью или предметом которой является:\n
-•	предоставление и получение займов, пополнение счетов в платёжных системах, осуществление денежных переводов, приём платежей в пользу платёжных систем: AlertPay (alertpay.com), c-gold (c-gold.com), e-bullion (e-bullion.com), e-gold (e-gold.com), Liberty Reserve (libertyreserve.com), Pecunix (pecunix.com), PerfectMoney (perfectmoney.com), BitCoin (включая биржи, осуществляющие обмен);\n
-•	привлечение Пользователей на сторонние ресурсы, сайты, либо регистрация Пользователей на таких ресурсах, сайтах;\n
-•	реклама своих услуг и товаров или услуг и товаров, принадлежащих третьим лицам;\n
-•	услуги эротического характера;\n
-•	накрутка или изменение статистики сайтов, числа подписчиков в социальных сетях и т. д.;\n
-•	заказ автоматической или ручной рассылки приглашений и сообщений пользователям социальных сетей, email-рассылок;\n
-•	оказание услуг по распространению товаров;\n
-•	лекарства, пищевые добавки, биологически активные добавки;\n
-•	яды;\n
-•	лекарственное сырье, получаемое от северного оленеводства (панты и эндокринное сырье);\n
-•	наркотические средства, психотропные вещества и их прекурсоры, культивирование наркосодержащих растений;\n
-•	услуги хранения, перевозки, изготовления, переработки наркотических средств, прекурсоров, психотропных веществ или их аналогов, а также незаконные приобретение, хранение, перевозка растений, содержащих наркотические средства или психотропные вещества, либо их частей, содержащих наркотические средства или психотропные вещества;\n
-•	услуги по организации занятий проституцией, вовлечение в занятие проституцией;\n
-•	контент для взрослых, любая порнография, секс-видеочаты, сайты с указанием на размещение откровенных фотографий;\n
-•	табачные изделия;\n
-•	алкогольная продукция, этиловый спирт;\n
-•	драгоценные, редкие металлы и камни, ювелирные изделия, в т. ч. отходы, содержащие драгоценные и редкоземельные металлы и драгоценные камни;\n
-•	золотые слитки, инвестиции в золотые слитки, любой оборот драгоценных металлов, природных драгоценных камней или жемчуга, в том числе продажа изделий из драгоценных металлов;\n
-•	услуги по оказанию содействия в ведении боевых действий, вне зависимости от занимаемой стороны конфликта, формы поддержки (гуманитарная помощь, поставка вооружения, средств связи, медикаментов и проч.);\n
-•	оружие и боеприпасы (гражданское, служебное, огнестрельное):\n
-</string>
-<string name="resources_text_part" translatable="false">
-1.	разработка, производство, испытание, хранение, ремонт и утилизация.\n
-2.	торговля, в том числе основными частями огнестрельного оружия.\n
-3.	боеприпасы, в том числе патроны и их составные части типа гильз и капсюлей.\n
-•	военная техника, запасные части, комплектующие изделия и приборы к ней, взрывчатые вещества, средства взрывания, пороха, все виды ракетного топлива, а также специальные материалы и специальное оборудование для их производства, специальное снаряжение личного состава военизированных организаций и нормативно — техническая продукция на их производство и эксплуатацию;\n
-•	боевые отравляющие вещества, средства защиты от них и нормативно — техническая документация на их производство и использование;\n
-•	услуги по изготовлению/переделке/ремонту огнестрельного оружия, его основных частей, боеприпасов, взрывчатых веществ или взрывных устройств;\n
-•	пестициды и агрохимикаты, ограниченные в обороте;\n
-•	сильнодействующие или ядовитые вещества;\n
-•	музейные предметы и музейные коллекции, включённые в состав Музейного фонда той страны, на территории которой зарегистрирован Пользователь.\n
-•	рентгеновское оборудование, приборы и оборудование с использованием радиоактивных веществ и изотопов;\n
-•	ракетно-космические комплексы, системы связи и управления военного назначения и нормативно — техническая документация на их производство и эксплуатацию;\n
-•	азартные игры, включая лотереи, букмекерские конторы и тотализаторы;\n
-•	форекс, бинарные аукционы, биткоины;\n
-•	финансовые пирамиды, HYIP;\n
-•	услуги по размещению сведений, материалов, порочащих честь и достоинство человека, нарушение тайны переписки, личной жизни;\n
-•	услуги по созданию, использованию и распространению вредоносных компьютерных программ;\n
-•	услуги кардшаринга;\n
-•	услуги по предоставлению неправомерного доступа к компьютерной информации;\n
-•	услуги по взлому аккаунтов третьих лиц, извлечению закрытой информации, её модификация;\n
-•	специальные технические средства, предназначенные для негласного получения информации;\n
-•	услуги по распространению и продаже сведений, составляющих коммерческую, налоговую или банковскую тайну;\n
-•	торговля/изготовление поддельных кредитных либо расчётных карт и иных платёжных инструментов;\n
-•	услуги по размещению публичных призывов к осуществлению экстремистской деятельности, возбуждению ненависти либо вражды, а равно унижение человеческого достоинства;\n
-•	услуги по организации экстремистского сообщества;\n
-•	услуги посредничества во взяточничестве;\n
-•	любые иные товары или услуги, запрещенные согласно законодательству Российской Федерации и/или Республики Армения.\n
-5. Ответственность Пользователей и Посетителей\n
-Посетители самостоятельно несут ответственность за свои действия/бездействие при использовании Ресурса. Посетители гарантируют, что использование Ресурса будет осуществляться ими таким образом, который не будет нарушать права третьих лиц. Посетители гарантируют, что обладают правами на использование материалов, размещаемых ими на Сайте. Посетители обязуются соблюдать настоящее Соглашение. При нарушении Посетителями Соглашения Администрация оставляет за собой право временно ограничить доступ Посетителя к Ресурсу (временный бан), а в случае грубого и/или неоднократного нарушения Соглашения отказать в доступе к Ресурсу (постоянный бан). В случае постоянного бана Пользователь обязуется в течение срока своей жизни не предпринимать каких-либо действий, имеющих своей целью получения доступа к Ресурсу, Администрация вправе в течение срока действия данного обязательства, т. е. в течение срока жизни Пользователя, к которому применен постоянный бан, обрабатывать его персональные данные в целях контроля соблюдения таким Пользователем обязательства по несовершению каких-либо действий для получения доступа к Ресурсу. Аналогичные правила распространяются и на временный бан.\n
-6. Права и обязанности Пользователя и Посетителя\n
-Любой Посетитель Ресурса имеет право использовать следующие возможности Ресурса:\n
-•	Просмотр фотографий, размещённых Пользователями, доступных для такого просмотра соответствии с настоящим Соглашением;\n
-•	Иные возможности, доступ к которым предоставлен ему Ресурсом в лице Администрации.\n
-•	Направлять жалобы Администрации по фактам нарушения Пользователями Соглашения;\n
-•	Использовать иные возможности, доступ к которым предоставлен ему Ресурсом в лице Администрации;\n
-Верифицированный Пользователь дополнительно имеет право:\n
-•	Обмениваться сообщениями с другими Пользователями;\n
-Пользователю при использовании Сайта запрещается:\n
-•	регистрироваться в качестве Пользователя от имени или вместо другого лица («фальшивый аккаунт»);\n
-•	вводить Пользователей в заблуждение относительно своей личности, используя Логин и Пароль другого зарегистрированного Пользователя;\n
-•	искажать сведения о себе, своём возрасте или своих отношениях с другими лицами или организациями;\n
-•	загружать, хранить, публиковать, распространять и предоставлять доступ или иным образом использовать любую информацию, которая: содержит угрозы, дискредитирует, оскорбляет, порочит честь и достоинство или деловую репутацию или нарушает неприкосновенность частной жизни других Пользователей или третьих лиц; нарушает права несовершеннолетних лиц; является вульгарной или непристойной, содержит порнографические изображения и тексты или сцены сексуального характера с участием несовершеннолетних; содержит сцены бесчеловечного обращения с животными; содержит описание средств и способов суицида, любое подстрекательство к его совершению; пропагандирует и/или способствует разжиганию расовой, религиозной, этнической ненависти или вражды, пропагандирует фашизм или идеологию расового превосходства; содержит экстремистские материалы; пропагандирует преступную деятельность или содержит советы, инструкции или руководства по совершению преступных действий, содержит информацию ограниченного доступа, включая, но не ограничиваясь, государственной и коммерческой тайной, информацией о частной жизни третьих лиц; содержит рекламу или описывает привлекательность употребления наркотических веществ, в том числе «цифровых наркотиков» (звуковых файлов, оказывающих воздействие на мозг человека за счёт бинауральных ритмов), информацию о распространении наркотиков, рецепты их изготовления и советы по употреблению; носит мошеннический характер; а также нарушает иные права и интересы граждан и юридических лиц или требования законодательства Российской Федерации;\n
-•	незаконно загружать, хранить, публиковать, распространять и предоставлять доступ или иным образом использовать интеллектуальную собственность Пользователей и третьих лиц;\n
-•	использовать программное обеспечение и осуществлять действия, направленные на нарушение нормального функционирования Ресурса и его возможностей или личных кабинетов Пользователей;\n
-•	любым способом, в том числе, но не ограничиваясь, путём обмана, злоупотребления доверием, взлома, пытаться получить доступ к Логину и Паролю другого Пользователя;\n
-•	осуществлять незаконные сбор и обработку персональных данных других лиц;\n
-•	размещать любую другую информацию, которая, по личному мнению Администрации, является нежелательной, не соответствует целям создания Ресурса, ущемляет интересы Пользователей или по другим причинам является нежелательной для размещения на Ресурсе;\n
-7. Функция чата (обмена сообщениями)\n
-Пользователю после Верификации предоставляется доступ к услуге обмена сообщениями, которая позволяет обмениваться корреспонденцией с Администрацией и иными Пользователями. Переписка, осуществляемая посредством данной функцией, не является личной. Пользователь, используя данный Сервис, принимает тот факт, что Администрация в любой момент имеет право осуществлять чтение отправляемых сообщений, с целью пресечения нарушения Правил Пользования Ресурсом и Законодательства Российской Федерации и/или Республики Армения.\n
-Пользователь выражает своё согласие на получение личных сообщений от Администрации в любое время и любого характера. Администрация не осуществляет модерацию (предварительный просмотр, оценку и фильтрацию) сообщений, направляемых Пользователями друг другу. Пользователям запрещается использовать Функцию чата (обмена сообщениями) для:\n
-•	совершения действий, нарушающих законодательство Российской Федерации и/или Республики Армения, нормы международного права;\n
-•	загрузки, отправки, передачи или любого другого способа опубликования неразрешённой специальным образом рекламной информации, спама, схем «пирамид», «писем счастья»;\n
-•	загрузки, отправки, передачи или любого другого способа опубликования материалов, которые являются незаконными, вредоносными, угрожающими, оскорбляющими нравственность, клеветническими, нарушающими авторские права, пропагандирующими ненависть и/или дискриминацию людей по расовому, этническому, половому, социальному признакам;\n
-•	загрузки, отправки, передачи или любого другого способа опубликования материалов, нарушающих права третьих лиц.\n
-Администрация оставляет за собой право предоставить в случаях, предусмотренных законодательством РФ, доступ к личным сообщениям Пользователя третьим лицам.\n
-8. Услуги Ресурса\n
-Ресурс оказывает бесплатные услуги по обмену информацией между Пользователями, с целью их дальнейшего знакомства, и возможности создания семьи, в полном общем и юридическом смысле этого слова.\n
-Верифицированный Пользователь имеет право:\n
-•	пользоваться Функциями и Услугами Ресурса при условии Принятия Соглашения и Правил Ресурса, в качестве Оферты;\n
-Верифицированный Пользователь обязуется:\n
-•	при пользовании Услугами Ресурса соблюдать все условия оказания Услуг, установленные в Соглашении;\n
-•	не злоупотреблять предоставленными возможностями, не использовать самостоятельно или с привлечением третьих лиц оказание Услуг и/или возможности использования Функций Ресурса в целях, которые могут быть квалифицированы как нарушение прав третьих лиц на объекты интеллектуальной собственности, недобросовестная конкуренция, иное нарушение закона; не осуществлять действий, которые влияют на нормальную работу Ресурса.\n
-Верифицированный Пользователь самостоятельно несёт ответственность за сохранность и конфиденциальность регистрационных данных (логин и пароль). Все действия, осуществлённые в отношении оказанных Ресурсом Услуг с использованием логина и пароля Верифицированного Пользователя, считаются осуществлёнными им самим. Верифицированный Пользователь самостоятельно несёт ответственность перед третьими лицами за все действия, совершенные с использованием своих регистрационных данных (логина и пароля). Компания не несёт ответственности за несанкционированное использование регистрационных данных Верифицированного Пользователя третьими лицами.\n
-9. Арбитраж Ресурса\n
-В случае возникновения споров между Пользователями, или жалобы со стороны одного Пользователя по отношению к другому Пользователю, они разрешаются и рассматриваются Администрацией. Пользователи соглашаются с тем, что Администрация имеет право по результатам рассмотрения спорной ситуации осуществить любые необходимые действия. Решение Администрации является окончательным и обжалованию не подлежит. Данная функция Администрации называется Арбитраж Ресурса\n
-10. Особые условия\n
-Ресурс не гарантирует, что программное обеспечение Мобильного приложения и Интернет интерфейса, не содержит ошибок или будет функционировать бесперебойно.\n
-Ресурс не несёт никакой ответственности за решения, принятые Администрацией при разрешении конфликтных ситуаций между Пользователями.\n
-Ресурс не несёт ответственности за убытки или иной вред, возникший у Пользователя в связи с действиями третьих лиц.\n
-Ресурс оставляет за собой право удалять со своих серверов любую информацию или материалы, которые, по мнению Администрации, являются неприемлемыми, нежелательными или нарушающими настоящее Соглашение.\n
-Ресурс не контролирует информацию, услуги и продукты, находящиеся в или предлагаемые посредством сети Интернет. Вследствие этого Пользователь принимает условие, в соответствии с которым все товары, информация и услуги, предлагаемые или доступные через Ресурс или в сети Интернет, предоставляются третьими сторонами, которые никак не связаны с Ресурсом. Пользователь принимает на себя полную ответственность и риски за использование Рекламы и сети Интернет. Компания не предоставляет никаких гарантий на любые товары, информацию и услуги, поставляемые посредством Рекламы или через сеть Интернет вообще. Компания не будет нести ответственности за любые затраты или ущерб, прямо или косвенно возникшие в результате подобных поставок. Пользователь принимает условие, согласно которому он принимает на себя ответственность за оценку точности, полноты и пригодности всех мнений, оценок, услуг и другой информации, качества и функций товаров, предоставляемых посредством Рекламы или сети Интернет вообще.\n
-Все права на материалы, размещаемые на Ресурсе Посетителями (пользовательский контент), в том числе интеллектуальные права, принадлежат соответствующим Посетителям и/или иным правообладателям. Посетитель предоставляет Ресурсу гарантии в отношении пользовательского контента.\n
-С размещением Посетителями пользовательского контента на Ресурсе, Ресурс на безвозмездной основе получает бессрочное неисключительное право (простую лицензию) на использование такого пользовательского контента и включенных в него объектов интеллектуальной собственности на территории всего мира в пределах использования его любыми разрешенными в соответствии с законодательством РФ и/или Республики Армения способами, в том числе без указания имени (псевдонима) автора, в целях 1) исполнения Ресурсом условий настоящего Соглашения, 2) защиты прав и законных интересов Ресурса. Ресурс вправе предоставлять во исполнение заявленных целей полученный объем прав третьим лицам, а также создавать архивные копии пользовательского контента.\n
-Все права на Ресурс и его функции, в том числе права на объекты интеллектуальной собственности, входящие в состав Ресурса и его функций (включая, но не ограничиваясь, программы для ЭВМ, базы данных, графический дизайн), а также права на доменное имя mareledu.com, права на логотип и иные подобные произведения, права на товарные знаки «Yes u Du» (словесные, изобразительные и комбинированные) принадлежат Физическому лицу, владельцу данной Интеллектуальной собственности и Ресурса или его аффилированным лицам.\n
-В отношении Ресурса и его функций запрещается произведение реверс-инжиниринга, эмуляции, дизассемблирования, декомпиляции, декодирования, модификации, выполнение перевода на другие языки; запрещается воспроизведение дизайна Мобильного приложения и Интернет интерфейса или его части; запрещается нарушение систем защиты Мобильного приложения и Интернет интерфейса, удаление, скрытие или изменение размещенных в Мобильном приложеним и Интернет интерфейсе знаков или уведомлений об интеллектуальных правах Ресурса и его аффилированных лиц.\n
-Запрещается также автоматизированная обработка третьими лицами информации, размещенной или содержащейся в Мобильном приложении и Интернет интерфейсе.\n
-Без предварительного письменного разрешения Ресурса запрещено использование объектов интеллектуальной собственности Ресурса и ее аффилированных лиц любыми способами (в любых, в том числе некоммерческих, целях), за исключением случаев, прямо предусмотренных настоящим Соглашением.\n
-Без предварительного письменного разрешения Ресурса также запрещено использование пользовательского контента, полностью или в части (в том числе фотографий и изображений, сведений о Посетителях и другой информации, размещенной ими в Мобильном приложении или Интернет интерфейсе). Запрещенное использование включает в себя копирование, сбор, запись, систематизацию, накопление, хранение, изменение, извлечение, воспроизведение, размещение, передачу, удаление и любые другие способы использования такого пользовательского контента, в любых целях, в том числе в некоммерческих.\n
-11. Вступление в силу и порядок изменения настоящего Соглашения\n
-Соглашение, и изменения к ним вступают силу с момента их опубликования в Мобильном приложении и Интернет интерфейсе. Изменения в Соглашении могут быть внесены в любое время. Пользователь и/или Посетитель обязуется знакомиться с актуальной версией Соглашения перед каждым использованием Ресурса. Если Пользователь и/или Посетитель примет решение не соглашаться с изменённым Соглашением, то он обязан отказаться от использования Сервиса. Пользователь, продолжающий пользование Ресурсом, соглашается с изменениями.\n
-12. Применимое законодательство\n
-Все взаимоотношения между Ресурсом и Посетителями подлежат регулированию исключительно законодательством той страны, на территории которой зарегистрирован Пользователь. При нарушении законодательства страны, в которой зарегистрирован Посетитель,он несёт полную административную и уголовную ответственность.\n
+<string name="resources_text_part">
+1. Development, production, testing, storage, repair and disposal.\n
+2. trade, including the main parts of firearms.\n
+3. ammunition, including cartridges and their components such as casings and primers.\n
+•  military equipment, spare parts, components and devices for it, explosives, explosives, gunpowder, all types of rocket fuel, as well as special materials and special equipment for their production, special equipment of personnel of paramilitary organizations and regulatory and technical products for their production and operation;\n
+• chemical warfare agents, means of protection against them, and normative and technical documentation for their production and use;\n
+• services for the manufacture / conversion / repair of firearms, their main parts, ammunition, explosives or explosive devices;\n
+• pesticides and agrochemicals limited in circulation;\n
+• strong or poisonous substances;\n
+• museum items and museum collections included in the Museum Fund of the country in which the User is registered.\n
+X-ray equipment, instruments and equipment using radioactive substances and isotopes;\n
+• rocket and space, complexes of military communications and control systems and normative and technical documentation for their production and operation;\n
+• gambling, including lotteries, bookmakers and sweepstakes;\n
+• forex, binary auctions, bitcoins;\n
+• financial pyramids, HYIP;\n
+• services for the placement of information, materials discrediting the honor and dignity of a person, violation of the secrecy of correspondence, personal life;\n
+• services for the creation, use and distribution of malicious computer programs;\n
+• cardsharing services;\n
+• services for the provision of illegal access to computer information;\n
+• services for hacking third party accounts, extracting classified information, and modifying it;\n
+• special technical means designed to secretly obtain information;\n
+• services for the distribution and sale of information constituting commercial, tax or banking secrets;\n
+• trade / production of counterfeit credit or payment cards and other payment instruments;\n
+• services for placing public appeals to carry out extremist activities, incite hatred or enmity, as well as humiliation of human dignity;\n
+• services for organizing an extremist community;\n
+• services of mediation in bribery;\n
+• any other goods or services prohibited under the laws of the country in which the user lives at the time of the incident.\n
+5. Responsibility of Users and Visitors\n
+Visitors are solely responsible for their actions / inaction when using the Resource. Visitors guarantee that the use of the Resource will be carried out by them in a way that will not violate the rights of third parties. Visitors guarantee that they have the rights to use the materials they post on the Site.\n
+  Visitors are solely responsible for their actions / inaction when using the Resource. Visitors guarantee that the use of the Resource will be carried out by them in a way that will not violate the rights of third parties. Visitors warrant that they have the rights to use the materials posted by them in the Mobile Application.\n
+   Visitors agree to abide by this Agreement. In case of violation of the Agreement by Visitors, the Administration reserves the right to temporarily restrict the Visitor`s access to the Resource (temporary ban), and in case of gross and / or repeated violation of the Agreement, to refuse access to the Resource (permanent ban). In the event of a permanent ban, the User undertakes not to take any actions during his life, with the aim of gaining access to the Resource, the Administration has the right during the term of this obligation, that is, during the life. Of the User, to whom a permanent ban has been applied, to process his personal data in order to control compliance by such a User with the obligation to not take any action to gain access to the Resource. The same rules apply to a temporary ban.\n
+  6. Rights and obligations of the User and the Visitor\n
+Any Visitor to the Resource has the right to use the following features of the Resource:\n
+• Viewing photos posted by Users available for such viewing in accordance with this Agreement;\n
+• Other opportunities, access to which is provided to him by the Resource represented by the Administration.\n
+• Send complaints to the Administration regarding violations of the Agreement by the Users;\n
+• Use other opportunities, access to which is provided to him by the Resource represented by the Administration;\n
+The Verified User additionally has the right to:\n
+• Exchange messages with other Users;\n
+When using the Site, the user is prohibited from:\n
+• register as a User on behalf of or instead of another person ("fake account");\n
+• mislead Users about their identity using the Login and Password of another registered User;\n
+• distort information about yourself, your age or your relationships with other persons or organizations;\n
+• upload, store, publish, distribute and provide access or otherwise use any information that: contains threats, discredits, offends, defames honor and dignity or business reputation or violates the privacy of other Users or third parties; violates the rights of minors;\n
+is vulgar or obscene, contains pornographic images and texts or scenes of a sexual nature involving minors; contains scenes of inhuman treatment of animals; contains a description of the means and methods of suicide, any incitement to commit it; promotes and / or contributes to the incitement of racial, religious, ethnic hatred or enmity, promotes fascism or ideology of racial superiority; contains extremist materials; promotes criminal activity or contains advice, instructions or guidelines for committing criminal acts, contains information of limited access, including, but not limited to, state and commercial secrets, information about the private life of third parties;\n
+contains advertisements or describes the attractiveness of drug use, including "digital drugs" (sound files that affect the human brain through binaural beats), information about the distribution of drugs, recipes for their manufacture and advice on use; is fraudulent; and also violates other rights and interests of citizens and legal entities or the requirements of the legislation of the country in which the user lives at the time of the incident;\n
+• illegally upload, store, publish, distribute and provide access or otherwise use the intellectual property of Users and third parties;\n
+• use software and take actions aimed at disrupting the normal functioning of the Resource and its capabilities or personal accounts of Users;\n
+• in any way, including, but not limited to, by deception, abuse of trust, hacking, try to gain access to the Login and Password of another User;\n
+• post any other information that, in the personal opinion of the Administration, is undesirable, does not correspond to the purposes of creating the Resource, infringes on the interests of Users or for other reasons is undesirable for posting on the Resource;\n
+7. Chat function (messaging)\n
+After Verification, the User is provided with access to the messaging service, which allows you to exchange correspondence with the Administration and other Users. The correspondence carried out through this function is not personal. The user, using this Service, accepts the fact that the Administration at any time has the right to read the messages sent, in order to prevent violation of the Terms of Use of the Resource and the Legislation of the country in which the user is registered.\n
+The user agrees to receive personal messages from the Administration at any time and of any nature. The administration does not moderate (preview, evaluate and filter) messages sent by Users to each other. Users are prohibited from using the Chat (Messaging) Function to:\n
+• committing actions that violate the legislation of the country in which the User is registered, the norms of international law;\n
+• uploading, sending, transferring or any other way of publishing advertising information not permitted in a special way, spam, pyramid schemes, letters of happiness;\n
+• uploading, sending, transmitting or any other way of publishing materials that are illegal, harmful, threatening, offending morality, defamatory, violating copyright, promoting hatred and / or discrimination of people on racial, ethnic, gender, social grounds;\n
+• downloading, sending, transferring or any other way of publishing materials that violate the rights of third parties.\n
+The Administration reserves the right to provide, in cases stipulated by the legislation of the country in which the User is registered, access to the User`s personal messages to third parties.\n
+8. Resource Services\n
+The resource provides free services for the exchange of information between Users, with the aim of their further acquaintance, and the possibility of creating a family, in the full general and legal sense of the word.\n
+The Verified User has the right to:\n
+• use the Functions and Services of the Resource, subject to the Acceptance of the Agreement and the Rules of the Resource, as an Offer;\n
+The Verified User undertakes:\n
+• when using the Services of the Resource, comply with all the conditions for the provision of the Services established in the Agreement;\n
+• not to abuse the provided opportunities, not to use independently or with the involvement of third parties the provision of the Services and / or the possibility of using the Resource Functions for purposes that may be qualified as a violation of the rights of third parties to intellectual property, unfair competition, other violation of the law; do not carry out actions that affect the normal operation of the Resource.\n
+The Verified User is solely responsible for the safety and confidentiality of registration data (login and password). All actions carried out in relation to the Services provided by the Resource using the login and password of the Verified User are considered to have been carried out by him. The Verified User is independently liable to third parties for all actions performed using his registration data (login and password). The Company is not responsible for the unauthorized use of the Verified User`s registration data by third parties.\n
+9. Resource Arbitration\n
+In the event of disputes between Users, or complaints from one User in relation to another User, they are resolved and considered by the Administration. Users agree that the Administration has the right to take any necessary actions based on the results of considering a disputed situation. The decision of the Administration is final and not subject to appeal. This function of the Administration is called Resource Arbitration\n
+10. Special conditions\n
+The resource does not guarantee that the software of the Mobile application and the Internet interface is free of errors or will function smoothly.\n
+The resource does not bear any responsibility for the decisions made by the Administration when resolving conflicts between Users.\n
+The resource is not responsible for losses or other harm incurred by the User in connection with the actions of third parties.\n
+The resource reserves the right to remove from its servers any information or materials that, in the opinion of the Administration, are unacceptable, undesirable or violate this Agreement.\n
+The resource does not control the information, services and products located in or offered through the Internet. As a result, the User accepts the condition that all goods, information and services offered or available through the Resource or on the Internet are provided by third parties that are in no way associated with the Resource. The User assumes full responsibility and risks for the use of Advertising and the Internet. The Company does not provide any guarantees for any goods, information and services supplied through Advertising or via the Internet in general. The company will not be held liable for any costs or damage directly or indirectly arising from such deliveries. The user accepts the condition that he accepts responsibility for assessing the accuracy, completeness and suitability of all opinions, ratings, services and other information, quality and functions of the goods provided through the Advertising or the Internet in general.\n
+ All rights to materials posted on the Resource by Visitors (user content), including intellectual rights, belong to the respective Visitors and / or other copyright holders. The Visitor provides the Resource with guarantees regarding the user content. With the placement by Visitors of user-generated content on the Resource, the Resource, at no cost, receives a perpetual non-exclusive right (simple license) to use such user content and the intellectual property objects included in it throughout the world within the limits of its use by any permitted in accordance with the legislation of that country in which the user is registered, in ways, including without specifying the name (pseudonym) of the author, in order to 1) fulfill the terms of this Agreement by the Resource, 2) protect the rights and legitimate interests of the Resource. The resource has the right to provide the received volume of rights to third parties in order to fulfill the stated purposes, as well as create archive copies of user content. All rights to the Resource and its functions, including the rights to intellectual property objects that are part of the Resource and its functions (including, but not limited to, computer programs, databases, graphic design), as well as the rights to the logo and other similar works, the rights to the Yes u Du trademarks (verbal, figurative and combined) belong to the Individual, the owner of this Intellectual Property and Resource or its affiliates.\n
+ In relation to the Resource and its functions, reverse engineering, emulation, disassembly, decompilation, decoding, modification, translation into other languages is prohibited; it is prohibited to reproduce the design of the Mobile Application and the Internet interface or part of it; it is prohibited to violate the protection systems of the Mobile application and the Internet interface, delete, hide or change signs or notices about the intellectual rights of the Resource and its affiliates placed in the Mobile application and the Internet interface.\n
+It is also prohibited for third parties to automatically process information posted or contained in the Mobile Application and the Internet interface.\n
+  Without the prior written permission of the Resource, it is prohibited to use the intellectual property of the Resource and its affiliates by any means (for any, including non-commercial, purposes), except as expressly provided for in this Agreement.\n
+  The use of user content, in whole or in part (including photos and images, information about Visitors and other information posted by them in the Mobile application or the Internet interface) is also prohibited without the prior written permission of the Resource. Prohibited use includes copying, collecting, recording, organizing, accumulating, storing, modifying, retrieving, reproducing, posting, transferring, deleting and any other way of using such user content, for any purpose, including non-commercial.\n
+ 11. Entry into force and procedure for amendment of this Agreement\n
+  The Agreement and changes to them come into force from the moment they are published in the Mobile Application and the Internet interface. Changes to the Agreement can be made at any time. The User and / or Visitor undertakes to familiarize himself with the current version of the Agreement before each use of the Resource. If the User and / or the Visitor decides not to agree with the amended Agreement, then he must refuse to use the Service. The user who continues to use the Resource agrees to the changes.\n
+  12. Applicable law\n
+All relationships between the Resource and the Visitors are subject to regulation solely by the legislation of the country in which the User lives at the time of the incident. In case of violation of the legislation of the country in which the Visitor lives at the time of the incident, in which he bears full administrative and criminal responsibility.\n
 </string>
     <string name="licence_text" translatable="false">
         Yes u Du for Android is built including 3rd party software \n
@@ -361,8 +371,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
     <string name="rule_and_resources">Rules of resource</string>
     <string name="read_rules">before registering, read the rules of the service</string>
     <string name="region_label">Region</string>
-
-
     <string-array name="country_filter">
         <item>Россия</item>
         <item>Армения</item>
