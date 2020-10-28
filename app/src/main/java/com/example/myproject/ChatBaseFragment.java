@@ -121,6 +121,7 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
         pd.show();
 
         if (image_rui != null){
+            storageReference = FirebaseStorage.getInstance().getReference("ChatImage");
             final StorageReference fileReference= storageReference.child(System.currentTimeMillis()+
                     "."+getFileExtension(image_rui));
             uploadTask = fileReference.putFile(image_rui);

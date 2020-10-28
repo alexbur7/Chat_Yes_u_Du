@@ -47,30 +47,8 @@ import static android.app.Activity.RESULT_OK;
 public class ChatFragment extends ChatBaseFragment{
     public static final String KEY_TO_RECEIVER_UUID="recevierID";
     public static final String KEY_TO_RECEIVER_PHOTO_URL = "recevierPHOTO_URL";
-    protected String receiverUuid;
-    protected String receiverPhotoUrl;
-    protected FloatingActionButton fab, send_image;
     private Toolbar toolbar;
-    protected EditText input;
-    protected TextView username;
-    protected TextView statusText;
-    protected ImageView complainView;
-    protected FirebaseListAdapter<ChatMessage> adapter;
-    protected ListView listView;
-    protected ImageView circleImageView;
-    protected DatabaseReference reference;
-    protected String firstKey, secondKey;
     private ValueEventListener seenListener;
-    protected ValueEventListener blockListener;
-    private StorageTask uploadTask;
-    protected StorageReference storageReference;
-
-    protected CallBack activity;
-    private static  final  int IMAGE_REQUEST=1;
-    protected Uri image_rui;
-
-    protected String delete_string;
-    protected String admin_string;
     private String seenText;
 
     @Override
@@ -315,7 +293,8 @@ public class ChatFragment extends ChatBaseFragment{
                             User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,getResources().getString(R.string.not_seen_text),
                             getResources().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete"));
         }
-        else if (image_rui!=null){
+        Log.e("URI", String.valueOf(image_rui!=null));
+        if (image_rui!=null){
             HashMap<String,Object> map=new HashMap<>();
             reference.addValueEventListener(new ValueEventListener() {
                 @Override

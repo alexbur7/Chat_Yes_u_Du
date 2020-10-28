@@ -43,7 +43,6 @@ public class AdminChatFragment extends ChatBaseFragment {
         input = v.findViewById(R.id.input);
         fab.setOnClickListener(this);
         reference = FirebaseDatabase.getInstance().getReference("chats");
-        storageReference = FirebaseStorage.getInstance().getReference("ChatImage");
         username=v.findViewById(R.id.username_text);
         circleImageView = v.findViewById(R.id.circle_image_chat);
         if (receiverPhotoUrl.equals("default")){
