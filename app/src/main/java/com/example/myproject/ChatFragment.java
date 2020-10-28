@@ -293,7 +293,6 @@ public class ChatFragment extends ChatBaseFragment{
 
     protected void sendMessage() {
         if (!input.getText().toString().equals("")) {
-            reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
             HashMap<String,Object> map=new HashMap<>();
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -301,8 +300,8 @@ public class ChatFragment extends ChatBaseFragment{
                     if (snapshot.exists()){
                         map.put("firstBlock","no block");
                         map.put("secondBlock","no block");
-                        reference.updateChildren(map);
-                        reference.removeEventListener(this);
+                        reference.child(generateKey()).updateChildren(map);
+                        reference.child(generateKey()).removeEventListener(this);
                     }
                 }
 
@@ -310,14 +309,13 @@ public class ChatFragment extends ChatBaseFragment{
                 public void onCancelled(@NonNull DatabaseError error) {}
             });
 
-            reference.child("message")
+            reference.child(generateKey()).child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
                             User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,getResources().getString(R.string.not_seen_text),
                             getResources().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete"));
         }
         else if (image_rui!=null){
-            reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
             HashMap<String,Object> map=new HashMap<>();
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -325,8 +323,8 @@ public class ChatFragment extends ChatBaseFragment{
                     if (snapshot.exists()){
                         map.put("firstBlock","no block");
                         map.put("secondBlock","no block");
-                        reference.updateChildren(map);
-                        reference.removeEventListener(this);
+                        reference.child(generateKey()).updateChildren(map);
+                        reference.child(generateKey()).removeEventListener(this);
                     }
                 }
 
@@ -336,7 +334,7 @@ public class ChatFragment extends ChatBaseFragment{
                 }
             });
 
-            reference.child("message")
+            reference.child(generateKey()).child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
                             User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,"",

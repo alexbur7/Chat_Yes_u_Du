@@ -128,7 +128,7 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
                                             if(message.getSecondKey().equals(context.getString(R.string.not_seen_text))){
                                                 linearLayout.setBackgroundResource(R.color.no_seen);
                                             }
-                                            if(message.getSecondKey().equals(context.getString(R.string.seen_text))) linearLayout.setBackgroundColor(Color.WHITE);
+                                            if(message.getSecondKey().equals(context.getString(R.string.seen_text)) || message.getFirstKey().equals(context.getString(R.string.seen_text))) linearLayout.setBackgroundColor(Color.WHITE);
                                         }
                                     } else {
                                         if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid()) && message.getFromUserUUID().equals(id) ||
@@ -141,7 +141,7 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
                                             if(message.getFirstKey().equals(context.getString(R.string.not_seen_text))){
                                                 linearLayout.setBackgroundResource(R.color.no_seen);
                                             }
-                                            if(message.getFirstKey().equals(context.getString(R.string.seen_text))) linearLayout.setBackgroundColor(Color.WHITE);
+                                            if(message.getSecondKey().equals(context.getString(R.string.seen_text)) || message.getFirstKey().equals(context.getString(R.string.seen_text))) linearLayout.setBackgroundColor(Color.WHITE);
                                         }
                                     }
                                 }
