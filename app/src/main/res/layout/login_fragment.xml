@@ -40,17 +40,19 @@
             android:id="@+id/login_log_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?attr/colorAccent"
-            android:text="@string/login_button_text" />
+            android:background="@drawable/edit_button"
+            android:text="@string/login_button_text"
+            android:textColor="@color/chat_text"/>
 
         <Button
             android:id="@+id/reg_log_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:background="?attr/colorAccent"
+            android:background="@drawable/edit_button"
             android:padding="8dp"
-            android:text="@string/reg_button_text" />
+            android:text="@string/reg_button_text"
+            android:textColor="@color/chat_text"/>
     </LinearLayout>
 
     <LinearLayout

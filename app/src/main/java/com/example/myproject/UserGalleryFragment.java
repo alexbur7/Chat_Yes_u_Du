@@ -34,7 +34,7 @@ public class UserGalleryFragment extends Fragment {
         photo_url2 = getArguments().getString(GalleryActivity.PHOTO_URL2);
         photo_url3 = getArguments().getString(GalleryActivity.PHOTO_URL3);
         toolbar = v.findViewById(R.id.toolbarFr);
-        toolbar.setTitle(R.string.gallery_text);
+        //toolbar.setTitle(R.string.gallery_text);
         setUpGallery();
         return v;
     }

@@ -132,6 +132,7 @@ public class LoginFragment extends Fragment {
                                 setCurrentUser();
                                 Intent intent = new Intent(getActivity(), MyAccountActivity.class);
                                 startActivity(intent);
+                                logButton.setEnabled(false);
                                 getActivity().finish();
                             } else {
                                 Toast.makeText(getActivity(), R.string.failed_login, Toast.LENGTH_SHORT).show();

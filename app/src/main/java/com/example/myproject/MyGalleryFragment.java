@@ -65,7 +65,7 @@ public class MyGalleryFragment extends Fragment {
         photo_url3 = getArguments().getString(GalleryActivity.PHOTO_URL3);
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
         toolbar = v.findViewById(R.id.toolbarFr);
-        toolbar.setTitle(R.string.gallery_text);
+       // toolbar.setTitle(R.string.gallery_text);
         setUpGallery();
         setToolbar();
         return v;

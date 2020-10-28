@@ -84,7 +84,7 @@
     <string name="blocked_chat">Этот чат был заблокирован</string>
     <string name="blocked_by_admin">Вы заблокированы администратором</string>
     <string name="about_hint">Расскажите о себе</string>
-    <string name="label_offline">офлайн</string>
+    <string name="label_offline">не в сети</string>
     <string name="set_photo">Выбрать фото</string>
     <string name="reset_password">Сменить пароль</string>
     <string name="enter_old_password">Введите прошлый пароль</string>
