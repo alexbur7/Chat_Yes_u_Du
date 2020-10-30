@@ -118,14 +118,14 @@ public class ChatFragment extends ChatBaseFragment{
                 for (DataSnapshot snapshot1:snapshot.getChildren()){
 
                     if (snapshot1.getKey().equals("firstBlock") && User.getCurrentUser().getUuid().equals(secondKey) && snapshot1.getValue().equals("block")){
-                        input.setText(getResources().getString(R.string.blocked_chat));
+                        input.setText(getActivity().getString(R.string.blocked_chat));
                         input.setEnabled(false);
                         fab.setEnabled(false);
                         send_image.setEnabled(false);
                     }
 
                     else if (snapshot1.getKey().equals("secondBlock") && User.getCurrentUser().getUuid().equals(firstKey) && snapshot1.getValue().equals("block")){
-                        input.setText(getResources().getString(R.string.blocked_chat));
+                        input.setText(getActivity().getString(R.string.blocked_chat));
                         input.setEnabled(false);
                         fab.setEnabled(false);
                         send_image.setEnabled(false);
@@ -397,7 +397,7 @@ public class ChatFragment extends ChatBaseFragment{
                                     if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(firstKey)))
                                         hashMap.put("firstKey",seenText);
                                     else if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(secondKey)))
-                                        hashMap.put("secondKey", getResources().getString(R.string.seen_text));
+                                        hashMap.put("secondKey", seenText);
                                     snapshot3.getRef().updateChildren(hashMap);
                                 }
                             }
