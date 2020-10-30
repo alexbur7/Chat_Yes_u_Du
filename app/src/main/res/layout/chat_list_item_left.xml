@@ -29,12 +29,9 @@
         android:layout_below="@+id/message_user"
         android:layout_alignParentStart="true"
         android:layout_marginTop="5dp"
+        android:layout_marginLeft="24dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="18sp"/>
-    <TextView
-        android:id="@+id/text_seen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/message_text"
-       android:visibility="gone"/>
+        android:textSize="18sp"
+        android:layout_alignParentLeft="true" />
+
 </RelativeLayout>

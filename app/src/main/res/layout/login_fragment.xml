@@ -41,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/edit_button"
+            android:layout_marginTop="32dp"
             android:text="@string/login_button_text"
             android:textColor="@color/chat_text"/>
 
@@ -48,7 +49,7 @@
             android:id="@+id/reg_log_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="24dp"
             android:background="@drawable/edit_button"
             android:padding="8dp"
             android:text="@string/reg_button_text"
@@ -58,10 +59,11 @@
     <LinearLayout
         android:layout_width="368dp"
         android:layout_height="111dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="52dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         tools:ignore="MissingConstraints">
@@ -70,8 +72,8 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24dp"
             android:text="@string/read_rules"
             tools:ignore="MissingConstraints" />
 

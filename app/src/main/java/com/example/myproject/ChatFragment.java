@@ -164,7 +164,7 @@ public class ChatFragment extends ChatBaseFragment{
                         TextView messageText = v.findViewById(R.id.message_text);
                         TextView messageUser = v.findViewById(R.id.message_user);
                         TextView messageTime = v.findViewById(R.id.message_time);
-                        TextView seenText = v.findViewById(R.id.text_seen);
+                        ImageView seenImage = v.findViewById(R.id.seen_image);
 
                         messageText.setText(model.getMessageText());
                         messageUser.setText(model.getFromUser());
@@ -172,15 +172,25 @@ public class ChatFragment extends ChatBaseFragment{
                         messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
                                 model.getMessageTime()));
                         if (User.getCurrentUser().getUuid().equals(firstKey) && !model.getSecondKey().equals(getActivity().getString(R.string.not_seen_text))) {
-                            seenText.setText(model.getSecondKey());
+                            seenImage.setImageResource(R.drawable.seen_image);
                         } else {
                             if (!model.getFirstKey().equals(getActivity().getString(R.string.not_seen_text)))
-                            seenText.setText(model.getFirstKey());
+                                seenImage.setImageResource(R.drawable.seen_image);
                         }
 
                         ImageView imageView = v.findViewById(R.id.image_send);
                         if (model.getImage_url() != null) {
                             Glide.with(getActivity()).load(model.getImage_url()).into(imageView);
+                            imageView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Fragment newDetail = PhotoViewPagerItemFragment.newInstance(model.getImage_url());
+                                    getFragmentManager().beginTransaction()
+                                            .addToBackStack(null)
+                                            .add(R.id.fragment_container,newDetail)
+                                            .commit();
+                                }
+                            });
                         }
                     }
                 }
@@ -189,17 +199,15 @@ public class ChatFragment extends ChatBaseFragment{
                         TextView messageText = v.findViewById(R.id.message_text);
                         TextView messageUser = v.findViewById(R.id.message_user);
                         TextView messageTime = v.findViewById(R.id.message_time);
-                        TextView seenText = v.findViewById(R.id.text_seen);
+                        ImageView seenImage = v.findViewById(R.id.seen_image);
 
                         messageText.setText(model.getMessageText());
                         messageUser.setText(model.getFromUser());
 
                         messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
                                 model.getMessageTime()));
-                        if (User.getCurrentUser().getUuid().equals(firstKey)) {
-                            seenText.setText(model.getSecondKey());
-                        } else
-                            seenText.setText(model.getFirstKey());
+                        if (User.getCurrentUser().getUuid().equals(firstKey))
+                            seenImage.setImageResource(R.drawable.seen_image);
 
                         ImageView imageView = v.findViewById(R.id.image_send);
                         if (model.getImage_url() != null) {

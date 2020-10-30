@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
-    android:layout_height="wrap_content"
+    android:layout_height="400dp"
     android:layout_margin="4dp"
     android:padding="8dp"
     android:background="@drawable/background_left">
@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:textStyle="normal|bold" />
+        android:textStyle="normal|bold"
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:id="@+id/message_time"
@@ -29,20 +30,15 @@
         android:layout_below="@+id/message_user"
         android:layout_alignParentStart="true"
         android:layout_marginTop="5dp"
+        android:layout_marginLeft="24dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="18sp"/>
-    <TextView
-        android:id="@+id/text_seen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/message_text"
-
-        android:visibility="gone"/>
+        android:textSize="18sp"
+        android:layout_alignParentLeft="true" />
 
     <ImageView
         android:id="@+id/image_send"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_margin="8dp"
-        android:layout_alignTop="@+id/message_text"/>
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

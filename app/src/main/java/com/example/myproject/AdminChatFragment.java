@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -161,21 +163,29 @@ public class AdminChatFragment extends ChatBaseFragment {
                         TextView messageText = v.findViewById(R.id.message_text);
                         TextView messageUser = v.findViewById(R.id.message_user);
                         TextView messageTime = v.findViewById(R.id.message_time);
-                        TextView seenText = v.findViewById(R.id.text_seen);
+                        ImageView seenImage = v.findViewById(R.id.seen_image);
 
                         messageText.setText(model.getMessageText());
                         messageUser.setText(model.getFromUser());
 
                         messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
                                 model.getMessageTime()));
-                        if (getResources().getString(R.string.admin_key).equals(firstKey)) {
-                            seenText.setText(model.getSecondKey());
-                        } else
-                            seenText.setText(model.getFirstKey());
+                        if (getResources().getString(R.string.admin_key).equals(firstKey))
+                            seenImage.setImageResource(R.drawable.seen_image);
 
                         ImageView imageView = v.findViewById(R.id.image_send);
                         if (model.getImage_url() != null) {
                             Glide.with(getActivity()).load(model.getImage_url()).into(imageView);
+                            imageView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Fragment newDetail = PhotoViewPagerItemFragment.newInstance(model.getImage_url());
+                                    getFragmentManager().beginTransaction()
+                                            .addToBackStack(null)
+                                            .add(R.id.fragment_container,newDetail)
+                                            .commit();
+                                }
+                            });
                         }
                     }
                 }
@@ -184,17 +194,15 @@ public class AdminChatFragment extends ChatBaseFragment {
                         TextView messageText = v.findViewById(R.id.message_text);
                         TextView messageUser = v.findViewById(R.id.message_user);
                         TextView messageTime = v.findViewById(R.id.message_time);
-                        TextView seenText = v.findViewById(R.id.text_seen);
+                        ImageView seenImage = v.findViewById(R.id.seen_image);
 
                         messageText.setText(model.getMessageText());
                         messageUser.setText(model.getFromUser());
 
                         messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
                                 model.getMessageTime()));
-                        if (getResources().getString(R.string.admin_key).equals(firstKey)) {
-                            seenText.setText(model.getSecondKey());
-                        } else
-                            seenText.setText(model.getFirstKey());
+                        if (getResources().getString(R.string.admin_key).equals(firstKey))
+                           seenImage.setImageResource(R.drawable.seen_image);
 
                         ImageView imageView = v.findViewById(R.id.image_send);
                         if (model.getImage_url() != null) {
