@@ -171,11 +171,8 @@ public class ChatFragment extends ChatBaseFragment{
 
                         messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
                                 model.getMessageTime()));
-                        if (User.getCurrentUser().getUuid().equals(firstKey) && !model.getSecondKey().equals(getActivity().getString(R.string.not_seen_text))) {
+                        if (!model.getSecondKey().equals(getActivity().getString(R.string.not_seen_text))) {
                             seenImage.setImageResource(R.drawable.seen_image);
-                        } else {
-                            if (!model.getFirstKey().equals(getActivity().getString(R.string.not_seen_text)))
-                                seenImage.setImageResource(R.drawable.seen_image);
                         }
 
                         ImageView imageView = v.findViewById(R.id.image_send);
@@ -206,7 +203,7 @@ public class ChatFragment extends ChatBaseFragment{
 
                         messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
                                 model.getMessageTime()));
-                        if (User.getCurrentUser().getUuid().equals(firstKey))
+                        if (!model.getFirstKey().equals(getActivity().getString(R.string.not_seen_text)))
                             seenImage.setImageResource(R.drawable.seen_image);
 
                         ImageView imageView = v.findViewById(R.id.image_send);
