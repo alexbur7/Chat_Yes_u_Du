@@ -170,8 +170,9 @@ public class AdminChatFragment extends ChatBaseFragment {
 
                         messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
                                 model.getMessageTime()));
-                        if (getResources().getString(R.string.admin_key).equals(firstKey))
+                        if (!model.getSecondKey().equals(getActivity().getString(R.string.not_seen_text))) {
                             seenImage.setImageResource(R.drawable.seen_image);
+                        }
 
                         ImageView imageView = v.findViewById(R.id.image_send);
                         if (model.getImage_url() != null) {
@@ -201,8 +202,8 @@ public class AdminChatFragment extends ChatBaseFragment {
 
                         messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
                                 model.getMessageTime()));
-                        if (getResources().getString(R.string.admin_key).equals(firstKey))
-                           seenImage.setImageResource(R.drawable.seen_image);
+                        if (!model.getFirstKey().equals(getActivity().getString(R.string.not_seen_text)))
+                            seenImage.setImageResource(R.drawable.seen_image);
 
                         ImageView imageView = v.findViewById(R.id.image_send);
                         if (model.getImage_url() != null) {
