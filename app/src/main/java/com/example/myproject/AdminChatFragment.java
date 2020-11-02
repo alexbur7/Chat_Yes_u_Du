@@ -163,17 +163,12 @@ public class AdminChatFragment extends ChatBaseFragment {
                         TextView messageText = v.findViewById(R.id.message_text);
                         TextView messageUser = v.findViewById(R.id.message_user);
                         TextView messageTime = v.findViewById(R.id.message_time);
-                        ImageView seenImage = v.findViewById(R.id.seen_image);
 
                         messageText.setText(model.getMessageText());
                         messageUser.setText(model.getFromUser());
 
                         messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
                                 model.getMessageTime()));
-                        if (!model.getSecondKey().equals(getActivity().getString(R.string.not_seen_text))) {
-                            seenImage.setImageResource(R.drawable.seen_image);
-                        }
-
                         ImageView imageView = v.findViewById(R.id.image_send);
                         if (model.getImage_url() != null) {
                             Glide.with(getActivity()).load(model.getImage_url()).into(imageView);
@@ -195,15 +190,12 @@ public class AdminChatFragment extends ChatBaseFragment {
                         TextView messageText = v.findViewById(R.id.message_text);
                         TextView messageUser = v.findViewById(R.id.message_user);
                         TextView messageTime = v.findViewById(R.id.message_time);
-                        ImageView seenImage = v.findViewById(R.id.seen_image);
 
                         messageText.setText(model.getMessageText());
                         messageUser.setText(model.getFromUser());
 
                         messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
                                 model.getMessageTime()));
-                        if (!model.getFirstKey().equals(getActivity().getString(R.string.not_seen_text)))
-                            seenImage.setImageResource(R.drawable.seen_image);
 
                         ImageView imageView = v.findViewById(R.id.image_send);
                         if (model.getImage_url() != null) {
