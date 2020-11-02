@@ -72,7 +72,7 @@ public class EditDialog extends DialogFragment {
                     }
                     break;
                     case 1: {
-                        regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_arm, android.R.layout.simple_spinner_item);
+                        regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.no_region_filter, android.R.layout.simple_spinner_item);
                         regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         regionSpinner.setAdapter(regionAdapter);
                     }

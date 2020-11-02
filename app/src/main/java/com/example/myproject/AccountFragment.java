@@ -96,7 +96,7 @@ public abstract class AccountFragment extends Fragment {
             }
             break;
             case 1:{
-                regionArray=getResources().getStringArray(R.array.region_filter_arm);
+                regionArray=getResources().getStringArray(R.array.no_region_filter);
             }
             break;
         }

@@ -16,14 +16,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.example.myproject.rules_and_policy.InformationActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -98,7 +96,7 @@ public class RegisterFragment extends Fragment {
                         break;
                     }
                     case 1: {
-                        regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_arm, android.R.layout.simple_spinner_item);
+                        regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.no_region_filter, android.R.layout.simple_spinner_item);
                         regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         regionSpinner.setAdapter(regionAdapter);
                         break;

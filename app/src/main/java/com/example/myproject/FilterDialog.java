@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -71,7 +70,7 @@ public class FilterDialog extends DialogFragment {
                         break;
                     }
                     case 1: {
-                        regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_arm, android.R.layout.simple_spinner_item);
+                        regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.no_region_filter, android.R.layout.simple_spinner_item);
                         regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         regionSpinner.setAdapter(regionAdapter);
                         break;

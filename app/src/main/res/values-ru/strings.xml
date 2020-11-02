@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="email_hint">Введите email</string>
     <string name="pass_hint">Пароль</string>
     <string name="pass_reg_hint">Пароль*</string>
@@ -30,7 +30,7 @@
     <string name="dialog_title">Фильтры</string>
     <string name="label_sex">Пол</string>
     <string name="label_female">Женский</string>
-    <string name="label_activity">Он-лайн</string>
+    <string name="label_activity">Онлайн</string>
     <string name="label_only_with_photo">с фото</string>
     <string name="label_name">Имя</string>
     <string name="name_edit_text_hint">Введите имя</string>
@@ -38,7 +38,7 @@
     <string name="password_length_short">Пароль слишком короткий</string>
     <string name="edit_account">Редактировать</string>
     <string name="search_pos_button_text">найти</string>
-    <string name="label_online">он-лайн</string>
+    <string name="label_online">онлайн</string>
     <string name="label_male">Мужской</string>
     <string name="failed_update_photo">Ошибка при обновлении фото</string>
     <string name="no_image_selected">Картинка не выбрана</string>
@@ -344,4 +344,193 @@
 12. Применимое законодательство\n
 Все взаимоотношения между Ресурсом и Посетителями подлежат регулированию исключительно законодательством той страны, на территории которой проживает Пользователь на момент инцидента. При нарушении законодательства той страны, в которой проживает Посетитель на момент инцидента, в которой, он несёт полную административную и уголовную ответственность.\n
     </string>
+    <string-array name="country_filter" tools:ignore="InconsistentArrays">
+        <item>Россия</item>
+        <item>Армения</item>
+        <item>США</item>
+        <item>Франция</item>
+        <item>Грузия</item>
+        <item>Иран</item>
+        <item>Сирия</item>
+        <item>Ливан</item>
+        <item>Украина</item>
+        <item>Турция</item>
+        <item>Канада</item>
+        <item>Аргентина</item>
+        <item>Узбекистан</item>
+        <item>Абхазия</item>
+        <item>Австралия</item>
+        <item>Германия</item>
+        <item>Канада</item>
+        <item>Бразилия</item>
+        <item>Греция</item>
+        <item>Испания</item>
+        <item>Туркменистан</item>
+        <item>Болгария</item>
+        <item>Беларусь</item>
+        <item>Казахстан</item>
+        <item>Венгрия</item>
+        <item>Израиль</item>
+        <item>Ирак</item>
+        <item>Уругвай</item>
+        <item>Великобритания</item>
+        <item>Чехия</item>
+        <item>Польша</item>
+        <item>Нидерланды</item>
+        <item>Бельгия</item>
+        <item>Египет</item>
+        <item>ОАЭ</item>
+        <item>Австрия</item>
+        <item>Молдова</item>
+        <item>Швеция</item>
+        <item>Швейцария</item>
+        <item>Кувейт</item>
+        <item>Италия</item>
+        <item>Дания</item>
+        <item>Кипр</item>
+        <item>Иордания</item>
+        <item>Румыния</item>
+        <item>Литва</item>
+        <item>Эстония</item>
+        <item>Норвегия</item>
+        <item>Таджикистан</item>
+        <item>Кыргызстан</item>
+        <item>Словакия</item>
+        <item>Финляндия</item>
+        <item>Катар</item>
+        <item>Чили</item>
+        <item>Южная Осетия</item>
+    </string-array>
+    <string-array name="region_filter_rus">
+        <item>Московская обл.</item>
+        <item>Краснодарский край</item>
+        <item>Ставропольский край</item>
+        <item>Ленинградская обл.</item>
+        <item>Ростовская обл.</item>
+        <item>Адыгея</item>
+        <item>Алтайский край</item>
+        <item>Алтай респ.</item>
+        <item>Амурская обл.</item>
+        <item>Архангельская обл.</item>
+        <item>Астраханская обл.</item>
+        <item>Башкортостан</item>
+        <item>Белгородская обл.</item>
+        <item>Брянская обл.</item>
+        <item>Бурятия</item>
+        <item>Владимирская обл.</item>
+        <item>Волгоградская обл.</item>
+        <item>Вологодская обл.</item>
+        <item>Воронежская обл.</item>
+        <item>Дагестан</item>
+        <item>Еврейская АО</item>
+        <item>Забайкальский край</item>
+        <item>Ивановская обл.</item>
+        <item>Иркутская обл.</item>
+        <item>Кабардино-Балкария</item>
+        <item>Калининградская обл.</item>
+        <item>Калужская обл.</item>
+        <item>Камчатский край</item>
+        <item>Карачаево-Черкессия</item>
+        <item>Кемеровская обл.</item>
+        <item>Кировская обл.</item>
+        <item>Коми</item>
+        <item>Костромская обл.</item>
+        <item>Красноярский край</item>
+        <item>Костромская обл.</item>
+        <item>Крым</item>
+        <item>Курганская обл.</item>
+        <item>Курская обл.</item>
+        <item>Липецкая обл.</item>
+        <item>Магаданская обл.</item>
+        <item>Марий Эл</item>
+        <item>Мордовия</item>
+        <item>Мурманская обл.</item>
+        <item>Нижегородская обл.</item>
+        <item>Новгородская обл.</item>
+        <item>Новосибирская обл.</item>
+        <item>Омская обл.</item>
+        <item>Оренбургская обл.</item>
+        <item>Орловская обл.</item>
+        <item>Пензенская обл.</item>
+        <item>Пермский край</item>
+        <item>Приморский край</item>
+        <item>Псковская обл.</item>
+        <item>Рязанская обл</item>
+        <item>Самарская обл.</item>
+        <item>Саратовская обл.</item>
+        <item>Саха(Якутия)</item>
+        <item>Сахалинская обл.</item>
+        <item>Северная Осетия-Алания</item>
+        <item>Свердловская обл.</item>
+        <item>Татарстан</item>
+        <item>Тамбовская обл.</item>
+        <item>Тверская обл.</item>
+        <item>Томская обл.</item>
+        <item>Тульская обл.</item>
+        <item>Тюменская обл.</item>
+        <item>Удмуртия</item>
+        <item>Ульяновская обл.</item>
+        <item>Хабаровский край</item>
+        <item>Хакасия</item>
+        <item>Ханты-Мансийский АО</item>
+        <item>Челябинская обл.</item>
+        <item>Чувашия</item>
+        <item>Ямало-Ненецкий АО</item>
+         <item>Ярославская обл.</item>
+    </string-array>
+    <string-array name="region_filter_usa" tools:ignore="InconsistentArrays">
+        <item>Алабама</item>
+        <item>Аляска</item>
+        <item>Аризона</item>
+        <item>Арканзас</item>
+        <item>Калифорния</item>
+        <item>Колорадо</item>
+        <item>Коннектикут</item>
+        <item>Делавер</item>
+        <item>Флорида</item>
+        <item>Джорджия</item>
+        <item>Гавайи</item>
+        <item>Айдахо</item>
+        <item>Иллинойс</item>
+        <item>Индиана</item>
+        <item>Айова</item>
+        <item>Канзас</item>
+        <item>Кентукки</item>
+        <item>Луизиана</item>
+        <item>Мейн</item>
+        <item>Мэриленд</item>
+        <item>Массачусетс</item>
+        <item>Мичиган</item>
+        <item>Миннесота</item>
+        <item>Миссисипи</item>
+        <item>Миссури</item>
+        <item>Монтана</item>
+        <item>Небреска</item>
+        <item>Невада</item>
+        <item>Нью-Гемпшир</item>
+        <item>Нью-Джерси</item>
+        <item>Нью-Мексико</item>
+        <item>Нью-Йорк</item>
+        <item>Северная Каролина</item>
+        <item>Северная Дакота</item>
+        <item>Огайо</item>
+        <item>Оклахома</item>
+        <item>Орегон</item>
+        <item>Пенсильвания</item>
+        <item>Род-Айленд</item>
+        <item>Южная Каролина</item>
+        <item>Южная Дакота</item>
+        <item>Теннеси</item>
+        <item>Техас</item>
+        <item>Юта</item>
+        <item>Вермонт</item>
+        <item>Вирджиния</item>
+        <item>Вашингтон</item>
+        <item>Западная Вирджиния</item>
+        <item>Висконсин</item>
+        <item>Вайоминг</item>
+    </string-array>
+    <string-array name="region_filter_armenia">
+
+    </string-array>
 </resources>

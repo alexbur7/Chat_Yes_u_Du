@@ -372,16 +372,194 @@ Unless required by applicable law or agreed to in writing, software distributed 
     <string name="read_rules">before registering, read the rules of the service</string>
     <string name="region_label">Region</string>
     <string-array name="country_filter">
-        <item>Россия</item>
-        <item>Армения</item>
+        <item>Russia</item>
+        <item>Armenia</item>
+        <item>USA</item>
+        <item>France</item>
+        <item>Georgia</item>
+        <item>Iran</item>
+        <item>Syria</item>
+        <item>Lebanon</item>
+        <item>Ukraine</item>
+        <item>Turkey</item>
+        <item>Canada</item>
+        <item>Argentina</item>
+        <item>Uzbekistan</item>
+        <item>Abkhazia</item>
+        <item>Australia</item>
+        <item>Germany</item>
+        <item>Brazil</item>
+        <item>Greece</item>
+        <item>Spain</item>
+        <item>Turkmenistan</item>
+        <item>Bulgaria</item>
+        <item>Belarus</item>
+        <item>Kazakhstan</item>
+        <item>Hungary</item>
+        <item>Israel</item>
+        <item>Iraq</item>
+        <item>Uruguay</item>
+        <item>Great Britain</item>
+        <item>Чехия</item>
+        <item>Польша</item>
+        <item>Нидерланды</item>
+        <item>Belgium</item>
+        <item>Egypt</item>
+        <item>UAE</item>
+        <item>Austria</item>
+        <item>Moldova</item>
+        <item>Sweden</item>
+        <item>Switzerland</item>
+        <item>Kuwait</item>
+        <item>Italy</item>
+        <item>Denmark</item>
+        <item>Cyprus</item>
+        <item>Jordan</item>
+        <item>Romania</item>
+        <item>Lithuania</item>
+        <item>Estonia</item>
+        <item>Norway</item>
+        <item>Tajikistan</item>
+        <item>Kyrgyzstan</item>
+        <item>Slovakia</item>
+        <item>Finland</item>
+        <item>Qatar</item>
+        <item>Chile</item>
+        <item>South Ossetia</item>
     </string-array>
 
     <string-array name="region_filter_rus">
-        <item>Московская обл.</item>
-        <item>Ленинградская обл.</item>
+        <item>Moscow reg.</item>
+        <item>Krasnodar reg.</item>
+        <item>Stavropol reg.</item>
+        <item>Leningrad reg.</item>
+        <item>Rostov region</item>
+        <item>Adygea</item>
+        <item>Altai reg.</item>
+        <item>Altai republic</item>
+        <item>Amur reg.</item>
+        <item>Arhangelsk reg.</item>
+        <item>Astrakhan reg..</item>
+        <item>Bashkortostan</item>
+        <item>Belgorod reg.</item>
+        <item>Bryansk reg.</item>
+        <item>Buryatia</item>
+        <item>Vladimir reg.</item>
+        <item>Volgograd reg.</item>
+        <item>Vologda reg.</item>
+        <item>Voronezh reg.</item>
+        <item>Dagestan</item>
+        <item>Jewish Aut.Reg.</item>
+        <item>Zabaykalsky reg.</item>
+        <item>Ivanovo reg.</item>
+        <item>Irkutsk reg.</item>
+        <item>Kabardino-Balkaria</item>
+        <item>Kaliningrad reg.</item>
+        <item>Kaluga reg.</item>
+        <item>Kamchatka reg.</item>
+        <item>Karachay-Cherkessia</item>
+        <item>Kemerovo reg.</item>
+        <item>Kirov reg.</item>
+        <item>Komi</item>
+        <item>Kostroma reg.</item>
+        <item>Krasnoyarsk reg.</item>
+        <item>Kostroma reg.</item>
+        <item>Crimea</item>
+        <item>Kurgan reg.</item>
+        <item>Kursk reg.</item>
+        <item>Lipetsk reg.</item>
+        <item>Magadan reg.</item>
+        <item>Марий Эл</item>
+        <item>Мордовия</item>
+        <item>Murmansk reg.</item>
+        <item>Nizhny Novgorod reg.</item>
+        <item>Novgorod reg.</item>
+        <item>Novosibirsk re.</item>
+        <item>Omsk reg.</item>
+        <item>Orenburg reg.</item>
+        <item>Oryol reg.</item>
+        <item>Penza reg.</item>
+        <item>Perm reg.</item>
+        <item>Primorsky reg.</item>
+        <item>Pskov reg.</item>
+        <item>Ryazan reg.</item>
+        <item>Samara reg.</item>
+        <item>Saratov reg.</item>
+        <item>Sakha(Yakutia)</item>
+        <item>Sakhalin reg.</item>
+        <item>North Ossetia-Alania</item>
+        <item>Sverdlovsk reg.</item>
+        <item>Tambov reg.</item>
+        <item>Tatarstan</item>
+        <item>Tver reg.</item>
+        <item>Tomsk reg.</item>
+        <item>Tula reg.</item>
+        <item>Tyumen reg.</item>
+        <item>Udmurtia</item>
+        <item>Ulyanovsk reg.</item>
+        <item>Khabarovsk reg.</item>
+        <item>Хакасия</item>
+        <item>Khanty-Mansi Aut.Reg.</item>
+        <item>Chelyabinsk reg.</item>
+        <item>Chuvashia</item>
+        <item>Yamalo-Nenets Aut.Reg.</item>
+        ><item>Yaroslavl reg.</item>
     </string-array>
+    <string-array name="region_filter_usa">
+        <item>Alabama</item>
+        <item>Alaska</item>
+        <item>Arizona</item>
+        <item>Arkansas</item>
+        <item>Arizona</item>
+        <item>California</item>
+        <item>Colorado</item>
+        <item>Connecticut</item>
+        <item>Delaware</item>
+        <item>Florida</item>
+        <item>Georgia</item>
+        <item>Hawaii</item>
+        <item>Idaho</item>
+        <item>Illinois</item>
+        <item>Indiana</item>
+        <item>Iowa</item>
+        <item>Kansas</item>
+        <item>Kentucky</item>
+        <item>Louisiana</item>
+        <item>Maine</item>
+        <item>Maryland</item>
+        <item>Massachusetts</item>
+        <item>Michigan</item>
+        <item>Minnesota</item>
+        <item>Mississippi</item>
+        <item>Missouri</item>
+        <item>Montana</item>
+        <item>Nebraska</item>
+        <item>Nevada</item>
+        <item>New Hampshire</item>
+        <item>New Jersey</item>
+        <item>New Mexico</item>
+        <item>New York</item>
+        <item>North Carolina</item>
+        <item>North Dakota</item>
+        <item>Ohio</item>
+        <item>Oklahoma</item>
+        <item>Pennsylvania</item>
+        <item>Rhode Island</item>
+        <item>South Carolina</item>
+        <item>South Dakota</item>
+        <item>Texas</item>
+        <item>Utah</item>
+        <item>Vermont</item>
+        <item>Virginia</item>
+        <item>Washington</item>
+        <item>West Virginia</item>
+        <item>Wisconsin</item>
+        <item>Wyoming</item>
+    </string-array>
+    <string-array name="region_filter_armenia">
 
-    <string-array name="region_filter_arm">
-        <item>Области не добавлены</item>
+    </string-array>
+    <string-array name="no_region_filter">
+        <item>-</item>
     </string-array>
 </resources>
