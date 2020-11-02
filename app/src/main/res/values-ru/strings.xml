@@ -361,7 +361,6 @@
         <item>Абхазия</item>
         <item>Австралия</item>
         <item>Германия</item>
-        <item>Канада</item>
         <item>Бразилия</item>
         <item>Греция</item>
         <item>Испания</item>
@@ -531,6 +530,15 @@
         <item>Вайоминг</item>
     </string-array>
     <string-array name="region_filter_armenia">
-
+        <item>Арагацотн</item>
+        <item>Арарат</item>
+        <item>Армавир</item>
+        <item>Арцах</item>
+        <item>Гегаркуник</item>
+        <item>Лори</item>
+        <item>Ширак</item>
+        <item>Сюник</item>
+        <item>Тавуш</item>
+        <item>Вайоц Дзор</item>
     </string-array>
 </resources>

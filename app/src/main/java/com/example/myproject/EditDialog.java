@@ -53,8 +53,6 @@ public class EditDialog extends DialogFragment {
         sexSpinner = view.findViewById(R.id.spinner_sex_edit);
         countrySpinner = view.findViewById(R.id.country);
         regionSpinner = view.findViewById(R.id.region);
-        Log.e("COUNTRY",User.getCurrentUser().getCountry());
-        Log.e("REGION",User.getCurrentUser().getRegion());
         regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_rus, android.R.layout.simple_spinner_item);
         regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         regionSpinner.setAdapter(regionAdapter);
@@ -72,11 +70,22 @@ public class EditDialog extends DialogFragment {
                     }
                     break;
                     case 1: {
-                        regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.no_region_filter, android.R.layout.simple_spinner_item);
+                        regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_armenia, android.R.layout.simple_spinner_item);
                         regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         regionSpinner.setAdapter(regionAdapter);
                     }
                     break;
+                    case 2: {
+                        regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_usa, android.R.layout.simple_spinner_item);
+                        regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        regionSpinner.setAdapter(regionAdapter);
+                    }
+                    break;
+                    default:{
+                        regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.no_region_filter, android.R.layout.simple_spinner_item);
+                        regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        regionSpinner.setAdapter(regionAdapter);
+                    }
                 }
             }
 

@@ -400,9 +400,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
         <item>Iraq</item>
         <item>Uruguay</item>
         <item>Great Britain</item>
-        <item>Чехия</item>
-        <item>Польша</item>
-        <item>Нидерланды</item>
+        <item>Czech</item>
+        <item>Poland</item>
+        <item>Netherlands</item>
         <item>Belgium</item>
         <item>Egypt</item>
         <item>UAE</item>
@@ -503,14 +503,13 @@ Unless required by applicable law or agreed to in writing, software distributed 
         <item>Chelyabinsk reg.</item>
         <item>Chuvashia</item>
         <item>Yamalo-Nenets Aut.Reg.</item>
-        ><item>Yaroslavl reg.</item>
+        <item>Yaroslavl reg.</item>
     </string-array>
     <string-array name="region_filter_usa">
         <item>Alabama</item>
         <item>Alaska</item>
         <item>Arizona</item>
         <item>Arkansas</item>
-        <item>Arizona</item>
         <item>California</item>
         <item>Colorado</item>
         <item>Connecticut</item>
@@ -543,10 +542,12 @@ Unless required by applicable law or agreed to in writing, software distributed 
         <item>North Dakota</item>
         <item>Ohio</item>
         <item>Oklahoma</item>
+        <item>Oregon</item>
         <item>Pennsylvania</item>
         <item>Rhode Island</item>
         <item>South Carolina</item>
         <item>South Dakota</item>
+        <item>Tennessee</item>
         <item>Texas</item>
         <item>Utah</item>
         <item>Vermont</item>
@@ -557,7 +558,16 @@ Unless required by applicable law or agreed to in writing, software distributed 
         <item>Wyoming</item>
     </string-array>
     <string-array name="region_filter_armenia">
-
+        <item>Aragatsotn</item>
+        <item>Ararat</item>
+        <item>Armavir</item>
+        <item>Artsakh</item>
+        <item>Gegharkunik</item>
+        <item>Lori</item>
+        <item>Shirak</item>
+        <item>Syunik</item>
+        <item>Tavush</item>
+        <item>Vayots Dzor</item>
     </string-array>
     <string-array name="no_region_filter">
         <item>-</item>

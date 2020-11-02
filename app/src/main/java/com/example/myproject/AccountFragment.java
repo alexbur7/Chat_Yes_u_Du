@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public abstract class AccountFragment extends Fragment {
 
@@ -57,6 +58,7 @@ public abstract class AccountFragment extends Fragment {
         lookAll = v.findViewById(R.id.look_all_button);
         reference = FirebaseDatabase.getInstance().getReference("users");
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
+        countryArray=getActivity().getResources().getStringArray(R.array.country_filter);
         setToolbar();
         setUser();
         //setPhotoImageView();
@@ -88,17 +90,22 @@ public abstract class AccountFragment extends Fragment {
 
     protected void setAllTextView(User user){
         //AccountAdapter adapter=new AccountAdapter(getActivity(),hashMap);
-        countryArray=getResources().getStringArray(R.array.country_filter);
-        Log.e("COUNTRY",user.getCountry());
         switch (Integer.parseInt(user.getCountry())){
             case 0:{
                 regionArray=getResources().getStringArray(R.array.region_filter_rus);
             }
             break;
             case 1:{
-                regionArray=getResources().getStringArray(R.array.no_region_filter);
+                regionArray=getResources().getStringArray(R.array.region_filter_armenia);
             }
             break;
+            case 2:{
+                regionArray=getResources().getStringArray(R.array.region_filter_usa);
+            }
+            break;
+            default:{
+                regionArray=getResources().getStringArray(R.array.no_region_filter);
+            }
         }
         nameTextView.setText(user.getName()+" "+user.getSurname());
         ArrayList<String> tempListUser=new ArrayList<>();

@@ -93,13 +93,24 @@ public class RegisterFragment extends Fragment {
                         regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_rus, android.R.layout.simple_spinner_item);
                         regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         regionSpinner.setAdapter(regionAdapter);
-                        break;
                     }
+                    break;
                     case 1: {
+                        regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_armenia, android.R.layout.simple_spinner_item);
+                        regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        regionSpinner.setAdapter(regionAdapter);
+                    }
+                    break;
+                    case 2:{
+                        regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_usa, android.R.layout.simple_spinner_item);
+                        regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        regionSpinner.setAdapter(regionAdapter);
+                    }
+                    break;
+                    default:{
                         regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.no_region_filter, android.R.layout.simple_spinner_item);
                         regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         regionSpinner.setAdapter(regionAdapter);
-                        break;
                     }
                 }
             }
