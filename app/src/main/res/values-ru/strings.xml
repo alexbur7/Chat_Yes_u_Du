@@ -27,7 +27,7 @@
     <string name="chat_list">Чаты</string>
     <string name="upload_progress">Обновление прогресса</string>
     <string name="find_menu_item_title">Поиск</string>
-    <string name="dialog_title">Фильтры</string>
+    <string name="dialog_title">Поиск</string>
     <string name="label_sex">Пол</string>
     <string name="label_female">Женский</string>
     <string name="label_activity">Онлайн</string>
@@ -98,7 +98,7 @@
     <string name="required_photos">Выберите фотографии,они обязательны для регистрации</string>
     <string name="reject_update">Вы назначили пустыми обязательные поля.Изменения не приняты</string>
     <string name="look_all">Посмотреть все</string>
-    <string name="you_photo">Добавляйте только реальные фотографии,это контролируется администратором</string>
+    <string name="you_photo">Добавляйте только реальные фотографии,это контролируется администрацией приложения</string>
     <string name="add_image">Добавить фото</string>
     <string name="you_cant_add_4_photo">Вы не можете добавлять больше четырех фотографий</string>
     <string name="you_cannot_delete_photo">В профиле должны присутствовать как минимум 2 фотографии</string>
@@ -113,7 +113,7 @@
     <string name="about_us">О нас</string>
     <string name="licence">Лицензия</string>
     <string name="rule_and_resources">Правила ресурса</string>
-    <string name="read_rules">Прежде чем зарегистрироваться, пожалуйста, ознакомьтесь с нашей политикой и правилами</string>
+    <string name="read_rules">Регистрируясь, вы соглашаетесь с нашими Политикой и Правилами</string>
     <string name="region_label">Регион</string>
     <string name="text_rule_policy">
         ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ\n
@@ -344,7 +344,8 @@
 12. Применимое законодательство\n
 Все взаимоотношения между Ресурсом и Посетителями подлежат регулированию исключительно законодательством той страны, на территории которой проживает Пользователь на момент инцидента. При нарушении законодательства той страны, в которой проживает Посетитель на момент инцидента, в которой, он несёт полную административную и уголовную ответственность.\n
     </string>
-    <string-array name="country_filter" tools:ignore="InconsistentArrays">
+    <string-array name="country_filter">
+        <item> </item>
         <item>Россия</item>
         <item>Армения</item>
         <item>США</item>
@@ -477,7 +478,7 @@
         <item>Ямало-Ненецкий АО</item>
          <item>Ярославская обл.</item>
     </string-array>
-    <string-array name="region_filter_usa" tools:ignore="InconsistentArrays">
+    <string-array name="region_filter_usa">
         <item>Алабама</item>
         <item>Аляска</item>
         <item>Аризона</item>

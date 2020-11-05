@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myproject">
+    package="com.example.yesudu">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -13,23 +13,23 @@
         android:roundIcon="@drawable/playstore_one"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyAccountActivity" />
-        <activity android:name=".BlockListActivity" />
-        <activity android:name=".AdminActivity"
-            android:parentActivityName=".MyAccountActivity"/>
-        <activity android:name=".UserAccountActivity"
-            android:parentActivityName=".ChatActivity"/>
+        <activity android:name="com.example.yesudu.MyAccountActivity" />
+        <activity android:name="com.example.yesudu.BlockListActivity" />
+        <activity android:name="com.example.yesudu.AdminActivity"
+            android:parentActivityName="com.example.yesudu.MyAccountActivity"/>
+        <activity android:name="com.example.yesudu.UserAccountActivity"
+            android:parentActivityName="com.example.yesudu.ChatActivity"/>
         <activity
-            android:name=".ChatActivity"
-            android:parentActivityName=".MyAccountActivity"/>
-        <activity android:name=".PhotoViewPager"
-            android:parentActivityName=".GalleryActivity"/>
-        <activity android:name=".rules_and_policy.InformationListActivity"/>
-        <activity android:name=".rules_and_policy.InformationActivity"/>
-        <activity android:name=".GalleryActivity"/>
-        <activity android:name=".ResetPasswordActivity"
-            android:parentActivityName=".MyAccountActivity"/>
-        <activity android:name=".LogActivity">
+            android:name="com.example.yesudu.ChatActivity"
+            android:parentActivityName="com.example.yesudu.MyAccountActivity"/>
+        <activity android:name="com.example.yesudu.PhotoViewPager"
+            android:parentActivityName="com.example.yesudu.GalleryActivity"/>
+        <activity android:name="com.example.yesudu.rules_and_policy.InformationListActivity"/>
+        <activity android:name="com.example.yesudu.rules_and_policy.InformationActivity"/>
+        <activity android:name="com.example.yesudu.GalleryActivity"/>
+        <activity android:name="com.example.yesudu.ResetPasswordActivity"
+            android:parentActivityName="com.example.yesudu.MyAccountActivity"/>
+        <activity android:name="com.example.yesudu.LogActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

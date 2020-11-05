@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">Yes u Du</string>
     <string name="email_hint">Enter an Email</string>
     <string name="email_reg_hint" translatable="false">Email*</string>
@@ -30,7 +30,6 @@
     <string name="no_image_selected">No image selected</string>
     <string name="upload_progress">Upload in progress</string>
     <string name="find_menu_item_title">find</string>
-    <string name="dialog_title">Filters</string>
     <string name="label_sex">Sex</string>
     <string name="label_male">Male</string>
     <string name="label_female">Female</string>
@@ -104,7 +103,7 @@
     <string name="admin_key" translatable="false">admin</string>
     <string name="complain_menu">Complain to admin</string>
     <string name="look_all">Look all</string>
-    <string name="you_photo">add only your photos otherwise the account will be blocked by the administrator</string>
+    <string name="you_photo">Add only real photos, this is controlled by the administration of the application</string>
     <string name="add_image">Add image</string>
     <string name="you_cant_add_4_photo">you cannot add more than 4 photos</string>
     <string name="you_cannot_delete_photo">you cannot have less than 2 photos in the gallery</string>
@@ -369,9 +368,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
     <string name="about_us">About us</string>
     <string name="licence">License</string>
     <string name="rule_and_resources">Rules of resource</string>
-    <string name="read_rules">before registering, read the rules of the service</string>
+    <string name="read_rules">By registering, you agree to our Policy and Rules</string>
     <string name="region_label">Region</string>
     <string-array name="country_filter">
+        <item> </item>
         <item>Russia</item>
         <item>Armenia</item>
         <item>USA</item>
@@ -572,4 +572,5 @@ Unless required by applicable law or agreed to in writing, software distributed 
     <string-array name="no_region_filter">
         <item>-</item>
     </string-array>
+    <string name="dialog_title">Search</string>
 </resources>
