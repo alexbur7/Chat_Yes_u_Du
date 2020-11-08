@@ -21,6 +21,9 @@
         android:title="@string/about_us"
         app:showAsAction="never"/>
 
+    <item android:id="@+id/chat_administrator"
+        android:title="@string/admin"
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/delete_account"

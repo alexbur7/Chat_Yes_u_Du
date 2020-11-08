@@ -68,7 +68,7 @@ public class FilteredChatListFragment extends ChatListFragment {
             }
 
             private void filterUsersByRegion(ArrayList<User> users, User user) {
-                if (!regionFilter.isEmpty()){
+                if (!regionFilter.equals("0")){
                     if (!user.getRegion().equals(regionFilter)){
                         users.remove(user);
                     }
@@ -76,7 +76,7 @@ public class FilteredChatListFragment extends ChatListFragment {
             }
 
             private void filterUsersByCountry(ArrayList<User> users, User user) {
-                if (!countryFilter.isEmpty()){
+                if (!countryFilter.equals("0")){
                     if (!user.getCountry().equals(countryFilter)){
                         users.remove(user);
                     }

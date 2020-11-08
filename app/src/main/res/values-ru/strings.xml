@@ -55,10 +55,9 @@
     <string name="city_edit_text_hint">Город</string>
     <string name="choose_image_from">Выберете картинку из</string>
     <string name="sending_image">Отправка картинки…</string>
-    <string name="image_attach">Картинка прикреплена</string>
     <string name="delete_chat">Вы хотите удалить чат?</string>
     <string name="saved_image">Фото сохранено</string>
-    <string name="dialog_title_edit">Изменить аккаунт</string>
+    <string name="dialog_title_edit">Редактировать профиль</string>
     <string name="dialog_title_delete">Удалить чат</string>
     <string name="delete_image">Удалить фото</string>
     <string name="delete_users">Пользователь удалил этот аккаунт</string>
@@ -87,7 +86,7 @@
     <string name="label_offline">не в сети</string>
     <string name="set_photo">Выбрать фото</string>
     <string name="reset_password">Сменить пароль</string>
-    <string name="enter_old_password">Введите прошлый пароль</string>
+    <string name="enter_old_password">Введите старый пароль</string>
     <string name="enter_new_password">Введите новый пароль</string>
     <string name="password_reset">Пароль был изменен</string>
     <string name="password_not_reset">Пароль не был изменен</string>
@@ -98,12 +97,12 @@
     <string name="required_photos">Выберите фотографии,они обязательны для регистрации</string>
     <string name="reject_update">Вы назначили пустыми обязательные поля.Изменения не приняты</string>
     <string name="look_all">Посмотреть все</string>
-    <string name="you_photo">Добавляйте только реальные фотографии,это контролируется администрацией приложения</string>
+    <string name="you_photo">Прежде чем загрузить фотографии, ознакомьтесь пожалуйста с требованиями.</string>
     <string name="add_image">Добавить фото</string>
     <string name="you_cant_add_4_photo">Вы не можете добавлять больше четырех фотографий</string>
     <string name="you_cannot_delete_photo">В профиле должны присутствовать как минимум 2 фотографии</string>
     <string name="reset_image">Обновить фото</string>
-    <string name="admin">Администратор</string>
+    <string name="admin">Администрация</string>
     <string name="gallery_text">Фотографии</string>
     <string name="complain_menu">Пожаловаться</string>
     <string name="delete_image1">Удалить фото1</string>
@@ -402,6 +401,7 @@
         <item>Южная Осетия</item>
     </string-array>
     <string-array name="region_filter_rus">
+        <item> </item>
         <item>Московская обл.</item>
         <item>Краснодарский край</item>
         <item>Ставропольский край</item>
@@ -479,6 +479,7 @@
          <item>Ярославская обл.</item>
     </string-array>
     <string-array name="region_filter_usa">
+        <item> </item>
         <item>Алабама</item>
         <item>Аляска</item>
         <item>Аризона</item>
@@ -531,6 +532,7 @@
         <item>Вайоминг</item>
     </string-array>
     <string-array name="region_filter_armenia">
+        <item> </item>
         <item>Арагацотн</item>
         <item>Арарат</item>
         <item>Армавир</item>
@@ -542,4 +544,31 @@
         <item>Тавуш</item>
         <item>Вайоц Дзор</item>
     </string-array>
+    <string name="image_attach">Отправить фото</string>
+    <string name="photo_demands">
+        Фотографии должны быть крупным планом,чтобы пользователи могли их отчетливо видеть.\n
+\n
+  Запрещается загружать фото:\n
+\n
+ - сделанные издалека\n
+ - некачественные (с нарушением резкости, освещения и т.д.);\n
+ - уже существующие в профиле или очень похожие на них;\n
+ - чужие\n
+ - на которых не видно или нет вообще пользователя;\n
+ - на которых лицо видно плохо, или видна только часть лица;\n
+ - цветов,животных,насекомых,пейзажей,зданий,сооружений и т.д.;\n
+ - эротического и порнографического содержания;\n
+ - групповые;\n
+ - детские;\n
+ - неактуальные (сделанные 2 года назад и более);\n
+ - в солнцезащитных очках;\n
+ - с наклоном вправо, влево,вниз головой,в профиль;\n
+ - частей тела пользователя (руки,ноги,губы,спина и т.д.);\n
+ - содержащие сцены насилия;\n
+ - содержащие рекламу;\n
+ - неоригинальные (рамки, надписи, сердечки, цветы и т.д.);\n
+ - черно-белые;\n
+\n
+ Фотографии, не соответствующие вышеперечисленным требованиям будут удалены Администрацией. За повторную загрузку      ранее отклоненных фотографий Ваш аккаунт будет заблокирован сроком на 30 дней.\n
+    </string>
 </resources>

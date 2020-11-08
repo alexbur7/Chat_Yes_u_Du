@@ -81,13 +81,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:clickable="true"
         android:src="@drawable/baseline_send_black_24dp"
         android:tint="@android:color/white"
-        app:fabSize="mini" />
+        app:fabSize="mini"
+            android:layout_alignParentRight="true" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/send_image_button"
@@ -96,9 +97,9 @@
             android:clickable="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="9dp"
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="8dp"
             android:background="?attr/colorAccent"
-            android:src="@drawable/baseline_attach_file_black_18dp"
+            android:src="@drawable/send_image"
             android:tint="@android:color/white"
             app:fabSize="mini" />
 

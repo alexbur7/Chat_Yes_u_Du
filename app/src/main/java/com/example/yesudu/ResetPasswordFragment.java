@@ -41,7 +41,6 @@ public class ResetPasswordFragment extends Fragment {
     }
 
     private void settingToolbar() {
-        toolbar.setTitle(R.string.reset_password);
         toolbar.inflateMenu(R.menu.reset_password);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override

@@ -54,7 +54,7 @@
     <string name="remove_account_menu_item">remove account</string>
     <string name="choose_image_from">Choose image from</string>
     <string name="sending_image">Sending image…</string>
-    <string name="image_attach">Image attach</string>
+    <string name="image_attach">Send photo</string>
     <string name="delete_chat">Do you want to delete chat?</string>
     <string name="blocklist">BlockList</string>
     <string name="saved_image">Photo saved</string>
@@ -99,11 +99,11 @@
     <string name="required_photos">Put photos, it is require for registration</string>
     <string name="reject_update">You entered empty important strings.Update rejected</string>
     <string name="gallery_text">Gallery</string>
-    <string name="admin">Administrator</string>
+    <string name="admin">Administration</string>
     <string name="admin_key" translatable="false">admin</string>
     <string name="complain_menu">Complain to admin</string>
-    <string name="look_all">Look all</string>
-    <string name="you_photo">Add only real photos, this is controlled by the administration of the application</string>
+    <string name="look_all">Look all photos</string>
+    <string name="you_photo">Before uploading photos, please read the requirements.</string>
     <string name="add_image">Add image</string>
     <string name="you_cant_add_4_photo">you cannot add more than 4 photos</string>
     <string name="you_cannot_delete_photo">you cannot have less than 2 photos in the gallery</string>
@@ -429,6 +429,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
     </string-array>
 
     <string-array name="region_filter_rus">
+        <item> </item>
         <item>Moscow reg.</item>
         <item>Krasnodar reg.</item>
         <item>Stavropol reg.</item>
@@ -506,6 +507,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
         <item>Yaroslavl reg.</item>
     </string-array>
     <string-array name="region_filter_usa">
+        <item> </item>
         <item>Alabama</item>
         <item>Alaska</item>
         <item>Arizona</item>
@@ -558,6 +560,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
         <item>Wyoming</item>
     </string-array>
     <string-array name="region_filter_armenia">
+        <item> </item>
         <item>Aragatsotn</item>
         <item>Ararat</item>
         <item>Armavir</item>
@@ -573,4 +576,26 @@ Unless required by applicable law or agreed to in writing, software distributed 
         <item>-</item>
     </string-array>
     <string name="dialog_title">Search</string>
+    <string name="photo_demands">
+  Photo must be close-up, It is forbidden to upload photos:\n
+  \n
+ - taken from afar\n
+ - substandard (with a violation of sharpness, lighting, etc.)\n
+ - already existing in the profile or very similar to them\n
+ - other people`s \n
+ - on which the user is not visible or not at all\n
+ - on which the face is poorly visible, or only part of the face is visible\n
+ - flowers, animals, insects, landscapes, buildings, structures, etc.\n
+ - erotic and pornographic content\n
+ - group photos\n
+ - baby photos\n
+ - irrelevant (made 2 years ago or more)\n
+ - in sunglasses\n
+ - tilted to the right, left, upside down, in profile\n
+ - parts of the user`s body (arms, legs, lips, back, etc.)\n
+ - containing scenes of violence\n
+ - containing advertisements\n
+ - non-original (frames, inscriptions, hearts, flowers, etc.)\n
+ - black and white photos\n
+    </string>
 </resources>

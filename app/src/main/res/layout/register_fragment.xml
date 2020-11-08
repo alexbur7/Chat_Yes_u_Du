@@ -32,9 +32,11 @@
                     android:layout_margin="4dp"/>
             </LinearLayout>
             <TextView
+                android:id="@+id/photo_demands"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                android:textColor="?attr/colorPrimaryDark"
                 android:text="@string/you_photo"/>
 
     <EditText
@@ -51,11 +53,22 @@
         android:layout_margin="8dp"
         android:hint="@string/surname_hint"/>
 
+    <TextView
+        android:layout_marginLeft="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/country_label"/>
     <Spinner
         android:id="@+id/country_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"/>
+
+    <TextView
+        android:layout_marginLeft="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/region_label"/>
 
     <Spinner
         android:id="@+id/region_reg_spinner"

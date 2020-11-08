@@ -67,18 +67,23 @@ public class EditDialog extends DialogFragment {
                         regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_rus, android.R.layout.simple_spinner_item);
                         regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         regionSpinner.setAdapter(regionAdapter);
+                        regionSpinner.setSelection(Integer.parseInt(User.getCurrentUser().getRegion()));
                     }
                     break;
                     case 2: {
                         regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_armenia, android.R.layout.simple_spinner_item);
                         regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         regionSpinner.setAdapter(regionAdapter);
+                        if (Integer.parseInt(User.getCurrentUser().getRegion())<11)
+                        regionSpinner.setSelection(Integer.parseInt(User.getCurrentUser().getRegion()));
                     }
                     break;
                     case 3: {
                         regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_usa, android.R.layout.simple_spinner_item);
                         regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         regionSpinner.setAdapter(regionAdapter);
+                        if (Integer.parseInt(User.getCurrentUser().getRegion())<50)
+                        regionSpinner.setSelection(Integer.parseInt(User.getCurrentUser().getRegion()));
                     }
                     break;
                     default:{
@@ -96,7 +101,6 @@ public class EditDialog extends DialogFragment {
         });
 
         countrySpinner.setSelection(Integer.parseInt(User.getCurrentUser().getCountry()));
-        regionSpinner.setSelection(Integer.parseInt(User.getCurrentUser().getRegion()));
 
         if (User.getCurrentUser().getSex().equals(getResources().getStringArray(R.array.sex_for_spinner)[0]))
             sexSpinner.setSelection(0);
@@ -119,8 +123,11 @@ public class EditDialog extends DialogFragment {
     }
 
     private void updateUser(){
-        if (nameText.getText().toString().isEmpty() || countrySpinner.getSelectedItem().toString().isEmpty() || cityText.getText().toString().isEmpty()
-                || Integer.parseInt(ageText.getText().toString())<0  || countrySpinner.getSelectedItem().toString().equals(" ")){
+        final  String country = String.valueOf(countrySpinner.getSelectedItemPosition());
+        final  String region = String.valueOf(regionSpinner.getSelectedItemPosition());
+        if (nameText.getText().toString().isEmpty()  || cityText.getText().toString().isEmpty()
+                || Integer.parseInt(ageText.getText().toString())<0  || country.equals("0") ||(country.equals("1") && region.equals("0")
+                || (country.equals("2") && region.equals("0"))|| (country.equals("3") && region.equals("0")))){
             Toast.makeText(getActivity(),R.string.reject_update,Toast.LENGTH_SHORT).show();
             return;
         }

@@ -16,12 +16,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.yesudu.rules_and_policy.InformationActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -57,6 +59,7 @@ public class RegisterFragment extends Fragment {
     private EditText ageEditText;
     private EditText aboutEditText;
     private Button regButton;
+    private TextView photoDemands;
     private ImageView photoImageView, photoImageView1;
     private Uri imageUri;
     private String uri1,uri2;
@@ -126,6 +129,15 @@ public class RegisterFragment extends Fragment {
         cityEditText=view.findViewById(R.id.city_edit_text);
         emailEditText=view.findViewById(R.id.email_reg_edit_text);
         passwordEditText=view.findViewById(R.id.password_reg_edit_text);
+        photoDemands = view.findViewById(R.id.photo_demands);
+        photoDemands.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String informationText = getResources().getString(R.string.photo_demands);
+                Intent intent = InformationActivity.newIntent(getActivity(),informationText);
+                startActivity(intent);
+            }
+        });
         ageEditText=view.findViewById(R.id.age_reg_edit_text);
         aboutEditText=view.findViewById(R.id.about_edit_text);
         sexSpinner = view.findViewById(R.id.spinner_sex);
@@ -177,7 +189,8 @@ public class RegisterFragment extends Fragment {
         final  String age = ageEditText.getText().toString();
         final  String about=aboutEditText.getText().toString();
 
-        if (name.isEmpty() || city.isEmpty() || email.isEmpty() || password.isEmpty() || sex.isEmpty() || Integer.parseInt(age)<0 || region.equals(" ") || country.equals(" ")){
+        if (name.isEmpty() || city.isEmpty() || email.isEmpty() || password.isEmpty() || sex.isEmpty() || Integer.parseInt(age)<0 || country.equals("0") ||(country.equals("1") && region.equals("0")
+                || (country.equals("2") && region.equals("0"))|| (country.equals("3") && region.equals("0")))){
             Toast.makeText(getActivity(),R.string.reject_reg,Toast.LENGTH_SHORT).show();
             return;
         }

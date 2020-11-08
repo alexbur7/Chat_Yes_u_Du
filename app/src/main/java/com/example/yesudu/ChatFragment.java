@@ -120,7 +120,7 @@ public class ChatFragment extends ChatBaseFragment{
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         });
-        if (User.getCurrentUser().getAdmin_block().equals("block")){
+        if (User.getCurrentUser().getAdmin_block().equals("block") && !receiverUuid.equals(getActivity().getString(R.string.admin_key))){
             input.setText(getResources().getString(R.string.blocked_by_admin));
             input.setEnabled(false);
             fab.setEnabled(false);
