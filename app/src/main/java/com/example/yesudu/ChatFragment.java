@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -196,7 +199,8 @@ public class ChatFragment extends ChatBaseFragment{
                         }
                     }
                 }
-
+                clickMessage(v,getRef(position));
+                Log.e("MESSAGE", String.valueOf(getRef(position)));
             }
 
             @Override
@@ -258,6 +262,15 @@ public class ChatFragment extends ChatBaseFragment{
         }
     }
 
+    private void clickMessage(View v,DatabaseReference reference){
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditMessageDialog editMessageDialog = new EditMessageDialog(reference,receiverUuid);
+                editMessageDialog.show(getFragmentManager(),null);
+            }
+        });
+    }
     protected void sendMessage() {
         if (!input.getText().toString().equals("")) {
             HashMap<String,Object> map=new HashMap<>();

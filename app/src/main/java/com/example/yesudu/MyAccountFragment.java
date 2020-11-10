@@ -98,18 +98,8 @@ public class MyAccountFragment extends AccountFragment {
             }
             break;
             case R.id.delete_account:{
-                reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).removeEventListener(imageEventListener);
-                FirebaseAuth.getInstance().getCurrentUser().delete();
-                FirebaseAuth.getInstance().signOut();
-                Toast.makeText(getActivity(), "Completed", Toast.LENGTH_SHORT);
-                deleteImage(User.getCurrentUser(),0);
-                deleteImage(User.getCurrentUser(),1);
-                deleteImage(User.getCurrentUser(),2);
-                deleteImage(User.getCurrentUser(),3);
-                FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).removeValue();
-                User.setCurrentUser(null,null,null);
-                startActivity(new Intent(getActivity(), LogActivity.class));
-                getActivity().finish();
+                AcceptDialog dialog = new AcceptDialog(reference,imageEventListener);
+                dialog.show(getFragmentManager(),null);
             }
             break;
             case R.id.blocklist:{

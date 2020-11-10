@@ -571,4 +571,10 @@
 \n
  Фотографии, не соответствующие вышеперечисленным требованиям будут удалены Администрацией. За повторную загрузку      ранее отклоненных фотографий Ваш аккаунт будет заблокирован сроком на 30 дней.\n
     </string>
+    <string name="accept_string">Вы действительно хотите удалить аккаунт?</string>
+    <string name="yes_pos_button_text">Да</string>
+    <string name="no_neg_button_text">Нет</string>
+    <string name="edit_message">edit</string>
+    <string name="delete_my_message">delete for yourself</string>
+    <string name="delete_all_message">delete from everyone</string>
 </resources>

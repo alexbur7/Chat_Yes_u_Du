@@ -598,4 +598,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
  - non-original (frames, inscriptions, hearts, flowers, etc.)\n
  - black and white photos\n
     </string>
+    <string name="accept_string">Are you sure you want to delete your account?</string>
+    <string name="no_neg_button_text">No</string>
+    <string name="yes_pos_button_text">Yes</string>
+    <string name="edit_message">edit</string>
+    <string name="delete_my_message">delete for yourself</string>
+    <string name="delete_all_message">delete from everyone</string>
 </resources>

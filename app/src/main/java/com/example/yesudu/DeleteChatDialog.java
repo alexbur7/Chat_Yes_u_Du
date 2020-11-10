@@ -45,11 +45,11 @@ public class DeleteChatDialog extends DialogFragment {
         deleteBox = view.findViewById(R.id.check_delete_box);
         blockBox = view.findViewById(R.id.check_blocklist_box);
 
-        if (empty) blockBox.setEnabled(false);
+       // if (empty) blockBox.setEnabled(false);
 
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
         return builder
-                .setTitle(getResources().getString(R.string.dialog_title_delete))
+                .setTitle(getActivity().getString(R.string.dialog_title_delete))
                 .setView(view)
                 .setPositiveButton(R.string.ok_pos_button_text, new DialogInterface.OnClickListener() {
                     @Override

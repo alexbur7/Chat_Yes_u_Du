@@ -4,6 +4,6 @@
     <item
         android:id="@+id/find_item"
         android:title="@string/find_menu_item_title"
-        android:icon="@drawable/baseline_search_24"
+        android:icon="@drawable/find_icon"
         app:showAsAction="ifRoom|withText"/>
 </menu>

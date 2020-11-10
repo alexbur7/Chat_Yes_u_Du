@@ -37,7 +37,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
                 <TextView
                     android:id="@+id/username_text"
                     android:textSize="18dp"
@@ -61,10 +62,14 @@
 
             <ImageButton
                 android:id="@+id/complain_button"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:src="@drawable/baseline_admin_panel_settings_black_18dp" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="end|center"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="4dp"
+                android:background="?attr/colorAccent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/admin_icon" />
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -99,7 +104,7 @@
             android:layout_marginBottom="9dp"
             android:layout_marginLeft="8dp"
             android:background="?attr/colorAccent"
-            android:src="@drawable/send_image"
+            android:src="@drawable/send_image2"
             android:tint="@android:color/white"
             app:fabSize="mini" />
 
@@ -133,6 +138,6 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="17dp"
             android:divider="@android:color/transparent"
-            android:dividerHeight="16dp" />
+             />
     </RelativeLayout>
 </LinearLayout>
