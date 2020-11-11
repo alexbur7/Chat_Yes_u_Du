@@ -1,5 +1,6 @@
 package com.example.yesudu;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -159,7 +158,9 @@ public class ChatFragment extends ChatBaseFragment{
                         messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
                                 model.getMessageTime()));
                         if (!model.getSecondKey().equals(getActivity().getString(R.string.not_seen_text))) {
-                            seenImage.setImageResource(R.drawable.seen_image);
+                            try {
+                                seenImage.setImageResource(R.drawable.seen_image);
+                            } catch (Exception e){}
                         }
 
                         ImageView imageView = v.findViewById(R.id.image_send);
@@ -191,7 +192,9 @@ public class ChatFragment extends ChatBaseFragment{
                         messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
                                 model.getMessageTime()));
                         if (!model.getFirstKey().equals(getActivity().getString(R.string.not_seen_text)))
-                            seenImage.setImageResource(R.drawable.seen_image);
+                            try {
+                                seenImage.setImageResource(R.drawable.seen_image);
+                            }catch (Exception e){}
 
                         ImageView imageView = v.findViewById(R.id.image_send);
                         if (model.getImage_url() != null) {
@@ -199,7 +202,8 @@ public class ChatFragment extends ChatBaseFragment{
                         }
                     }
                 }
-                clickMessage(v,getRef(position));
+                if (User.getCurrentUser().getUuid().equals(model.getFromUserUUID()))
+                clickMessage(v,getRef(position),model.getMessageText());
                 Log.e("MESSAGE", String.valueOf(getRef(position)));
             }
 
@@ -262,11 +266,12 @@ public class ChatFragment extends ChatBaseFragment{
         }
     }
 
-    private void clickMessage(View v,DatabaseReference reference){
+    private void clickMessage(View v, DatabaseReference reference, String messageText){
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditMessageDialog editMessageDialog = new EditMessageDialog(reference,receiverUuid);
+                EditMessageDialog editMessageDialog = new EditMessageDialog(reference,receiverUuid,messageText);
+                editMessageDialog.setTargetFragment(ChatFragment.this, EDIT_MSG_DIALOG_CODE);
                 editMessageDialog.show(getFragmentManager(),null);
             }
         });
@@ -292,10 +297,9 @@ public class ChatFragment extends ChatBaseFragment{
             reference.child(generateKey()).child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
-                            User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,getResources().getString(R.string.not_seen_text),
-                            getResources().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete"));
+                            User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,getActivity().getString(R.string.not_seen_text),
+                            getActivity().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete"));
         }
-        Log.e("URI", String.valueOf(image_rui!=null));
         if (image_rui!=null){
             HashMap<String,Object> map=new HashMap<>();
             reference.addValueEventListener(new ValueEventListener() {
@@ -318,8 +322,8 @@ public class ChatFragment extends ChatBaseFragment{
             reference.child(generateKey()).child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
-                            User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,"",
-                            "",(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete"));
+                            User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,getActivity().getString(R.string.not_seen_text),
+                            getActivity().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete"));
         }
         image_rui=null;
         input.setText("");

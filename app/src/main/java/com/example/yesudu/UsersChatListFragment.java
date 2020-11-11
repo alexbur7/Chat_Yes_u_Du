@@ -66,7 +66,7 @@ public class UsersChatListFragment extends ChatListFragment{
                             for (DataSnapshot snapshot2:snapshot1.getChildren()) {
                                 if (!snapshot2.getKey().equals("firstBlock") && !snapshot2.getKey().equals("secondBlock")) {
                                     for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
-                                        ChatMessage msg = snapshot3.getValue(ChatMessage.class);
+                                         ChatMessage msg = snapshot3.getValue(ChatMessage.class);
                                         if (msg.getFromUserUUID().equals(FirebaseAuth.getInstance().getUid()) &&!(
                                                     msg.getFirstDelete().equals("delete") && genKey.startsWith(FirebaseAuth.getInstance().getUid()) ||
                                                             (msg.getSecondDelete().equals("delete") && !genKey.startsWith(FirebaseAuth.getInstance().getUid())))) {

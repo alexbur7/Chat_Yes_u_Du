@@ -1,5 +1,6 @@
 package com.example.yesudu;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -42,6 +43,7 @@ import static android.app.Activity.RESULT_OK;
 public abstract class ChatBaseFragment extends Fragment implements View.OnClickListener {
     public static final String KEY_TO_RECEIVER_UUID="recevierID";
     public static final String KEY_TO_RECEIVER_PHOTO_URL = "recevierPHOTO_URL";
+    protected static final int EDIT_MSG_DIALOG_CODE = 0;
     protected String receiverUuid;
     protected String receiverPhotoUrl;
     protected FloatingActionButton fab, send_image;
@@ -100,6 +102,16 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
 
     abstract void sendMessage();
 
+    private void sendMessage(String key) {
+        DatabaseReference referenceDB=reference.child(generateKey()).child("message").child(key);
+        HashMap<String,Object> map=new HashMap<>();
+        map.put("messageText",input.getText().toString());
+        referenceDB.updateChildren(map);
+
+        input.setText("");
+        fab.setImageResource(R.drawable.baseline_send_black_24dp);
+    }
+
 
     protected String getFileExtension(Uri uri){
         ContentResolver contentResolver = getContext().getContentResolver();
@@ -151,7 +163,16 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        if (resultCode == Activity.RESULT_OK && requestCode==EDIT_MSG_DIALOG_CODE){
+            input.setText(data.getStringExtra(EditMessageDialog.KEY_TO_MSG_TEXT));
+            fab.setImageResource(R.drawable.edit_msg_icon);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendMessage(data.getStringExtra(EditMessageDialog.KEY_TO_REF));
+                }
+            });
+        }
         if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK
                 && data!=null && data.getData() !=null
         ){
