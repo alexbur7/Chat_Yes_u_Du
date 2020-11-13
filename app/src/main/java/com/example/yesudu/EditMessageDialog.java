@@ -94,6 +94,7 @@ public class EditMessageDialog extends DialogFragment implements View.OnClickLis
 
     private void editMessage(String msgText) {
         Intent intent = new Intent();
+        intent.putExtra(KEY_TO_REF,reference.getKey());
         intent.putExtra(KEY_TO_MSG_TEXT,msgText);
         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK,intent);
         this.dismiss();
