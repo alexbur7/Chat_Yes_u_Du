@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,26 +22,50 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class AcceptDialog extends DialogFragment {
-    DatabaseReference reference;
-    ValueEventListener listener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
-    public AcceptDialog(DatabaseReference reference, ValueEventListener listener){
+public class AcceptDialog extends DialogFragment {
+    private DatabaseReference reference;
+    private ValueEventListener listener;
+    private TextView acceptText;
+    private String firstKey;
+    private String receiverUuid;
+    int key;
+
+    public AcceptDialog(DatabaseReference reference, ValueEventListener listener, int key,String receiverUuid){
         this.reference = reference;
         this.listener= listener;
+        this.key=key;
+        this.receiverUuid= receiverUuid;
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.accept_dialog,null);
+        acceptText = v.findViewById(R.id.accept_text);
+        if (key==MyAccountFragment.KEY_ACCEPT){
+            acceptText.setText(R.string.accept_string);
+        }
+        else {
+            acceptText.setText(R.string.accept_msg_string);
+        }
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
         return builder
                 .setView(v)
                 .setPositiveButton(R.string.yes_pos_button_text, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        if (key==MyAccountFragment.KEY_ACCEPT)
                         deleteUser();
+                        else if(key==EditMessageDialog.KEY_MESSAGE_DELETE_MY){
+                            deleteMessage();
+                        }
+                        else if(key==EditMessageDialog.KEY_MESSAGE_DELETE_EVERYONE){
+                            deleteForAllMessage();
+                        }
                     }
                 })
                 .setNegativeButton(R.string.no_neg_button_text, new DialogInterface.OnClickListener() {
@@ -85,5 +110,37 @@ public class AcceptDialog extends DialogFragment {
             StorageReference photoRef = FirebaseStorage.getInstance().getReferenceFromUrl(user.getPhoto_url3());
             photoRef.delete();
         }
+    }
+
+    private void deleteMessage(){
+        generateKey();
+        if (User.getCurrentUser().getUuid().equals(firstKey)) {
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("firstDelete", "delete");
+            reference.updateChildren(hashMap);
+        }
+        else {
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("secondDelete", "delete");
+            reference.updateChildren(hashMap);
+        }
+        this.dismiss();
+    }
+
+    private void deleteForAllMessage(){
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("firstDelete", "delete");
+        hashMap.put("secondDelete", "delete");
+        reference.updateChildren(hashMap);
+        this.dismiss();
+    }
+
+    private String generateKey(){
+        ArrayList<String> templist=new ArrayList<>();
+        templist.add(User.getCurrentUser().getUuid());
+        templist.add(receiverUuid);
+        Collections.sort(templist);
+        firstKey =templist.get(0);
+        return templist.get(0)+templist.get(1);
     }
 }

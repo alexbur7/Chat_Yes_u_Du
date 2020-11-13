@@ -7,4 +7,5 @@
     <color name="login">#9aceeb</color>
     <color name="no_seen">#e6e6e6</color>
     <color name="chat_text">#ffffff</color>
+    <color name="edit_dialog_text">#000000</color>
 </resources>

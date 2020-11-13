@@ -37,6 +37,7 @@ import static android.app.Activity.RESULT_OK;
 public class MyAccountFragment extends AccountFragment {
 
     private static  final  int IMAGE_REQUEST=1;
+    public static  final  int KEY_ACCEPT=2;
     private Uri imageUri;
     private StorageTask uploadTask;
 
@@ -98,7 +99,7 @@ public class MyAccountFragment extends AccountFragment {
             }
             break;
             case R.id.delete_account:{
-                AcceptDialog dialog = new AcceptDialog(reference,imageEventListener);
+                AcceptDialog dialog = new AcceptDialog(reference,imageEventListener,KEY_ACCEPT,null);
                 dialog.show(getFragmentManager(),null);
             }
             break;

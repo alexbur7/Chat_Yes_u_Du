@@ -110,6 +110,7 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
 
         input.setText("");
         fab.setImageResource(R.drawable.baseline_send_black_24dp);
+        fab.setOnClickListener(this);
     }
 
 

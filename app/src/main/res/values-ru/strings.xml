@@ -574,7 +574,8 @@
     <string name="accept_string">Вы действительно хотите удалить аккаунт?</string>
     <string name="yes_pos_button_text">Да</string>
     <string name="no_neg_button_text">Нет</string>
-    <string name="edit_message">edit</string>
-    <string name="delete_my_message">delete for yourself</string>
-    <string name="delete_all_message">delete from everyone</string>
+    <string name="edit_message">Редактировать</string>
+    <string name="delete_all_message">Удалить у всех</string>
+    <string name="delete_my_message">Удалить у себя</string>
+    <string name="accept_msg_string">Вы точно хотите удалить это сообщение?</string>
 </resources>

@@ -1,25 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-  <Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@drawable/edit_dialog_message">
+  <LinearLayout
       android:id="@+id/edit_message_button"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:orientation="horizontal">
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="2dp"
+        android:src="@drawable/edit_message"
+        />
+  <TextView
+      android:id="@+id/edit_message_text"
+      android:layout_gravity="center"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="22dp"
       android:text="@string/edit_message"
-      android:background="@color/chat_text"/>
-    <Button
-        android:id="@+id/delete_my_message"
+      android:layout_marginLeft="14dp"
+      android:fontFamily="@font/calibri"
+      android:textColor="@color/edit_dialog_text"
+      />
+  </LinearLayout>
+  <LinearLayout
+      android:id="@+id/delete_my_message"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_marginBottom="4dp">
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="8dp"
+        android:src="@drawable/delete_message"
+        />
+    <TextView
+        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="22dp"
         android:text="@string/delete_my_message"
-        android:background="@color/chat_text"/>
-    <Button
-        android:id="@+id/delete_all_message"
+        android:fontFamily="@font/calibri"
+        android:layout_marginLeft="18dp"
+        android:textColor="@color/edit_dialog_text"
+        />
+  </LinearLayout>
+  <LinearLayout
+      android:id="@+id/delete_all_message"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_marginBottom="6dp">
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="8dp"
+        android:src="@drawable/delete_message"
+        />
+    <TextView
+        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="22dp"
         android:text="@string/delete_all_message"
-        android:background="@color/chat_text"/>
+        android:layout_marginLeft="18dp"
+        android:fontFamily="@font/calibri"
+        android:textColor="@color/edit_dialog_text"
+        />
+  </LinearLayout>
 </LinearLayout>
