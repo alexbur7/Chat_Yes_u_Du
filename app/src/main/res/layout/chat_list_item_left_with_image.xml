@@ -29,6 +29,7 @@
 
     <ImageView
         android:id="@+id/edit_image"
+        android:visibility="invisible"
         android:layout_width="14dp"
         android:layout_height="14dp"
         android:layout_toLeftOf="@id/message_time"

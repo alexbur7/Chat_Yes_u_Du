@@ -33,6 +33,7 @@
         android:layout_height="14dp"
         android:layout_toLeftOf="@id/message_time"
         android:src="@drawable/edit_acc_item"
+        android:visibility="invisible"
         android:layout_marginTop="4dp"
         android:layout_marginRight="4dp"/>
 
