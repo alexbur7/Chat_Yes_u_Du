@@ -163,9 +163,10 @@ public class AdminChatFragment extends ChatBaseFragment {
                         TextView messageText = v.findViewById(R.id.message_text);
                         TextView messageUser = v.findViewById(R.id.message_user);
                         TextView messageTime = v.findViewById(R.id.message_time);
-                        ImageView editImage=v.findViewById(R.id.edit_image);
-                        if (model.getEdited().equals("no")) editImage.setVisibility(View.GONE);
-                        else editImage.setVisibility(View.VISIBLE);
+                        if (model.getEdited().equals("yes")){
+                            ImageView editImage = v.findViewById(R.id.edit_image);
+                            editImage.setVisibility(View.VISIBLE);
+                        }
 
                         messageText.setText(model.getMessageText());
                         messageUser.setText(model.getFromUser());
@@ -203,6 +204,10 @@ public class AdminChatFragment extends ChatBaseFragment {
                         ImageView imageView = v.findViewById(R.id.image_send);
                         if (model.getImage_url() != null) {
                             Glide.with(getActivity()).load(model.getImage_url()).into(imageView);
+                        }
+                        if (model.getEdited().equals("yes")){
+                            ImageView editImage = v.findViewById(R.id.edit_image);
+                            editImage.setVisibility(View.VISIBLE);
                         }
                     }
                 }

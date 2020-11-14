@@ -170,6 +170,10 @@ public class ChatFragment extends ChatBaseFragment{
                                 }
                             });
                         }
+                        if (model.getEdited().equals("yes")){
+                            ImageView editImage = v.findViewById(R.id.edit_image);
+                            editImage.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
                 else {
@@ -193,15 +197,14 @@ public class ChatFragment extends ChatBaseFragment{
                         if (model.getImage_url() != null) {
                             Glide.with(getActivity()).load(model.getImage_url()).into(imageView);
                         }
+                        if (model.getEdited().equals("yes")){
+                            ImageView editImage = v.findViewById(R.id.edit_image);
+                            editImage.setVisibility(View.VISIBLE);
+                        }
                     }
-                }
-                if (model.getEdited().equals("yes")){
-                    ImageView editImage = v.findViewById(R.id.edit_image);
-                    editImage.setVisibility(View.VISIBLE);
                 }
                 if (User.getCurrentUser().getUuid().equals(model.getFromUserUUID()))
                     clickMessage(v,getRef(position),model.getMessageText());
-                Log.e("MESSAGE", String.valueOf(getRef(position)));
             }
 
             @Override
