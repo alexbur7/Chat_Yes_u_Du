@@ -32,6 +32,15 @@
             android:layout_alignParentLeft="true" />
 
         <ImageView
+            android:id="@+id/edit_image"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_toRightOf="@id/message_time"
+            android:src="@drawable/edit_acc_item"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"/>
+
+        <ImageView
             android:id="@+id/seen_image"
             android:layout_width="24dp"
             android:layout_height="24dp"

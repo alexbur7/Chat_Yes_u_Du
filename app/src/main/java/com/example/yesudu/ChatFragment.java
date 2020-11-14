@@ -33,7 +33,6 @@ import java.util.HashMap;
 public class ChatFragment extends ChatBaseFragment{
     public static final String KEY_TO_RECEIVER_UUID="recevierID";
     public static final String KEY_TO_RECEIVER_PHOTO_URL = "recevierPHOTO_URL";
-    private Toolbar toolbar;
     private ValueEventListener seenListener;
     private String seenText;
 
@@ -62,13 +61,7 @@ public class ChatFragment extends ChatBaseFragment{
         receiverUuid=getArguments().getString(KEY_TO_RECEIVER_UUID);
         receiverPhotoUrl = getArguments().getString(KEY_TO_RECEIVER_PHOTO_URL);
         toolbar=v.findViewById(R.id.toolbarFr);
-        toolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = UserAccountActivity.newIntent(getContext(), receiverUuid);
-                startActivity(intent);
-            }
-        });
+        setToolbarToAcc();
         complainView =v.findViewById(R.id.complain_button);
         complainView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,7 +196,7 @@ public class ChatFragment extends ChatBaseFragment{
                     }
                 }
                 if (User.getCurrentUser().getUuid().equals(model.getFromUserUUID()))
-                clickMessage(v,getRef(position),model.getMessageText());
+                    clickMessage(v,getRef(position),model.getMessageText());
                 Log.e("MESSAGE", String.valueOf(getRef(position)));
             }
 
@@ -298,7 +291,7 @@ public class ChatFragment extends ChatBaseFragment{
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
                             User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,getActivity().getString(R.string.not_seen_text),
-                            getActivity().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete"));
+                            getActivity().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete","no"));
         }
         if (image_rui!=null){
             HashMap<String,Object> map=new HashMap<>();
@@ -323,13 +316,13 @@ public class ChatFragment extends ChatBaseFragment{
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
                             User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,getActivity().getString(R.string.not_seen_text),
-                            getActivity().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete"));
+                            getActivity().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete","no"));
         }
         image_rui=null;
         input.setText("");
     }
 
-     String generateKey(){
+    String generateKey(){
         ArrayList<String> templist=new ArrayList<>();
         templist.add(User.getCurrentUser().getUuid());
         templist.add(receiverUuid);
@@ -353,15 +346,15 @@ public class ChatFragment extends ChatBaseFragment{
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                    try {
-                        if (user.getStatus().equals(getResources().getString(R.string.label_offline)))
-                            statusText.setText("был в сети " + DateFormat.format("dd-MM-yyyy (HH:mm)", user.getOnline_time()));
-                        else statusText.setText(user.getStatus());
-                        username.setText(user.getName());
-                    } catch (Exception e) {
-                        statusText.setText(delete_string);
-                        username.setText("");
-                    }
+                try {
+                    if (user.getStatus().equals(getResources().getString(R.string.label_offline)))
+                        statusText.setText("был в сети " + DateFormat.format("dd-MM-yyyy (HH:mm)", user.getOnline_time()));
+                    else statusText.setText(user.getStatus());
+                    username.setText(user.getName());
+                } catch (Exception e) {
+                    statusText.setText(delete_string);
+                    username.setText("");
+                }
             }
 
             @Override

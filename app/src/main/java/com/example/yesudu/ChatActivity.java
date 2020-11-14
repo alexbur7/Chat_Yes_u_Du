@@ -48,6 +48,14 @@ public class ChatActivity extends BaseActivity implements ChatFragment.CallBack 
         status(getResources().getString(R.string.label_online));
     }
 
+
+    @Override
+    public void onBackPressed() {
+        ChatBaseFragment baseFragment= (ChatBaseFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (baseFragment.isEditing) baseFragment.setupEditCancel();
+        else super.onBackPressed();
+    }
+
     @Override
     public void goToAdmin() {
         ChatFragment fragment= ChatFragment.newInstance(getResources().getString(R.string.admin_key),"default");

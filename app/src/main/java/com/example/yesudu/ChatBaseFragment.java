@@ -5,8 +5,10 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ShapeDrawable;
 import android.net.Uri;
 import android.text.format.DateFormat;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.solver.widgets.Rectangle;
 import androidx.fragment.app.Fragment;
 
 import com.firebase.ui.database.FirebaseListAdapter;
@@ -65,7 +68,7 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
     protected ChatFragment.CallBack activity;
     private static  final  int IMAGE_REQUEST=1;
     protected Uri image_rui;
-
+    public boolean isEditing;
     protected String delete_string;
     protected String admin_string;
 
@@ -106,6 +109,7 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
         DatabaseReference referenceDB=reference.child(generateKey()).child("message").child(key);
         HashMap<String,Object> map=new HashMap<>();
         map.put("messageText",input.getText().toString());
+        map.put("edited","yes");
         referenceDB.updateChildren(map);
 
         input.setText("");
@@ -161,10 +165,43 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
         }
     }
 
+    protected void setToolbarToAcc() {
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = UserAccountActivity.newIntent(getContext(), receiverUuid);
+                startActivity(intent);
+            }
+        });
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode==EDIT_MSG_DIALOG_CODE){
+            if (!isEditing) toolbar.inflateMenu(R.menu.edit_menu);
+            toolbar.getMenu().getItem(0).setEnabled(false);
+            //toolbar.setTitle(R.string.edit_message_title);
+            toolbar.setBackgroundColor(getActivity().getResources().getColor(R.color.colorToolbar));
+            username.setVisibility(View.GONE);
+            statusText.setVisibility(View.GONE);
+            complainView.setVisibility(View.GONE);
+            isEditing=true;
+            //circleImageView.setVisibility(View.INVISIBLE);
+            toolbar.setOnClickListener(null);
+            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if (item.getItemId()==R.id.cancel_edit_item) {
+                        setupEditCancel();
+                        return true;
+                    }
+                    return false;
+                }
+            });
+            //circleImageView.setVisibility(View.INVISIBLE);
+            //circleImageView.setOutlineSpotShadowColor();
+            //circleImageView.setColorFilter(getActivity().getResources().getColor(R.color.colorToolbar));
             input.setText(data.getStringExtra(EditMessageDialog.KEY_TO_MSG_TEXT));
             fab.setImageResource(R.drawable.edit_msg_icon);
             fab.setOnClickListener(new View.OnClickListener() {
@@ -173,6 +210,7 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
                     sendMessage(data.getStringExtra(EditMessageDialog.KEY_TO_REF));
                 }
             });
+
         }
         if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK
                 && data!=null && data.getData() !=null
@@ -180,6 +218,18 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
             image_rui = data.getData();
             uploadImage();
         }
+    }
+
+    public void setupEditCancel() {
+        username.setVisibility(View.VISIBLE);
+        statusText.setVisibility(View.VISIBLE);
+        complainView.setVisibility(View.VISIBLE);
+        isEditing=false;
+        //circleImageView.setVisibility(View.VISIBLE);
+        toolbar.setTitle("");
+        toolbar.getMenu().clear();
+        input.setText("");
+        setToolbarToAcc();
     }
 
     abstract String generateKey();

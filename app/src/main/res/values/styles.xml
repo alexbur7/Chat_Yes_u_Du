@@ -5,6 +5,7 @@
         <item name="colorPrimary">#2196F3</item>
         <item name="colorPrimaryDark">#1976D2</item>
         <item name="colorAccent">#3a75c4</item>
+        <item name="android:actionMenuTextColor">@color/chat_text</item>
     </style>
     <style name="ButtonMain">
         <item name="android:background">@drawable/edit_button</item>

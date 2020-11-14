@@ -16,49 +16,49 @@
             android:layout_height="wrap_content"
             android:background="?attr/colorAccent"
             android:orientation="horizontal">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarFr"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:layout_scrollFlags="scroll|enterAlways">
-            <androidx.cardview.widget.CardView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:cardCornerRadius="50dp"
-                app:cardElevation="2dp">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/unnamed"
-                    android:id="@+id/circle_image_chat"/>
-            </androidx.cardview.widget.CardView>
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarFr"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:id="@+id/username_text"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/chat_text"
-                    android:layout_marginLeft="23dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/online_text_in_chat"
+                android:layout_weight="1"
+                app:layout_scrollFlags="scroll|enterAlways">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:cardCornerRadius="50dp"
+                    app:cardElevation="2dp">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/unnamed"
+                        android:id="@+id/circle_image_chat"/>
+                </androidx.cardview.widget.CardView>
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="23dp"
-                    android:layout_marginTop="3dp"
-                    android:textColor="@color/chat_text"
-                    android:textSize="14dp"
-                    android:textStyle="italic" />
-            </LinearLayout>
-        </androidx.appcompat.widget.Toolbar>
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:id="@+id/username_text"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/chat_text"
+                        android:layout_marginLeft="23dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/online_text_in_chat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="23dp"
+                        android:layout_marginTop="3dp"
+                        android:textColor="@color/chat_text"
+                        android:textSize="14dp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
 
             <ImageButton
                 android:id="@+id/complain_button"
@@ -81,18 +81,18 @@
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:clickable="true"
-        android:src="@drawable/baseline_send_black_24dp"
-        android:tint="@android:color/white"
-        app:fabSize="mini"
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:src="@drawable/baseline_send_black_24dp"
+            android:tint="@android:color/white"
+            app:fabSize="mini"
             android:layout_alignParentRight="true" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -138,6 +138,6 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="17dp"
             android:divider="@android:color/transparent"
-             />
+            />
     </RelativeLayout>
 </LinearLayout>

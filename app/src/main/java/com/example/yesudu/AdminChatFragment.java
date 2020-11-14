@@ -119,7 +119,7 @@ public class AdminChatFragment extends ChatBaseFragment {
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
                             getActivity().getResources().getString(R.string.admin),getActivity().getString(R.string.admin_key),receiverUuid,getResources().getString(R.string.not_seen_text),
-                            getResources().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete"));
+                            getResources().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete","no"));
         }
         else if (image_rui!=null){
             reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
@@ -145,7 +145,7 @@ public class AdminChatFragment extends ChatBaseFragment {
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
                             getActivity().getResources().getString(R.string.admin),getActivity().getString(R.string.admin_key),receiverUuid,getResources().getString(R.string.not_seen_text),
-                            getResources().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete"));
+                            getResources().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete","no"));
         }
         image_rui=null;
         input.setText("");
@@ -163,6 +163,9 @@ public class AdminChatFragment extends ChatBaseFragment {
                         TextView messageText = v.findViewById(R.id.message_text);
                         TextView messageUser = v.findViewById(R.id.message_user);
                         TextView messageTime = v.findViewById(R.id.message_time);
+                        ImageView editImage=v.findViewById(R.id.edit_image);
+                        if (model.getEdited().equals("no")) editImage.setVisibility(View.GONE);
+                        else editImage.setVisibility(View.VISIBLE);
 
                         messageText.setText(model.getMessageText());
                         messageUser.setText(model.getFromUser());

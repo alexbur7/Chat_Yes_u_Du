@@ -4,26 +4,18 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import com.google.firebase.database.DatabaseReference;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 
 
 public class EditMessageDialog extends DialogFragment implements View.OnClickListener{
@@ -99,7 +91,5 @@ public class EditMessageDialog extends DialogFragment implements View.OnClickLis
         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK,intent);
         this.dismiss();
     }
-
-
 }
 
