@@ -265,8 +265,6 @@ public class AdminChatFragment extends ChatBaseFragment {
         Collections.sort(templist);
         firstKey=templist.get(0);
         secondKey = templist.get(1);
-        Log.e("FIRST ADM KEY",firstKey);
-        Log.e("SECOND ADM KEY",secondKey);
         return templist.get(0)+templist.get(1);
     }
 

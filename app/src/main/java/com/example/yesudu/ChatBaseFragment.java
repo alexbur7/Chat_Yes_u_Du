@@ -186,6 +186,7 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
             username.setVisibility(View.GONE);
             statusText.setVisibility(View.GONE);
             complainView.setVisibility(View.GONE);
+            send_image.setEnabled(false);
             isEditing=true;
             //circleImageView.setVisibility(View.INVISIBLE);
             toolbar.setOnClickListener(null);
@@ -208,6 +209,7 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
                 @Override
                 public void onClick(View v) {
                     sendMessage(data.getStringExtra(EditMessageDialog.KEY_TO_REF));
+                    setupEditCancel();
                 }
             });
 
@@ -229,6 +231,7 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
         toolbar.setTitle("");
         toolbar.getMenu().clear();
         input.setText("");
+        send_image.setEnabled(true);
         setToolbarToAcc();
     }
 
