@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <item
         android:id="@+id/cancel_edit_item_title"
@@ -9,7 +10,7 @@
 
     <item
         android:id="@+id/cancel_edit_item"
-        android:icon="@drawable/cancel_edit_msg_icon"
+        android:icon="@drawable/cancel_edit_message"
         android:title="@string/edit_message_title"
         app:showAsAction="withText|always"/>
 </menu>

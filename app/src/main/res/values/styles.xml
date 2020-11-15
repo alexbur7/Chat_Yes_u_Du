@@ -6,8 +6,12 @@
         <item name="colorPrimaryDark">#1976D2</item>
         <item name="colorAccent">#3a75c4</item>
         <item name="android:actionMenuTextColor">@color/chat_text</item>
+        <item name="actionMenuTextAppearance">@style/menu_text_style</item>
     </style>
     <style name="ButtonMain">
         <item name="android:background">@drawable/edit_button</item>
+    </style>
+    <style name="menu_text_style" parent="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Menu">
+        <item name="android:textSize">18dp</item>
     </style>
 </resources>

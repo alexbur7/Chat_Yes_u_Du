@@ -7,7 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.net.Uri;
+import android.text.Layout;
+import android.text.SpannableString;
 import android.text.format.DateFormat;
+import android.text.style.AlignmentSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -180,15 +183,15 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode==EDIT_MSG_DIALOG_CODE){
             if (!isEditing) toolbar.inflateMenu(R.menu.edit_menu);
-            toolbar.getMenu().getItem(0).setEnabled(false);
-            //toolbar.setTitle(R.string.edit_message_title);
+           // toolbar.getMenu().getItem(0).setEnabled(false);
+            MenuItem item =  toolbar.getMenu().getItem(0);
+            item.setEnabled(false);
             toolbar.setBackgroundColor(getActivity().getResources().getColor(R.color.colorToolbar));
             username.setVisibility(View.GONE);
             statusText.setVisibility(View.GONE);
             complainView.setVisibility(View.GONE);
             send_image.setEnabled(false);
             isEditing=true;
-            //circleImageView.setVisibility(View.INVISIBLE);
             toolbar.setOnClickListener(null);
             toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 @Override
@@ -200,9 +203,6 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
                     return false;
                 }
             });
-            //circleImageView.setVisibility(View.INVISIBLE);
-            //circleImageView.setOutlineSpotShadowColor();
-            //circleImageView.setColorFilter(getActivity().getResources().getColor(R.color.colorToolbar));
             input.setText(data.getStringExtra(EditMessageDialog.KEY_TO_MSG_TEXT));
             fab.setImageResource(R.drawable.edit_msg_icon);
             fab.setOnClickListener(new View.OnClickListener() {
