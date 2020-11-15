@@ -5,12 +5,12 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ShapeDrawable;
 import android.net.Uri;
 import android.text.Layout;
 import android.text.SpannableString;
 import android.text.format.DateFormat;
 import android.text.style.AlignmentSpan;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -19,13 +19,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.solver.widgets.Rectangle;
 import androidx.fragment.app.Fragment;
-
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,9 +38,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
-
 import java.util.HashMap;
-
 import static android.app.Activity.RESULT_OK;
 
 public abstract class ChatBaseFragment extends Fragment implements View.OnClickListener {
@@ -74,6 +69,8 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
     public boolean isEditing;
     protected String delete_string;
     protected String admin_string;
+
+    protected ImageView imageView;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -120,11 +117,27 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
         fab.setOnClickListener(this);
     }
 
+    abstract void clickMessage(View v, DatabaseReference reference, String messageText,int type);
+
 
     protected String getFileExtension(Uri uri){
         ContentResolver contentResolver = getContext().getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+    protected void setClickListenerOnImage(ChatMessage model, ImageView imageView) {
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment newDetail = PhotoViewPagerItemFragment.newInstance(model.getImage_url(),imageView);
+                getFragmentManager().beginTransaction()
+                        .addToBackStack(null)
+                        .add(R.id.fragment_container,newDetail)
+                        .commit();
+                imageView.setEnabled(false);
+            }
+        });
     }
 
     protected void uploadImage(){
@@ -208,6 +221,7 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.e("KEY_TO_REF:",data.getStringExtra(EditMessageDialog.KEY_TO_REF));
                     sendMessage(data.getStringExtra(EditMessageDialog.KEY_TO_REF));
                     setupEditCancel();
                 }

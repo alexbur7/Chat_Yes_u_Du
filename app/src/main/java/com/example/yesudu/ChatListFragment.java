@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,10 +38,12 @@ public abstract class ChatListFragment extends Fragment implements Updatable {
                 return clickToolbarItems(item);
             }
         });
-        chatRecView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        setLayoutManagerForRecView();
         setChats();
         return v;
     }
+
+    abstract void setLayoutManagerForRecView();
 
     protected boolean clickToolbarItems(MenuItem item){
         if (item.getItemId()==R.id.find_item) {

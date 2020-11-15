@@ -26,28 +26,44 @@ public class EditMessageDialog extends DialogFragment implements View.OnClickLis
     private LinearLayout editMessage;
     private LinearLayout deleteMyMessage;
     private LinearLayout deleteFromMessage;
-    private TextView editMessageText;
+    private TextView deleteMessageText;
     private DatabaseReference reference;
     private String receiverUuid;
     private String messageText;
+    // -1 - ЧУЖОЕ
+    // 1 - НАШЕ
+    private int TYPE_OF_MSG;
+    private int TYPE_OF_USER;
+    public static final int TYPE_OF_MSG_MY=1;
+    public static final int TYPE_OF_MSG_NOT_MY=-1;
+    public static final int TYPE_OF_USER_USUAL=-2;
+    public static final int TYPE_OF_USER_ADMIN=2;
 
-    public EditMessageDialog(DatabaseReference reference, String receiverUuid, String messageText){
+    public EditMessageDialog(DatabaseReference reference, String receiverUuid, String messageText,int type_msg,int user_type){
         this.reference = reference;
         this.receiverUuid = receiverUuid;
         this.messageText=messageText;
+        this.TYPE_OF_MSG=type_msg;
+        this.TYPE_OF_USER=user_type;
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        View v = LayoutInflater.from(getActivity()).inflate(R.layout.edit_message_dialog,null);
-        editMessage = v.findViewById(R.id.edit_message_button);
-        editMessage.setOnClickListener(this);
+        View v;
+        if (TYPE_OF_MSG==TYPE_OF_MSG_MY) {
+            v = LayoutInflater.from(getActivity()).inflate(R.layout.edit_message_dialog, null);
+            editMessage = v.findViewById(R.id.edit_message_button);
+            editMessage.setOnClickListener(this);
+            deleteFromMessage = v.findViewById(R.id.delete_all_message);
+            deleteFromMessage.setOnClickListener(this);
+
+        }
+        else  v = LayoutInflater.from(getActivity()).inflate(R.layout.delete_not_your_msg_dialog, null);
+        deleteMessageText = v.findViewById(R.id.delete_my_message_title);
         deleteMyMessage = v.findViewById(R.id.delete_my_message);
         deleteMyMessage.setOnClickListener(this);
-        deleteFromMessage = v.findViewById(R.id.delete_all_message);
-        deleteFromMessage.setOnClickListener(this);
-        editMessageText = v.findViewById(R.id.edit_message_text);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         return builder
                 .setView(v)
@@ -59,7 +75,7 @@ public class EditMessageDialog extends DialogFragment implements View.OnClickLis
         super.onResume();
         Window window = getDialog().getWindow();
         //window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        if(editMessageText.getText().toString().equals("Edit message"))
+        if(deleteMessageText.getText().toString().equals("Delete for yourself"))
         getDialog().getWindow().setLayout(905, ViewGroup.LayoutParams.WRAP_CONTENT);
         else
             getDialog().getWindow().setLayout(820, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -73,7 +89,7 @@ public class EditMessageDialog extends DialogFragment implements View.OnClickLis
             editMessage(messageText);
         }
         else if (v.getId()==R.id.delete_my_message){
-            AcceptDialog acceptDialog = new AcceptDialog(reference, null, KEY_MESSAGE_DELETE_MY,receiverUuid);
+            AcceptDialog acceptDialog = new AcceptDialog(reference, null, KEY_MESSAGE_DELETE_MY,receiverUuid,TYPE_OF_USER);
             acceptDialog.show(getFragmentManager(),null);
             this.dismiss();
         }

@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +30,11 @@ public class AdminFragment extends ChatListFragment{
         reference=FirebaseDatabase.getInstance().getReference("users");
         admin_key_string=getResources().getString(R.string.admin_key);
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    void setLayoutManagerForRecView() {
+        chatRecView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     protected void setChats(){

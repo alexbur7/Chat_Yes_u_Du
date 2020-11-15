@@ -51,8 +51,14 @@ public class ChatActivity extends BaseActivity implements ChatFragment.CallBack 
 
     @Override
     public void onBackPressed() {
-        ChatBaseFragment baseFragment= (ChatBaseFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        if (baseFragment.isEditing) baseFragment.setupEditCancel();
+        if (getSupportFragmentManager().findFragmentById(R.id.fragment_container) instanceof ChatBaseFragment && ((ChatBaseFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container)).isEditing) {
+            ChatBaseFragment baseFragment = (ChatBaseFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+            baseFragment.setupEditCancel();
+        }
+        else if (getSupportFragmentManager().findFragmentById(R.id.fragment_container) instanceof PhotoViewPagerItemFragment) {
+            ((PhotoViewPagerItemFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container)).getImageViewFromChat().setEnabled(true);
+            super.onBackPressed();
+        }
         else super.onBackPressed();
     }
 

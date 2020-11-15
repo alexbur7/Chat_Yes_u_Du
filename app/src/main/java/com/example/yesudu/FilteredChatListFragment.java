@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,11 +20,17 @@ import java.util.ArrayList;
 public class FilteredChatListFragment extends ChatListFragment {
 
     public static final String KEY_TO_INTENT_DATA="key_to_data";
+    public static final String FILTER_VIEW_TYPE = "filter_view";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    void setLayoutManagerForRecView() {
+        chatRecView.setLayoutManager(new GridLayoutManager(getActivity(),3));
     }
 
     @Override
@@ -62,7 +70,7 @@ public class FilteredChatListFragment extends ChatListFragment {
                     filterUsersByRegion(users,user);
                     //filterUsersByPhoto(users,user);
                 }
-                ChatRecViewAdapter adapter = new ChatRecViewAdapter(users,getActivity(),getFragmentManager(),ChatRecViewAdapter.ChatHolder.VIEW_TYPE);
+                ChatRecViewAdapter adapter = new ChatRecViewAdapter(users,getActivity(),getFragmentManager(),ChatRecViewAdapter.ChatHolder.VIEW_TYPE,FILTER_VIEW_TYPE);
                 chatRecView.setAdapter(adapter);
                 ref.removeEventListener(this);
             }

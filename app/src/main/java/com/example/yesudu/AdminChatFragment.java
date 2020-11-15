@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -25,6 +26,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class AdminChatFragment extends ChatBaseFragment {
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -98,9 +100,9 @@ public class AdminChatFragment extends ChatBaseFragment {
     @Override
     protected void sendMessage() {
         if (!input.getText().toString().equals("")) {
-            reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
+           // reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
             HashMap<String,Object> map=new HashMap<>();
-            reference.addValueEventListener(new ValueEventListener() {
+            reference.child(generateKey()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()){
@@ -115,16 +117,16 @@ public class AdminChatFragment extends ChatBaseFragment {
                 public void onCancelled(@NonNull DatabaseError error) {}
             });
 
-            reference.child("message")
+            reference.child(generateKey()).child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
                             getActivity().getResources().getString(R.string.admin),getActivity().getString(R.string.admin_key),receiverUuid,getResources().getString(R.string.not_seen_text),
                             getResources().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete","no"));
         }
         else if (image_rui!=null){
-            reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
+            //reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
             HashMap<String,Object> map=new HashMap<>();
-            reference.addValueEventListener(new ValueEventListener() {
+            reference.child(generateKey()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()){
@@ -141,7 +143,7 @@ public class AdminChatFragment extends ChatBaseFragment {
                 }
             });
 
-            reference.child("message")
+            reference.child(generateKey()).child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
                             getActivity().getResources().getString(R.string.admin),getActivity().getString(R.string.admin_key),receiverUuid,getResources().getString(R.string.not_seen_text),
@@ -151,8 +153,20 @@ public class AdminChatFragment extends ChatBaseFragment {
         input.setText("");
     }
 
+    @Override
+    void clickMessage(View v, DatabaseReference reference, String messageText, int type) {
+        v.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                EditMessageDialog editMessageDialog = new EditMessageDialog(reference,receiverUuid,messageText,type,EditMessageDialog.TYPE_OF_USER_ADMIN);
+                editMessageDialog.setTargetFragment(AdminChatFragment.this, EDIT_MSG_DIALOG_CODE);
+                editMessageDialog.show(getFragmentManager(),null);
+                return true;
+            }
+        });
+    }
+
     void displayChatMessages(){
-        Log.e("DISPLAY CHAT ADMIN", String.valueOf(AdminChatFragment.class));
         adapter = new FirebaseListAdapter<ChatMessage>(getActivity(), ChatMessage.class,
                 0, FirebaseDatabase.getInstance().getReference("chats").child(generateKey()).child("message")) {
 
@@ -173,19 +187,11 @@ public class AdminChatFragment extends ChatBaseFragment {
 
                         messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
                                 model.getMessageTime()));
-                        ImageView imageView = v.findViewById(R.id.image_send);
+                        imageView = v.findViewById(R.id.image_send);
                         if (model.getImage_url() != null) {
+                            Log.e("GLIDE","CLICKED");
                             Glide.with(getActivity()).load(model.getImage_url()).into(imageView);
-                            imageView.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Fragment newDetail = PhotoViewPagerItemFragment.newInstance(model.getImage_url());
-                                    getFragmentManager().beginTransaction()
-                                            .addToBackStack(null)
-                                            .add(R.id.fragment_container,newDetail)
-                                            .commit();
-                                }
-                            });
+                            setClickListenerOnImage(model,imageView);
                         }
                     }
                 }
@@ -201,9 +207,11 @@ public class AdminChatFragment extends ChatBaseFragment {
                         messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
                                 model.getMessageTime()));
 
-                        ImageView imageView = v.findViewById(R.id.image_send);
+                        imageView = v.findViewById(R.id.image_send);
                         if (model.getImage_url() != null) {
+                            Log.e("GLIDE","CLICKED");
                             Glide.with(getActivity()).load(model.getImage_url()).into(imageView);
+                            setClickListenerOnImage(model,imageView);
                         }
                         if (model.getEdited().equals("yes")){
                             ImageView editImage = v.findViewById(R.id.edit_image);
@@ -211,7 +219,9 @@ public class AdminChatFragment extends ChatBaseFragment {
                         }
                     }
                 }
-
+                if (model.getFromUserUUID().equals("admin"))
+                    clickMessage(v,getRef(position),model.getMessageText(),EditMessageDialog.TYPE_OF_MSG_MY);
+                else clickMessage(v,getRef(position),model.getMessageText(),EditMessageDialog.TYPE_OF_MSG_NOT_MY);
             }
 
             @Override

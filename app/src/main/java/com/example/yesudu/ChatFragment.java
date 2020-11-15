@@ -48,8 +48,10 @@ public class ChatFragment extends ChatBaseFragment{
         activity=null;
     }
 
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
     @Nullable
     @Override
@@ -156,19 +158,10 @@ public class ChatFragment extends ChatBaseFragment{
                             } catch (Exception e){}
                         }
 
-                        ImageView imageView = v.findViewById(R.id.image_send);
+                      imageView = v.findViewById(R.id.image_send);
                         if (model.getImage_url() != null) {
                             Glide.with(getActivity()).load(model.getImage_url()).into(imageView);
-                            imageView.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Fragment newDetail = PhotoViewPagerItemFragment.newInstance(model.getImage_url());
-                                    getFragmentManager().beginTransaction()
-                                            .addToBackStack(null)
-                                            .add(R.id.fragment_container,newDetail)
-                                            .commit();
-                                }
-                            });
+                            setClickListenerOnImage(model, imageView);
                         }
                         if (model.getEdited().equals("yes")){
                             ImageView editImage = v.findViewById(R.id.edit_image);
@@ -193,9 +186,11 @@ public class ChatFragment extends ChatBaseFragment{
                                 seenImage.setImageResource(R.drawable.seen_image);
                             }catch (Exception e){}
 
-                        ImageView imageView = v.findViewById(R.id.image_send);
+                        imageView = v.findViewById(R.id.image_send);
                         if (model.getImage_url() != null) {
+                            Log.e("GLIDE","CLICKED");
                             Glide.with(getActivity()).load(model.getImage_url()).into(imageView);
+                            setClickListenerOnImage(model,imageView);
                         }
                         if (model.getEdited().equals("yes")){
                             ImageView editImage = v.findViewById(R.id.edit_image);
@@ -204,7 +199,8 @@ public class ChatFragment extends ChatBaseFragment{
                     }
                 }
                 if (User.getCurrentUser().getUuid().equals(model.getFromUserUUID()))
-                    clickMessage(v,getRef(position),model.getMessageText());
+                    clickMessage(v,getRef(position),model.getMessageText(),EditMessageDialog.TYPE_OF_MSG_MY);
+                else clickMessage(v,getRef(position),model.getMessageText(),EditMessageDialog.TYPE_OF_MSG_NOT_MY);
             }
 
             @Override
@@ -265,17 +261,6 @@ public class ChatFragment extends ChatBaseFragment{
             openImage();
         }
     }
-
-    private void clickMessage(View v, DatabaseReference reference, String messageText){
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditMessageDialog editMessageDialog = new EditMessageDialog(reference,receiverUuid,messageText);
-                editMessageDialog.setTargetFragment(ChatFragment.this, EDIT_MSG_DIALOG_CODE);
-                editMessageDialog.show(getFragmentManager(),null);
-            }
-        });
-    }
     protected void sendMessage() {
         if (!input.getText().toString().equals("")) {
             HashMap<String,Object> map=new HashMap<>();
@@ -327,6 +312,19 @@ public class ChatFragment extends ChatBaseFragment{
         }
         image_rui=null;
         input.setText("");
+    }
+
+    @Override
+    void clickMessage(View v, DatabaseReference reference, String messageText, int type) {
+        v.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                EditMessageDialog editMessageDialog = new EditMessageDialog(reference,receiverUuid,messageText,type,EditMessageDialog.TYPE_OF_USER_USUAL);
+                editMessageDialog.setTargetFragment(ChatFragment.this, EDIT_MSG_DIALOG_CODE);
+                editMessageDialog.show(getFragmentManager(),null);
+                return true;
+            }
+        });
     }
 
     String generateKey(){
@@ -411,4 +409,5 @@ public class ChatFragment extends ChatBaseFragment{
     public interface CallBack{
         void goToAdmin();
     }
+
 }

@@ -33,6 +33,15 @@ public class AcceptDialog extends DialogFragment {
     private String firstKey;
     private String receiverUuid;
     int key;
+    int user_type;
+
+    public AcceptDialog(DatabaseReference reference, ValueEventListener listener, int key,String receiverUuid,int user_type){
+        this.reference = reference;
+        this.listener= listener;
+        this.key=key;
+        this.receiverUuid= receiverUuid;
+        this.user_type=user_type;
+    }
 
     public AcceptDialog(DatabaseReference reference, ValueEventListener listener, int key,String receiverUuid){
         this.reference = reference;
@@ -114,15 +123,27 @@ public class AcceptDialog extends DialogFragment {
 
     private void deleteMessage(){
         generateKey();
-        if (User.getCurrentUser().getUuid().equals(firstKey)) {
-            HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("firstDelete", "delete");
-            reference.updateChildren(hashMap);
+        if (user_type==EditMessageDialog.TYPE_OF_USER_USUAL) {
+            if (User.getCurrentUser().getUuid().equals(firstKey)) {
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("firstDelete", "delete");
+                reference.updateChildren(hashMap);
+            } else {
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("secondDelete", "delete");
+                reference.updateChildren(hashMap);
+            }
         }
         else {
-            HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("secondDelete", "delete");
-            reference.updateChildren(hashMap);
+            if (firstKey.equals("admin")) {
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("firstDelete", "delete");
+                reference.updateChildren(hashMap);
+            } else {
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("secondDelete", "delete");
+                reference.updateChildren(hashMap);
+            }
         }
         this.dismiss();
     }

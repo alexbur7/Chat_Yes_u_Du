@@ -29,18 +29,35 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
     private Context context;
     private FragmentManager fragmentManager;
     private int viewType;
+    private String filtered;
 
     public ChatRecViewAdapter(List<User> list, Context context, FragmentManager manager,int viewType){
         this.userList=list;
         this.context=context;
         this.fragmentManager=manager;
         this.viewType=viewType;
+        this.filtered="none";
+    }
+
+    public ChatRecViewAdapter(List<User> list, Context context, FragmentManager manager,int viewType,String filtered){
+        this.userList=list;
+        this.context=context;
+        this.fragmentManager=manager;
+        this.viewType=viewType;
+        this.filtered=filtered;
     }
 
     @NonNull
     @Override
     public ChatRecViewAdapter.ChatHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.users_list_item, parent, false);
+        View v;
+        if (filtered.equals("none")){
+            v = LayoutInflater.from(context).inflate(R.layout.users_list_item, parent, false);
+        }
+        else {
+            v = LayoutInflater.from(context).inflate(R.layout.users_filtered_list_item, parent, false);
+        }
+
         switch (viewType) {
             case ChatHolder.VIEW_TYPE: return new ChatRecViewAdapter.ChatHolder(v, context, fragmentManager);
             case BlockListHolder.VIEW_TYPE: return new BlockListHolder(v,context,fragmentManager);
@@ -52,7 +69,7 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
     @Override
     public void onBindViewHolder(@NonNull ChatHolder holder, int position) {
         holder.onBind(userList.get(position));
-        if (User.getCurrentUser()!=null) {
+        if (User.getCurrentUser()!=null && filtered.equals("none")) {
             holder.setLastMsg(holder.user.getUuid(), holder.userText);
         }
     }

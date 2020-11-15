@@ -17,6 +17,7 @@ public class PhotoViewPagerItemFragment extends Fragment {
     public static final String KEY_URL="key_url";
     private ImageView imageView;
     private String url;
+    private View imageViewFromChat;
 
     @SuppressLint("ClickableViewAccessibility")
     @Nullable
@@ -36,5 +37,22 @@ public class PhotoViewPagerItemFragment extends Fragment {
         bundle.putString(KEY_URL,url);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    public static PhotoViewPagerItemFragment newInstance(String url,View v){
+        PhotoViewPagerItemFragment fragment = new PhotoViewPagerItemFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(KEY_URL,url);
+        fragment.setArguments(bundle);
+        fragment.setImageViewFromChat(v);
+        return fragment;
+    }
+
+    public View getImageViewFromChat() {
+        return imageViewFromChat;
+    }
+
+    public void setImageViewFromChat(View imageViewFromChat) {
+        this.imageViewFromChat = imageViewFromChat;
     }
 }
