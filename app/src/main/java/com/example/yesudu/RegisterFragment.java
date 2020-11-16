@@ -228,6 +228,7 @@ public class RegisterFragment extends Fragment {
                     ref.child("admin_block").setValue("unblock");
                     //changed
                     ref.child("about").setValue(about);
+                    ref.child("typing").setValue("unwriting");
                     auth.getCurrentUser().sendEmailVerification();
                     auth.signOut();
                     callbacks.returnLoginFragment(email,password);

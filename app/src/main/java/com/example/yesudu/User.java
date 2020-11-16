@@ -17,6 +17,7 @@ public class User {
     private String admin;
     private String admin_block;
     private String about;
+    private String typing;
 
     private long online_time;
     private static User currentUser;
@@ -24,7 +25,7 @@ public class User {
     public User(String uuid,String name, String surname, String country, String city,
                 String photo_url, String region,String sex,String age, String status,
                 String admin, long online_time , String admin_block,String about,
-                String photo_url1, String photo_url2, String photo_url3){
+                String photo_url1, String photo_url2, String photo_url3, String typing){
         this.name = name;
         this.surname = surname;
         this.country = country;
@@ -38,6 +39,7 @@ public class User {
         this.admin = admin;
         this.online_time = online_time;
         this.admin_block = admin_block;
+        this.typing = typing;
         //changed
         this.about=about;
         this.photo_url1 = photo_url1;
@@ -191,5 +193,13 @@ public class User {
 
     public void setPhoto_url3(String photo_url3) {
         this.photo_url3 = photo_url3;
+    }
+
+    public String getTyping() {
+        return typing;
+    }
+
+    public void setTyping(String typing) {
+        this.typing = typing;
     }
 }

@@ -37,6 +37,7 @@ public class ChatFragment extends ChatBaseFragment{
     public static final String KEY_TO_RECEIVER_PHOTO_URL = "recevierPHOTO_URL";
     private ValueEventListener seenListener;
     private String seenText;
+    private DatabaseReference referenceWriting;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -83,9 +84,10 @@ public class ChatFragment extends ChatBaseFragment{
         send_image = v.findViewById(R.id.send_image_button);
         send_image.setOnClickListener(this);
         input = v.findViewById(R.id.input);
-        input.setOnFocusChangeListener(this);
+        input.addTextChangedListener(this);
         fab.setOnClickListener(this);
         reference = FirebaseDatabase.getInstance().getReference("chats");
+        referenceWriting = FirebaseDatabase.getInstance().getReference("users");
         storageReference = FirebaseStorage.getInstance().getReference("ChatImage");
         username=v.findViewById(R.id.username_text);
         circleImageView = v.findViewById(R.id.circle_image_chat);
@@ -274,10 +276,6 @@ public class ChatFragment extends ChatBaseFragment{
                         map.put("firstBlock","no block");
                         map.put("secondBlock","no block");
 
-                        //TODO СОСИ ГАРО_1
-                        map.put("first_w","unwriting");
-                        map.put("second_w","unwriting");
-
                         reference.child(generateKey()).updateChildren(map);
                         reference.child(generateKey()).removeEventListener(this);
                     }
@@ -301,10 +299,6 @@ public class ChatFragment extends ChatBaseFragment{
                     if (snapshot.exists()){
                         map.put("firstBlock","no block");
                         map.put("secondBlock","no block");
-
-                        //TODO СОСИ ГАРО_2
-                        map.put("first_w","unwriting");
-                        map.put("second_w","unwriting");
 
                         reference.child(generateKey()).updateChildren(map);
                         reference.child(generateKey()).removeEventListener(this);
@@ -365,7 +359,10 @@ public class ChatFragment extends ChatBaseFragment{
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 try {
-                    if (user.getStatus().equals(getResources().getString(R.string.label_offline)))
+                    if (user.getTyping().equals(User.getCurrentUser().getUuid())){
+                       statusText.setText(R.string.typing);
+                    }
+                    else if (user.getStatus().equals(getResources().getString(R.string.label_offline)))
                         statusText.setText("был в сети " + DateFormat.format("dd-MM-yyyy (HH:mm)", user.getOnline_time()));
                     else statusText.setText(user.getStatus());
                     username.setText(user.getName());
@@ -389,6 +386,7 @@ public class ChatFragment extends ChatBaseFragment{
         if (seenListener!=null)
             reference.removeEventListener(seenListener);
         seenListener=null;
+        setWriting("unwriting");
     }
 
     protected void seenMessage(){
@@ -420,37 +418,27 @@ public class ChatFragment extends ChatBaseFragment{
     }
 
     @Override
-    protected void setWritingTrue() {
+    protected void setWriting(String writing) {
         HashMap<String,Object> map=new HashMap<>();
-        if (User.getCurrentUser().getUuid().equals(firstKey)) {
-            map.put("first_w","writing");
-        }
-        else map.put("second_w","writing");
-
-        reference.child(generateKey()).updateChildren(map);
+        map.put("typing", writing);
+        referenceWriting.child(User.getCurrentUser().getUuid()).updateChildren(map);
     }
 
     @Override
-    protected void setWritingFalse() {
-        HashMap<String,Object> map=new HashMap<>();
-        if (User.getCurrentUser().getUuid().equals(firstKey)) {
-            map.put("first_w","unwriting");
-        }
-        else map.put("second_w","unwriting");
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        reference.child(generateKey()).updateChildren(map);
     }
 
     @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus){
-            setWritingTrue();
-            Log.e("onTextChanged","writing_true");
-        }
-        else{
-            setWritingFalse();
-            Log.e("afterTextChanged","writing_false");
-        }
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (s.toString().trim().length() ==0){
+            setWriting("unwriting");
+        }else setWriting(receiverUuid);
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
     }
 
 

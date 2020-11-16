@@ -42,7 +42,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.HashMap;
 import static android.app.Activity.RESULT_OK;
 
-public abstract class ChatBaseFragment extends Fragment implements View.OnClickListener, View.OnFocusChangeListener,TextWatcher {
+public abstract class ChatBaseFragment extends Fragment implements View.OnClickListener,TextWatcher {
     public static final String KEY_TO_RECEIVER_UUID="recevierID";
     public static final String KEY_TO_RECEIVER_PHOTO_URL = "recevierPHOTO_URL";
     protected static final int EDIT_MSG_DIALOG_CODE = 0;
@@ -313,6 +313,5 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
         });
     }
 
-    protected abstract void setWritingTrue();
-    protected abstract void setWritingFalse();
+    protected abstract void setWriting(String writing);
 }

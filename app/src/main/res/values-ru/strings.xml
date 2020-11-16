@@ -579,4 +579,5 @@
     <string name="delete_all_message">Удалить у всех</string>
     <string name="delete_my_message">Удалить у себя</string>
     <string name="accept_msg_string">Вы точно хотите удалить это сообщение?</string>
+    <string name="typing">печатает...</string>
 </resources>

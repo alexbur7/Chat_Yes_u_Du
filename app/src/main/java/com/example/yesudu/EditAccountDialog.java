@@ -21,7 +21,7 @@ import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.HashMap;
 
-public class EditDialog extends DialogFragment {
+public class EditAccountDialog extends DialogFragment {
     private EditText nameText;
     private EditText surnameText;
     private Spinner countrySpinner;

@@ -124,8 +124,8 @@ public class MyAccountFragment extends AccountFragment {
             }
             break;
             case R.id.custmoize:{
-                EditDialog editDialog = new EditDialog();
-                editDialog.show(getFragmentManager(),null);
+                EditAccountDialog editAccountDialog = new EditAccountDialog();
+                editAccountDialog.show(getFragmentManager(),null);
             }
             break;
             case R.id.chat_administrator:{

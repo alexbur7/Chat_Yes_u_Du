@@ -6,8 +6,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
@@ -53,6 +56,15 @@ public class EditPhotoDialog extends DialogFragment {
                         deleteImage(photo_url,userId);
                     }
                 }).create();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Window window = getDialog().getWindow();
+        getDialog().getWindow().setLayout(800, ViewGroup.LayoutParams.WRAP_CONTENT);
+        window.setGravity(Gravity.CENTER);
+
     }
 
     private void deleteImage(String photo_url, String userId){

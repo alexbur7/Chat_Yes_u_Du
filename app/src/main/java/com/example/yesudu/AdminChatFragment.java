@@ -46,7 +46,7 @@ public class AdminChatFragment extends ChatBaseFragment {
         send_image = v.findViewById(R.id.send_image_button);
         send_image.setOnClickListener(this);
         input = v.findViewById(R.id.input);
-        input.setOnFocusChangeListener(this);
+        input.addTextChangedListener(this);
         fab.setOnClickListener(this);
         reference = FirebaseDatabase.getInstance().getReference("chats");
         username=v.findViewById(R.id.username_text);
@@ -191,7 +191,6 @@ public class AdminChatFragment extends ChatBaseFragment {
                                 model.getMessageTime()));
                         imageView = v.findViewById(R.id.image_send);
                         if (model.getImage_url() != null) {
-                            Log.e("GLIDE","CLICKED");
                             Glide.with(getActivity()).load(model.getImage_url()).into(imageView);
                             setClickListenerOnImage(model,imageView);
                         }
@@ -276,23 +275,13 @@ public class AdminChatFragment extends ChatBaseFragment {
     }
 
     String generateKey() {
-        ArrayList<String> templist=new ArrayList<>();
+        ArrayList<String> templist = new ArrayList<>();
         templist.add(getActivity().getResources().getString(R.string.admin_key));
         templist.add(receiverUuid);
         Collections.sort(templist);
-        firstKey=templist.get(0);
+        firstKey = templist.get(0);
         secondKey = templist.get(1);
-        return templist.get(0)+templist.get(1);
-    }
-
-    @Override
-    protected void setWritingTrue() {
-
-    }
-
-    @Override
-    protected void setWritingFalse() {
-
+        return templist.get(0) + templist.get(1);
     }
 
     public static AdminChatFragment newInstance(String toUserUUID,String photo_url){
@@ -305,7 +294,22 @@ public class AdminChatFragment extends ChatBaseFragment {
     }
 
     @Override
-    public void onFocusChange(View v, boolean hasFocus) {
+    protected void setWriting(String writing) {
+
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
 
     }
 }
