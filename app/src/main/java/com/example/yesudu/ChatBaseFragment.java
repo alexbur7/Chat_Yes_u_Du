@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.Layout;
 import android.text.SpannableString;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.text.style.AlignmentSpan;
 import android.util.Log;
@@ -41,7 +42,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.HashMap;
 import static android.app.Activity.RESULT_OK;
 
-public abstract class ChatBaseFragment extends Fragment implements View.OnClickListener {
+public abstract class ChatBaseFragment extends Fragment implements View.OnClickListener, View.OnFocusChangeListener,TextWatcher {
     public static final String KEY_TO_RECEIVER_UUID="recevierID";
     public static final String KEY_TO_RECEIVER_PHOTO_URL = "recevierPHOTO_URL";
     protected static final int EDIT_MSG_DIALOG_CODE = 0;
@@ -311,4 +312,7 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
             }
         });
     }
+
+    protected abstract void setWritingTrue();
+    protected abstract void setWritingFalse();
 }

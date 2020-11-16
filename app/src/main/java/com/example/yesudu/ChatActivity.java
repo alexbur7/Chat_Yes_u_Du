@@ -19,11 +19,9 @@ public class ChatActivity extends BaseActivity implements ChatFragment.CallBack 
             return ChatFragment.newInstance(getResources().getString(R.string.admin_key),"default");
         }
         else if (!(getIntent().getExtras().getInt(KEY_TO_VIEW_TYPE) == ChatRecViewAdapter.AdminChatHolder.VIEW_TYPE)) {
-            Log.e("NORM FRAGMENT CREATED", String.valueOf(ChatActivity.class));
             return ChatFragment.newInstance(getIntent().getStringExtra(KEY_TO_RECEIVER_UUID), getIntent().getStringExtra(KEY_TO_RECEIVER_PHOTO_URL));
         }
         else {
-            Log.e("ADMIN FRAGMENT CREATED", String.valueOf(ChatActivity.class));
             return AdminChatFragment.newInstance(getIntent().getStringExtra(KEY_TO_RECEIVER_UUID), getIntent().getStringExtra(KEY_TO_RECEIVER_PHOTO_URL));
         }
     }

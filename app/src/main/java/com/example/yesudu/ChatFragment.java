@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -81,6 +83,7 @@ public class ChatFragment extends ChatBaseFragment{
         send_image = v.findViewById(R.id.send_image_button);
         send_image.setOnClickListener(this);
         input = v.findViewById(R.id.input);
+        input.setOnFocusChangeListener(this);
         fab.setOnClickListener(this);
         reference = FirebaseDatabase.getInstance().getReference("chats");
         storageReference = FirebaseStorage.getInstance().getReference("ChatImage");
@@ -270,6 +273,11 @@ public class ChatFragment extends ChatBaseFragment{
                     if (snapshot.exists()){
                         map.put("firstBlock","no block");
                         map.put("secondBlock","no block");
+
+                        //TODO СОСИ ГАРО_1
+                        map.put("first_w","unwriting");
+                        map.put("second_w","unwriting");
+
                         reference.child(generateKey()).updateChildren(map);
                         reference.child(generateKey()).removeEventListener(this);
                     }
@@ -293,6 +301,11 @@ public class ChatFragment extends ChatBaseFragment{
                     if (snapshot.exists()){
                         map.put("firstBlock","no block");
                         map.put("secondBlock","no block");
+
+                        //TODO СОСИ ГАРО_2
+                        map.put("first_w","unwriting");
+                        map.put("second_w","unwriting");
+
                         reference.child(generateKey()).updateChildren(map);
                         reference.child(generateKey()).removeEventListener(this);
                     }
@@ -405,6 +418,41 @@ public class ChatFragment extends ChatBaseFragment{
             }
         });
     }
+
+    @Override
+    protected void setWritingTrue() {
+        HashMap<String,Object> map=new HashMap<>();
+        if (User.getCurrentUser().getUuid().equals(firstKey)) {
+            map.put("first_w","writing");
+        }
+        else map.put("second_w","writing");
+
+        reference.child(generateKey()).updateChildren(map);
+    }
+
+    @Override
+    protected void setWritingFalse() {
+        HashMap<String,Object> map=new HashMap<>();
+        if (User.getCurrentUser().getUuid().equals(firstKey)) {
+            map.put("first_w","unwriting");
+        }
+        else map.put("second_w","unwriting");
+
+        reference.child(generateKey()).updateChildren(map);
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus){
+            setWritingTrue();
+            Log.e("onTextChanged","writing_true");
+        }
+        else{
+            setWritingFalse();
+            Log.e("afterTextChanged","writing_false");
+        }
+    }
+
 
     public interface CallBack{
         void goToAdmin();

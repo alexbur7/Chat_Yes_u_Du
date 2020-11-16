@@ -1,6 +1,7 @@
 package com.example.yesudu;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,6 +46,7 @@ public class AdminChatFragment extends ChatBaseFragment {
         send_image = v.findViewById(R.id.send_image_button);
         send_image.setOnClickListener(this);
         input = v.findViewById(R.id.input);
+        input.setOnFocusChangeListener(this);
         fab.setOnClickListener(this);
         reference = FirebaseDatabase.getInstance().getReference("chats");
         username=v.findViewById(R.id.username_text);
@@ -283,6 +285,16 @@ public class AdminChatFragment extends ChatBaseFragment {
         return templist.get(0)+templist.get(1);
     }
 
+    @Override
+    protected void setWritingTrue() {
+
+    }
+
+    @Override
+    protected void setWritingFalse() {
+
+    }
+
     public static AdminChatFragment newInstance(String toUserUUID,String photo_url){
         AdminChatFragment fragment = new AdminChatFragment();
         Bundle bundle = new Bundle();
@@ -290,5 +302,10 @@ public class AdminChatFragment extends ChatBaseFragment {
         bundle.putString(KEY_TO_RECEIVER_PHOTO_URL,photo_url);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+
     }
 }
