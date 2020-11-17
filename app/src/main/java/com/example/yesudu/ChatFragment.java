@@ -53,6 +53,7 @@ public class ChatFragment extends ChatBaseFragment{
 
     @Override
     public void onResume() {
+        reference.addValueEventListener(seenListener);
         super.onResume();
     }
 
@@ -385,7 +386,7 @@ public class ChatFragment extends ChatBaseFragment{
         super.onPause();
         if (seenListener!=null)
             reference.removeEventListener(seenListener);
-        seenListener=null;
+        //seenListener=null;
         setWriting("unwriting");
     }
 
