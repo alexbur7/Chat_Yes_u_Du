@@ -63,7 +63,6 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
     protected ValueEventListener blockListener;
     private StorageTask uploadTask;
     protected StorageReference storageReference;
-
     protected ChatFragment.CallBack activity;
     private static  final  int IMAGE_REQUEST=1;
     protected Uri image_rui;

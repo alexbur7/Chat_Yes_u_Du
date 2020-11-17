@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,13 +77,24 @@ public class EditMessageDialog extends DialogFragment implements View.OnClickLis
     public void onResume() {
         super.onResume();
         Window window = getDialog().getWindow();
-        //window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        if(deleteMessageText.getText().toString().equals("Delete for yourself"))
-        getDialog().getWindow().setLayout(905, ViewGroup.LayoutParams.WRAP_CONTENT);
-        else
-            getDialog().getWindow().setLayout(820, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        Log.e("width", String.valueOf(width));
+        if (width>1000) {
+            if (deleteMessageText.getText().toString().equals("Delete for yourself"))
+                window.setLayout(905, ViewGroup.LayoutParams.WRAP_CONTENT);
+            else
+                window.setLayout(820, ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+        else {
+            if (deleteMessageText.getText().toString().equals("Delete for yourself"))
+                window.setLayout(605, ViewGroup.LayoutParams.WRAP_CONTENT);
+            else
+                window.setLayout(520, ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
         window.setGravity(Gravity.CENTER);
-
     }
 
     @Override
