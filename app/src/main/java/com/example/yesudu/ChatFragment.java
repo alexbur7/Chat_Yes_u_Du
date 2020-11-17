@@ -106,17 +106,29 @@ public class ChatFragment extends ChatBaseFragment{
                 for (DataSnapshot snapshot1:snapshot.getChildren()){
 
                     if (snapshot1.getKey().equals("firstBlock") && User.getCurrentUser().getUuid().equals(secondKey) && snapshot1.getValue().equals("block")){
-                        input.setText(getActivity().getString(R.string.blocked_chat));
-                        input.setEnabled(false);
-                        fab.setEnabled(false);
-                        send_image.setEnabled(false);
+                        try {
+                            input.setText(getActivity().getString(R.string.blocked_chat));
+                            input.setEnabled(false);
+                            fab.setEnabled(false);
+                            send_image.setEnabled(false);
+                        } catch (Exception e) {
+                            input.setEnabled(false);
+                            fab.setEnabled(false);
+                            send_image.setEnabled(false);
+                        }
                     }
 
                     else if (snapshot1.getKey().equals("secondBlock") && User.getCurrentUser().getUuid().equals(firstKey) && snapshot1.getValue().equals("block")){
-                        input.setText(getActivity().getString(R.string.blocked_chat));
-                        input.setEnabled(false);
-                        fab.setEnabled(false);
-                        send_image.setEnabled(false);
+                        try {
+                            input.setText(getActivity().getString(R.string.blocked_chat));
+                            input.setEnabled(false);
+                            fab.setEnabled(false);
+                            send_image.setEnabled(false);
+                        } catch (Exception e) {
+                            input.setEnabled(false);
+                            fab.setEnabled(false);
+                            send_image.setEnabled(false);
+                        }
                     }
                 }
             }
@@ -277,9 +289,11 @@ public class ChatFragment extends ChatBaseFragment{
                     if (snapshot.exists()){
                         map.put("firstBlock","no block");
                         map.put("secondBlock","no block");
+                        //map.put("firstFavorites", "no");
+                        //map.put("secondFavorites", "no");
 
                         reference.child(generateKey()).updateChildren(map);
-                        reference.child(generateKey()).removeEventListener(this);
+                        reference.removeEventListener(this);
                     }
                 }
 
@@ -301,9 +315,11 @@ public class ChatFragment extends ChatBaseFragment{
                     if (snapshot.exists()){
                         map.put("firstBlock","no block");
                         map.put("secondBlock","no block");
+                        //map.put("firstFavorites", "no");
+                        //map.put("secondFavorites", "no");
 
                         reference.child(generateKey()).updateChildren(map);
-                        reference.child(generateKey()).removeEventListener(this);
+                        reference.removeEventListener(this);
                     }
                 }
 

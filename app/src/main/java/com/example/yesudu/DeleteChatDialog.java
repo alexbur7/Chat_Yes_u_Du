@@ -25,11 +25,13 @@ import java.util.HashMap;
 public class DeleteChatDialog extends DialogFragment {
     private RadioButton deleteBox;
     private RadioButton blockBox;
+    private RadioButton favoriteBox;
     private DatabaseReference reference;
     private String receiverUuid;
     private boolean empty;
     private ValueEventListener deleteMessageListener;
     private ValueEventListener blockChatListener;
+    private ValueEventListener favoriteChatListener;
     private String firstKey;
     private String secondKey;
 
@@ -44,6 +46,7 @@ public class DeleteChatDialog extends DialogFragment {
         reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
         deleteBox = view.findViewById(R.id.check_delete_box);
         blockBox = view.findViewById(R.id.check_blocklist_box);
+        favoriteBox = view.findViewById(R.id.check_favorite_list_box);
 
        // if (empty) blockBox.setEnabled(false);
 
@@ -56,6 +59,7 @@ public class DeleteChatDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                        deleteChat(deleteBox.isChecked());
                        blockChat(blockBox.isChecked());
+                       favoriteChat(favoriteBox.isChecked());
                     }
                 }).create();
     }
@@ -105,7 +109,9 @@ public class DeleteChatDialog extends DialogFragment {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot snapshot1:snapshot.getChildren()){
                         if (snapshot1.getKey().equals("firstBlock") && User.getCurrentUser().getUuid().equals(firstKey)){
-                            snapshot1.getRef().setValue("block").addOnCompleteListener(new OnCompleteListener<Void>() {
+                            HashMap<String,Object> map = new HashMap<>();
+                            map.put("firstBlock","block");
+                            reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     sendResult(Activity.RESULT_OK);
@@ -113,7 +119,9 @@ public class DeleteChatDialog extends DialogFragment {
                             });
                         }
                         else if (snapshot1.getKey().equals("secondBlock") && User.getCurrentUser().getUuid().equals(secondKey)){
-                            snapshot1.getRef().setValue("block").addOnCompleteListener(new OnCompleteListener<Void>() {
+                            HashMap<String,Object> map = new HashMap<>();
+                            map.put("secondBlock","block");
+                            reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     sendResult(Activity.RESULT_OK);
@@ -129,7 +137,44 @@ public class DeleteChatDialog extends DialogFragment {
             });
         }
         sendResult(Activity.RESULT_CANCELED);
-}
+    }
+
+    private void favoriteChat(boolean favorite) {
+        if (favorite) {
+            favoriteChatListener = reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                        if (snapshot1.getKey().equals("firstFavorite") && User.getCurrentUser().getUuid().equals(firstKey)) {
+                            HashMap<String,Object> map = new HashMap<>();
+                            map.put("firstFavorite","yes");
+                            reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    sendResult(Activity.RESULT_OK);
+                                }
+                            });
+                        } else if (snapshot1.getKey().equals("secondFavorite") && User.getCurrentUser().getUuid().equals(secondKey)) {
+                            HashMap<String,Object> map = new HashMap<>();
+                            map.put("secondFavorite","yes");
+                            reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    sendResult(Activity.RESULT_OK);
+                                }
+                            });
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+        }
+        sendResult(Activity.RESULT_CANCELED);
+    }
 
     private void sendResult(int result) {
         getTargetFragment().onActivityResult(getTargetRequestCode(),result,null);
@@ -140,6 +185,7 @@ public class DeleteChatDialog extends DialogFragment {
         super.onPause();
         if (deleteMessageListener !=null) reference.child("message").removeEventListener(deleteMessageListener);
         if (blockChatListener != null) reference.removeEventListener(blockChatListener);
+        if (favoriteChatListener!=null) reference.removeEventListener(favoriteChatListener);
     }
 
 

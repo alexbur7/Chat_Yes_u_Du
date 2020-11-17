@@ -580,4 +580,5 @@
     <string name="delete_my_message">Удалить у себя</string>
     <string name="accept_msg_string">Вы точно хотите удалить это сообщение?</string>
     <string name="typing">печатает...</string>
+    <string name="favorite_chat"><![CDATA[Do you want to favorite chat&]]></string>
 </resources>
