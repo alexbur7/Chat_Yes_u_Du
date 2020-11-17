@@ -53,8 +53,9 @@ public class ChatFragment extends ChatBaseFragment{
 
     @Override
     public void onResume() {
-        reference.addValueEventListener(seenListener);
         super.onResume();
+        seenMessage();
+        reference.addValueEventListener(seenListener);
     }
 
     @Nullable
@@ -255,7 +256,7 @@ public class ChatFragment extends ChatBaseFragment{
         if (adapter!=null)
             adapter.notifyDataSetChanged();
 
-        seenMessage();
+        //seenMessage();
     }
 
     @Override
@@ -386,12 +387,12 @@ public class ChatFragment extends ChatBaseFragment{
         super.onPause();
         if (seenListener!=null)
             reference.removeEventListener(seenListener);
-        //seenListener=null;
+        seenListener=null;
         setWriting("unwriting");
     }
 
     protected void seenMessage(){
-        seenListener=reference.addValueEventListener(new ValueEventListener() {
+        seenListener=new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snapshot1 : snapshot.getChildren())
@@ -412,10 +413,12 @@ public class ChatFragment extends ChatBaseFragment{
                         }
                     }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
             }
-        });
+        };
     }
 
     @Override
