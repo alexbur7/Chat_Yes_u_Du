@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -25,21 +27,39 @@ public class UnblockDialog extends DialogFragment {
 
     private DatabaseReference reference;
     private ValueEventListener unblockChatListener;
+    private ValueEventListener unFavoriteChatListener;
     private String firstKey;
     private String secondKey;
     private String receiverUuid;
+    private int type_dialog;
+    private TextView textView;
 
-    public UnblockDialog(String uuid){receiverUuid=uuid;}
+    public UnblockDialog(String uuid,int type_dialog){
+        receiverUuid=uuid;
+        this.type_dialog=type_dialog;
+    }
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         View v= LayoutInflater.from(getActivity()).inflate(R.layout.unblock_dialog,null);
+        textView = v.findViewById(R.id.unblock_text);
+        if (type_dialog==BlockListFragment.TYPE_DIALOG){
+            textView.setText(R.string.unblock_msg_text);
+        }
+        else if(type_dialog ==FavoriteListFragment.TYPE_DIALOG){
+            textView.setText(R.string.unfavorite_msg_text);
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
         return builder.setNeutralButton(R.string.ok_pos_button_text, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                unblockChat();
+                if (type_dialog==BlockListFragment.TYPE_DIALOG) {
+                    unblockChat();
+                }
+                else if(type_dialog ==FavoriteListFragment.TYPE_DIALOG){
+                    unfavoriteChat();
+                }
                 sendResult(Activity.RESULT_OK);
             }
         }).setView(v).create();
@@ -91,10 +111,44 @@ public class UnblockDialog extends DialogFragment {
             });
     }
 
+    private void unfavoriteChat() {
+        unFavoriteChatListener = reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1:snapshot.getChildren()){
+                    if (snapshot1.getKey().equals("firstFavorites") && User.getCurrentUser().getUuid().equals(firstKey)){
+                        snapshot1.getRef().setValue("no").addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) sendResult(Activity.RESULT_OK);
+                                else sendResult(Activity.RESULT_CANCELED);
+                            }
+                        });
+                    }
+                    else if (snapshot1.getKey().equals("secondFavorites") && User.getCurrentUser().getUuid().equals(secondKey)){
+                        snapshot1.getRef().setValue("no").addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) sendResult(Activity.RESULT_OK);
+                                else sendResult(Activity.RESULT_CANCELED);
+                            }
+                        });
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         if (unblockChatListener!=null)
         reference.removeEventListener(unblockChatListener);
+        if (unFavoriteChatListener!=null)
+            reference.removeEventListener(unFavoriteChatListener);
     }
 }

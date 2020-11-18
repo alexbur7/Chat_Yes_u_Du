@@ -15,6 +15,7 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.example.yesudu.MyAccountActivity" />
         <activity android:name="com.example.yesudu.BlockListActivity" />
+        <activity android:name="com.example.yesudu.FavoriteListActivity"/>
         <activity android:name="com.example.yesudu.AdminActivity"
             android:parentActivityName="com.example.yesudu.MyAccountActivity"/>
         <activity android:name="com.example.yesudu.UserAccountActivity"

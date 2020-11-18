@@ -80,7 +80,7 @@
     <string name="unblock_account">Разблокировать</string>
     <string name="blocklist">Заблокированные</string>
     <string name="photo_cant_delete">Не удалось удалить фото</string>
-    <string name="blocked_chat">Этот чат был заблокирован</string>
+    <string name="blocked_chat">Вы заблокированы пользователем</string>
     <string name="blocked_by_admin">Вы заблокированы администратором</string>
     <string name="about_hint">Расскажите о себе</string>
     <string name="label_offline">не в сети</string>
@@ -580,5 +580,7 @@
     <string name="delete_my_message">Удалить у себя</string>
     <string name="accept_msg_string">Вы точно хотите удалить это сообщение?</string>
     <string name="typing">печатает...</string>
-    <string name="favorite_chat"><![CDATA[Do you want to favorite chat&]]></string>
+    <string name="favorite_chat">Вы хотите добавить чат в избранные?</string>
+    <string name="favoritelist">Избранные</string>
+    <string name="unfavorite_msg_text">Вы хотите убрать чат из избранных?</string>
 </resources>

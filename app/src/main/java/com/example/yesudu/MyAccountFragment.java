@@ -132,6 +132,11 @@ public class MyAccountFragment extends AccountFragment {
                 Intent intent = ChatActivity.newIntent(getActivity(),User.getCurrentUser().getUuid(),User.getCurrentUser().getPhoto_url(),3);
                 startActivity(intent);
             }
+            case R.id.favoritelist:{
+                Intent intent = new Intent(getActivity(),FavoriteListActivity.class);
+                startActivity(intent);
+            }
+            break;
         }
         return true;
     }
@@ -149,7 +154,7 @@ public class MyAccountFragment extends AccountFragment {
                 User user = snapshot.getValue(User.class);
                 User.setCurrentUser(user, uuid,status_offline);
                     if (user.getAdmin().equals("true")) {
-                        toolbar.getMenu().getItem(7).setVisible(true);
+                        toolbar.getMenu().getItem(8).setVisible(true);
                     }
                 if(user.getPhoto_url().equals("default")){
                     photoImageView.setImageResource(R.drawable.unnamed);

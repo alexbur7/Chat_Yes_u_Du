@@ -145,18 +145,18 @@ public class DeleteChatDialog extends DialogFragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                        if (snapshot1.getKey().equals("firstFavorite") && User.getCurrentUser().getUuid().equals(firstKey)) {
+                        if (snapshot1.getKey().equals("firstFavorites") && User.getCurrentUser().getUuid().equals(firstKey)) {
                             HashMap<String,Object> map = new HashMap<>();
-                            map.put("firstFavorite","yes");
+                            map.put("firstFavorites","yes");
                             reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     sendResult(Activity.RESULT_OK);
                                 }
                             });
-                        } else if (snapshot1.getKey().equals("secondFavorite") && User.getCurrentUser().getUuid().equals(secondKey)) {
+                        } else if (snapshot1.getKey().equals("secondFavorites") && User.getCurrentUser().getUuid().equals(secondKey)) {
                             HashMap<String,Object> map = new HashMap<>();
-                            map.put("secondFavorite","yes");
+                            map.put("secondFavorites","yes");
                             reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {

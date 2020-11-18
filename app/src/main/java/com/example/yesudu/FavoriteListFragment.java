@@ -25,6 +25,7 @@ public class FavoriteListFragment extends ChatListFragment {
 
 
     public static final int KEY_TO_UNBLOCK=0;
+    public static final int TYPE_DIALOG=1;
 
     private ValueEventListener listener;
     private DatabaseReference reference;
@@ -38,10 +39,10 @@ public class FavoriteListFragment extends ChatListFragment {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     String genKey=snapshot1.getKey();
                     for (DataSnapshot snapshot2:snapshot1.getChildren()) {
-                        if (snapshot2.getKey().equals("firstFavorite") && snapshot2.getValue().equals("yes") && genKey.startsWith(User.getCurrentUser().getUuid()) ||
-                                snapshot2.getKey().equals("favoriteBlock") && snapshot2.getValue().equals("yes") && !genKey.startsWith(User.getCurrentUser().getUuid())) {
+                        if (snapshot2.getKey().equals("firstFavorites") && snapshot2.getValue().equals("yes") && genKey.startsWith(User.getCurrentUser().getUuid()) ||
+                                snapshot2.getKey().equals("secondFavorites") && snapshot2.getValue().equals("yes") && !genKey.startsWith(User.getCurrentUser().getUuid())) {
                             for (DataSnapshot snapshot3:snapshot1.getChildren()) {
-                                if (!snapshot3.getKey().equals("firstFavorite") && !snapshot3.getKey().equals("secondFavorite")) {
+                                if (!snapshot3.getKey().equals("firstFavorites") && !snapshot3.getKey().equals("secondFavorites")) {
                                     for (DataSnapshot snapshot4 : snapshot3.getChildren()) {
                                         ChatMessage msg = snapshot4.getValue(ChatMessage.class);
                                         if (msg.getFromUserUUID().equals(FirebaseAuth.getInstance().getUid())) {
@@ -86,7 +87,7 @@ public class FavoriteListFragment extends ChatListFragment {
                         }
                     }
                 }
-                ChatRecViewAdapter adapter = new ChatRecViewAdapter(usersList,getActivity(),getFragmentManager(),ChatRecViewAdapter.BlockListHolder.VIEW_TYPE);
+                ChatRecViewAdapter adapter = new ChatRecViewAdapter(usersList,getActivity(),getFragmentManager(),ChatRecViewAdapter.FavoriteListHolder.VIEW_TYPE, TYPE_DIALOG);
                 chatRecView.setAdapter(adapter);
             }
 

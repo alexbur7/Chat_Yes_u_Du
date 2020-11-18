@@ -36,6 +36,7 @@ public class ChatFragment extends ChatBaseFragment{
     public static final String KEY_TO_RECEIVER_UUID="recevierID";
     public static final String KEY_TO_RECEIVER_PHOTO_URL = "recevierPHOTO_URL";
     private ValueEventListener seenListener;
+    private ValueEventListener setChatListener;
     private String seenText;
     private DatabaseReference referenceWriting;
 
@@ -283,23 +284,24 @@ public class ChatFragment extends ChatBaseFragment{
     protected void sendMessage() {
         if (!input.getText().toString().equals("")) {
             HashMap<String,Object> map=new HashMap<>();
-            reference.addValueEventListener(new ValueEventListener() {
+            setChatListener=reference.child(generateKey()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()){
+                    if (!snapshot.exists()){
                         map.put("firstBlock","no block");
                         map.put("secondBlock","no block");
-                        //map.put("firstFavorites", "no");
-                        //map.put("secondFavorites", "no");
+                        map.put("firstFavorites", "no");
+                        map.put("secondFavorites", "no");
 
                         reference.child(generateKey()).updateChildren(map);
-                        reference.removeEventListener(this);
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {}
             });
+            reference.child(generateKey()).removeEventListener(setChatListener);
+            setChatListener=null;
 
             reference.child(generateKey()).child("message")
                     .push()
@@ -309,17 +311,16 @@ public class ChatFragment extends ChatBaseFragment{
         }
         if (image_rui!=null){
             HashMap<String,Object> map=new HashMap<>();
-            reference.addValueEventListener(new ValueEventListener() {
+            setChatListener=reference.child(generateKey()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()){
+                    if (!snapshot.exists()){
                         map.put("firstBlock","no block");
                         map.put("secondBlock","no block");
-                        //map.put("firstFavorites", "no");
-                        //map.put("secondFavorites", "no");
+                        map.put("firstFavorites", "no");
+                        map.put("secondFavorites", "no");
 
                         reference.child(generateKey()).updateChildren(map);
-                        reference.removeEventListener(this);
                     }
                 }
 
@@ -328,6 +329,8 @@ public class ChatFragment extends ChatBaseFragment{
 
                 }
             });
+            reference.child(generateKey()).removeEventListener(setChatListener);
+            setChatListener=null;
 
             reference.child(generateKey()).child("message")
                     .push()

@@ -30,6 +30,7 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
     private FragmentManager fragmentManager;
     private int viewType;
     private String filtered;
+    private int type_dialog;
 
     public ChatRecViewAdapter(List<User> list, Context context, FragmentManager manager,int viewType){
         this.userList=list;
@@ -47,6 +48,15 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
         this.filtered=filtered;
     }
 
+    public ChatRecViewAdapter(List<User> list, Context context, FragmentManager manager,int viewType, int type_dialog){
+        this.userList=list;
+        this.context=context;
+        this.fragmentManager=manager;
+        this.viewType=viewType;
+        this.type_dialog = type_dialog;
+        this.filtered="none";
+    }
+
     @NonNull
     @Override
     public ChatRecViewAdapter.ChatHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -60,8 +70,9 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
 
         switch (viewType) {
             case ChatHolder.VIEW_TYPE: return new ChatRecViewAdapter.ChatHolder(v, context, fragmentManager);
-            case BlockListHolder.VIEW_TYPE: return new BlockListHolder(v,context,fragmentManager);
+            case BlockListHolder.VIEW_TYPE: return new BlockListHolder(v,context,fragmentManager,type_dialog);
             case AdminChatHolder.VIEW_TYPE: return new AdminChatHolder(v,context,fragmentManager);
+            case FavoriteListHolder.VIEW_TYPE:return new FavoriteListHolder(v,context,fragmentManager,type_dialog);
             default: throw new NullPointerException("HOLDER TYPE IS INVALID");
         }
     }
@@ -277,14 +288,35 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
 
     public static class BlockListHolder extends ChatRecViewAdapter.ChatHolder{
         public static final int VIEW_TYPE=1;
+        private int type_dialog;
 
-        public BlockListHolder(@NonNull View itemView, Context context, FragmentManager manager) {
+        public BlockListHolder(@NonNull View itemView, Context context, FragmentManager manager, int type_dialog) {
             super(itemView, context, manager);
+            this.type_dialog = type_dialog;
         }
 
         @Override
         public boolean onLongClick(View v) {
-            UnblockDialog dialog=new UnblockDialog(user.getUuid());
+            UnblockDialog dialog=new UnblockDialog(user.getUuid(),type_dialog);
+            Fragment fragment= fragmentManager.findFragmentById(R.id.fragment_container);
+            dialog.setTargetFragment(fragment,BlockListFragment.KEY_TO_UNBLOCK);
+            dialog.show(fragmentManager,null);
+            return true;
+        }
+    }
+
+    public static class FavoriteListHolder extends ChatRecViewAdapter.ChatHolder{
+        public static final int VIEW_TYPE=3;
+        private int type_dialog;
+
+        public FavoriteListHolder(@NonNull View itemView, Context context, FragmentManager manager, int type_dialog) {
+            super(itemView, context, manager);
+            this.type_dialog = type_dialog;
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            UnblockDialog dialog=new UnblockDialog(user.getUuid(),type_dialog);
             Fragment fragment= fragmentManager.findFragmentById(R.id.fragment_container);
             dialog.setTargetFragment(fragment,BlockListFragment.KEY_TO_UNBLOCK);
             dialog.show(fragmentManager,null);

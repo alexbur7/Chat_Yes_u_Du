@@ -24,6 +24,7 @@ import java.util.ArrayList;
 public class BlockListFragment extends ChatListFragment {
 
     public static final int KEY_TO_UNBLOCK=0;
+    public static final int TYPE_DIALOG=0;
 
     private ValueEventListener listener;
     private DatabaseReference reference;
@@ -85,7 +86,7 @@ public class BlockListFragment extends ChatListFragment {
                         }
                     }
                 }
-                ChatRecViewAdapter adapter = new ChatRecViewAdapter(usersList,getActivity(),getFragmentManager(),ChatRecViewAdapter.BlockListHolder.VIEW_TYPE);
+                ChatRecViewAdapter adapter = new ChatRecViewAdapter(usersList,getActivity(),getFragmentManager(),ChatRecViewAdapter.BlockListHolder.VIEW_TYPE, TYPE_DIALOG);
                 chatRecView.setAdapter(adapter);
             }
 
