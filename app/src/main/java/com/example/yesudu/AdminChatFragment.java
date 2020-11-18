@@ -53,7 +53,8 @@ public class AdminChatFragment extends ChatBaseFragment {
         username=v.findViewById(R.id.username_text);
         circleImageView = v.findViewById(R.id.circle_image_chat);
         if (receiverPhotoUrl.equals("default")){
-            circleImageView.setImageResource(R.drawable.unnamed);
+            circleImageView.setImageResource(R.drawable.admin_icon);
+            circleImageView.setBackgroundResource(R.color.authui_colorAccent);
         }
         else{
             Glide.with(this).load(receiverPhotoUrl).into(circleImageView);
@@ -91,7 +92,7 @@ public class AdminChatFragment extends ChatBaseFragment {
         }
 
         if (receiverUuid.equals(getActivity().getResources().getString(R.string.admin_key))){
-            statusText.setText("");
+            statusText.setText(getActivity().getString(R.string.app_name));
             username.setText(admin_string);
         }
         else setStatus();

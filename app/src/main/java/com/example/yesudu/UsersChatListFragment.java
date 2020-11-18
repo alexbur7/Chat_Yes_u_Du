@@ -139,9 +139,4 @@ public class UsersChatListFragment extends ChatListFragment{
     public interface Callback {
         void onUsersFilter(Intent data);
     }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 }

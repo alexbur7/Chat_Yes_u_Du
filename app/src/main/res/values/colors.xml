@@ -8,5 +8,6 @@
     <color name="no_seen">#e6e6e6</color>
     <color name="colorToolbar">#3a75c4</color>
     <color name="chat_text">#ffffff</color>
+    <color name="admin_grey_back">#e6e6e6</color>
     <color name="edit_dialog_text">#000000</color>
 </resources>

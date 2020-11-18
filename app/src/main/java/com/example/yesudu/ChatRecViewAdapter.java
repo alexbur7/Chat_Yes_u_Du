@@ -209,10 +209,12 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
 
         @Override
         public boolean onLongClick(View v) {
-            DeleteChatDialog deleteChatDialog = new DeleteChatDialog(user.getUuid(),userText.getText().toString().isEmpty());
-            Fragment fragment= fragmentManager.findFragmentById(R.id.fragment_container);
-            deleteChatDialog.setTargetFragment(fragment,ChatListFragment.KEY_DELETE_DIAOG);
-            deleteChatDialog.show(fragmentManager,null);
+            if (userText!=null) {
+                DeleteChatDialog deleteChatDialog = new DeleteChatDialog(user.getUuid(), userText.getText().toString().isEmpty());
+                Fragment fragment = fragmentManager.findFragmentById(R.id.fragment_container);
+                deleteChatDialog.setTargetFragment(fragment, ChatListFragment.KEY_DELETE_DIAOG);
+                deleteChatDialog.show(fragmentManager, null);
+            }
             return true;
         }
     }

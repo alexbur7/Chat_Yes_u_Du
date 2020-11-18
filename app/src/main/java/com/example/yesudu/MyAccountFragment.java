@@ -132,6 +132,7 @@ public class MyAccountFragment extends AccountFragment {
                 Intent intent = ChatActivity.newIntent(getActivity(),User.getCurrentUser().getUuid(),User.getCurrentUser().getPhoto_url(),3);
                 startActivity(intent);
             }
+            break;
             case R.id.favoritelist:{
                 Intent intent = new Intent(getActivity(),FavoriteListActivity.class);
                 startActivity(intent);
