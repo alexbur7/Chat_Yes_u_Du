@@ -113,10 +113,12 @@ public class ChatFragment extends ChatBaseFragment{
                             input.setEnabled(false);
                             fab.setEnabled(false);
                             send_image.setEnabled(false);
+                            toolbar.setEnabled(false);
                         } catch (Exception e) {
                             input.setEnabled(false);
                             fab.setEnabled(false);
                             send_image.setEnabled(false);
+                            toolbar.setEnabled(false);
                         }
                     }
 
@@ -126,10 +128,12 @@ public class ChatFragment extends ChatBaseFragment{
                             input.setEnabled(false);
                             fab.setEnabled(false);
                             send_image.setEnabled(false);
+                            toolbar.setEnabled(false);
                         } catch (Exception e) {
                             input.setEnabled(false);
                             fab.setEnabled(false);
                             send_image.setEnabled(false);
+                            toolbar.setEnabled(false);
                         }
                     }
                 }
@@ -139,10 +143,11 @@ public class ChatFragment extends ChatBaseFragment{
             public void onCancelled(@NonNull DatabaseError error) {}
         });
         if (User.getCurrentUser().getAdmin_block().equals("block") && !receiverUuid.equals(getActivity().getString(R.string.admin_key))){
-            input.setText(getResources().getString(R.string.blocked_by_admin));
+            input.setText(getActivity().getString(R.string.blocked_by_admin));
             input.setEnabled(false);
             fab.setEnabled(false);
             send_image.setEnabled(false);
+            toolbar.setEnabled(false);
         }
 
         if (receiverUuid.equals(getActivity().getResources().getString(R.string.admin_key))){
@@ -293,7 +298,6 @@ public class ChatFragment extends ChatBaseFragment{
                         map.put("secondBlock","no block");
                         map.put("firstFavorites", "no");
                         map.put("secondFavorites", "no");
-
                         reference.child(generateKey()).updateChildren(map);
                     }
                 }
@@ -301,9 +305,6 @@ public class ChatFragment extends ChatBaseFragment{
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {}
             });
-            reference.child(generateKey()).removeEventListener(setChatListener);
-            setChatListener=null;
-
             reference.child(generateKey()).child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
@@ -320,7 +321,6 @@ public class ChatFragment extends ChatBaseFragment{
                         map.put("secondBlock","no block");
                         map.put("firstFavorites", "no");
                         map.put("secondFavorites", "no");
-
                         reference.child(generateKey()).updateChildren(map);
                     }
                 }
@@ -330,8 +330,6 @@ public class ChatFragment extends ChatBaseFragment{
 
                 }
             });
-            reference.child(generateKey()).removeEventListener(setChatListener);
-            setChatListener=null;
 
             reference.child(generateKey()).child("message")
                     .push()
@@ -408,6 +406,8 @@ public class ChatFragment extends ChatBaseFragment{
         if (seenListener!=null)
             reference.removeEventListener(seenListener);
         seenListener=null;
+        if (setChatListener!=null) reference.child(generateKey()).removeEventListener(setChatListener);
+        setChatListener=null;
         setWriting("unwriting");
     }
 

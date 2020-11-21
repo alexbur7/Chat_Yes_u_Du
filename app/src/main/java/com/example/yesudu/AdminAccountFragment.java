@@ -52,32 +52,6 @@ public class AdminAccountFragment extends AccountFragment {
         });
     }
 
-
-    /*void setEditButton() {
-      if (user.getAdmin_block().equals("unblock")) {
-          editButton.setText(getResources().getString(R.string.block_account));
-          editButton.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  HashMap<String, Object> hashMap = new HashMap<>();
-                  hashMap.put("admin_block", "block");
-                  reference.child(user.getUuid()).updateChildren(hashMap);
-              }
-          });
-      }
-      else {
-          editButton.setText(getResources().getString(R.string.unblock_account));
-          editButton.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  HashMap<String, Object> hashMap = new HashMap<>();
-                  hashMap.put("admin_block", "unblock");
-                  reference.child(user.getUuid()).updateChildren(hashMap);
-              }
-          });
-      }
-    }*/
-
     @Override
     boolean clickToolbarItems(MenuItem item) {
         switch (item.getItemId()){
@@ -104,13 +78,13 @@ public class AdminAccountFragment extends AccountFragment {
                 HashMap<String, Object> hashMap = new HashMap<>();
                 if (user.getAdmin_block().equals("unblock")) {
                     hashMap.put("admin_block", "block");
-                reference.child(user.getUuid()).updateChildren(hashMap);
-                item.setTitle(R.string.unblock_account);
-            }
-            else {
-                hashMap.put("admin_block", "unblock");
-                reference.child(user.getUuid()).updateChildren(hashMap);
-                item.setTitle(R.string.block_account);
+                    reference.child(user.getUuid()).updateChildren(hashMap);
+                    item.setTitle(R.string.unblock_account);
+                }
+                else {
+                    hashMap.put("admin_block", "unblock");
+                    reference.child(user.getUuid()).updateChildren(hashMap);
+                    item.setTitle(R.string.block_account);
                 }
 
             }
@@ -135,6 +109,12 @@ public class AdminAccountFragment extends AccountFragment {
                 }
                 else {
                     if (isAdded()) Glide.with(getContext()).load(user.getPhoto_url()).into(photoImageView);
+                }
+                if (user.getAdmin_block().equals("block")) {
+                    toolbar.getMenu().getItem(0).setTitle(R.string.unblock_account);
+                }
+                else {
+                    toolbar.getMenu().getItem(0).setTitle(R.string.block_account);
                 }
                 setPhotoImageView(user);
                 setAllTextView(user);

@@ -55,7 +55,7 @@
     <string name="city_edit_text_hint">Город</string>
     <string name="choose_image_from">Выберете картинку из</string>
     <string name="sending_image">Отправка картинки…</string>
-    <string name="delete_chat">Вы хотите удалить чат?</string>
+    <string name="delete_chat">Удалить чат</string>
     <string name="saved_image">Фото сохранено</string>
     <string name="dialog_title_edit">Редактировать профиль</string>
     <string name="dialog_title_delete">Удалить чат</string>
@@ -74,14 +74,14 @@
         <item>нет</item>
     </string-array>
     <string name="remove_account_menu_item">Удалить аккаунт</string>
-    <string name="block_chat">Вы хотите заблокировать этого пользователя?</string>
+    <string name="block_chat">Заблокировать пользователя</string>
     <string name="unblock_msg_text">Вы хотите разблокировать данного пользователя?</string>
     <string name="block_account">Заблокировать</string>
     <string name="unblock_account">Разблокировать</string>
     <string name="blocklist">Заблокированные</string>
     <string name="photo_cant_delete">Не удалось удалить фото</string>
     <string name="blocked_chat">Вы заблокированы пользователем</string>
-    <string name="blocked_by_admin">Вы заблокированы администратором</string>
+    <string name="blocked_by_admin">Вы заблокированы Администрацией</string>
     <string name="about_hint">Расскажите о себе</string>
     <string name="label_offline">не в сети</string>
     <string name="set_photo">Выбрать фото</string>
@@ -580,7 +580,7 @@
     <string name="delete_my_message">Удалить у себя</string>
     <string name="accept_msg_string">Вы точно хотите удалить это сообщение?</string>
     <string name="typing">печатает...</string>
-    <string name="favorite_chat">Вы хотите добавить чат в избранные?</string>
+    <string name="favorite_chat">Добавить пользователя в избранные</string>
     <string name="favoritelist">Избранные</string>
     <string name="unfavorite_msg_text">Вы хотите убрать чат из избранных?</string>
 </resources>

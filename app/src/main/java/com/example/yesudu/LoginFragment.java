@@ -3,6 +3,7 @@ package com.example.yesudu;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,28 +42,6 @@ public class LoginFragment extends Fragment {
     private TextView resourceRule;
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        activityCallback = (Callback) context;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (FirebaseAuth.getInstance().getCurrentUser()!=null){
-            Intent intent=new Intent(getActivity(),MyAccountActivity.class);
-            startActivity(intent);
-            getActivity().finish();
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        activityCallback = null;
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         offline_string =getResources().getString(R.string.label_offline);
 
@@ -80,7 +59,7 @@ public class LoginFragment extends Fragment {
         logButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                login();
+                    login();
             }
         });
         policeRule = view.findViewById(R.id.rule_and_pol);
@@ -107,6 +86,28 @@ public class LoginFragment extends Fragment {
             passEditText.setText(getArguments().getString(KEY_TO_PASSWORD));
         }
         return view;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        activityCallback = (Callback) context;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (FirebaseAuth.getInstance().getCurrentUser()!=null){
+                Intent intent = new Intent(getActivity(), MyAccountActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        activityCallback = null;
     }
 
     public interface Callback {

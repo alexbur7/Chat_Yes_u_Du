@@ -52,7 +52,6 @@ public class DeleteChatDialog extends DialogFragment {
 
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
         return builder
-                .setTitle(getActivity().getString(R.string.dialog_title_delete))
                 .setView(view)
                 .setPositiveButton(R.string.ok_pos_button_text, new DialogInterface.OnClickListener() {
                     @Override

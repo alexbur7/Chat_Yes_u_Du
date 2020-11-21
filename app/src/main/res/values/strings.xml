@@ -55,14 +55,14 @@
     <string name="choose_image_from">Choose image from</string>
     <string name="sending_image">Sending image…</string>
     <string name="image_attach">Send photo</string>
-    <string name="delete_chat">Do you want to delete chat?</string>
+    <string name="delete_chat">Delete chat</string>
     <string name="blocklist">BlockList</string>
     <string name="saved_image">Photo saved</string>
     <string name="dialog_title_edit">Edit account</string>
     <string name="dialog_title_delete">Delete chat</string>
     <string name="delete_image">Delete photo</string>
     <string name="delete_users">User deleted this account</string>
-    <string name="block_chat">Do you want to block user?</string>
+    <string name="block_chat">Block user</string>
     <string name="have_not_photo">You have not photo</string>
     <string name="photo_delete">Photo deleted</string>
     <string name="unblock_msg_text">Do you want to unblock user?</string>
@@ -84,7 +84,7 @@
         <item>none</item>
     </string-array>
     <string name="blocked_chat">This chat was blocked</string>
-    <string name="blocked_by_admin">You have been blocked by administration</string>
+    <string name="blocked_by_admin">You have been blocked by Administration</string>
     <string name="reset_password">Reset password</string>
     <string name="enter_old_password">Enter old password</string>
     <string name="enter_new_password">Enter new password</string>
@@ -607,7 +607,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
     <string name="accept_msg_string">Are you sure you want to delete this message?</string>
     <string name="edit_message_title">Edit</string>
     <string name="typing">typing...</string>
-    <string name="favorite_chat">Do you want to favorite chat?</string>
+    <string name="favorite_chat">Add user in favorites</string>
     <string name="favoritelist">Favorites</string>
     <string name="unfavorite_msg_text">Do you want to unfavorite user?</string>
 </resources>

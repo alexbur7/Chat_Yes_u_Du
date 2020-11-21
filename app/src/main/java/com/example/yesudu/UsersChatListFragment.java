@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -56,9 +58,14 @@ public class UsersChatListFragment extends ChatListFragment{
 
     protected boolean clickToolbarItems(MenuItem item){
         if (item.getItemId()==R.id.find_item) {
-            FilterDialog dialog = new FilterDialog();
-            dialog.setTargetFragment(this, CODE_TO_FILTER_DIALOG);
-            dialog.show(getFragmentManager(), null);
+            if (User.getCurrentUser().getAdmin_block().equals("unblock")) {
+                FilterDialog dialog = new FilterDialog();
+                dialog.setTargetFragment(this, CODE_TO_FILTER_DIALOG);
+                dialog.show(getFragmentManager(), null);
+            }
+            else {
+                Toast.makeText(getActivity(),R.string.blocked_by_admin,Toast.LENGTH_SHORT).show();
+            }
         }
         return true;
     }
