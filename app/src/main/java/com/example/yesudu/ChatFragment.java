@@ -379,7 +379,7 @@ public class ChatFragment extends ChatBaseFragment{
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 try {
-                    if (user.getTyping().equals(User.getCurrentUser().getUuid())){
+                    if (user.getTyping().equals(User.getCurrentUser().getUuid()) && user.getAdmin_block().equals("unblock")){
                        statusText.setText(R.string.typing);
                     }
                     else if (user.getStatus().equals(getResources().getString(R.string.label_offline)))
@@ -457,7 +457,9 @@ public class ChatFragment extends ChatBaseFragment{
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         if (s.toString().trim().length() ==0){
             setWriting("unwriting");
-        }else setWriting(receiverUuid);
+        }else if (!s.toString().equals(getActivity().getString(R.string.blocked_chat))){
+            setWriting(receiverUuid);
+        }
     }
 
     @Override
