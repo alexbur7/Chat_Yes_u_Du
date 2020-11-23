@@ -65,7 +65,7 @@
     <string name="block_chat">Block user</string>
     <string name="have_not_photo">You have not photo</string>
     <string name="photo_delete">Photo deleted</string>
-    <string name="unblock_msg_text">Do you want to unblock user?</string>
+    <string name="unblock_msg_text">Unblock user?</string>
     <string name="panel_admin">Administrator panel</string>
     <string name="you_dont_verification">You dont verification</string>
     <string name="block_account">Block account</string>
@@ -609,5 +609,5 @@ Unless required by applicable law or agreed to in writing, software distributed 
     <string name="typing">typing...</string>
     <string name="favorite_chat">Add user in favorites</string>
     <string name="favoritelist">Favorites</string>
-    <string name="unfavorite_msg_text">Do you want to unfavorite user?</string>
+    <string name="unfavorite_msg_text">Delete from favorite?</string>
 </resources>

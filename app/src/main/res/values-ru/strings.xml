@@ -75,7 +75,7 @@
     </string-array>
     <string name="remove_account_menu_item">Удалить аккаунт</string>
     <string name="block_chat">Заблокировать пользователя</string>
-    <string name="unblock_msg_text">Вы хотите разблокировать данного пользователя?</string>
+    <string name="unblock_msg_text">Разблокировать пользователя?</string>
     <string name="block_account">Заблокировать</string>
     <string name="unblock_account">Разблокировать</string>
     <string name="blocklist">Заблокированные</string>
@@ -582,5 +582,5 @@
     <string name="typing">печатает...</string>
     <string name="favorite_chat">Добавить пользователя в избранные</string>
     <string name="favoritelist">Избранные</string>
-    <string name="unfavorite_msg_text">Вы хотите убрать чат из избранных?</string>
+    <string name="unfavorite_msg_text">Удалить из избранных?</string>
 </resources>
