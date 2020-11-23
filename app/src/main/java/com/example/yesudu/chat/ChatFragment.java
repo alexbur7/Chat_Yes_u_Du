@@ -4,13 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,8 +17,6 @@ import com.bumptech.glide.Glide;
 import com.example.yesudu.R;
 import com.example.yesudu.account.User;
 import com.example.yesudu.dialog.EditMessageDialog;
-import com.firebase.ui.database.FirebaseListAdapter;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -73,7 +67,7 @@ public class ChatFragment extends ChatBaseFragment {
             toolbar.setEnabled(false);
         }
         statusText = v.findViewById(R.id.online_text_in_chat);
-        listView = v.findViewById(R.id.list_of_messages);
+        recyclerView = v.findViewById(R.id.list_of_messages);
         fab= v.findViewById(R.id.fab);
         send_image = v.findViewById(R.id.send_image_button);
         send_image.setOnClickListener(this);
@@ -169,127 +163,6 @@ public class ChatFragment extends ChatBaseFragment {
         adapter = new ChatMessageAdapter(ChatMessage.class, R.layout.chat_list_item_right, ChatMessageAdapter.ChatMessageHolder.class,
                 FirebaseDatabase.getInstance().getReference("chats").child(generateKey()).child("message"),
                 receiverUuid, getActivity(), getFragmentManager(),ChatFragment.this,EditMessageDialog.TYPE_OF_USER_USUAL);
-
-        /*adapter = new FirebaseListAdapter<ChatMessage>(getActivity(), ChatMessage.class,
-                0, FirebaseDatabase.getInstance().getReference("chats").child(generateKey()).child("message")) {
-
-            @Override
-            protected void populateView(View v, ChatMessage model, int position) {
-                if (getCount()-position<SIZE_CHAT) {
-                    if (User.getCurrentUser().getUuid().equals(firstKey)) {
-                        if (!model.getFirstDelete().equals("delete")) {
-                            TextView messageText = v.findViewById(R.id.message_text);
-                            TextView messageUser = v.findViewById(R.id.message_user);
-                            TextView messageTime = v.findViewById(R.id.message_time);
-                            ImageView seenImage = v.findViewById(R.id.seen_image);
-
-                            messageText.setText(model.getMessageText());
-                            messageUser.setText(model.getFromUser());
-
-                            messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
-                                    model.getMessageTime()));
-                            if (!model.getSecondKey().equals(getActivity().getString(R.string.not_seen_text))) {
-                                try {
-                                    seenImage.setImageResource(R.drawable.seen_image);
-                                } catch (Exception e) {
-                                }
-                            }
-
-                            imageView = v.findViewById(R.id.image_send);
-                            if (model.getImage_url() != null) {
-                                Glide.with(getActivity()).load(model.getImage_url()).into(imageView);
-                                setClickListenerOnImage(model, imageView);
-                            }
-                            if (model.getEdited().equals("yes")) {
-                                ImageView editImage = v.findViewById(R.id.edit_image);
-                                editImage.setVisibility(View.VISIBLE);
-                            }
-                        }
-                    } else {
-                        if (!model.getSecondDelete().equals("delete")) {
-                            TextView messageText = v.findViewById(R.id.message_text);
-                            TextView messageUser = v.findViewById(R.id.message_user);
-                            TextView messageTime = v.findViewById(R.id.message_time);
-                            ImageView seenImage = v.findViewById(R.id.seen_image);
-
-                            messageText.setText(model.getMessageText());
-                            messageUser.setText(model.getFromUser());
-
-                            messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
-                                    model.getMessageTime()));
-                            if (!model.getFirstKey().equals(getActivity().getString(R.string.not_seen_text)))
-                                try {
-                                    seenImage.setImageResource(R.drawable.seen_image);
-                                } catch (Exception e) {
-                                }
-
-                            imageView = v.findViewById(R.id.image_send);
-                            if (model.getImage_url() != null) {
-                                Log.e("GLIDE", "CLICKED");
-                                Glide.with(getActivity()).load(model.getImage_url()).into(imageView);
-                                setClickListenerOnImage(model, imageView);
-                            }
-                            if (model.getEdited().equals("yes")) {
-                                ImageView editImage = v.findViewById(R.id.edit_image);
-                                editImage.setVisibility(View.VISIBLE);
-                            }
-                        }
-                    }
-                }
-                    if (User.getCurrentUser().getUuid().equals(model.getFromUserUUID()))
-                        clickMessage(v, getRef(position), model.getMessageText(), EditMessageDialog.TYPE_OF_MSG_MY);
-                    else
-                        clickMessage(v, getRef(position), model.getMessageText(), EditMessageDialog.TYPE_OF_MSG_NOT_MY);
-                    Log.d("TUT", String.valueOf(getCount()));
-
-                if (getCount()-position>SIZE_CHAT) {
-                    v.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public View getView(int position, View view, ViewGroup viewGroup) {
-                ChatMessage model = getItem(position);
-                View view2 = mActivity.getLayoutInflater().inflate(mLayout, viewGroup, false);
-                populateView(view2, model, position);
-                return view2;
-            }
-
-            @Override
-            public ChatMessage getItem(int position) {
-                if (getCount()-position>=SIZE_CHAT){
-                    mLayout= R.layout.delete_message;
-                    return new ChatMessage();
-                }
-                ChatMessage chtm = super.getItem(position);
-                    if (User.getCurrentUser().getUuid().equals(firstKey)) {
-                        if (!chtm.getFirstDelete().equals("delete")) {
-                            if (chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url() == null) {
-                                mLayout = R.layout.chat_list_item_right;
-                            } else if (chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url() != null) {
-                                mLayout = R.layout.chat_list_item_right_with_image;
-                            } else if (!chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url() != null) {
-                                mLayout = R.layout.chat_list_item_left_with_image;
-                            } else {
-                                mLayout = R.layout.chat_list_item_left;
-                            }
-                        } else mLayout = R.layout.delete_message;
-                    } else {
-                        if (!chtm.getSecondDelete().equals("delete")) {
-                            if (chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url() == null) {
-                                mLayout = R.layout.chat_list_item_right;
-                            } else if (chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url() != null) {
-                                mLayout = R.layout.chat_list_item_right_with_image;
-                            } else if (!chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url() != null) {
-                                mLayout = R.layout.chat_list_item_left_with_image;
-                            } else {
-                                mLayout = R.layout.chat_list_item_left;
-                            }
-                        } else mLayout = R.layout.delete_message;
-                    }
-                return chtm;
-            }
-        };*/
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setStackFromEnd(true);
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -300,16 +173,15 @@ public class ChatFragment extends ChatBaseFragment {
                 int lastVisiblePosition = layoutManager.findLastCompletelyVisibleItemPosition();
                 if (lastVisiblePosition == -1 ||
                         (positionStart >= (friendlyMessageCount - 1) && lastVisiblePosition == (positionStart - 1))) {
-                    listView.scrollToPosition(positionStart);
+                    recyclerView.scrollToPosition(positionStart);
                 }
             }
         });
-
-        listView.setLayoutManager(layoutManager);
-        listView.setAdapter(adapter);
+        recyclerView.setAnimation(null);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
         if (adapter!=null)
             adapter.notifyDataSetChanged();
-        //seenMessage();
 
     }
 
@@ -351,29 +223,6 @@ public class ChatFragment extends ChatBaseFragment {
         }
     }
     protected void sendMessage() {
-        if (!input.getText().toString().equals("")) {
-            HashMap<String,Object> map=new HashMap<>();
-            setChatListener=reference.child(generateKey()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (!snapshot.exists()){
-                        map.put("firstBlock","no block");
-                        map.put("secondBlock","no block");
-                        map.put("firstFavorites", "no");
-                        map.put("secondFavorites", "no");
-                        reference.child(generateKey()).updateChildren(map);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {}
-            });
-            reference.child(generateKey()).child("message")
-                    .push()
-                    .setValue(new ChatMessage(input.getText().toString(),
-                            User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,getActivity().getString(R.string.not_seen_text),
-                            getActivity().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete","no"));
-        }
         if (image_rui!=null){
             HashMap<String,Object> map=new HashMap<>();
             setChatListener=reference.child(generateKey()).addValueEventListener(new ValueEventListener() {
@@ -394,6 +243,29 @@ public class ChatFragment extends ChatBaseFragment {
                 }
             });
 
+            reference.child(generateKey()).child("message")
+                    .push()
+                    .setValue(new ChatMessage(input.getText().toString(),
+                            User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),receiverUuid,getActivity().getString(R.string.not_seen_text),
+                            getActivity().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete","no"));
+        }
+        else if (!input.getText().toString().equals("")) {
+            HashMap<String,Object> map=new HashMap<>();
+            setChatListener=reference.child(generateKey()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (!snapshot.exists()){
+                        map.put("firstBlock","no block");
+                        map.put("secondBlock","no block");
+                        map.put("firstFavorites", "no");
+                        map.put("secondFavorites", "no");
+                        reference.child(generateKey()).updateChildren(map);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {}
+            });
             reference.child(generateKey()).child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),

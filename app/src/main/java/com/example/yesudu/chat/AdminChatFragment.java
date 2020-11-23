@@ -2,14 +2,10 @@ package com.example.yesudu.chat;
 
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.ImageView;
-import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,10 +15,8 @@ import com.bumptech.glide.Glide;
 import com.example.yesudu.R;
 import com.example.yesudu.account.User;
 import com.example.yesudu.dialog.EditMessageDialog;
-import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -46,7 +40,7 @@ public class AdminChatFragment extends ChatBaseFragment {
         complainView =v.findViewById(R.id.complain_button);
         complainView.setVisibility(View.GONE);
         statusText = v.findViewById(R.id.online_text_in_chat);
-        listView = v.findViewById(R.id.list_of_messages);
+        recyclerView = v.findViewById(R.id.list_of_messages);
         fab= v.findViewById(R.id.fab);
         send_image = v.findViewById(R.id.send_image_button);
         send_image.setOnClickListener(this);
@@ -107,31 +101,7 @@ public class AdminChatFragment extends ChatBaseFragment {
 
     @Override
     protected void sendMessage() {
-        if (!input.getText().toString().equals("")) {
-           // reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
-            HashMap<String,Object> map=new HashMap<>();
-            reference.child(generateKey()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()){
-                        map.put("firstBlock","no block");
-                        map.put("secondBlock","no block");
-                        reference.updateChildren(map);
-                        reference.removeEventListener(this);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {}
-            });
-
-            reference.child(generateKey()).child("message")
-                    .push()
-                    .setValue(new ChatMessage(input.getText().toString(),
-                            getActivity().getResources().getString(R.string.admin),getActivity().getString(R.string.admin_key),receiverUuid,getResources().getString(R.string.not_seen_text),
-                            getResources().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete","no"));
-        }
-        else if (image_rui!=null){
+        if (image_rui!=null){
             //reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
             HashMap<String,Object> map=new HashMap<>();
             reference.child(generateKey()).addValueEventListener(new ValueEventListener() {
@@ -149,6 +119,30 @@ public class AdminChatFragment extends ChatBaseFragment {
                 public void onCancelled(@NonNull DatabaseError error) {
 
                 }
+            });
+
+            reference.child(generateKey()).child("message")
+                    .push()
+                    .setValue(new ChatMessage(input.getText().toString(),
+                            getActivity().getResources().getString(R.string.admin),getActivity().getString(R.string.admin_key),receiverUuid,getResources().getString(R.string.not_seen_text),
+                            getResources().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete","no"));
+        }
+        else if (!input.getText().toString().equals("")) {
+           // reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
+            HashMap<String,Object> map=new HashMap<>();
+            reference.child(generateKey()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()){
+                        map.put("firstBlock","no block");
+                        map.put("secondBlock","no block");
+                        reference.updateChildren(map);
+                        reference.removeEventListener(this);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {}
             });
 
             reference.child(generateKey()).child("message")
@@ -178,110 +172,6 @@ public class AdminChatFragment extends ChatBaseFragment {
         adapter = new AdminChatMessageAdapter(ChatMessage.class, R.layout.chat_list_item_right, AdminChatMessageAdapter.ChatMessageHolder.class,
                 FirebaseDatabase.getInstance().getReference("chats").child(generateKey()).child("message"),
                 receiverUuid, getActivity(), getFragmentManager(),AdminChatFragment.this,EditMessageDialog.TYPE_OF_USER_ADMIN);
-        /*adapter = new FirebaseListAdapter<ChatMessage>(getActivity(), ChatMessage.class,
-                0, FirebaseDatabase.getInstance().getReference("chats").child(generateKey()).child("message")) {
-
-            @Override
-            protected void populateView(View v, ChatMessage model, int position) {
-                if (User.getCurrentUser().getUuid().equals(firstKey)) {
-                    if (!model.getFirstDelete().equals("delete")) {
-                        TextView messageText = v.findViewById(R.id.message_text);
-                        TextView messageUser = v.findViewById(R.id.message_user);
-                        TextView messageTime = v.findViewById(R.id.message_time);
-                        if (model.getEdited().equals("yes")){
-                            ImageView editImage = v.findViewById(R.id.edit_image);
-                            editImage.setVisibility(View.VISIBLE);
-                        }
-
-                        messageText.setText(model.getMessageText());
-                        messageUser.setText(model.getFromUser());
-
-                        messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
-                                model.getMessageTime()));
-                        imageView = v.findViewById(R.id.image_send);
-                        if (model.getImage_url() != null) {
-                            Glide.with(getActivity()).load(model.getImage_url()).into(imageView);
-                            setClickListenerOnImage(model,imageView);
-                        }
-                    }
-                }
-                else {
-                    if (!model.getSecondDelete().equals("delete")) {
-                        TextView messageText = v.findViewById(R.id.message_text);
-                        TextView messageUser = v.findViewById(R.id.message_user);
-                        TextView messageTime = v.findViewById(R.id.message_time);
-
-                        messageText.setText(model.getMessageText());
-                        messageUser.setText(model.getFromUser());
-
-                        messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
-                                model.getMessageTime()));
-
-                        imageView = v.findViewById(R.id.image_send);
-                        if (model.getImage_url() != null) {
-                            Log.e("GLIDE","CLICKED");
-                            Glide.with(getActivity()).load(model.getImage_url()).into(imageView);
-                            setClickListenerOnImage(model,imageView);
-                        }
-                        if (model.getEdited().equals("yes")){
-                            ImageView editImage = v.findViewById(R.id.edit_image);
-                            editImage.setVisibility(View.VISIBLE);
-                        }
-                    }
-                }
-                if (model.getFromUserUUID().equals("admin"))
-                    clickMessage(v,getRef(position),model.getMessageText(),EditMessageDialog.TYPE_OF_MSG_MY);
-                else clickMessage(v,getRef(position),model.getMessageText(),EditMessageDialog.TYPE_OF_MSG_NOT_MY);
-            }
-
-            @Override
-            public View getView(int position, View view, ViewGroup viewGroup) {
-                ChatMessage model = getItem(position);
-                View view2 = mActivity.getLayoutInflater().inflate(mLayout, viewGroup, false);
-                populateView(view2, model, position);
-                return view2;
-            }
-
-            @Override
-            public ChatMessage getItem(int position) {
-                ChatMessage chtm = super.getItem(position);
-                if (User.getCurrentUser().getUuid().equals(firstKey)) {
-                    if (!chtm.getFirstDelete().equals("delete")) {
-                        if (chtm.getFromUserUUID().equals(getResources().getString(R.string.admin_key)) && chtm.getImage_url() == null) {
-                            mLayout = R.layout.chat_list_item_right;
-                        } else if (chtm.getFromUserUUID().equals(getResources().getString(R.string.admin_key)) && chtm.getImage_url() != null) {
-                            mLayout = R.layout.chat_list_item_right_with_image;
-                        } else if (!chtm.getFromUserUUID().equals(getResources().getString(R.string.admin_key)) && chtm.getImage_url() != null) {
-                            mLayout = R.layout.chat_list_item_left_with_image;
-                        } else {
-                            mLayout = R.layout.chat_list_item_left;
-                        }
-                    } else mLayout = R.layout.delete_message;
-                }
-                else {
-                    if (!chtm.getSecondDelete().equals("delete")) {
-                        if (chtm.getFromUserUUID().equals(getResources().getString(R.string.admin_key)) && chtm.getImage_url() == null) {
-                            mLayout = R.layout.chat_list_item_right;
-                        } else if (chtm.getFromUserUUID().equals(getResources().getString(R.string.admin_key)) && chtm.getImage_url() != null) {
-                            mLayout = R.layout.chat_list_item_right_with_image;
-                        } else if (!chtm.getFromUserUUID().equals(getResources().getString(R.string.admin_key)) && chtm.getImage_url() != null) {
-                            mLayout = R.layout.chat_list_item_left_with_image;
-                        } else {
-                            mLayout = R.layout.chat_list_item_left;
-                        }
-                    } else mLayout = R.layout.delete_message;
-                }
-                return chtm;
-            }
-        };
-        listView.setStackFromBottom(true);
-        listView.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
-        listView.setAdapter(adapter);
-        if (adapter!=null)
-            adapter.notifyDataSetChanged();
-
-        seenMessage();*/
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setStackFromEnd(true);
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -292,13 +182,13 @@ public class AdminChatFragment extends ChatBaseFragment {
                 int lastVisiblePosition = layoutManager.findLastCompletelyVisibleItemPosition();
                 if (lastVisiblePosition == -1 ||
                         (positionStart >= (friendlyMessageCount - 1) && lastVisiblePosition == (positionStart - 1))) {
-                    listView.scrollToPosition(positionStart);
+                    recyclerView.scrollToPosition(positionStart);
                 }
             }
         });
-
-        listView.setLayoutManager(layoutManager);
-        listView.setAdapter(adapter);
+        recyclerView.setAnimation(null);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
         if (adapter!=null)
             adapter.notifyDataSetChanged();
     }

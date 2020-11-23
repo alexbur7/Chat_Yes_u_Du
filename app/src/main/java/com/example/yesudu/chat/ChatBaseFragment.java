@@ -62,7 +62,7 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
     protected TextView username;
     protected TextView statusText;
     protected ImageView complainView;
-    protected RecyclerView listView;
+    protected RecyclerView recyclerView;
     protected CircleImageView circleImageView;
     protected DatabaseReference reference;
     protected String firstKey, secondKey;

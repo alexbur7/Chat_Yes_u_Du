@@ -134,11 +134,11 @@ public class ChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage, Cha
                             seenImage.setImageResource(R.drawable.seen_image);
                             seenImage.setVisibility(View.VISIBLE);
                         } catch (Exception e) {
-                            seenImage.setVisibility(View.GONE);
+                           seenImage.setVisibility(View.INVISIBLE);
                         }
                     }
                     else {
-                        seenImage.setVisibility(View.GONE);
+                        seenImage.setVisibility(View.INVISIBLE);
                     }
 
                     if (model.getImage_url() != null) {
@@ -163,7 +163,7 @@ public class ChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage, Cha
                             seenImage.setImageResource(R.drawable.seen_image);
                             seenImage.setVisibility(View.VISIBLE);
                         } catch (Exception e) {
-                            seenImage.setVisibility(View.GONE);
+                            seenImage.setVisibility(View.INVISIBLE);
                         }
                     }
                     else {
@@ -171,7 +171,6 @@ public class ChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage, Cha
                     }
 
                     if (model.getImage_url() != null) {
-                        Log.e("GLIDE", "CLICKED");
                         Glide.with(context).load(model.getImage_url()).into(imageSend);
                         setClickListenerOnImage(model, imageSend);
                     }
