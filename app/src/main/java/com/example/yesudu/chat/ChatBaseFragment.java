@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yesudu.dialog.EditMessageDialog;
 import com.example.yesudu.photo_utils.PhotoViewPagerItemFragment;
@@ -28,6 +29,7 @@ import com.example.yesudu.R;
 import com.example.yesudu.account.User;
 import com.example.yesudu.account.UserAccountActivity;
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -51,7 +53,7 @@ import static android.app.Activity.RESULT_OK;
 public abstract class ChatBaseFragment extends Fragment implements View.OnClickListener,TextWatcher {
     public static final String KEY_TO_RECEIVER_UUID="recevierID";
     public static final String KEY_TO_RECEIVER_PHOTO_URL = "recevierPHOTO_URL";
-    protected static final int EDIT_MSG_DIALOG_CODE = 0;
+    public static final int EDIT_MSG_DIALOG_CODE = 0;
     protected String receiverUuid;
     protected String receiverPhotoUrl;
     protected FloatingActionButton fab, send_image;
@@ -60,13 +62,14 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
     protected TextView username;
     protected TextView statusText;
     protected ImageView complainView;
-    protected FirebaseListAdapter<ChatMessage> adapter;
-    protected ListView listView;
+   // protected FirebaseListAdapter<ChatMessage> adapter;
+    //protected ListView listView;
+    protected RecyclerView listView;
     //protected ImageView circleImageView;
     protected CircleImageView circleImageView;
     protected DatabaseReference reference;
     protected String firstKey, secondKey;
-    private ValueEventListener seenListener;
+    protected ValueEventListener seenListener;
     protected ValueEventListener blockListener;
     private StorageTask uploadTask;
     protected StorageReference storageReference;
@@ -124,7 +127,7 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
         fab.setOnClickListener(this);
     }
 
-    abstract void clickMessage(View v, DatabaseReference reference, String messageText,int type);
+   // abstract void clickMessage(View v, DatabaseReference reference, String messageText,int type);
 
 
     protected String getFileExtension(Uri uri){
@@ -290,34 +293,6 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
         seenListener=null;
     }
 
-    //TODO
-    protected void seenMessage(){
-        seenListener=reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot snapshot1 : snapshot.getChildren())
-                    for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                        if (!snapshot2.getKey().equals("firstBlock") && !snapshot2.getKey().equals("secondBlock")) {
-                            for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
-                                ChatMessage message = snapshot3.getValue(ChatMessage.class);
-                                if ((message.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && message.getToUserUUID().equals(getArguments().getString(KEY_TO_RECEIVER_UUID))) ||
-                                        (message.getFromUserUUID().equals(getArguments().getString(KEY_TO_RECEIVER_UUID)) && message.getToUserUUID().equals(User.getCurrentUser().getUuid()))) {
-                                    HashMap<String, Object> hashMap = new HashMap<>();
-                                    if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(firstKey)))
-                                        hashMap.put("firstKey", getResources().getString(R.string.seen_text));
-                                    else if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(secondKey)))
-                                        hashMap.put("secondKey", getResources().getString(R.string.seen_text));
-                                    snapshot3.getRef().updateChildren(hashMap);
-                                }
-                            }
-                        }
-                    }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-    }
 
     protected abstract void setWriting(String writing);
 }

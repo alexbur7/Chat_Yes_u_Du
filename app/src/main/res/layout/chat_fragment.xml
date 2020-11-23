@@ -124,7 +124,7 @@
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <ListView
+        <!--<ListView
             android:id="@+id/list_of_messages"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -137,6 +137,21 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="17dp"
             android:divider="@android:color/transparent"
-            />
+            />!-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_of_messages"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/text_input"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="7dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="17dp"
+            android:divider="@android:color/transparent"
+            android:transcriptMode="alwaysScroll"
+            android:layout_alignParentLeft="true" />
     </RelativeLayout>
 </LinearLayout>

@@ -55,5 +55,15 @@
         android:layout_height="300dp"
         android:layout_margin="8dp"
         android:layout_alignParentBottom="true"/>
+    <ImageView
+        android:id="@+id/seen_image"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="7dp"
+        android:src="@drawable/seen_image"
+        android:layout_below="@+id/message_user"
+        android:visibility="gone"
+        android:layout_alignParentRight="true" />
 </RelativeLayout>
 </RelativeLayout>

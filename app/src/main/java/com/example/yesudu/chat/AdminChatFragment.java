@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.yesudu.R;
@@ -30,6 +32,7 @@ import java.util.HashMap;
 
 public class AdminChatFragment extends ChatBaseFragment {
 
+    private AdminChatMessageAdapter adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -158,7 +161,7 @@ public class AdminChatFragment extends ChatBaseFragment {
         input.setText("");
     }
 
-    @Override
+   /* @Override
     void clickMessage(View v, DatabaseReference reference, String messageText, int type) {
         v.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -169,10 +172,13 @@ public class AdminChatFragment extends ChatBaseFragment {
                 return true;
             }
         });
-    }
+    }*/
 
     void displayChatMessages(){
-        adapter = new FirebaseListAdapter<ChatMessage>(getActivity(), ChatMessage.class,
+        adapter = new AdminChatMessageAdapter(ChatMessage.class, R.layout.chat_list_item_right, AdminChatMessageAdapter.ChatMessageHolder.class,
+                FirebaseDatabase.getInstance().getReference("chats").child(generateKey()).child("message"),
+                receiverUuid, getActivity(), getFragmentManager(),AdminChatFragment.this,EditMessageDialog.TYPE_OF_USER_ADMIN);
+        /*adapter = new FirebaseListAdapter<ChatMessage>(getActivity(), ChatMessage.class,
                 0, FirebaseDatabase.getInstance().getReference("chats").child(generateKey()).child("message")) {
 
             @Override
@@ -274,7 +280,27 @@ public class AdminChatFragment extends ChatBaseFragment {
         if (adapter!=null)
             adapter.notifyDataSetChanged();
 
-        seenMessage();
+        seenMessage();*/
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setStackFromEnd(true);
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                int friendlyMessageCount = adapter.getItemCount();
+                int lastVisiblePosition = layoutManager.findLastCompletelyVisibleItemPosition();
+                if (lastVisiblePosition == -1 ||
+                        (positionStart >= (friendlyMessageCount - 1) && lastVisiblePosition == (positionStart - 1))) {
+                    listView.scrollToPosition(positionStart);
+                }
+            }
+        });
+
+        listView.setLayoutManager(layoutManager);
+        listView.setAdapter(adapter);
+        if (adapter!=null)
+            adapter.notifyDataSetChanged();
     }
 
     String generateKey() {

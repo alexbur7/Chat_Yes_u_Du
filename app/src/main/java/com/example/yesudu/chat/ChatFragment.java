@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.yesudu.R;
@@ -36,10 +38,10 @@ public class ChatFragment extends ChatBaseFragment {
     public static final String KEY_TO_RECEIVER_UUID="recevierID";
     public static final String KEY_TO_RECEIVER_PHOTO_URL = "recevierPHOTO_URL";
     private static final int SIZE_CHAT= 20;
-    private ValueEventListener seenListener;
     private ValueEventListener setChatListener;
     private String seenText;
     private DatabaseReference referenceWriting;
+    private ChatMessageAdapter adapter;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -162,7 +164,11 @@ public class ChatFragment extends ChatBaseFragment {
 
     @Override
     void displayChatMessages(){
-        adapter = new FirebaseListAdapter<ChatMessage>(getActivity(), ChatMessage.class,
+        adapter = new ChatMessageAdapter(ChatMessage.class, R.layout.chat_list_item_right, ChatMessageAdapter.ChatMessageHolder.class,
+                FirebaseDatabase.getInstance().getReference("chats").child(generateKey()).child("message"),
+                receiverUuid, getActivity(), getFragmentManager(),ChatFragment.this,EditMessageDialog.TYPE_OF_USER_USUAL);
+
+        /*adapter = new FirebaseListAdapter<ChatMessage>(getActivity(), ChatMessage.class,
                 0, FirebaseDatabase.getInstance().getReference("chats").child(generateKey()).child("message")) {
 
             @Override
@@ -233,10 +239,10 @@ public class ChatFragment extends ChatBaseFragment {
                     else
                         clickMessage(v, getRef(position), model.getMessageText(), EditMessageDialog.TYPE_OF_MSG_NOT_MY);
                     Log.d("TUT", String.valueOf(getCount()));
-                    //TODO можно сюда прибалять количество удаленных, тогда если удалим сообщение, то не входящее в этот список появится
-                /*if (getCount()-position>SIZE_CHAT) {
+
+                if (getCount()-position>SIZE_CHAT) {
                     v.setVisibility(View.GONE);
-                }*/
+                }
             }
 
             @Override
@@ -281,14 +287,56 @@ public class ChatFragment extends ChatBaseFragment {
                     }
                 return chtm;
             }
-        };
-        listView.setStackFromBottom(true);
-        listView.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+        };*/
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setStackFromEnd(true);
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                int friendlyMessageCount = adapter.getItemCount();
+                int lastVisiblePosition = layoutManager.findLastCompletelyVisibleItemPosition();
+                if (lastVisiblePosition == -1 ||
+                        (positionStart >= (friendlyMessageCount - 1) && lastVisiblePosition == (positionStart - 1))) {
+                    listView.scrollToPosition(positionStart);
+                }
+            }
+        });
+
+        listView.setLayoutManager(layoutManager);
         listView.setAdapter(adapter);
         if (adapter!=null)
             adapter.notifyDataSetChanged();
-
         //seenMessage();
+
+    }
+
+    private void seenMessage(){
+        seenListener=reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1 : snapshot.getChildren())
+                    for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
+                        if (!snapshot2.getKey().equals("firstBlock") && !snapshot2.getKey().equals("secondBlock")) {
+                            for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
+                                ChatMessage message = snapshot3.getValue(ChatMessage.class);
+                                if ((message.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && message.getToUserUUID().equals(getArguments().getString(KEY_TO_RECEIVER_UUID))) ||
+                                        (message.getFromUserUUID().equals(getArguments().getString(KEY_TO_RECEIVER_UUID)) && message.getToUserUUID().equals(User.getCurrentUser().getUuid()))) {
+                                    HashMap<String, Object> hashMap = new HashMap<>();
+                                    if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(firstKey)))
+                                        hashMap.put("firstKey", seenText);
+                                    else if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(secondKey)))
+                                        hashMap.put("secondKey", seenText);
+                                    snapshot3.getRef().updateChildren(hashMap);
+                                }
+                            }
+                        }
+                    }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 
     @Override
@@ -354,7 +402,7 @@ public class ChatFragment extends ChatBaseFragment {
         input.setText("");
     }
 
-    @Override
+  /*  @Override
     void clickMessage(View v, DatabaseReference reference, String messageText, int type) {
         v.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -365,7 +413,7 @@ public class ChatFragment extends ChatBaseFragment {
                 return true;
             }
         });
-    }
+    }*/
 
     String generateKey(){
         ArrayList<String> templist=new ArrayList<>();
@@ -424,35 +472,7 @@ public class ChatFragment extends ChatBaseFragment {
         setWriting("unwriting");
     }
 
-    protected void seenMessage(){
-        seenListener=new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot snapshot1 : snapshot.getChildren())
-                    for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                        if (!snapshot2.getKey().equals("firstBlock") && !snapshot2.getKey().equals("secondBlock")) {
-                            for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
-                                ChatMessage message = snapshot3.getValue(ChatMessage.class);
-                                if ((message.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && message.getToUserUUID().equals(getArguments().getString(KEY_TO_RECEIVER_UUID))) ||
-                                        (message.getFromUserUUID().equals(getArguments().getString(KEY_TO_RECEIVER_UUID)) && message.getToUserUUID().equals(User.getCurrentUser().getUuid()))) {
-                                    HashMap<String, Object> hashMap = new HashMap<>();
-                                    if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(firstKey)))
-                                        hashMap.put("firstKey",seenText);
-                                    else if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(secondKey)))
-                                        hashMap.put("secondKey", seenText);
-                                    snapshot3.getRef().updateChildren(hashMap);
-                                }
-                            }
-                        }
-                    }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        };
-    }
 
     @Override
     protected void setWriting(String writing) {
