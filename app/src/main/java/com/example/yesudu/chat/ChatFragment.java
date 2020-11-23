@@ -42,24 +42,12 @@ public class ChatFragment extends ChatBaseFragment {
     private String seenText;
     private DatabaseReference referenceWriting;
     private ChatMessageAdapter adapter;
+    private ValueEventListener seenListener;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         activity=(CallBack) context;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        activity=null;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        seenMessage();
-        reference.addValueEventListener(seenListener);
     }
 
     @Nullable
@@ -161,6 +149,20 @@ public class ChatFragment extends ChatBaseFragment {
         displayChatMessages();
         return v;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        seenMessage();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        activity=null;
+    }
+
+
 
     @Override
     void displayChatMessages(){

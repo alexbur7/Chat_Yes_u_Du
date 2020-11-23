@@ -62,14 +62,10 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
     protected TextView username;
     protected TextView statusText;
     protected ImageView complainView;
-   // protected FirebaseListAdapter<ChatMessage> adapter;
-    //protected ListView listView;
     protected RecyclerView listView;
-    //protected ImageView circleImageView;
     protected CircleImageView circleImageView;
     protected DatabaseReference reference;
     protected String firstKey, secondKey;
-    protected ValueEventListener seenListener;
     protected ValueEventListener blockListener;
     private StorageTask uploadTask;
     protected StorageReference storageReference;
@@ -80,7 +76,6 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
     protected String delete_string;
     protected String admin_string;
 
-    protected ImageView imageView;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -284,14 +279,6 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
         });
     }
 
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (seenListener!=null)
-            reference.removeEventListener(seenListener);
-        seenListener=null;
-    }
 
 
     protected abstract void setWriting(String writing);
