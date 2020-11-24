@@ -227,6 +227,7 @@ public class RegisterFragment extends Fragment {
                     ref.child(getActivity().getResources().getString(R.string.admin_key)).setValue("false");
                     ref.child("online_time").setValue((new Date()).getTime());
                     ref.child("admin_block").setValue("unblock");
+                    ref.child("perm_block").setValue("unblock");
                     //changed
                     ref.child("about").setValue(about);
                     ref.child("typing").setValue("unwriting");

@@ -137,6 +137,5 @@ public class BlockListFragment extends ChatListFragment {
 
     @Override
     public void update() {
-        Log.e("BLOCK_LIST_FRAGMENT", "GAVNINA");
     }
 }

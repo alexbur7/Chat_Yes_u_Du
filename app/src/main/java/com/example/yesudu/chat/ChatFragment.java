@@ -31,7 +31,6 @@ import java.util.HashMap;
 public class ChatFragment extends ChatBaseFragment {
     public static final String KEY_TO_RECEIVER_UUID="recevierID";
     public static final String KEY_TO_RECEIVER_PHOTO_URL = "recevierPHOTO_URL";
-    private static final int SIZE_CHAT= 20;
     private ValueEventListener setChatListener;
     private String seenText;
     private DatabaseReference referenceWriting;

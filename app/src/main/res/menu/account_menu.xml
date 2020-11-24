@@ -46,4 +46,5 @@
         android:title="@string/panel_admin"
         app:showAsAction="never"
         android:visible="false"/>
+
 </menu>

@@ -91,6 +91,20 @@ public class AdminAccountFragment extends AccountFragment {
 
             }
             break;
+            case R.id.perm_block_account:{
+                HashMap<String, Object> hashMap = new HashMap<>();
+                if (user.getPerm_block().equals("unblock")) {
+                    hashMap.put("perm_block", "block");
+                    reference.child(user.getUuid()).updateChildren(hashMap);
+                    item.setTitle(R.string.unblock_account);
+                }
+                else {
+                    hashMap.put("perm_block", "unblock");
+                    reference.child(user.getUuid()).updateChildren(hashMap);
+                    item.setTitle(R.string.perm_block_account);
+                }
+            }
+            break;
         }
         return true;
     }
@@ -117,6 +131,12 @@ public class AdminAccountFragment extends AccountFragment {
                 }
                 else {
                     toolbar.getMenu().getItem(0).setTitle(R.string.block_account);
+                }
+                if (user.getPerm_block().equals("block")) {
+                    toolbar.getMenu().getItem(1).setTitle(R.string.unblock_account);
+                }
+                else {
+                    toolbar.getMenu().getItem(1).setTitle(R.string.perm_block_account);
                 }
                 setPhotoImageView(user);
                 setAllTextView(user);

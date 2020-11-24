@@ -1,6 +1,7 @@
 package com.example.yesudu.chat_list.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,13 @@ public class AdminFragment extends ChatListFragment {
         reference=FirebaseDatabase.getInstance().getReference("users");
         admin_key_string=getResources().getString(R.string.admin_key);
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isAdded())
+        toolbar.setTitle(getActivity().getString(R.string.panel_admin));
     }
 
     @Override
@@ -228,6 +236,6 @@ public class AdminFragment extends ChatListFragment {
 
     @Override
     public void update() {
-        Log.e("ADMIN_FRAGMENT", "GAVNINA");
+
     }
 }

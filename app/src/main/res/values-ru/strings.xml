@@ -76,7 +76,7 @@
     <string name="remove_account_menu_item">Удалить аккаунт</string>
     <string name="block_chat">Заблокировать пользователя</string>
     <string name="unblock_msg_text">Разблокировать пользователя?</string>
-    <string name="block_account">Заблокировать</string>
+    <string name="block_account">Заблокировать временно</string>
     <string name="unblock_account">Разблокировать</string>
     <string name="blocklist">Заблокированные</string>
     <string name="photo_cant_delete">Не удалось удалить фото</string>
@@ -579,8 +579,10 @@
     <string name="delete_all_message">Удалить у всех</string>
     <string name="delete_my_message">Удалить у себя</string>
     <string name="accept_msg_string">Вы точно хотите удалить это сообщение?</string>
-    <string name="typing">печатает...</string>
+    <string name="typing">набирает...</string>
     <string name="favorite_chat">Добавить пользователя в избранные</string>
     <string name="favoritelist">Избранные</string>
     <string name="unfavorite_msg_text">Удалить из избранных?</string>
+    <string name="list_block_admin">Заблокированные админом</string>
+    <string name="perm_block_account">Заблокировать навсегда</string>
 </resources>
