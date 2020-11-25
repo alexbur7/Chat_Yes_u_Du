@@ -336,4 +336,5 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
             return true;
         }
     }
+
 }

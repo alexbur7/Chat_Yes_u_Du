@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/verified"
+        android:title="@string/verified"
+        app:showAsAction="never"/>
+
+    <item
         android:id="@+id/block_account"
         android:title="@string/block_account"
         app:showAsAction="never"/>

@@ -57,6 +57,10 @@ public class AdminAccountFragment extends AccountFragment {
     @Override
     boolean clickToolbarItems(MenuItem item) {
         switch (item.getItemId()){
+            case R.id.verified:{
+                confirm(item);
+            }
+            break;
             case R.id.delete_image_menu:{
                 deleteImage(user,0);
             }
@@ -77,37 +81,17 @@ public class AdminAccountFragment extends AccountFragment {
             }
             break;
             case R.id.block_account:{
-                HashMap<String, Object> hashMap = new HashMap<>();
-                if (user.getAdmin_block().equals("unblock")) {
-                    hashMap.put("admin_block", "block");
-                    reference.child(user.getUuid()).updateChildren(hashMap);
-                    item.setTitle(R.string.unblock_account);
-                }
-                else {
-                    hashMap.put("admin_block", "unblock");
-                    reference.child(user.getUuid()).updateChildren(hashMap);
-                    item.setTitle(R.string.block_account);
-                }
-
+                setBlock(item);
             }
             break;
             case R.id.perm_block_account:{
-                HashMap<String, Object> hashMap = new HashMap<>();
-                if (user.getPerm_block().equals("unblock")) {
-                    hashMap.put("perm_block", "block");
-                    reference.child(user.getUuid()).updateChildren(hashMap);
-                    item.setTitle(R.string.unblock_account);
-                }
-                else {
-                    hashMap.put("perm_block", "unblock");
-                    reference.child(user.getUuid()).updateChildren(hashMap);
-                    item.setTitle(R.string.perm_block_account);
-                }
+                setPermBlock(item);
             }
             break;
         }
         return true;
     }
+
 
     @Override
     void setUser() {
@@ -126,23 +110,11 @@ public class AdminAccountFragment extends AccountFragment {
                 else {
                     if (isAdded()) Glide.with(getContext()).load(user.getPhoto_url()).into(photoImageView);
                 }
-                if (user.getAdmin_block().equals("block")) {
-                    toolbar.getMenu().getItem(0).setTitle(R.string.unblock_account);
-                }
-                else {
-                    toolbar.getMenu().getItem(0).setTitle(R.string.block_account);
-                }
-                if (user.getPerm_block().equals("block")) {
-                    toolbar.getMenu().getItem(1).setTitle(R.string.unblock_account);
-                }
-                else {
-                    toolbar.getMenu().getItem(1).setTitle(R.string.perm_block_account);
-                }
+                setTitleToolbar(user);
                 setPhotoImageView(user);
                 setAllTextView(user);
                 setUpGallery(user);
                 openGallery(user);
-                //setEditButton();
                 pd.dismiss();
             }
 
@@ -151,6 +123,7 @@ public class AdminAccountFragment extends AccountFragment {
             }
         });
     }
+
 
     @Override
     protected void deleteImage(User user, int i) {
@@ -179,6 +152,67 @@ public class AdminAccountFragment extends AccountFragment {
     private void setUserParameter(User user){
         this.user=user;
         this.user.setUuid(uuId);
+    }
+
+    private void setTitleToolbar(User user) {
+        if (user.getVerified().equals("no")){
+            toolbar.getMenu().getItem(0).setTitle(R.string.verified);
+        }
+        else  toolbar.getMenu().getItem(0).setTitle(R.string.cancel_verified);
+        if (user.getAdmin_block().equals("block")) {
+            toolbar.getMenu().getItem(1).setTitle(R.string.unblock_account);
+        }
+        else {
+            toolbar.getMenu().getItem(1).setTitle(R.string.block_account);
+        }
+        if (user.getPerm_block().equals("block")) {
+            toolbar.getMenu().getItem(2).setTitle(R.string.unblock_account);
+        }
+        else {
+            toolbar.getMenu().getItem(2).setTitle(R.string.perm_block_account);
+        }
+    }
+
+    private void setPermBlock(MenuItem item) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        if (user.getPerm_block().equals("unblock")) {
+            hashMap.put("perm_block", "block");
+            reference.child(user.getUuid()).updateChildren(hashMap);
+            item.setTitle(R.string.unblock_account);
+        }
+        else {
+            hashMap.put("perm_block", "unblock");
+            reference.child(user.getUuid()).updateChildren(hashMap);
+            item.setTitle(R.string.perm_block_account);
+        }
+    }
+
+    private void setBlock(MenuItem item) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        if (user.getAdmin_block().equals("unblock")) {
+            hashMap.put("admin_block", "block");
+            reference.child(user.getUuid()).updateChildren(hashMap);
+            item.setTitle(R.string.unblock_account);
+        }
+        else {
+            hashMap.put("admin_block", "unblock");
+            reference.child(user.getUuid()).updateChildren(hashMap);
+            item.setTitle(R.string.block_account);
+        }
+    }
+
+    private void confirm(MenuItem item){
+        HashMap<String, Object> hashMap = new HashMap<>();
+        if (user.getVerified().equals("no")){
+            hashMap.put("verified", "yes");
+            reference.child(user.getUuid()).updateChildren(hashMap);
+            item.setTitle(R.string.cancel_verified);
+        }
+        else {
+            hashMap.put("verified", "no");
+            reference.child(user.getUuid()).updateChildren(hashMap);
+            item.setTitle(R.string.verified);
+        }
     }
 
     @Override

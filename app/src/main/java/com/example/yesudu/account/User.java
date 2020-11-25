@@ -19,6 +19,7 @@ public class User {
     private String about;
     private String typing;
     private String perm_block;
+    private String verified;
 
     private long online_time;
     private static User currentUser;
@@ -26,7 +27,7 @@ public class User {
     public User(String uuid,String name, String surname, String country, String city,
                 String photo_url, String region,String sex,String age, String status,
                 String admin, long online_time , String admin_block,String about,
-                String photo_url1, String photo_url2, String photo_url3, String typing, String perm_block){
+                String photo_url1, String photo_url2, String photo_url3, String typing, String perm_block, String verified){
         this.name = name;
         this.surname = surname;
         this.country = country;
@@ -42,6 +43,7 @@ public class User {
         this.admin_block = admin_block;
         this.typing = typing;
         this.perm_block = perm_block;
+        this.verified = verified;
         //changed
         this.about=about;
         this.photo_url1 = photo_url1;
@@ -211,5 +213,13 @@ public class User {
 
     public void setPerm_block(String perm_block) {
         this.perm_block = perm_block;
+    }
+
+    public String getVerified() {
+        return verified;
+    }
+
+    public void setVerified(String verified) {
+        this.verified = verified;
     }
 }

@@ -612,4 +612,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
     <string name="unfavorite_msg_text">Delete from favorite?</string>
     <string name="list_block_admin">Block admin</string>
     <string name="perm_block_account">Permanent block</string>
+    <string name="verified">Confirm account</string>
+    <string name="cancel_verified">Cancel verified</string>
 </resources>

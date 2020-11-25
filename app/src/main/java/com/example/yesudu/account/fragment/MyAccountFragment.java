@@ -74,18 +74,6 @@ public class MyAccountFragment extends AccountFragment {
         });
     }
 
-    /*void setEditButton() {
-        editButton.setText(getResources().getString(R.string.edit_account));
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditDialog editDialog = new EditDialog();
-                editDialog.show(getFragmentManager(),null);
-            }
-        });
-    }*/
-
-
     @Override
     protected void setPhotoImageView(User user) {
         super.setPhotoImageView(user);
@@ -163,6 +151,11 @@ public class MyAccountFragment extends AccountFragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
+                if (user.getPerm_block().equals("block")) {
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(getActivity(), LogActivity.class));
+                    getActivity().finish();
+                }
                 User.setCurrentUser(user, uuid,status_offline);
                     if (user.getAdmin().equals("true")) {
                         toolbar.getMenu().getItem(8).setVisible(true);
@@ -177,7 +170,6 @@ public class MyAccountFragment extends AccountFragment {
                 setUpGallery(user);
                 setAllTextView(user);
                 openGallery(user);
-                //setEditButton();
                 pd.dismiss();
             }
 

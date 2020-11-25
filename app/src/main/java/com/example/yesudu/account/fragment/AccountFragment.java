@@ -34,7 +34,6 @@ public abstract class AccountFragment extends Fragment {
 
     private TextView nameTextView;
 
-    //protected Button editButton;
     protected Toolbar toolbar;
     protected ImageView photoImageView;
     protected StorageReference storageReference;
