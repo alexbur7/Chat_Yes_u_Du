@@ -1,6 +1,8 @@
 package com.example.yesudu.account.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,6 +16,9 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.yesudu.R;
 import com.example.yesudu.account.User;
+import com.example.yesudu.chat_list.activity.AdminBlockListActivity;
+import com.example.yesudu.chat_list.fragment.AdminPermBlockListFragment;
+import com.example.yesudu.chat_list.fragment.AdminTimeBlockListFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -88,6 +93,17 @@ public class AdminAccountFragment extends AccountFragment {
                 setPermBlock(item);
             }
             break;
+            //TODO Запутались в стрингах
+            case R.id.list_block_admin:{
+                Intent intent=AdminBlockListActivity.newInstance(getActivity(), AdminTimeBlockListFragment.BLOCK_CODE);
+                startActivity(intent);
+                getActivity().finish();
+            }break;
+            case R.id.perm_block_admin:{
+                Intent intent=AdminBlockListActivity.newInstance(getActivity(), AdminPermBlockListFragment.BLOCK_CODE);
+                startActivity(intent);
+                getActivity().finish();
+            }break;
         }
         return true;
     }

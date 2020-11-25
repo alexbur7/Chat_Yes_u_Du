@@ -110,7 +110,7 @@ public class UsersChatListFragment extends ChatListFragment {
                 });
             }
 
-    private void setUsersFromChats(ArrayList<String> usersWithMsgId) {
+    protected void setUsersFromChats(ArrayList<String> usersWithMsgId) {
         ArrayList<User> usersList=new ArrayList<>();
         FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
             @Override

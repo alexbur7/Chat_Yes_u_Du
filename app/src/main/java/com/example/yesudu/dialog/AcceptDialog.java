@@ -18,6 +18,8 @@ import androidx.fragment.app.DialogFragment;
 import com.example.yesudu.R;
 import com.example.yesudu.account.fragment.MyAccountFragment;
 import com.example.yesudu.account.User;
+import com.example.yesudu.chat_list.fragment.AdminPermBlockListFragment;
+import com.example.yesudu.chat_list.fragment.AdminTimeBlockListFragment;
 import com.example.yesudu.reg_and_login_utils.LogActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -62,6 +64,13 @@ public class AcceptDialog extends DialogFragment {
         if (key== MyAccountFragment.KEY_ACCEPT){
             acceptText.setText(R.string.accept_string);
         }
+        else if (key==AdminTimeBlockListFragment.BLOCK_CODE){
+            acceptText.setText(R.string.accept_unblock_string);
+
+        }
+        else if (key==AdminPermBlockListFragment.BLOCK_CODE){
+            acceptText.setText(R.string.accept_unblock_string);
+        }
         else {
             acceptText.setText(R.string.accept_msg_string);
         }
@@ -71,13 +80,22 @@ public class AcceptDialog extends DialogFragment {
                 .setPositiveButton(R.string.yes_pos_button_text, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (key==MyAccountFragment.KEY_ACCEPT)
-                        deleteUser();
-                        else if(key== EditMessageDialog.KEY_MESSAGE_DELETE_MY){
-                            deleteMessage();
-                        }
-                        else if(key==EditMessageDialog.KEY_MESSAGE_DELETE_EVERYONE){
-                            deleteForAllMessage();
+                        switch (key){
+                            case MyAccountFragment.KEY_ACCEPT:{
+                                deleteUser();
+                            }break;
+                            case EditMessageDialog.KEY_MESSAGE_DELETE_MY:{
+                                deleteMessage();
+                            }break;
+                            case EditMessageDialog.KEY_MESSAGE_DELETE_EVERYONE:{
+                                deleteForAllMessage();
+                            }break;
+                            case AdminTimeBlockListFragment.BLOCK_CODE:{
+                                unblockUserTime();
+                            }break;
+                            case AdminPermBlockListFragment.BLOCK_CODE:{
+                                unblockUserPerm();
+                            }break;
                         }
                     }
                 })
@@ -92,7 +110,6 @@ public class AcceptDialog extends DialogFragment {
 
     private void deleteUser() {
         reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).removeEventListener(listener);
-        Log.e("FIREBAS EAUTH", String.valueOf(FirebaseAuth.getInstance().getCurrentUser()));
         FirebaseAuth.getInstance().getCurrentUser().delete();
         FirebaseAuth.getInstance().signOut();
         Toast.makeText(getActivity(), "Completed", Toast.LENGTH_SHORT);
@@ -156,6 +173,20 @@ public class AcceptDialog extends DialogFragment {
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("firstDelete", "delete");
         hashMap.put("secondDelete", "delete");
+        reference.updateChildren(hashMap);
+        this.dismiss();
+    }
+
+    private void unblockUserPerm(){
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("perm_block", "unblock");
+        reference.updateChildren(hashMap);
+        this.dismiss();
+    }
+
+    private void unblockUserTime(){
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("admin_block", "unblock");
         reference.updateChildren(hashMap);
         this.dismiss();
     }

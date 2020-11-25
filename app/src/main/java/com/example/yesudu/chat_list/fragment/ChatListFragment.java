@@ -16,6 +16,8 @@ import com.example.yesudu.dialog.FilterDialog;
 import com.example.yesudu.R;
 import com.example.yesudu.chat_list.Updatable;
 
+import java.util.ArrayList;
+
 public abstract class ChatListFragment extends Fragment implements Updatable {
 
     protected static final int CODE_TO_FILTER_DIALOG=0;
@@ -55,6 +57,8 @@ public abstract class ChatListFragment extends Fragment implements Updatable {
         }
         return true;
     }
+
+    protected abstract void setUsersFromChats(ArrayList<String> usersWithMsgId);
 
     protected abstract void setChats();
 }

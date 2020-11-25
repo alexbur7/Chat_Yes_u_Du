@@ -599,6 +599,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
  - black and white photos\n
     </string>
     <string name="accept_string">Are you sure you want to delete your account?</string>
+    <string name="accept_unblock_string">Are you sure you want to unblock this account?</string>
     <string name="no_neg_button_text">No</string>
     <string name="yes_pos_button_text">Yes</string>
     <string name="edit_message">Edit message</string>
@@ -610,8 +611,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
     <string name="favorite_chat">Add user in favorites</string>
     <string name="favoritelist">Favorites</string>
     <string name="unfavorite_msg_text">Delete from favorite?</string>
-    <string name="list_block_admin">Block admin</string>
+    <string name="list_block_admin">Time-blocked by admin</string>
     <string name="perm_block_account">Permanent block</string>
     <string name="verified">Confirm account</string>
-    <string name="cancel_verified">Cancel verified</string>
+    <string name="cancel_verified">Cancel verify</string>
+    <string name="perm_block_account_title">Permanent blocked</string>
+    <string name="unblock_account_perm">Unblock account (perm)</string>
 </resources>

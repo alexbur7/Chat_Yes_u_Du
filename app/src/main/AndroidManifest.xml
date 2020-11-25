@@ -20,6 +20,8 @@
             android:parentActivityName="com.example.yesudu.account.MyAccountActivity"/>
         <activity android:name="com.example.yesudu.account.UserAccountActivity"
             android:parentActivityName="com.example.yesudu.chat.ChatActivity"/>
+        <activity android:name="com.example.yesudu.chat_list.activity.AdminBlockListActivity"
+            android:parentActivityName="com.example.yesudu.account.UserAccountActivity"/>
         <activity
             android:name="com.example.yesudu.chat.ChatActivity"
             android:parentActivityName="com.example.yesudu.account.MyAccountActivity"/>

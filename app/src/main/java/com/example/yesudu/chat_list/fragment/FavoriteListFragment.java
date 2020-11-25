@@ -76,7 +76,7 @@ public class FavoriteListFragment extends ChatListFragment {
         if (listener!=null) reference.removeEventListener(listener);
     }
 
-    private void setUsersFromChats(ArrayList<String> usersWithMsgId) {
+    protected void setUsersFromChats(ArrayList<String> usersWithMsgId) {
         ArrayList<User> usersList=new ArrayList<>();
         FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
             @Override

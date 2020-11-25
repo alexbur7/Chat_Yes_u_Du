@@ -39,6 +39,9 @@ public class FilteredChatListFragment extends ChatListFragment {
     }
 
     @Override
+    protected void setUsersFromChats(ArrayList<String> usersWithMsgId) { }
+
+    @Override
     protected void setChats() {
         getFilterInfoAndFilter(getArguments().getParcelable(KEY_TO_INTENT_DATA));
     }

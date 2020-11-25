@@ -36,6 +36,7 @@ public class ChatFragment extends ChatBaseFragment {
     private DatabaseReference referenceWriting;
     private ChatMessageAdapter adapter;
     private ValueEventListener seenListener;
+    private boolean setChatListenerConnected;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -46,6 +47,7 @@ public class ChatFragment extends ChatBaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setChatListenerConnected=false;
         delete_string =getResources().getString(R.string.delete_users);
         admin_string=getResources().getString(R.string.admin);
         seenText= getResources().getString(R.string.seen_text);
@@ -126,6 +128,9 @@ public class ChatFragment extends ChatBaseFragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         });
+
+        setChatListener();
+
         if (User.getCurrentUser().getAdmin_block().equals("block") && !receiverUuid.equals(getActivity().getString(R.string.admin_key))){
             input.setText(getActivity().getString(R.string.blocked_by_admin));
             input.setEnabled(false);
@@ -154,6 +159,8 @@ public class ChatFragment extends ChatBaseFragment {
         super.onDestroy();
         activity=null;
     }
+
+
 
 
 
@@ -223,25 +230,12 @@ public class ChatFragment extends ChatBaseFragment {
     }
     protected void sendMessage() {
         if (image_rui!=null){
-            HashMap<String,Object> map=new HashMap<>();
-            setChatListener=reference.child(generateKey()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (!snapshot.exists()){
-                        map.put("firstBlock","no block");
-                        map.put("secondBlock","no block");
-                        map.put("firstFavorites", "no");
-                        map.put("secondFavorites", "no");
-                        reference.child(generateKey()).updateChildren(map);
-                    }
-                }
+            //setChatListener();
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
+            if (!setChatListenerConnected) {
+                reference.child(generateKey()).addValueEventListener(setChatListener);
+                setChatListenerConnected=true;
+            }
             reference.child(generateKey()).child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
@@ -249,22 +243,11 @@ public class ChatFragment extends ChatBaseFragment {
                             getActivity().getString(R.string.not_seen_text),(image_rui!=null) ? image_rui.toString(): null,"no delete","no delete","no"));
         }
         else if (!input.getText().toString().equals("")) {
-            HashMap<String,Object> map=new HashMap<>();
-            setChatListener=reference.child(generateKey()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (!snapshot.exists()){
-                        map.put("firstBlock","no block");
-                        map.put("secondBlock","no block");
-                        map.put("firstFavorites", "no");
-                        map.put("secondFavorites", "no");
-                        reference.child(generateKey()).updateChildren(map);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {}
-            });
+            //setChatListener();
+            if (!setChatListenerConnected) {
+                reference.child(generateKey()).addValueEventListener(setChatListener);
+                setChatListenerConnected=true;
+            }
             reference.child(generateKey()).child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
@@ -275,18 +258,26 @@ public class ChatFragment extends ChatBaseFragment {
         input.setText("");
     }
 
-  /*  @Override
-    void clickMessage(View v, DatabaseReference reference, String messageText, int type) {
-        v.setOnLongClickListener(new View.OnLongClickListener() {
+    private void setChatListener() {
+        HashMap<String, Object> map = new HashMap<>();
+        setChatListener= new ValueEventListener() {
             @Override
-            public boolean onLongClick(View v) {
-                EditMessageDialog editMessageDialog = new EditMessageDialog(reference,receiverUuid,messageText,type,EditMessageDialog.TYPE_OF_USER_USUAL);
-                editMessageDialog.setTargetFragment(ChatFragment.this, EDIT_MSG_DIALOG_CODE);
-                editMessageDialog.show(getFragmentManager(),null);
-                return true;
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()) {
+                    map.put("firstBlock", "no block");
+                    map.put("secondBlock", "no block");
+                    map.put("firstFavorites", "no");
+                    map.put("secondFavorites", "no");
+                    reference.child(generateKey()).updateChildren(map);
+                }
             }
-        });
-    }*/
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+    }
 
     String generateKey(){
         ArrayList<String> templist=new ArrayList<>();
@@ -297,7 +288,6 @@ public class ChatFragment extends ChatBaseFragment {
         secondKey = templist.get(1);
         return templist.get(0)+templist.get(1);
     }
-
     public static ChatFragment newInstance(String toUserUUID, String photo_url){
         ChatFragment fragment = new ChatFragment();
         Bundle bundle = new Bundle();
@@ -342,6 +332,8 @@ public class ChatFragment extends ChatBaseFragment {
         seenListener=null;
         if (setChatListener!=null) reference.child(generateKey()).removeEventListener(setChatListener);
         setChatListener=null;
+        if (blockListener!=null) reference.child(generateKey()).removeEventListener(blockListener);
+        blockListener=null;
         setWriting("unwriting");
     }
 

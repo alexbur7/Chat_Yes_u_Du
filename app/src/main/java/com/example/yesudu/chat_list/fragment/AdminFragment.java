@@ -41,8 +41,11 @@ public class AdminFragment extends ChatListFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (isAdded())
-        toolbar.setTitle(getActivity().getString(R.string.panel_admin));
+        if (isAdded()) {
+            toolbar.setTitle(getActivity().getString(R.string.panel_admin));
+            toolbar.setBackground(null);
+            toolbar.setBackgroundResource(R.color.colorToolbar);
+        }
     }
 
     @Override
@@ -78,7 +81,7 @@ public class AdminFragment extends ChatListFragment {
 
 
 
-    private void setUsersFromChats(ArrayList<String> usersWithMsgId) {
+    protected void setUsersFromChats(ArrayList<String> usersWithMsgId) {
         ArrayList<User> usersList=new ArrayList<>();
         FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
             @Override

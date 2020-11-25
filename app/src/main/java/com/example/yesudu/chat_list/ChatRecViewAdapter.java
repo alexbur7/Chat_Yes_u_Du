@@ -7,24 +7,29 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.yesudu.R;
 import com.example.yesudu.account.User;
+import com.example.yesudu.account.UserAccountActivity;
 import com.example.yesudu.chat.ChatActivity;
 import com.example.yesudu.chat.ChatMessage;
+import com.example.yesudu.chat_list.fragment.AdminPermBlockListFragment;
+import com.example.yesudu.chat_list.fragment.AdminTimeBlockListFragment;
 import com.example.yesudu.chat_list.fragment.BlockListFragment;
 import com.example.yesudu.chat_list.fragment.ChatListFragment;
+import com.example.yesudu.dialog.AcceptDialog;
 import com.example.yesudu.dialog.CancelDialog;
 import com.example.yesudu.dialog.DeleteChatDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
@@ -41,6 +46,7 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
     private int viewType;
     private String filtered;
     private int type_dialog;
+
 
     public ChatRecViewAdapter(List<User> list, Context context, FragmentManager manager,int viewType){
         this.userList=list;
@@ -71,7 +77,7 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
     @Override
     public ChatRecViewAdapter.ChatHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
-        if (filtered.equals("none")){
+        if (filtered.equals("none") && viewType!=AdminBanListHolder.VIEW_TYPE){
             v = LayoutInflater.from(context).inflate(R.layout.users_list_item, parent, false);
         }
         else {
@@ -83,14 +89,17 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
             case BlockListHolder.VIEW_TYPE: return new BlockListHolder(v,context,fragmentManager,type_dialog);
             case AdminChatHolder.VIEW_TYPE: return new AdminChatHolder(v,context,fragmentManager);
             case FavoriteListHolder.VIEW_TYPE:return new FavoriteListHolder(v,context,fragmentManager,type_dialog);
+            case AdminBanListHolder.VIEW_TYPE:return new AdminBanListHolder(v,context,fragmentManager,type_dialog);
             default: throw new NullPointerException("HOLDER TYPE IS INVALID");
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull ChatHolder holder, int position) {
+        Log.e("users_inAdapter_id",userList.get(position).getUuid());
         holder.onBind(userList.get(position));
-        if (User.getCurrentUser()!=null && filtered.equals("none")) {
+        if (User.getCurrentUser()!=null && filtered.equals("none") && viewType!=AdminBanListHolder.VIEW_TYPE) {
+            Log.d("if_bind","here");
             holder.setLastMsg(holder.user.getUuid(), holder.userText);
         }
     }
@@ -334,6 +343,32 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
             dialog.setTargetFragment(fragment,BlockListFragment.KEY_TO_UNBLOCK);
             dialog.show(fragmentManager,null);
             return true;
+        }
+    }
+
+    public static class AdminBanListHolder extends ChatRecViewAdapter.ChatHolder {
+        public static final int VIEW_TYPE=4;
+        private int list_type;
+        //private DatabaseReference mReference;
+
+        public AdminBanListHolder(@NonNull View itemView, Context context, FragmentManager manager,int list_type) {
+            super(itemView, context, manager);
+            this.list_type=list_type;
+            //Log.d("holder_userID",user.getUuid());
+            //mReference=FirebaseDatabase.getInstance().getReference("users").child(user.getUuid());
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            return false;
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent intent= UserAccountActivity.newIntent(context,user.getUuid());
+            FragmentActivity activity= (FragmentActivity) context;
+            context.startActivity(intent);
+            activity.finish();
         }
     }
 

@@ -77,7 +77,8 @@
     <string name="block_chat">Заблокировать пользователя</string>
     <string name="unblock_msg_text">Разблокировать пользователя?</string>
     <string name="block_account">Заблокировать временно</string>
-    <string name="unblock_account">Разблокировать</string>
+    <string name="unblock_account">Разблокировать (вр.)</string>
+    <string name="unblock_account_perm">Разблокировать (пост.)</string>
     <string name="blocklist">Заблокированные</string>
     <string name="photo_cant_delete">Не удалось удалить фото</string>
     <string name="blocked_chat">Вы заблокированы пользователем</string>
@@ -583,8 +584,10 @@
     <string name="favorite_chat">Добавить пользователя в избранные</string>
     <string name="favoritelist">Избранные</string>
     <string name="unfavorite_msg_text">Удалить из избранных?</string>
-    <string name="list_block_admin">Заблокированные админом</string>
+    <string name="list_block_admin">Заблокированные временно</string>
     <string name="perm_block_account">Заблокировать навсегда</string>
+    <string name="perm_block_account_title">Заблокированные навсегда</string>
+    <string name="accept_unblock_string">Вы действительно хотите разблокировать аккаунт?</string>
     <string name="verified">Подтвердить аккаунт</string>
     <string name="cancel_verified">Отменить подтверждение</string>
 </resources>

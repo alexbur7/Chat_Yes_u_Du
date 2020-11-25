@@ -98,6 +98,13 @@ public class AdminChatFragment extends ChatBaseFragment {
         return v;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (blockListener!=null) reference.child(generateKey()).removeEventListener(blockListener);
+        blockListener=null;
+    }
+
 
     @Override
     protected void sendMessage() {

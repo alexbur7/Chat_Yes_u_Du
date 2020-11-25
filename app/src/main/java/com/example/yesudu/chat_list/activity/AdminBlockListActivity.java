@@ -1,15 +1,32 @@
 package com.example.yesudu.chat_list.activity;
 
+import android.content.Context;
+import android.content.Intent;
+
 import androidx.fragment.app.Fragment;
 
 import com.example.yesudu.BaseActivity;
 import com.example.yesudu.R;
-import com.example.yesudu.chat_list.fragment.AdminBlockListFragment;
+import com.example.yesudu.chat_list.fragment.AdminPermBlockListFragment;
+import com.example.yesudu.chat_list.fragment.AdminTimeBlockListFragment;
 
 public class AdminBlockListActivity extends BaseActivity {
+
+
+    public static final String TIMED_CODE_KEY="timed_or_perm_code";
+
     @Override
     public Fragment getFragment() {
-        return new AdminBlockListFragment();
+        switch (getIntent().getIntExtra(TIMED_CODE_KEY,-1)){
+            case AdminTimeBlockListFragment.BLOCK_CODE:{
+                return new AdminTimeBlockListFragment();
+            }
+
+            case AdminPermBlockListFragment.BLOCK_CODE:{
+                return new AdminPermBlockListFragment();
+            }
+        }
+        return null;
     }
 
     @Override
@@ -22,5 +39,11 @@ public class AdminBlockListActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         status(getResources().getString(R.string.label_online));
+    }
+
+    public static Intent newInstance(Context context, int code){
+        Intent intent=new Intent(context,AdminBlockListActivity.class);
+        intent.putExtra(TIMED_CODE_KEY,code);
+        return intent;
     }
 }
