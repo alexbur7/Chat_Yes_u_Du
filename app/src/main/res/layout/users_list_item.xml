@@ -42,11 +42,11 @@
 
                 <ImageView
                 android:id="@+id/verified_image_item"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
+                android:layout_width="11.955dp"
+                android:layout_height="11.955dp"
                 android:layout_gravity="bottom|end"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="1.5dp"
+                android:layout_marginRight="2.3dp"
+                android:layout_marginBottom="2.3dp"
                     android:visibility="invisible"
                 android:src="@drawable/verified"
                 />

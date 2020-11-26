@@ -33,11 +33,11 @@
                 />
             <ImageView
                 android:id="@+id/verified_image_item"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_gravity="bottom|end"
-                android:layout_marginRight="6dp"
-                android:layout_marginBottom="3dp"
+                android:layout_marginRight="5.2dp"
+                android:layout_marginBottom="2.65dp"
                 android:visibility="invisible"
                 android:src="@drawable/verified"
                 />
