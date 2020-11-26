@@ -29,13 +29,28 @@
                     android:src="@drawable/unnamed"
                     android:id="@+id/circle_image_user"/>
             </androidx.cardview.widget.CardView>!-->
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/circle_image_user"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/unnamed"
-                android:scaleType="centerCrop"
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/circle_image_user"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/unnamed" />
+
+                <ImageView
+                android:id="@+id/verified_image_item"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="bottom|end"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="1.5dp"
+                    android:visibility="invisible"
+                android:src="@drawable/verified"
                 />
+            </FrameLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

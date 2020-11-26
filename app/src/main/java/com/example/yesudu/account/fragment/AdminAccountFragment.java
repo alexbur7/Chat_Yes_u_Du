@@ -131,6 +131,7 @@ public class AdminAccountFragment extends AccountFragment {
                 setAllTextView(user);
                 setUpGallery(user);
                 openGallery(user);
+                setVerified(user);
                 pd.dismiss();
             }
 
@@ -182,7 +183,7 @@ public class AdminAccountFragment extends AccountFragment {
             toolbar.getMenu().getItem(1).setTitle(R.string.block_account);
         }
         if (user.getPerm_block().equals("block")) {
-            toolbar.getMenu().getItem(2).setTitle(R.string.unblock_account);
+            toolbar.getMenu().getItem(2).setTitle(R.string.unblock_account_perm);
         }
         else {
             toolbar.getMenu().getItem(2).setTitle(R.string.perm_block_account);
@@ -194,7 +195,7 @@ public class AdminAccountFragment extends AccountFragment {
         if (user.getPerm_block().equals("unblock")) {
             hashMap.put("perm_block", "block");
             reference.child(user.getUuid()).updateChildren(hashMap);
-            item.setTitle(R.string.unblock_account);
+            item.setTitle(R.string.unblock_account_perm);
         }
         else {
             hashMap.put("perm_block", "unblock");

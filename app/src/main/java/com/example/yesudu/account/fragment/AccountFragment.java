@@ -47,6 +47,7 @@ public abstract class AccountFragment extends Fragment {
     private String[] regionArray;
 
     private Button lookAll;
+    private ImageView verifiedImage;
 
 
     @Nullable
@@ -54,7 +55,7 @@ public abstract class AccountFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.account_fragment,container,false);
         nameTextView=v.findViewById(R.id.my_name_text);
-        //editButton = v.findViewById(R.id.edit_button);
+        verifiedImage = v.findViewById(R.id.verified_image_account);
         photoImageView = v.findViewById(R.id.photo_view);
         photoRecView =v.findViewById(R.id.photo_recycler_view);
         textRecView=v.findViewById(R.id.text_recycler_view);
@@ -165,5 +166,14 @@ public abstract class AccountFragment extends Fragment {
                 startActivity(intent);
             }
         });
+    }
+
+    protected void setVerified(User user){
+        if(user.getVerified().equals("yes")){
+            verifiedImage.setVisibility(View.VISIBLE);
+        }
+        else {
+            verifiedImage.setVisibility(View.INVISIBLE);
+        }
     }
 }

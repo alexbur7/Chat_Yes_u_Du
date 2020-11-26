@@ -7,6 +7,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +38,7 @@ public class ChatFragment extends ChatBaseFragment {
     private ChatMessageAdapter adapter;
     private ValueEventListener seenListener;
     private boolean setChatListenerConnected;
+    private ImageView verifiedImage;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -55,6 +57,7 @@ public class ChatFragment extends ChatBaseFragment {
         receiverUuid=getArguments().getString(KEY_TO_RECEIVER_UUID);
         receiverPhotoUrl = getArguments().getString(KEY_TO_RECEIVER_PHOTO_URL);
         toolbar=v.findViewById(R.id.toolbarFr);
+        verifiedImage = v.findViewById(R.id.verified_image_chat);
         setToolbarToAcc();
         complainView =v.findViewById(R.id.complain_button);
         complainView.setOnClickListener(new View.OnClickListener() {
@@ -310,6 +313,10 @@ public class ChatFragment extends ChatBaseFragment {
                         statusText.setText("был в сети " + DateFormat.format("dd-MM-yyyy (HH:mm)", user.getOnline_time()));
                     else statusText.setText(user.getStatus());
                     username.setText(user.getName());
+                    if (user.getVerified().equals("yes")){
+                        verifiedImage.setVisibility(View.VISIBLE);
+                    }
+                    else verifiedImage.setVisibility(View.INVISIBLE);
                 } catch (Exception e) {
                     statusText.setText(delete_string);
                     username.setText("");

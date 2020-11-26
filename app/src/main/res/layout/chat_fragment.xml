@@ -22,6 +22,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:layout_scrollFlags="scroll|enterAlways">
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
                 <de.hdodenhof.circleimageview.CircleImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/circle_image_chat"
@@ -31,6 +34,17 @@
                     android:layout_below="@+id/textView"
                     android:layout_centerHorizontal="true"
                    />
+                <ImageView
+                    android:id="@+id/verified_image_chat"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="1dp"
+                    android:visibility="invisible"
+                    android:src="@drawable/verified"
+                    />
+                </FrameLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

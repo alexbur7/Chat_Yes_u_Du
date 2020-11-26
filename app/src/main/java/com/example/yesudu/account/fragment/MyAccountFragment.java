@@ -170,6 +170,7 @@ public class MyAccountFragment extends AccountFragment {
                 setUpGallery(user);
                 setAllTextView(user);
                 openGallery(user);
+                setVerified(user);
                 pd.dismiss();
             }
 

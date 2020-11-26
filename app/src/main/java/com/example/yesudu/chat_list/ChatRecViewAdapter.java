@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -124,7 +125,7 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
         private TextView userDate;
         private TextView userText;
         private TextView userStatus;
-        //private ImageView photoImageView;
+        private ImageView verifiedImage;
         private CircleImageView photoImageView;
         protected Context context;
         protected FragmentManager fragmentManager;
@@ -140,6 +141,7 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
             userText = itemView.findViewById(R.id.user_text);
             userStatus = itemView.findViewById(R.id.text_online_list);
             photoImageView = itemView.findViewById(R.id.circle_image_user);
+            verifiedImage = itemView.findViewById(R.id.verified_image_item);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }
@@ -218,6 +220,10 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
                 userStatus.setText(context.getResources().getString(R.string.label_online));
             }
             else userStatus.setText(context.getResources().getString(R.string.label_offline));
+            if (user.getVerified().equals("yes")){
+                verifiedImage.setVisibility(View.VISIBLE);
+            }
+            else verifiedImage.setVisibility(View.INVISIBLE);
         }
 
         @Override

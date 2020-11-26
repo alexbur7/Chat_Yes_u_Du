@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -19,21 +20,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-           <!-- <androidx.cardview.widget.CardView
-                android:id="@+id/card_view"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:gravity="center_vertical"
-                app:cardCornerRadius="75dp"
-                app:cardElevation="5dp">
-
-                <ImageView
-                    android:id="@+id/circle_image_user"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/unnamed" />
-            </androidx.cardview.widget.CardView>!-->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
             <de.hdodenhof.circleimageview.CircleImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/circle_image_user"
@@ -42,6 +31,18 @@
                 android:src="@drawable/unnamed"
                 android:scaleType="centerCrop"
                 />
+            <ImageView
+                android:id="@+id/verified_image_item"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="bottom|end"
+                android:layout_marginRight="6dp"
+                android:layout_marginBottom="3dp"
+                android:visibility="invisible"
+                android:src="@drawable/verified"
+                />
+            </FrameLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
