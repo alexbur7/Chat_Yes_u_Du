@@ -26,12 +26,14 @@ public class FilteredChatListFragment extends ChatListFragment {
 
     public static final String KEY_TO_INTENT_DATA="key_to_data";
     public static final String FILTER_VIEW_TYPE = "filter_view";
+    private static final String TYPE_HOLDER = "type_holder";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
+
 
     @Override
     void setLayoutManagerForRecView() {
@@ -78,6 +80,7 @@ public class FilteredChatListFragment extends ChatListFragment {
                     filterUsersByRegion(users,user);
                     //filterUsersByPhoto(users,user);
                 }
+                //TODO:умный if для разделения холдеров
                 ChatRecViewAdapter adapter = new ChatRecViewAdapter(users,getActivity(),getFragmentManager(),ChatRecViewAdapter.ChatHolder.VIEW_TYPE,FILTER_VIEW_TYPE);
                 chatRecView.setAdapter(adapter);
                 ref.removeEventListener(this);
@@ -176,12 +179,13 @@ public class FilteredChatListFragment extends ChatListFragment {
         FilteredChatListFragment fragment=new FilteredChatListFragment();
         Bundle args=new Bundle();
         args.putParcelable(KEY_TO_INTENT_DATA,data);
+        //args.putSerializable(TYPE_HOLDER, type);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void update() {
-        Log.e("FILTERED_FRAGMENT", "GAVNINA");
+
     }
 }

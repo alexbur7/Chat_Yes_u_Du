@@ -2,6 +2,7 @@ package com.example.yesudu.chat;
 
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -151,7 +152,7 @@ public class AdminChatFragment extends ChatBaseFragment {
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {}
             });
-
+            Log.d("Tut_admin", generateKey());
             reference.child(generateKey()).child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
@@ -33,8 +34,8 @@ public class AdminFragment extends ChatListFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        reference=FirebaseDatabase.getInstance().getReference("users");
-        admin_key_string=getResources().getString(R.string.admin_key);
+        reference = FirebaseDatabase.getInstance().getReference("users");
+        admin_key_string = getResources().getString(R.string.admin_key);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -51,6 +52,14 @@ public class AdminFragment extends ChatListFragment {
     @Override
     void setLayoutManagerForRecView() {
         chatRecView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+    @Override
+    protected boolean clickToolbarItems(MenuItem item) {
+        if (item.getItemId()==R.id.find_item){
+
+        }
+        return super.clickToolbarItems(item);
     }
 
     protected void setChats(){
@@ -143,7 +152,7 @@ public class AdminFragment extends ChatListFragment {
                     filterUsersByRegion(users,user);
                     //filterUsersByPhoto(users,user);
                 }
-                ChatRecViewAdapter adapter = new ChatRecViewAdapter(users,getActivity(),getFragmentManager(),ChatRecViewAdapter.ChatHolder.VIEW_TYPE);
+                ChatRecViewAdapter adapter = new ChatRecViewAdapter(users,getActivity(),getFragmentManager(),ChatRecViewAdapter.AdminChatHolder.VIEW_TYPE);
                 chatRecView.setAdapter(adapter);
                 reference.removeEventListener(this);
             }
