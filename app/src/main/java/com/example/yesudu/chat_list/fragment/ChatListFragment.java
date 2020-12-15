@@ -47,6 +47,7 @@ public abstract class ChatListFragment extends Fragment implements Updatable {
         return v;
     }
 
+
     abstract void setLayoutManagerForRecView();
 
     protected boolean clickToolbarItems(MenuItem item){

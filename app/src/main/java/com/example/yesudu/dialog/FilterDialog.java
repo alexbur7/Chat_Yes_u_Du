@@ -42,6 +42,7 @@ public class FilterDialog extends DialogFragment {
     public static final String KEY_TO_COUNTRY_FILTER="country_filter";
     public static final String KEY_TO_REGION_FILTER="region_filter";
 
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
