@@ -48,7 +48,6 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
     private String filtered;
     private int type_dialog;
 
-
     public ChatRecViewAdapter(List<User> list, Context context, FragmentManager manager,int viewType){
         this.userList=list;
         this.context=context;

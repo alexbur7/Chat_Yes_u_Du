@@ -617,4 +617,22 @@ Unless required by applicable law or agreed to in writing, software distributed 
     <string name="cancel_verified">Cancel verify</string>
     <string name="perm_block_account_title">Permanent blocked</string>
     <string name="unblock_account_perm">Unblock account (perm)</string>
+    <string name="go_chat_btn_title">Go to chat with admin</string>
+    <string name="go_complain_btn_title">Complain</string>
+    <string name="complain_completed">the complaint was successfully sent</string>
+    <string name="advertising_title">Advertising of goods and services</string>
+    <string name="fishing_title">Fishing</string>
+    <string name="illegal_substance_title">Sale of illegal drugs</string>
+    <string name="obscene_content_title">Obscene content</string>
+    <string name="spam_title">Spam</string>
+    <string name="pornographic_content_title">Pornographic content</string>
+    <string name="illegal_photos_title">Another`s photos</string>
+    <string name="fake_profile_title">Fake profile</string>
+    <string name="threats_title">Threats or insults</string>
+    <string name="another_reason_title">Another reason</string>
+
+    <string name="complaint_beginning">Complaint!\n Subject: </string>
+    <string name="complaint_ending">\n Name: </string>
+
+    <string name="complaint_id" translatable="false"> id: </string>
 </resources>

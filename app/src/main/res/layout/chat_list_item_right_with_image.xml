@@ -59,6 +59,7 @@
             android:layout_alignParentRight="true" />
         <ImageView
             android:id="@+id/image_send"
+            android:scaleType="centerCrop"
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_margin="4dp"

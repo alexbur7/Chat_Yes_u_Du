@@ -1,6 +1,8 @@
 package com.example.yesudu.chat;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.format.DateFormat;
@@ -17,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.yesudu.R;
 import com.example.yesudu.account.User;
+import com.example.yesudu.dialog.ComplainDialog;
+import com.example.yesudu.dialog.GoToAdminDialog;
 import com.example.yesudu.dialog.EditMessageDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +36,8 @@ import java.util.HashMap;
 public class ChatFragment extends ChatBaseFragment {
     public static final String KEY_TO_RECEIVER_UUID="recevierID";
     public static final String KEY_TO_RECEIVER_PHOTO_URL = "recevierPHOTO_URL";
+    public static final int GO_TO_ADMIN_REQUEST = 1010;
+    public static final int COMPLAIN_REQUEST = 2020;
     private ValueEventListener setChatListener;
     private String seenText;
     private DatabaseReference referenceWriting;
@@ -63,7 +69,11 @@ public class ChatFragment extends ChatBaseFragment {
         complainView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.goToAdmin();
+
+                GoToAdminDialog dialog=new GoToAdminDialog();
+                dialog.setTargetFragment(ChatFragment.this, GO_TO_ADMIN_REQUEST);
+                dialog.show(getFragmentManager(),null);
+                //activity.goToAdmin();
             }
         });
         if (receiverUuid.equals(getResources().getString(R.string.admin_key))){
@@ -282,6 +292,8 @@ public class ChatFragment extends ChatBaseFragment {
         };
     }
 
+
+    @Override
     String generateKey(){
         ArrayList<String> templist=new ArrayList<>();
         templist.add(User.getCurrentUser().getUuid());
@@ -291,6 +303,17 @@ public class ChatFragment extends ChatBaseFragment {
         secondKey = templist.get(1);
         return templist.get(0)+templist.get(1);
     }
+
+    private String generateKeyToAdminChat(){
+        ArrayList<String> templist=new ArrayList<>();
+        templist.add(User.getCurrentUser().getUuid());
+        templist.add(getActivity().getString(R.string.admin_key));
+        Collections.sort(templist);
+        firstKey=templist.get(0);
+        secondKey = templist.get(1);
+        return templist.get(0)+templist.get(1);
+    }
+
     public static ChatFragment newInstance(String toUserUUID, String photo_url){
         ChatFragment fragment = new ChatFragment();
         Bundle bundle = new Bundle();
@@ -372,6 +395,39 @@ public class ChatFragment extends ChatBaseFragment {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode== GO_TO_ADMIN_REQUEST){
+                switch (data.getIntExtra(GoToAdminDialog.BTN_CODE,-1)){
+                    case GoToAdminDialog.CHAT_BTN_CODE:activity.goToAdmin();
+                    break;
+                    case GoToAdminDialog.COMPLAIN_BTN_CODE:{
+                        ComplainDialog dialog=new ComplainDialog();
+                        dialog.setTargetFragment(ChatFragment.this,COMPLAIN_REQUEST);
+                        dialog.show(getFragmentManager(),null);
+                    };
+                }
+            }
+
+            if (requestCode == COMPLAIN_REQUEST){
+                String complaint=getActivity().getString(R.string.complaint_beginning)+data.getStringExtra(ComplainDialog.COMPLAIN_CODE)+
+                        getActivity().getString(R.string.complaint_ending)+username.getText()+
+                        getActivity().getString(R.string.complaint_id)+receiverUuid;
+
+                sendToAdmin(complaint);
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void sendToAdmin(String str){
+        reference.child(generateKeyToAdminChat()).child("message")
+                .push()
+                .setValue(new ChatMessage(str,
+                        User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),getActivity().getString(R.string.admin_key),getActivity().getString(R.string.not_seen_text),
+                        getActivity().getString(R.string.not_seen_text),receiverPhotoUrl,"no delete","no delete","no"));
+    }
 
     public interface CallBack{
         void goToAdmin();
