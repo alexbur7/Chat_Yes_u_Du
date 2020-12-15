@@ -67,6 +67,7 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
     protected DatabaseReference reference;
     protected String firstKey, secondKey;
     protected ValueEventListener blockListener;
+    protected ValueEventListener setChatListener;
     private StorageTask uploadTask;
     protected StorageReference storageReference;
     protected ChatFragment.CallBack activity;
@@ -254,7 +255,7 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
         setToolbarToAcc();
     }
 
-    abstract String generateKey();
+    protected abstract String generateKey();
 
     protected void setStatus(){
         FirebaseDatabase.getInstance().getReference("users").child(receiverUuid).addValueEventListener(new ValueEventListener() {
@@ -282,4 +283,32 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
 
 
     protected abstract void setWriting(String writing);
+
+    protected void setChatListener() {
+        HashMap<String, Object> map = new HashMap<>();
+        setChatListener= new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()) {
+                    map.put("firstBlock", "no block");
+                    map.put("secondBlock", "no block");
+                    map.put("firstFavorites", "no");
+                    map.put("secondFavorites", "no");
+                    reference.child(generateKey()).updateChildren(map);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+    }
+
+    protected void removeAllListener(){
+        if (blockListener!=null) reference.child(generateKey()).removeEventListener(blockListener);
+        blockListener=null;
+        if (setChatListener!=null) reference.child(generateKey()).removeEventListener(setChatListener);
+        setChatListener=null;
+    }
 }

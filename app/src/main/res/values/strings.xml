@@ -60,7 +60,7 @@
     <string name="saved_image">Photo saved</string>
     <string name="dialog_title_edit">Edit account</string>
     <string name="dialog_title_delete">Delete chat</string>
-    <string name="delete_image">Delete photo</string>
+    <string name="delete_image">Delete photo 1</string>
     <string name="delete_users">User deleted this account</string>
     <string name="block_chat">Block user</string>
     <string name="have_not_photo">You have not photo</string>
@@ -69,7 +69,7 @@
     <string name="panel_admin">Administrator panel</string>
     <string name="you_dont_verification">You dont verification</string>
     <string name="block_account">Block account</string>
-    <string name="unblock_account">Unblock account</string>
+    <string name="unblock_account">Unblock account(time)</string>
     <string name="photo_cant_delete">can\'t delete photo</string>
     <string-array name="sex_for_spinner">
         <item>Male</item>
@@ -108,9 +108,9 @@
     <string name="you_cant_add_4_photo">you cannot add more than 4 photos</string>
     <string name="you_cannot_delete_photo">you cannot have less than 2 photos in the gallery</string>
     <string name="reset_image">Reset image</string>
-    <string name="delete_image1">Delete photo1</string>
-    <string name="delete_image2">Delete photo2</string>
-    <string name="delete_image3">Delete photo3</string>
+    <string name="delete_image1">Delete photo 2</string>
+    <string name="delete_image2">Delete photo 3</string>
+    <string name="delete_image3">Delete photo 4</string>
     <string name="rule_and_policy">Privacy Policy</string>
     <string name="text_rule_policy" >
         PRIVACY POLICY\n
@@ -377,6 +377,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
         <item> </item>
         <item>Russia</item>
         <item>Armenia</item>
+        <item>Artsakh</item>
         <item>USA</item>
         <item>France</item>
         <item>Georgia</item>
@@ -567,7 +568,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
         <item>Aragatsotn</item>
         <item>Ararat</item>
         <item>Armavir</item>
-        <item>Artsakh</item>
         <item>Gegharkunik</item>
         <item>Lori</item>
         <item>Shirak</item>
@@ -623,7 +623,8 @@ Photos that do not meet the above requirements will be deleted by the Administra
     <string name="verified">Confirm account</string>
     <string name="cancel_verified">Cancel verify</string>
     <string name="perm_block_account_title">Permanent blocked</string>
-    <string name="unblock_account_perm">Unblock account (perm)</string>
+    <string name="unblock_account_perm">Unblock account (permanent)</string>
+    <string name="date_birth">Choose date of birth</string>
     <string name="go_chat_btn_title">Go to chat with admin</string>
     <string name="go_complain_btn_title">Complain</string>
     <string name="complain_completed">the complaint was successfully sent</string>
@@ -641,5 +642,5 @@ Photos that do not meet the above requirements will be deleted by the Administra
     <string name="complaint_beginning">Complaint!\n Subject: </string>
     <string name="complaint_ending">\n Name: </string>
 
-    <string name="complaint_id" translatable="false"> id: </string>
+    <string name="complaint_id" translatable="false"> \n id: </string>
 </resources>

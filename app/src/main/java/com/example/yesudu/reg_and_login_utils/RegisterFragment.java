@@ -5,7 +5,9 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +22,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.yesudu.R;
+import com.example.yesudu.dialog.CalendarDialog;
 import com.example.yesudu.rules_and_policy.InformationActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,13 +42,19 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Calendar;
 import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 
 
-public class RegisterFragment extends Fragment {
+public class RegisterFragment extends Fragment{
     private static  final  int IMAGE_REQUEST=1;
+    private static final int CALENDAR_REQUEST=11;
+
+
     private FirebaseAuth auth;
     private FirebaseDatabase db;
     private DatabaseReference ref;
@@ -57,7 +67,7 @@ public class RegisterFragment extends Fragment {
     private EditText cityEditText;
     private EditText emailEditText;
     private EditText passwordEditText;
-    private EditText ageEditText;
+    //private EditText ageEditText;
     private EditText aboutEditText;
     private Button regButton;
     private TextView photoDemands;
@@ -66,7 +76,9 @@ public class RegisterFragment extends Fragment {
     private String uri1,uri2;
     private int imageNumber;
     private StorageTask uploadTask;
+    private Button calendarButton;
     //private TextView ruleText;
+    private Date dateOfBirth;
 
     private String status_offline;
 
@@ -105,7 +117,7 @@ public class RegisterFragment extends Fragment {
                         regionSpinner.setAdapter(regionAdapter);
                     }
                     break;
-                    case 3:{
+                    case 4:{
                         regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_usa, android.R.layout.simple_spinner_item);
                         regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         regionSpinner.setAdapter(regionAdapter);
@@ -139,7 +151,7 @@ public class RegisterFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        ageEditText=view.findViewById(R.id.age_reg_edit_text);
+        //ageEditText=view.findViewById(R.id.age_reg_edit_text);
         aboutEditText=view.findViewById(R.id.about_edit_text);
         sexSpinner = view.findViewById(R.id.spinner_sex);
         photoImageView = view.findViewById(R.id.photo1);
@@ -156,15 +168,6 @@ public class RegisterFragment extends Fragment {
                 openImage(2);
             }
         });
-       /* ruleText = view.findViewById(R.id.rule);
-        ruleText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String informationText = getActivity().getString(R.string.text_rule_policy);
-                Intent intent = InformationActivity.newIntent(getActivity(),informationText);
-                startActivity(intent);
-            }
-        });*/
         regButton=view.findViewById(R.id.registration_button);
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,10 +175,20 @@ public class RegisterFragment extends Fragment {
                 setRegistration();
             }
         });
+        calendarButton = view.findViewById(R.id.call_calendar_button);
+        calendarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CalendarDialog dialog = CalendarDialog.newInstance(new Date());
+                dialog.setTargetFragment(RegisterFragment.this,CALENDAR_REQUEST);
+                dialog.show(getFragmentManager(),null);
+            }
+        });
         auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
         return view;
     }
+
 
     private void setRegistration(){
         final  String name = nameEditText.getText().toString();
@@ -185,13 +198,20 @@ public class RegisterFragment extends Fragment {
         final  String email = emailEditText.getText().toString();
         final  String password = passwordEditText.getText().toString();
         final  String sex = sexSpinner.getSelectedItem().toString();
-        //final  String region = regionSpinner.getSelectedItem().toString();
         final  String region = String.valueOf(regionSpinner.getSelectedItemPosition());
-        final  String age = ageEditText.getText().toString();
+        Calendar calendar =Calendar.getInstance();
+        calendar.setTime(dateOfBirth);
+        AgeCalculation ageCalculation = new AgeCalculation ();
+        ageCalculation.getCurrentDate();
+        ageCalculation.setDateOfBirth(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
+        //final  String age = ageEditText.getText().toString();
+        final String age = String.valueOf(ageCalculation.calculateYear());
+
         final  String about=aboutEditText.getText().toString();
 
-        if (name.isEmpty() || city.isEmpty() || email.isEmpty() || password.isEmpty() || sex.isEmpty() || Integer.parseInt(age)<0 || country.equals("0") ||(country.equals("1") && region.equals("0")
-                || (country.equals("2") && region.equals("0"))|| (country.equals("3") && region.equals("0")))){
+        if (name.isEmpty() || city.isEmpty() || email.isEmpty() || password.isEmpty() || sex.isEmpty() || country.equals("0") ||(country.equals("1") && region.equals("0")
+                || ageCalculation.calculateYear()<0 || (country.equals("2") && region.equals("0"))|| (country.equals("3") && region.equals("0")))){
             Toast.makeText(getActivity(),R.string.reject_reg,Toast.LENGTH_SHORT).show();
             return;
         }
@@ -232,6 +252,7 @@ public class RegisterFragment extends Fragment {
                     //changed
                     ref.child("about").setValue(about);
                     ref.child("typing").setValue("unwriting");
+                    ref.child("dateBirthday").setValue(dateOfBirth.getTime());
                     auth.getCurrentUser().sendEmailVerification();
                     auth.signOut();
                     callbacks.returnLoginFragment(email,password);
@@ -324,6 +345,9 @@ public class RegisterFragment extends Fragment {
             imageUri = data.getData();
             uploadImage(imageNumber);
         }
+        else if (requestCode == CALENDAR_REQUEST && resultCode == RESULT_OK){
+            dateOfBirth = (Date) data.getSerializableExtra(CalendarDialog.EXTRA_DATE);
+        }
     }
 
     private void downloadUri(Uri uri,int i) {
@@ -334,6 +358,43 @@ public class RegisterFragment extends Fragment {
             uri2 = uri.toString();
             Glide.with(getContext()).load(uri).into(photoImageView1);
         }
+    }
+
+    public static class AgeCalculation{
+        private int startYear;
+        private int startMonth;
+        private int startDay;
+        private int endYear;
+        private int endMonth;
+        private int endDay;
+        private int resYear;
+        private int resMonth;
+        private int resDay;
+        private Calendar start;
+        private Calendar end;
+
+
+        public void getCurrentDate() {
+            end = Calendar.getInstance();
+            endYear = end.get(Calendar.YEAR);
+            endMonth = end.get(Calendar.MONTH);
+            endMonth++;
+            endDay = end.get(Calendar.DAY_OF_MONTH);
+        }
+
+        public void setDateOfBirth(int sYear, int sMonth, int sDay) {
+            startYear = sYear;
+            startMonth = sMonth;
+            startDay = sDay;
+        }
+
+        public int calculateYear() {
+            resYear = endYear - startYear;
+            if (endMonth-1 < startMonth){ resYear --; }
+            if (endMonth-1==startMonth && startDay> endDay){ resYear--; }
+            return resYear;
+        }
+
     }
 }
 

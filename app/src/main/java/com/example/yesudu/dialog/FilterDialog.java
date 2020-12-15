@@ -77,7 +77,7 @@ public class FilterDialog extends DialogFragment {
                         regionSpinner.setAdapter(regionAdapter);
                     }
                     break;
-                    case 3: {
+                    case 4: {
                         regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_usa, android.R.layout.simple_spinner_item);
                         regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         regionSpinner.setAdapter(regionAdapter);

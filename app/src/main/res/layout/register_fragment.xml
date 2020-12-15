@@ -90,13 +90,23 @@
         android:entries="@array/sex_for_spinner"
         android:layout_margin="8dp"
         />
-    <EditText
-        android:id="@+id/age_reg_edit_text"
-        android:layout_width="match_parent"
+            <!--<EditText
+                android:id="@+id/age_reg_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_margin="8dp"
+                android:hint="@string/age_reg_hint"/>!-->
+    <Button
+        android:id="@+id/call_calendar_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
+        android:layout_gravity="center"
         android:layout_margin="8dp"
-        android:hint="@string/age_reg_hint"/>
+        android:padding="8dp"
+        android:background="@drawable/edit_button"
+        android:text="@string/date_birth"
+        />
 
     <EditText
         android:id="@+id/email_reg_edit_text"

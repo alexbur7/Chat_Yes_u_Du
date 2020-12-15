@@ -27,7 +27,7 @@ import java.util.Collections;
 
 import static com.example.yesudu.chat.ChatBaseFragment.EDIT_MSG_DIALOG_CODE;
 
-public class AdminChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage, AdminChatMessageAdapter.ChatMessageHolder> {
+public class AdminChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage, AdminChatMessageAdapter.ChatMessageHolder> implements SetFunctionalAdapter {
     private String receiverUuid;
     private Context context;
     private FragmentManager manager;
@@ -59,34 +59,43 @@ public class AdminChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage
 
     @Override
     public int getItemViewType(int position) {
-        ChatMessage chtm = super.getItem(position);
+        ChatMessage chatMessage = super.getItem(position);
         if (User.getCurrentUser().getUuid().equals(firstKey)) {
-            if (!chtm.getFirstDelete().equals("delete")) {
-                if (chtm.getFromUserUUID().equals(context.getString(R.string.admin_key)) && chtm.getImage_url() == null) {
-                    mModelLayout = R.layout.chat_list_item_right;
-                } else if (chtm.getFromUserUUID().equals(context.getString(R.string.admin_key)) && chtm.getImage_url() != null) {
-                    mModelLayout = R.layout.chat_list_item_right_with_image;
-                } else if (!chtm.getFromUserUUID().equals(context.getString(R.string.admin_key)) && chtm.getImage_url() != null) {
-                    mModelLayout = R.layout.chat_list_item_left_with_image;
-                } else {
-                    mModelLayout = R.layout.chat_list_item_left;
-                }
+            if (!chatMessage.getFirstDelete().equals("delete")) {
+                setMessageLayout(chatMessage);
             } else mModelLayout = R.layout.delete_message;
         }
         else {
-            if (!chtm.getSecondDelete().equals("delete")) {
-                if (chtm.getFromUserUUID().equals(context.getString(R.string.admin_key)) && chtm.getImage_url() == null) {
-                    mModelLayout = R.layout.chat_list_item_right;
-                } else if (chtm.getFromUserUUID().equals(context.getString(R.string.admin_key)) && chtm.getImage_url() != null) {
-                    mModelLayout = R.layout.chat_list_item_right_with_image;
-                } else if (!chtm.getFromUserUUID().equals(context.getString(R.string.admin_key)) && chtm.getImage_url() != null) {
-                    mModelLayout = R.layout.chat_list_item_left_with_image;
-                } else {
-                    mModelLayout = R.layout.chat_list_item_left;
-                }
+            if (!chatMessage.getSecondDelete().equals("delete")) {
+                setMessageLayout(chatMessage);
             } else mModelLayout = R.layout.delete_message;
         }
         return mModelLayout;
+    }
+
+
+    @Override
+    public void setMessageLayout(ChatMessage chatMessage) {
+        if (chatMessage.getFromUserUUID().equals(context.getString(R.string.admin_key)) && chatMessage.getImage_url() == null) {
+            mModelLayout = R.layout.chat_list_item_right;
+        } else if (chatMessage.getFromUserUUID().equals(context.getString(R.string.admin_key)) && chatMessage.getImage_url() != null) {
+            mModelLayout = R.layout.chat_list_item_right_with_image;
+        } else if (!chatMessage.getFromUserUUID().equals(context.getString(R.string.admin_key)) && chatMessage.getImage_url() != null) {
+            mModelLayout = R.layout.chat_list_item_left_with_image;
+        } else {
+            mModelLayout = R.layout.chat_list_item_left;
+        }
+    }
+
+
+    @Override
+    public String generateKey() {
+        ArrayList<String> templist=new ArrayList<>();
+        templist.add(User.getCurrentUser().getUuid());
+        templist.add(receiverUuid);
+        Collections.sort(templist);
+        firstKey=templist.get(0);
+        return templist.get(0)+templist.get(1);
     }
 
 
@@ -95,14 +104,7 @@ public class AdminChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage
         return super.getItemCount();
     }
 
-    private String generateKey(){
-        ArrayList<String> templist=new ArrayList<>();
-        templist.add(User.getCurrentUser().getUuid());
-        templist.add(receiverUuid);
-        Collections.sort(templist);
-        firstKey=templist.get(0);
-        return templist.get(0)+templist.get(1);
-    }
+
 
     public class ChatMessageHolder extends RecyclerView.ViewHolder{
         private TextView messageText, messageUser, messageTime;
@@ -120,45 +122,31 @@ public class AdminChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage
         public void onBind(ChatMessage model, int position){
             if (User.getCurrentUser().getUuid().equals(firstKey)) {
                 if (!model.getFirstDelete().equals("delete")) {
-                    if (model.getEdited().equals("yes")){
-                        ImageView editImage = v.findViewById(R.id.edit_image);
-                        editImage.setVisibility(View.VISIBLE);
-                    }
-
-                    messageText.setText(model.getMessageText());
-                    messageUser.setText(model.getFromUser());
-
-                    messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
-                            model.getMessageTime()));
-                    if (model.getImage_url() != null) {
-                        Glide.with(context).load(model.getImage_url()).into(imageSend);
-                        setClickListenerOnImage(model,imageSend);
-                    }
+                    createMessage(model);
                 }
             }
             else {
                 if (!model.getSecondDelete().equals("delete")) {
-
-                    messageText.setText(model.getMessageText());
-                    messageUser.setText(model.getFromUser());
-
-                    messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
-                            model.getMessageTime()));
-
-                    if (model.getImage_url() != null) {
-                        Log.e("GLIDE","CLICKED");
-                        Glide.with(context).load(model.getImage_url()).into(imageSend);
-                        setClickListenerOnImage(model,imageSend);
-                    }
-                    if (model.getEdited().equals("yes")){
-                        ImageView editImage = v.findViewById(R.id.edit_image);
-                        editImage.setVisibility(View.VISIBLE);
-                    }
+                    createMessage(model);
                 }
             }
             if (model.getFromUserUUID().equals("admin"))
                 clickMessage(v,getRef(position),model.getMessageText(),EditMessageDialog.TYPE_OF_MSG_MY);
             else clickMessage(v,getRef(position),model.getMessageText(),EditMessageDialog.TYPE_OF_MSG_NOT_MY);
+        }
+        //TODO подходящее название
+        private void createMessage(ChatMessage model) {
+            messageText.setText(model.getMessageText());
+            messageUser.setText(model.getFromUser());
+            messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)", model.getMessageTime()));
+            if (model.getImage_url() != null) {
+                Glide.with(context).load(model.getImage_url()).into(imageSend);
+                setClickListenerOnImage(model, imageSend);
+            }
+            if (model.getEdited().equals("yes")) {
+                ImageView editImage = v.findViewById(R.id.edit_image);
+                editImage.setVisibility(View.VISIBLE);
+            }
         }
 
         private void setClickListenerOnImage(ChatMessage model, ImageView imageView) {

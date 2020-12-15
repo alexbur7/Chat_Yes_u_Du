@@ -95,7 +95,6 @@ public class ChatFragment extends ChatBaseFragment {
         circleImageView = v.findViewById(R.id.circle_image_chat);
         if (receiverPhotoUrl.equals("default")){
             circleImageView.setImageResource(R.drawable.admin_icon);
-           // circleImageView.setBackgroundResource(R.color.admin_grey_back);
         }
         else{
             Glide.with(this).load(receiverPhotoUrl).into(circleImageView);
@@ -109,30 +108,18 @@ public class ChatFragment extends ChatBaseFragment {
                     if (snapshot1.getKey().equals("firstBlock") && User.getCurrentUser().getUuid().equals(secondKey) && snapshot1.getValue().equals("block")){
                         try {
                             input.setText(getActivity().getString(R.string.blocked_chat));
-                            input.setEnabled(false);
-                            fab.setEnabled(false);
-                            send_image.setEnabled(false);
-                            toolbar.setEnabled(false);
+                            blockClick();
                         } catch (Exception e) {
-                            input.setEnabled(false);
-                            fab.setEnabled(false);
-                            send_image.setEnabled(false);
-                            toolbar.setEnabled(false);
+                            blockClick();
                         }
                     }
 
                     else if (snapshot1.getKey().equals("secondBlock") && User.getCurrentUser().getUuid().equals(firstKey) && snapshot1.getValue().equals("block")){
                         try {
                             input.setText(getActivity().getString(R.string.blocked_chat));
-                            input.setEnabled(false);
-                            fab.setEnabled(false);
-                            send_image.setEnabled(false);
-                            toolbar.setEnabled(false);
+                            blockClick();
                         } catch (Exception e) {
-                            input.setEnabled(false);
-                            fab.setEnabled(false);
-                            send_image.setEnabled(false);
-                            toolbar.setEnabled(false);
+                            blockClick();
                         }
                     }
                 }
@@ -142,14 +129,10 @@ public class ChatFragment extends ChatBaseFragment {
             public void onCancelled(@NonNull DatabaseError error) {}
         });
 
-        setChatListener();
 
         if (User.getCurrentUser().getAdmin_block().equals("block") && !receiverUuid.equals(getActivity().getString(R.string.admin_key))){
             input.setText(getActivity().getString(R.string.blocked_by_admin));
-            input.setEnabled(false);
-            fab.setEnabled(false);
-            send_image.setEnabled(false);
-            toolbar.setEnabled(false);
+            blockClick();
         }
 
         if (receiverUuid.equals(getActivity().getResources().getString(R.string.admin_key))){
@@ -161,10 +144,19 @@ public class ChatFragment extends ChatBaseFragment {
         return v;
     }
 
+    //TODO подходящее название
+    private void blockClick() {
+        input.setEnabled(false);
+        fab.setEnabled(false);
+        send_image.setEnabled(false);
+        toolbar.setEnabled(false);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         seenMessage();
+        setChatListener();
     }
 
     @Override
@@ -243,12 +235,11 @@ public class ChatFragment extends ChatBaseFragment {
     }
     protected void sendMessage() {
         if (image_rui!=null){
-            //setChatListener();
 
-            if (!setChatListenerConnected) {
-                reference.child(generateKey()).addValueEventListener(setChatListener);
-                setChatListenerConnected=true;
-            }
+                if (!setChatListenerConnected) {
+                    reference.child(generateKey()).addValueEventListener(setChatListener);
+                    setChatListenerConnected = true;
+                }
             reference.child(generateKey()).child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
@@ -271,7 +262,8 @@ public class ChatFragment extends ChatBaseFragment {
         input.setText("");
     }
 
-    private void setChatListener() {
+    @Override
+    protected void setChatListener() {
         HashMap<String, Object> map = new HashMap<>();
         setChatListener= new ValueEventListener() {
             @Override
@@ -294,7 +286,7 @@ public class ChatFragment extends ChatBaseFragment {
 
 
     @Override
-    String generateKey(){
+    protected String generateKey(){
         ArrayList<String> templist=new ArrayList<>();
         templist.add(User.getCurrentUser().getUuid());
         templist.add(receiverUuid);
@@ -303,6 +295,7 @@ public class ChatFragment extends ChatBaseFragment {
         secondKey = templist.get(1);
         return templist.get(0)+templist.get(1);
     }
+
 
     private String generateKeyToAdminChat(){
         ArrayList<String> templist=new ArrayList<>();
@@ -357,17 +350,17 @@ public class ChatFragment extends ChatBaseFragment {
     @Override
     public void onPause() {
         super.onPause();
-        if (seenListener!=null)
-            reference.removeEventListener(seenListener);
-        seenListener=null;
-        if (setChatListener!=null) reference.child(generateKey()).removeEventListener(setChatListener);
-        setChatListener=null;
-        if (blockListener!=null) reference.child(generateKey()).removeEventListener(blockListener);
-        blockListener=null;
+        this.removeAllListener();
         setWriting("unwriting");
     }
 
-
+    @Override
+    protected void removeAllListener() {
+        super.removeAllListener();
+        if (seenListener!=null)
+            reference.removeEventListener(seenListener);
+        seenListener=null;
+    }
 
     @Override
     protected void setWriting(String writing) {
@@ -411,9 +404,9 @@ public class ChatFragment extends ChatBaseFragment {
             }
 
             if (requestCode == COMPLAIN_REQUEST){
-                String complaint=getActivity().getString(R.string.complaint_beginning)+data.getStringExtra(ComplainDialog.COMPLAIN_CODE)+
-                        getActivity().getString(R.string.complaint_ending)+username.getText()+
-                        getActivity().getString(R.string.complaint_id)+receiverUuid;
+                String complaint=getActivity().getString(R.string.complaint_beginning)+"  "+data.getStringExtra(ComplainDialog.COMPLAIN_CODE)+
+                        getActivity().getString(R.string.complaint_ending)+"  "+username.getText()+
+                        getActivity().getString(R.string.complaint_id)+"  "+receiverUuid;
 
                 sendToAdmin(complaint);
             }

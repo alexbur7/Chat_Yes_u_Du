@@ -2,7 +2,6 @@ package com.example.yesudu.chat;
 
 import android.os.Bundle;
 import android.text.Editable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,22 +22,24 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 
 public class AdminChatFragment extends ChatBaseFragment {
 
     private AdminChatMessageAdapter adapter;
+    private boolean setChatListenerConnected;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         delete_string =getResources().getString(R.string.delete_users);
         admin_string=getResources().getString(R.string.admin);
+        setChatListenerConnected=false;
 
         View v=inflater.inflate(R.layout.chat_fragment,container,false);
         receiverUuid=getArguments().getString(KEY_TO_RECEIVER_UUID);
         receiverPhotoUrl = getArguments().getString(KEY_TO_RECEIVER_PHOTO_URL);
         toolbar=v.findViewById(R.id.toolbarFr);
         complainView =v.findViewById(R.id.complain_button);
+        setToolbarToAcc();
         complainView.setVisibility(View.GONE);
         statusText = v.findViewById(R.id.online_text_in_chat);
         recyclerView = v.findViewById(R.id.list_of_messages);
@@ -100,10 +101,15 @@ public class AdminChatFragment extends ChatBaseFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        setChatListener();
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
-        if (blockListener!=null) reference.child(generateKey()).removeEventListener(blockListener);
-        blockListener=null;
+        removeAllListener();
     }
 
 
@@ -111,23 +117,10 @@ public class AdminChatFragment extends ChatBaseFragment {
     protected void sendMessage() {
         if (image_rui!=null){
             //reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
-            HashMap<String,Object> map=new HashMap<>();
-            reference.child(generateKey()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()){
-                        map.put("firstBlock","no block");
-                        map.put("secondBlock","no block");
-                        reference.updateChildren(map);
-                        reference.removeEventListener(this);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
+            if (!setChatListenerConnected) {
+                reference.child(generateKey()).addValueEventListener(setChatListener);
+                setChatListenerConnected = true;
+            }
 
             reference.child(generateKey()).child("message")
                     .push()
@@ -137,22 +130,11 @@ public class AdminChatFragment extends ChatBaseFragment {
         }
         else if (!input.getText().toString().equals("")) {
            // reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
-            HashMap<String,Object> map=new HashMap<>();
-            reference.child(generateKey()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()){
-                        map.put("firstBlock","no block");
-                        map.put("secondBlock","no block");
-                        reference.updateChildren(map);
-                        reference.removeEventListener(this);
-                    }
-                }
+            if (!setChatListenerConnected) {
+                reference.child(generateKey()).addValueEventListener(setChatListener);
+                setChatListenerConnected = true;
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {}
-            });
-            Log.d("Tut_admin", generateKey());
             reference.child(generateKey()).child("message")
                     .push()
                     .setValue(new ChatMessage(input.getText().toString(),
@@ -162,19 +144,6 @@ public class AdminChatFragment extends ChatBaseFragment {
         image_rui=null;
         input.setText("");
     }
-
-   /* @Override
-    void clickMessage(View v, DatabaseReference reference, String messageText, int type) {
-        v.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                EditMessageDialog editMessageDialog = new EditMessageDialog(reference,receiverUuid,messageText,type,EditMessageDialog.TYPE_OF_USER_ADMIN);
-                editMessageDialog.setTargetFragment(AdminChatFragment.this, EDIT_MSG_DIALOG_CODE);
-                editMessageDialog.show(getFragmentManager(),null);
-                return true;
-            }
-        });
-    }*/
 
     void displayChatMessages(){
         adapter = new AdminChatMessageAdapter(ChatMessage.class, R.layout.chat_list_item_right, AdminChatMessageAdapter.ChatMessageHolder.class,
@@ -201,7 +170,9 @@ public class AdminChatFragment extends ChatBaseFragment {
             adapter.notifyDataSetChanged();
     }
 
-    String generateKey() {
+
+     @Override
+     protected String generateKey() {
         ArrayList<String> templist = new ArrayList<>();
         templist.add(getActivity().getResources().getString(R.string.admin_key));
         templist.add(receiverUuid);

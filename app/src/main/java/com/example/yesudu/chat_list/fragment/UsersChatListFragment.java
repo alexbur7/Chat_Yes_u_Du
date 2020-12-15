@@ -147,7 +147,6 @@ public class UsersChatListFragment extends ChatListFragment {
     @Override
     public void update() {
         setChats();
-        Log.e("USERS_CHAT_FRAGMENT", "GAVNINA");
     }
     public interface Callback {
         void onUsersFilter(Intent data);

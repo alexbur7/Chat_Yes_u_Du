@@ -2,7 +2,6 @@ package com.example.yesudu.chat;
 
 import android.content.Context;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,7 @@ import java.util.Collections;
 
 import static com.example.yesudu.chat.ChatBaseFragment.EDIT_MSG_DIALOG_CODE;
 
-public class ChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage, ChatMessageAdapter.ChatMessageHolder> {
+public class ChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage, ChatMessageAdapter.ChatMessageHolder> implements SetFunctionalAdapter{
 
     private String receiverUuid;
     private Context context;
@@ -60,42 +59,41 @@ public class ChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage, Cha
 
     @Override
     public int getItemViewType(int position) {
-        ChatMessage chtm = super.getItem(position);
+        ChatMessage chatMessage = super.getItem(position);
         if (User.getCurrentUser().getUuid().equals(firstKey)) {
-            if (!chtm.getFirstDelete().equals("delete")) {
-                if (chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url() == null) {
-                    mModelLayout = R.layout.chat_list_item_right;
-                } else if (chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url() != null) {
-                    mModelLayout = R.layout.chat_list_item_right_with_image;
-                } else if (!chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url() != null) {
-                    mModelLayout = R.layout.chat_list_item_left_with_image;
-                } else {
-                    mModelLayout = R.layout.chat_list_item_left;
-                }
+            if (!chatMessage.getFirstDelete().equals("delete")) {
+                setMessageLayout(chatMessage);
             } else mModelLayout = R.layout.delete_message;
         } else {
-            if (!chtm.getSecondDelete().equals("delete")) {
-                if (chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url() == null) {
-                    mModelLayout = R.layout.chat_list_item_right;
-                } else if (chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url() != null) {
-                    mModelLayout = R.layout.chat_list_item_right_with_image;
-                } else if (!chtm.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chtm.getImage_url() != null) {
-                    mModelLayout = R.layout.chat_list_item_left_with_image;
-                } else {
-                    mModelLayout = R.layout.chat_list_item_left;
-                }
+            if (!chatMessage.getSecondDelete().equals("delete")) {
+                setMessageLayout(chatMessage);
             } else mModelLayout = R.layout.delete_message;
         }
         return mModelLayout;
     }
-
 
     @Override
     public int getItemCount() {
         return super.getItemCount();
     }
 
-    private String generateKey(){
+
+    //TODO подходящее название
+    @Override
+    public void setMessageLayout(ChatMessage chatMessage) {
+        if (chatMessage.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chatMessage.getImage_url() == null) {
+            mModelLayout = R.layout.chat_list_item_right;
+        } else if (chatMessage.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chatMessage.getImage_url() != null) {
+            mModelLayout = R.layout.chat_list_item_right_with_image;
+        } else if (!chatMessage.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chatMessage.getImage_url() != null) {
+            mModelLayout = R.layout.chat_list_item_left_with_image;
+        } else {
+            mModelLayout = R.layout.chat_list_item_left;
+        }
+    }
+
+    @Override
+    public String generateKey() {
         ArrayList<String> templist=new ArrayList<>();
         templist.add(User.getCurrentUser().getUuid());
         templist.add(receiverUuid);
@@ -122,41 +120,25 @@ public class ChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage, Cha
         public void onBind(ChatMessage model, int position){
             if (User.getCurrentUser().getUuid().equals(firstKey)) {
                 if (!model.getFirstDelete().equals("delete")) {
+                    createMessage(model);
 
-                    messageText.setText(model.getMessageText());
-                    messageUser.setText(model.getFromUser());
-
-                    messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
-                            model.getMessageTime()));
                     ImageView seenImage = v.findViewById(R.id.seen_image);
                     if (!model.getSecondKey().equals(context.getString(R.string.not_seen_text)) && !model.getToUserUUID().equals(context.getString(R.string.admin_key))) {
                         try {
                             seenImage.setImageResource(R.drawable.seen_image);
                             seenImage.setVisibility(View.VISIBLE);
                         } catch (Exception e) {
-                           seenImage.setVisibility(View.INVISIBLE);
+                            seenImage.setVisibility(View.INVISIBLE);
                         }
                     }
                     else {
                         seenImage.setVisibility(View.INVISIBLE);
                     }
-
-                    if (model.getImage_url() != null) {
-                        Glide.with(context).load(model.getImage_url()).into(imageSend);
-                        setClickListenerOnImage(model, imageSend);
-                    }
-                    if (model.getEdited().equals("yes")) {
-                        editImage.setVisibility(View.VISIBLE);
-                    }
-                    else editImage.setVisibility(View.GONE);
                 }
             } else {
                 if (!model.getSecondDelete().equals("delete")) {
-                    messageText.setText(model.getMessageText());
-                    messageUser.setText(model.getFromUser());
+                    createMessage(model);
 
-                    messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
-                            model.getMessageTime()));
                     ImageView seenImage = v.findViewById(R.id.seen_image);
                     if (!model.getFirstKey().equals(context.getString(R.string.not_seen_text))) {
                         try {
@@ -169,21 +151,28 @@ public class ChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage, Cha
                     else {
                         seenImage.setVisibility(View.INVISIBLE);
                     }
-
-                    if (model.getImage_url() != null) {
-                        Glide.with(context).load(model.getImage_url()).into(imageSend);
-                        setClickListenerOnImage(model, imageSend);
-                    }
-                    if (model.getEdited().equals("yes")) {
-                        editImage.setVisibility(View.VISIBLE);
-                    }
-                    else editImage.setVisibility(View.GONE);
                 }
             }
             if (User.getCurrentUser().getUuid().equals(model.getFromUserUUID()))
                 clickMessage(v, getRef(position), model.getMessageText(), EditMessageDialog.TYPE_OF_MSG_MY);
             else
                 clickMessage(v, getRef(position), model.getMessageText(), EditMessageDialog.TYPE_OF_MSG_NOT_MY);
+        }
+
+        private void createMessage(ChatMessage model) {
+            messageText.setText(model.getMessageText());
+            messageUser.setText(model.getFromUser());
+
+            messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
+                    model.getMessageTime()));
+
+            if (model.getImage_url() != null) {
+                Glide.with(context).load(model.getImage_url()).into(imageSend);
+                setClickListenerOnImage(model, imageSend);
+            }
+            if (model.getEdited().equals("yes")) {
+                editImage.setVisibility(View.VISIBLE);
+            } else editImage.setVisibility(View.GONE);
         }
 
         private void setClickListenerOnImage(ChatMessage model, ImageView imageView) {

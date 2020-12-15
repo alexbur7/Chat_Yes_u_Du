@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.example.yesudu.chat_list.activity.BlockListActivity;
 import com.example.yesudu.chat_list.activity.FavoriteListActivity;
 import com.example.yesudu.reg_and_login_utils.LogActivity;
 import com.example.yesudu.R;
+import com.example.yesudu.reg_and_login_utils.RegisterFragment;
 import com.example.yesudu.reg_and_login_utils.ResetPasswordActivity;
 import com.example.yesudu.chat.ChatActivity;
 import com.example.yesudu.rules_and_policy.InformationListActivity;
@@ -39,6 +41,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -171,6 +174,7 @@ public class MyAccountFragment extends AccountFragment {
                 setAllTextView(user);
                 openGallery(user);
                 setVerified(user);
+                updateAge(user);
                 pd.dismiss();
             }
 
@@ -291,6 +295,19 @@ public class MyAccountFragment extends AccountFragment {
             hashMap.put("online_time",(new Date()).getTime());
         }
         FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().getUid()).updateChildren(hashMap);
+    }
+
+    private void updateAge(User user){
+        HashMap<String, Object> hashMap = new HashMap<>();
+        Calendar calendar =Calendar.getInstance();
+        calendar.setTime(new Date(user.getDateBirthday()));
+        RegisterFragment.AgeCalculation ageCalculation = new RegisterFragment.AgeCalculation();
+        ageCalculation.getCurrentDate();
+        ageCalculation.setDateOfBirth(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        final String age = String.valueOf(ageCalculation.calculateYear());
+
+        hashMap.put("age", age);
+        FirebaseDatabase.getInstance().getReference("users").child(user.getUuid()).updateChildren(hashMap);
     }
 
     @Override

@@ -11,13 +11,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:layout_marginTop="10dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="vertical">
 
             <FrameLayout
@@ -51,6 +52,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:orientation="horizontal">
 
                     <TextView
@@ -62,7 +64,8 @@
                         android:layout_toRightOf="@+id/circle_image_user"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        tools:ignore="NotSibling" />
+                        tools:ignore="NotSibling"
+                        />
 
                     <TextView
                         android:id="@+id/user_date"
@@ -75,7 +78,8 @@
                         android:layout_toRightOf="@+id/circle_image_user"
                         android:textSize="15dp"
                         android:textStyle="italic"
-                        tools:ignore="NotSibling" />
+                        tools:ignore="NotSibling"
+                        android:layout_alignParentRight="true" />
                 </LinearLayout>
 
                 <TextView

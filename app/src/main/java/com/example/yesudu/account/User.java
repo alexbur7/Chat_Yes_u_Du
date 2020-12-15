@@ -20,6 +20,7 @@ public class User {
     private String typing;
     private String perm_block;
     private String verified;
+    private long dateBirthday;
 
     private long online_time;
     private static User currentUser;
@@ -27,7 +28,7 @@ public class User {
     public User(String uuid,String name, String surname, String country, String city,
                 String photo_url, String region,String sex,String age, String status,
                 String admin, long online_time , String admin_block,String about,
-                String photo_url1, String photo_url2, String photo_url3, String typing, String perm_block, String verified){
+                String photo_url1, String photo_url2, String photo_url3, String typing, String perm_block, String verified, long dateBirthday){
         this.name = name;
         this.surname = surname;
         this.country = country;
@@ -49,6 +50,7 @@ public class User {
         this.photo_url1 = photo_url1;
         this.photo_url2 = photo_url2;
         this.photo_url3 = photo_url3;
+        this.dateBirthday = dateBirthday;
     }
 
     public static User getCurrentUser() {
@@ -221,5 +223,13 @@ public class User {
 
     public void setVerified(String verified) {
         this.verified = verified;
+    }
+
+    public long getDateBirthday() {
+        return dateBirthday;
+    }
+
+    public void setDateBirthday(long dateBirthday) {
+        this.dateBirthday = dateBirthday;
     }
 }

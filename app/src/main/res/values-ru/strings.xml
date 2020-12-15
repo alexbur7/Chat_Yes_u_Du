@@ -59,7 +59,7 @@
     <string name="saved_image">Фото сохранено</string>
     <string name="dialog_title_edit">Редактировать профиль</string>
     <string name="dialog_title_delete">Удалить чат</string>
-    <string name="delete_image">Удалить фото</string>
+    <string name="delete_image">Удалить фото 1</string>
     <string name="delete_users">Пользователь удалил этот аккаунт</string>
     <string name="have_not_photo">У вас нет фото</string>
     <string name="photo_delete">Фото удалено</string>
@@ -77,8 +77,8 @@
     <string name="block_chat">Заблокировать пользователя</string>
     <string name="unblock_msg_text">Разблокировать пользователя?</string>
     <string name="block_account">Заблокировать временно</string>
-    <string name="unblock_account">Разблокировать (вр.)</string>
-    <string name="unblock_account_perm">Разблокировать (пост.)</string>
+    <string name="unblock_account">Разблокировать (временно)</string>
+    <string name="unblock_account_perm">Разблокировать (постоянно)</string>
     <string name="blocklist">Заблокированные</string>
     <string name="photo_cant_delete">Не удалось удалить фото</string>
     <string name="blocked_chat">Вы заблокированы пользователем</string>
@@ -106,9 +106,9 @@
     <string name="admin">Администрация</string>
     <string name="gallery_text">Фотографии</string>
     <string name="complain_menu">Пожаловаться</string>
-    <string name="delete_image1">Удалить фото1</string>
-    <string name="delete_image2">Удалить фото2</string>
-    <string name="delete_image3">Удалить фото3</string>
+    <string name="delete_image1">Удалить фото 2</string>
+    <string name="delete_image2">Удалить фото 3</string>
+    <string name="delete_image3">Удалить фото 4</string>
     <string name="rule_and_policy">Политика конфиденциальности</string>
     <string name="about_us">О нас</string>
     <string name="licence">Лицензия</string>
@@ -351,6 +351,7 @@
         <item> </item>
         <item>Россия</item>
         <item>Армения</item>
+        <item>Арцах</item>
         <item>США</item>
         <item>Франция</item>
         <item>Грузия</item>
@@ -540,7 +541,6 @@
         <item>Арагацотн</item>
         <item>Арарат</item>
         <item>Армавир</item>
-        <item>Арцах</item>
         <item>Гегаркуник</item>
         <item>Лори</item>
         <item>Ширак</item>
@@ -573,7 +573,7 @@
  - неоригинальные (рамки, надписи, сердечки, цветы и т.д.);\n
  - черно-белые;\n
 \n
- Фотографии, не соответствующие вышеперечисленным требованиям будут удалены Администрацией. За повторную загрузку      ранее отклоненных фотографий Ваш аккаунт будет заблокирован сроком на 30 дней.\n
+ Фотографии, не соответствующие вышеперечисленным требованиям будут удалены Администрацией,а аккаунт будет заблокирован до тех пор,пока не будут загружены допустимые фотографии. За повторную загрузку ранее отклоненных фотографий Ваш аккаунт будет заблокирован сроком на 30 дней.\n
     </string>
     <string name="accept_string">Вы действительно хотите удалить аккаунт?</string>
     <string name="yes_pos_button_text">Да</string>
@@ -593,6 +593,7 @@
     <string name="accept_unblock_string">Вы действительно хотите разблокировать аккаунт?</string>
     <string name="verified">Подтвердить аккаунт</string>
     <string name="cancel_verified">Отменить подтверждение</string>
+    <string name="date_birth">Choose date of birth</string>
     <string name="complain_completed">Жалоба успешно отправлена!</string>
     <string name="go_chat_btn_title">Чат с администратором</string>
     <string name="go_complain_btn_title">Пожаловаться</string>
