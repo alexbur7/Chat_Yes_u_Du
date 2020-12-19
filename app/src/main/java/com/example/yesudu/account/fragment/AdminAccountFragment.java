@@ -112,6 +112,7 @@ public class AdminAccountFragment extends AccountFragment {
             case R.id.favorite_add:{
                 favoriteChat();
             }
+            break;
         }
         return true;
     }

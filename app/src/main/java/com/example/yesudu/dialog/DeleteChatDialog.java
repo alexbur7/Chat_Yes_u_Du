@@ -27,14 +27,14 @@ import java.util.HashMap;
 
 public class DeleteChatDialog extends DialogFragment {
     private RadioButton deleteBox;
-    private RadioButton blockBox;
+    //private RadioButton blockBox;
     //private RadioButton favoriteBox;
     private DatabaseReference reference;
     private String receiverUuid;
     private boolean empty;
-    private ValueEventListener deleteMessageListener;
-    private ValueEventListener blockChatListener;
-    private ValueEventListener favoriteChatListener;
+    //private ValueEventListener deleteMessageListener;
+    //private ValueEventListener blockChatListener;
+    //private ValueEventListener favoriteChatListener;
     private String firstKey;
     private String secondKey;
 
@@ -47,8 +47,8 @@ public class DeleteChatDialog extends DialogFragment {
 
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.delete_chat_dialog,null);
         reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
-        deleteBox = view.findViewById(R.id.check_delete_box);
-        blockBox = view.findViewById(R.id.check_blocklist_box);
+       // deleteBox = view.findViewById(R.id.check_delete_box);
+        //blockBox = view.findViewById(R.id.check_blocklist_box);
        // favoriteBox = view.findViewById(R.id.check_favorite_list_box);
 
        // if (empty) blockBox.setEnabled(false);
@@ -59,14 +59,14 @@ public class DeleteChatDialog extends DialogFragment {
                 .setPositiveButton(R.string.ok_pos_button_text, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                       deleteChat(deleteBox.isChecked());
-                       blockChat(blockBox.isChecked());
+                      // deleteChat(deleteBox.isChecked());
+                      // blockChat(blockBox.isChecked());
                      //  favoriteChat(favoriteBox.isChecked());
                     }
                 }).create();
     }
 
-    private void deleteChat(boolean check){
+   /* private void deleteChat(boolean check){
         if (check){
             deleteMessageListener=reference.child("message").addValueEventListener(new ValueEventListener() {
                 @Override
@@ -102,9 +102,9 @@ public class DeleteChatDialog extends DialogFragment {
             });
         }
        sendResult(Activity.RESULT_CANCELED);
-    }
+    }*/
 
-    private void blockChat(boolean block){
+    /*private void blockChat(boolean block){
         if (block) {
             blockChatListener = reference.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -139,7 +139,7 @@ public class DeleteChatDialog extends DialogFragment {
             });
         }
         sendResult(Activity.RESULT_CANCELED);
-    }
+    }*/
 
   /*  private void favoriteChat(boolean favorite) {
         if (favorite) {
@@ -185,9 +185,9 @@ public class DeleteChatDialog extends DialogFragment {
     @Override
     public void onPause() {
         super.onPause();
-        if (deleteMessageListener !=null) reference.child("message").removeEventListener(deleteMessageListener);
-        if (blockChatListener != null) reference.removeEventListener(blockChatListener);
-        if (favoriteChatListener!=null) reference.removeEventListener(favoriteChatListener);
+        //if (deleteMessageListener !=null) reference.child("message").removeEventListener(deleteMessageListener);
+        //if (blockChatListener != null) reference.removeEventListener(blockChatListener);
+        //if (favoriteChatListener!=null) reference.removeEventListener(favoriteChatListener);
     }
 
 

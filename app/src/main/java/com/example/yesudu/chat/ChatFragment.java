@@ -7,12 +7,16 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,6 +49,8 @@ public class ChatFragment extends ChatBaseFragment {
     private ValueEventListener seenListener;
     private boolean setChatListenerConnected;
     private ImageView verifiedImage;
+    private ValueEventListener blockChatListener;
+    private ValueEventListener deleteMessageListener;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -144,7 +150,6 @@ public class ChatFragment extends ChatBaseFragment {
         return v;
     }
 
-    //TODO подходящее название
     private void blockClick() {
         input.setEnabled(false);
         fab.setEnabled(false);
@@ -166,8 +171,27 @@ public class ChatFragment extends ChatBaseFragment {
     }
 
 
-
-
+    @Override
+    protected void setToolbarToAcc() {
+        super.setToolbarToAcc();
+        toolbar.inflateMenu(R.menu.chat_menu);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.delete_chat:{
+                        deleteChat();
+                        return true;
+                    }
+                    case R.id.block_chat:{
+                        blockChat();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+    }
 
     @Override
     void displayChatMessages(){
@@ -353,6 +377,8 @@ public class ChatFragment extends ChatBaseFragment {
         super.onPause();
         this.removeAllListener();
         setWriting("unwriting");
+        if (deleteMessageListener !=null) reference.child(generateKey()).child("message").removeEventListener(deleteMessageListener);
+        if (blockChatListener != null) reference.child(generateKey()).removeEventListener(blockChatListener);
     }
 
     @Override
@@ -425,6 +451,55 @@ public class ChatFragment extends ChatBaseFragment {
 
     public interface CallBack{
         void goToAdmin();
+    }
+
+    private void blockChat(){
+            blockChatListener = reference.child(generateKey()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot snapshot1:snapshot.getChildren()){
+                        if (snapshot1.getKey().equals("firstBlock") && User.getCurrentUser().getUuid().equals(firstKey)){
+                            HashMap<String,Object> map = new HashMap<>();
+                            map.put("firstBlock","block");
+                            snapshot.getRef().updateChildren(map);
+                        }
+                        else if (snapshot1.getKey().equals("secondBlock") && User.getCurrentUser().getUuid().equals(secondKey)){
+                            HashMap<String,Object> map = new HashMap<>();
+                            map.put("secondBlock","block");
+                            snapshot.getRef().updateChildren(map);
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {}
+            });
+    }
+
+    private void deleteChat(){
+            deleteMessageListener=reference.child(generateKey()).child("message").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot snapshot1:snapshot.getChildren()){
+                        if (User.getCurrentUser().getUuid().equals(firstKey)) {
+                            HashMap<String, Object> hashMap = new HashMap<>();
+                            hashMap.put("firstDelete", "delete");
+                            snapshot1.getRef().updateChildren(hashMap);
+                        }
+                        else {
+                            HashMap<String, Object> hashMap = new HashMap<>();
+                            hashMap.put("secondDelete", "delete");
+                            snapshot1.getRef().updateChildren(hashMap);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
     }
 
 }

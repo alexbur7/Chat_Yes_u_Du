@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<item
+    android:title="@string/block_chat"
+    android:id="@+id/block_chat"
+    app:showAsAction="never"/>
+    <item
+        android:title="@string/delete_chat"
+        android:id="@+id/delete_chat"
+        app:showAsAction="never"/>
+</menu>
