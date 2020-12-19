@@ -7,11 +7,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +21,9 @@ import com.example.yesudu.R;
 import java.util.ArrayList;
 
 public class ComplainDialog extends DialogFragment implements Dismissable {
+
+    public static final int BASE_COMPLAIN_CODE = 10;
+    public static final int FAKE_COMPLAIN_CODE = 20;
 
     public static final int ADVERTISING_BTN_CODE =-111;
     public static final int FISHING_BTN_CODE =-222;
@@ -31,35 +35,65 @@ public class ComplainDialog extends DialogFragment implements Dismissable {
     public static final int FAKE_BTN_CODE =-888;
     public static final int THREATS_BTN_CODE =-999;
     public static final int REASON_BTN_CODE =-1000;
+    public static final int WRONG_AGE= -1001;
+    public static final int WRONG_LOCATION= -1002;
+    public static final int MARRIED= -1003;
     public static final String COMPLAIN_CODE="complain_code";
     private RecyclerView recView;
+    private int codeTypeRecView;
+    private FragmentManager manager;
+    private Fragment fragment;
+
+    public ComplainDialog(int code){
+        this.codeTypeRecView =code;
+        manager=null;
+        fragment=null;
+    }
+
+    public ComplainDialog(int code, FragmentManager manager, Fragment fragment){
+        this.codeTypeRecView =code;
+        this.manager = manager;
+        this.fragment = fragment;
+    }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         View v= LayoutInflater.from(getActivity()).inflate(R.layout.complain_dialog,null);
         //setupRecView;
-        initRecyclerView(v);
+        initRecyclerView(v, codeTypeRecView);
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
         return builder.setView(v).create();
     }
 
-    private void initRecyclerView(View v) {
+    private void initRecyclerView(View v,int codeTypeRecView) {
         recView=v.findViewById(R.id.dialog_rec_view);
         ArrayList<Integer> codes=new ArrayList<>();
-        codes.add(ADVERTISING_BTN_CODE);
-        codes.add(FISHING_BTN_CODE);
-        codes.add(SUBSTANCE_BTN_CODE);
-        codes.add(OBSCENE_BTN_CODE);
-        codes.add(SPAM_BTN_CODE);
-        codes.add(PORNOGRAPHIC_BTN_CODE);
-        codes.add(PHOTOS_BTN_CODE);
-        codes.add(FAKE_BTN_CODE);
-        codes.add(THREATS_BTN_CODE);
-        codes.add(REASON_BTN_CODE);
-        DialogAdapter adapter=new DialogAdapter(codes,this,getActivity());
+        fillingArrayListWithCodes(codeTypeRecView, codes);
+        DialogAdapter adapter=new DialogAdapter(codes,this,getActivity(), manager,fragment,this);
         recView.setAdapter(adapter);
         recView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+    private void fillingArrayListWithCodes(int codeTypeRecView, ArrayList<Integer> codes) {
+        if (codeTypeRecView==BASE_COMPLAIN_CODE) {
+            codes.add(ADVERTISING_BTN_CODE);
+            codes.add(FISHING_BTN_CODE);
+            codes.add(SUBSTANCE_BTN_CODE);
+            codes.add(OBSCENE_BTN_CODE);
+            codes.add(SPAM_BTN_CODE);
+            codes.add(PORNOGRAPHIC_BTN_CODE);
+            //codes.add(PHOTOS_BTN_CODE);
+            codes.add(FAKE_BTN_CODE);
+            codes.add(THREATS_BTN_CODE);
+            codes.add(REASON_BTN_CODE);
+        }
+        else {
+            codes.add(PHOTOS_BTN_CODE);
+            codes.add(WRONG_AGE);
+            codes.add(WRONG_LOCATION);
+            codes.add(MARRIED);
+        }
     }
 
     private void sendResult(int result, String complainName) {
@@ -91,7 +125,7 @@ public class ComplainDialog extends DialogFragment implements Dismissable {
                 return getActivity().getString(R.string.obscene_content_title);
             }
             case SPAM_BTN_CODE:{
-                return getActivity().getString(R.string.spam_title);
+                return getActivity().getString(R.string.extrimism_title);
             }
             case PORNOGRAPHIC_BTN_CODE:{
                 return getActivity().getString(R.string.pornographic_content_title);
@@ -107,6 +141,15 @@ public class ComplainDialog extends DialogFragment implements Dismissable {
             }
             case REASON_BTN_CODE:{
                 return getActivity().getString(R.string.another_reason_title);
+            }
+            case WRONG_AGE:{
+                return getActivity().getString(R.string.false_age);
+            }
+            case WRONG_LOCATION:{
+                return getActivity().getString(R.string.false_location);
+            }
+            case MARRIED:{
+                return getActivity().getString(R.string.married);
             }
             default:return null;
         }

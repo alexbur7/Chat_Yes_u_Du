@@ -28,7 +28,7 @@ import java.util.HashMap;
 public class DeleteChatDialog extends DialogFragment {
     private RadioButton deleteBox;
     private RadioButton blockBox;
-    private RadioButton favoriteBox;
+    //private RadioButton favoriteBox;
     private DatabaseReference reference;
     private String receiverUuid;
     private boolean empty;
@@ -49,7 +49,7 @@ public class DeleteChatDialog extends DialogFragment {
         reference = FirebaseDatabase.getInstance().getReference("chats").child(generateKey());
         deleteBox = view.findViewById(R.id.check_delete_box);
         blockBox = view.findViewById(R.id.check_blocklist_box);
-        favoriteBox = view.findViewById(R.id.check_favorite_list_box);
+       // favoriteBox = view.findViewById(R.id.check_favorite_list_box);
 
        // if (empty) blockBox.setEnabled(false);
 
@@ -61,7 +61,7 @@ public class DeleteChatDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                        deleteChat(deleteBox.isChecked());
                        blockChat(blockBox.isChecked());
-                       favoriteChat(favoriteBox.isChecked());
+                     //  favoriteChat(favoriteBox.isChecked());
                     }
                 }).create();
     }
@@ -141,7 +141,7 @@ public class DeleteChatDialog extends DialogFragment {
         sendResult(Activity.RESULT_CANCELED);
     }
 
-    private void favoriteChat(boolean favorite) {
+  /*  private void favoriteChat(boolean favorite) {
         if (favorite) {
             favoriteChatListener = reference.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -176,7 +176,7 @@ public class DeleteChatDialog extends DialogFragment {
             });
         }
         sendResult(Activity.RESULT_CANCELED);
-    }
+    }*/
 
     private void sendResult(int result) {
         getTargetFragment().onActivityResult(getTargetRequestCode(),result,null);

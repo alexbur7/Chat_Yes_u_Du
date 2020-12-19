@@ -4,7 +4,6 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -68,7 +67,7 @@ public class MyAccountFragment extends AccountFragment {
 
     @Override
     void setToolbar() {
-        toolbar.inflateMenu(R.menu.account_menu);
+        toolbar.inflateMenu(R.menu.my_account_menu);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -100,7 +99,7 @@ public class MyAccountFragment extends AccountFragment {
             }
             break;
             case R.id.delete_account:{
-                AcceptDialog dialog = new AcceptDialog(reference,imageEventListener,KEY_ACCEPT,null);
+                AcceptDialog dialog = new AcceptDialog(referenceUsers,imageEventListener,KEY_ACCEPT,null);
                 dialog.show(getFragmentManager(),null);
             }
             break;
@@ -149,7 +148,7 @@ public class MyAccountFragment extends AccountFragment {
         pd.setMessage(getResources().getString(R.string.uploading));
         pd.show();
         String uuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        imageEventListener=reference.child(uuid).addValueEventListener(new ValueEventListener() {
+        imageEventListener= referenceUsers.child(uuid).addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -249,11 +248,11 @@ public class MyAccountFragment extends AccountFragment {
                         Uri downloadUri = task.getResult();
                         String mUri = downloadUri.toString();
 
-                        reference = FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid());
+                        referenceUsers = FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid());
                         HashMap<String,Object> map = new HashMap<>();
                         map.put("photo_url",mUri);
                         deleteImage(User.getCurrentUser(),0);
-                        reference.updateChildren(map);
+                        referenceUsers.updateChildren(map);
                         User.getCurrentUser().setPhoto_url(mUri);
                     }
                     else {
@@ -314,6 +313,6 @@ public class MyAccountFragment extends AccountFragment {
     public void onDestroy() {
         super.onDestroy();
         if (User.getCurrentUser()!=null)
-        reference.child(User.getCurrentUser().getUuid()).removeEventListener(imageEventListener);
+        referenceUsers.child(User.getCurrentUser().getUuid()).removeEventListener(imageEventListener);
     }
 }

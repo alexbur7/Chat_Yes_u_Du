@@ -1,7 +1,9 @@
 package com.example.yesudu.account.fragment;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,14 +11,22 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.yesudu.R;
 import com.example.yesudu.account.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class UserAccountFragment extends AccountFragment {
     public static final String KEY_TO_RECEIVER_UUID="recevierID";
@@ -35,23 +45,38 @@ public class UserAccountFragment extends AccountFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         uuId = getArguments().getString(KEY_TO_RECEIVER_UUID);
+        referenceChats = FirebaseDatabase.getInstance().getReference("chats").child(generateKey(uuId));
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (favoriteChatListener!=null) referenceChats.removeEventListener(favoriteChatListener);
     }
 
     @Override
     void setToolbar() {
-
+        toolbar.inflateMenu(R.menu.user_account_menu);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                return clickToolbarItems(item);
+            }
+        });
     }
-
-    /*@Override
-    void setEditButton() {
-        editButton.setVisibility(View.INVISIBLE);
-    }*/
 
 
     @Override
     boolean clickToolbarItems(MenuItem item) {
-        return false;
+        switch (item.getItemId()){
+            case R.id.favorite_add:{
+                favoriteChat();
+                return true;
+            }
+            default:return false;
+        }
     }
 
     @Override
@@ -59,7 +84,7 @@ public class UserAccountFragment extends AccountFragment {
         final ProgressDialog pd = new ProgressDialog(getContext());
         pd.setMessage(getResources().getString(R.string.uploading));
         pd.show();
-        imageEventListener=reference.child(uuId).addValueEventListener(new ValueEventListener() {
+        imageEventListener= referenceUsers.child(uuId).addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -94,4 +119,5 @@ public class UserAccountFragment extends AccountFragment {
         this.user=user;
         this.user.setUuid(uuId);
     }
+
 }

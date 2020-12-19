@@ -8,21 +8,32 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.yesudu.R;
+import com.example.yesudu.chat.ChatFragment;
 
 import java.util.ArrayList;
+
+import static com.example.yesudu.chat.ChatFragment.COMPLAIN_REQUEST;
 
 public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.DialogHolder> {
 
     private Dismissable dismissable;
     private ArrayList<Integer> elements;
     private Context context;
+    private FragmentManager manager;
+    private Fragment fragment;
+    private ComplainDialog dialog;
 
-    public DialogAdapter(ArrayList<Integer> elements,Dismissable dismissable,Context context){
+    public DialogAdapter(ArrayList<Integer> elements, Dismissable dismissable, Context context, FragmentManager manager, Fragment fragment, ComplainDialog dialog){
         this.elements=elements;
         this.dismissable=dismissable;
         this.context=context;
+        this.manager = manager;
+        this.fragment = fragment;
+        this.dialog = dialog;
     }
 
 
@@ -53,15 +64,23 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.DialogHold
             textView= itemView.findViewById(R.id.text_options_item);
         }
 
-        public void onBind(int t){
-            this.complainCode=t;
-            textView.setText(dismissable.chooseOption(complainCode));
+        public void onBind(int complainCode){
+            this.complainCode=complainCode;
+            textView.setText(dismissable.chooseOption(this.complainCode));
         }
 
         @Override
         public void onClick(View v) {
-            dismissable.onDismiss(dismissable.chooseOption(complainCode));
-            Toast.makeText(context,context.getString(R.string.complain_completed),Toast.LENGTH_SHORT).show();
+            if (complainCode!=ComplainDialog.FAKE_BTN_CODE) {
+                dismissable.onDismiss(dismissable.chooseOption(complainCode));
+                Toast.makeText(context, context.getString(R.string.complain_completed), Toast.LENGTH_SHORT).show();
+            }
+            else {
+                dialog.dismiss();
+                ComplainDialog fakeDataDialog = new ComplainDialog(ComplainDialog.FAKE_COMPLAIN_CODE);
+                fakeDataDialog.setTargetFragment(fragment,COMPLAIN_REQUEST);
+                fakeDataDialog.show(manager,null);
+            }
         }
     }
 }

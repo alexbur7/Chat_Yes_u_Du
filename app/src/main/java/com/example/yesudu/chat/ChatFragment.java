@@ -326,7 +326,8 @@ public class ChatFragment extends ChatBaseFragment {
                        statusText.setText(R.string.typing);
                     }
                     else if (user.getStatus().equals(getResources().getString(R.string.label_offline)))
-                        statusText.setText("был в сети " + DateFormat.format("dd-MM-yyyy (HH:mm)", user.getOnline_time()));
+                        statusText.setText(getActivity().getString(R.string.was)+" " + DateFormat.format("dd MMMM", user.getOnline_time())+" "+
+                                getActivity().getString(R.string.in)+" "+DateFormat.format("HH:mm", user.getOnline_time()));
                     else statusText.setText(user.getStatus());
                     username.setText(user.getName());
                     if (user.getVerified().equals("yes")){
@@ -396,7 +397,7 @@ public class ChatFragment extends ChatBaseFragment {
                     case GoToAdminDialog.CHAT_BTN_CODE:activity.goToAdmin();
                     break;
                     case GoToAdminDialog.COMPLAIN_BTN_CODE:{
-                        ComplainDialog dialog=new ComplainDialog();
+                        ComplainDialog dialog=new ComplainDialog(ComplainDialog.BASE_COMPLAIN_CODE,getFragmentManager(),ChatFragment.this);
                         dialog.setTargetFragment(ChatFragment.this,COMPLAIN_REQUEST);
                         dialog.show(getFragmentManager(),null);
                     };

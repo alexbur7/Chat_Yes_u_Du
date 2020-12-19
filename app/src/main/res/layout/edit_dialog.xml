@@ -65,6 +65,7 @@
                 android:padding="8dp"
                 android:background="@drawable/edit_button"
                 android:text="@string/date_birth"
+                android:textColor="@color/chat_text"
                 />
 
             <EditText

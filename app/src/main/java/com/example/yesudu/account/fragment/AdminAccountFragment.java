@@ -2,7 +2,6 @@ package com.example.yesudu.account.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -45,12 +44,19 @@ public class AdminAccountFragment extends AccountFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         uuId = getArguments().getString(KEY_TO_RECEIVER_UUID);
+        referenceChats = FirebaseDatabase.getInstance().getReference("chats").child(generateKey(uuId));
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        if (favoriteChatListener!=null) referenceChats.removeEventListener(favoriteChatListener);
+    }
+
+    @Override
     void setToolbar() {
-        toolbar.inflateMenu(R.menu.admin_menu);
+        toolbar.inflateMenu(R.menu.admin_account_menu);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -93,7 +99,6 @@ public class AdminAccountFragment extends AccountFragment {
                 setPermBlock(item);
             }
             break;
-            //TODO Запутались в стрингах
             case R.id.list_block_admin:{
                 Intent intent=AdminBlockListActivity.newInstance(getActivity(), AdminTimeBlockListFragment.BLOCK_CODE);
                 startActivity(intent);
@@ -104,6 +109,9 @@ public class AdminAccountFragment extends AccountFragment {
                 startActivity(intent);
                 getActivity().finish();
             }break;
+            case R.id.favorite_add:{
+                favoriteChat();
+            }
         }
         return true;
     }
@@ -114,7 +122,7 @@ public class AdminAccountFragment extends AccountFragment {
         final ProgressDialog pd = new ProgressDialog(getContext());
         pd.setMessage(getResources().getString(R.string.uploading));
         pd.show();
-        imageEventListener=reference.child(uuId).addValueEventListener(new ValueEventListener() {
+        imageEventListener= referenceUsers.child(uuId).addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -194,12 +202,12 @@ public class AdminAccountFragment extends AccountFragment {
         HashMap<String, Object> hashMap = new HashMap<>();
         if (user.getPerm_block().equals("unblock")) {
             hashMap.put("perm_block", "block");
-            reference.child(user.getUuid()).updateChildren(hashMap);
+            referenceUsers.child(user.getUuid()).updateChildren(hashMap);
             item.setTitle(R.string.unblock_account_perm);
         }
         else {
             hashMap.put("perm_block", "unblock");
-            reference.child(user.getUuid()).updateChildren(hashMap);
+            referenceUsers.child(user.getUuid()).updateChildren(hashMap);
             item.setTitle(R.string.perm_block_account);
         }
     }
@@ -208,12 +216,12 @@ public class AdminAccountFragment extends AccountFragment {
         HashMap<String, Object> hashMap = new HashMap<>();
         if (user.getAdmin_block().equals("unblock")) {
             hashMap.put("admin_block", "block");
-            reference.child(user.getUuid()).updateChildren(hashMap);
+            referenceUsers.child(user.getUuid()).updateChildren(hashMap);
             item.setTitle(R.string.unblock_account);
         }
         else {
             hashMap.put("admin_block", "unblock");
-            reference.child(user.getUuid()).updateChildren(hashMap);
+            referenceUsers.child(user.getUuid()).updateChildren(hashMap);
             item.setTitle(R.string.block_account);
         }
     }
@@ -222,12 +230,12 @@ public class AdminAccountFragment extends AccountFragment {
         HashMap<String, Object> hashMap = new HashMap<>();
         if (user.getVerified().equals("no")){
             hashMap.put("verified", "yes");
-            reference.child(user.getUuid()).updateChildren(hashMap);
+            referenceUsers.child(user.getUuid()).updateChildren(hashMap);
             item.setTitle(R.string.cancel_verified);
         }
         else {
             hashMap.put("verified", "no");
-            reference.child(user.getUuid()).updateChildren(hashMap);
+            referenceUsers.child(user.getUuid()).updateChildren(hashMap);
             item.setTitle(R.string.verified);
         }
     }
@@ -235,6 +243,6 @@ public class AdminAccountFragment extends AccountFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        reference.child(user.getUuid()).removeEventListener(imageEventListener);
+        referenceUsers.child(user.getUuid()).removeEventListener(imageEventListener);
     }
 }

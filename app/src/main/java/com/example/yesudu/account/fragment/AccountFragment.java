@@ -23,12 +23,16 @@ import com.example.yesudu.photo_utils.PhotoViewPagerItemFragment;
 import com.example.yesudu.R;
 import com.example.yesudu.account.AccountAdapter;
 import com.example.yesudu.account.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 public abstract class AccountFragment extends Fragment {
 
@@ -38,10 +42,13 @@ public abstract class AccountFragment extends Fragment {
     protected ImageView photoImageView;
     protected StorageReference storageReference;
     protected ValueEventListener imageEventListener;
-    protected DatabaseReference reference;
+    protected DatabaseReference referenceUsers;
+    protected DatabaseReference referenceChats;
     protected PhotoAdapter photoAdapter;
     protected RecyclerView photoRecView;
     protected RecyclerView textRecView;
+    protected ValueEventListener favoriteChatListener;
+    protected String firstKey,secondKey;
 
     private String[] countryArray;
     private String[] regionArray;
@@ -61,7 +68,7 @@ public abstract class AccountFragment extends Fragment {
         textRecView=v.findViewById(R.id.text_recycler_view);
         toolbar=v.findViewById(R.id.toolbarFr);
         lookAll = v.findViewById(R.id.look_all_button);
-        reference = FirebaseDatabase.getInstance().getReference("users");
+        referenceUsers = FirebaseDatabase.getInstance().getReference("users");
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
         countryArray=getActivity().getResources().getStringArray(R.array.country_filter);
         setToolbar();
@@ -176,4 +183,38 @@ public abstract class AccountFragment extends Fragment {
             verifiedImage.setVisibility(View.INVISIBLE);
         }
     }
+
+    protected void favoriteChat() {
+        favoriteChatListener = referenceChats.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                HashMap<String,Object> map = new HashMap<>();
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    if (snapshot1.getKey().equals("firstFavorites") && User.getCurrentUser().getUuid().equals(firstKey)) {
+                        map.put("firstFavorites","yes");
+                        snapshot.getRef().updateChildren(map);
+                    } else if (snapshot1.getKey().equals("secondFavorites") && User.getCurrentUser().getUuid().equals(secondKey)) {
+                        map.put("secondFavorites","yes");
+                        snapshot.getRef().updateChildren(map);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
+    protected String generateKey(String receiverUuid){
+        ArrayList<String> templist=new ArrayList<>();
+        templist.add(User.getCurrentUser().getUuid());
+        templist.add(receiverUuid);
+        Collections.sort(templist);
+        firstKey=templist.get(0);
+        secondKey = templist.get(1);
+        return templist.get(0)+templist.get(1);
+    }
+
 }
