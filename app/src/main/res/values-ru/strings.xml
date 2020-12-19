@@ -595,7 +595,7 @@
     <string name="cancel_verified">Отменить подтверждение</string>
     <string name="date_birth">Выбере свою дату рождения</string>
     <string name="complain_completed">Жалоба успешно отправлена!</string>
-    <string name="go_chat_btn_title">Написать администрации</string>
+    <string name="go_chat_btn_title">Написать в администрацию</string>
     <string name="go_complain_btn_title">Пожаловаться</string>
     <string name="advertising_title">Реклама или спам</string>
     <string name="fishing_title">Мошенничество</string>

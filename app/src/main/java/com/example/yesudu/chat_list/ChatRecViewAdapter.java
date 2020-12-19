@@ -227,12 +227,16 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
 
         @Override
         public void onClick(View view) {
-            Log.e("CHATHOLDER","clicked");
             Intent intent = ChatActivity.newIntent(context, user.getUuid(), user.getPhoto_url(), VIEW_TYPE);
             context.startActivity(intent);
         }
 
         @Override
+        public boolean onLongClick(View v) {
+            return false;
+        }
+
+        /*@Override
         public boolean onLongClick(View v) {
             if (userText!=null) {
                 DeleteChatDialog deleteChatDialog = new DeleteChatDialog(user.getUuid(), userText.getText().toString().isEmpty());
@@ -241,7 +245,7 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
                 deleteChatDialog.show(fragmentManager, null);
             }
             return true;
-        }
+        }*/
     }
 
     public static class AdminChatHolder extends ChatRecViewAdapter.ChatHolder{
@@ -254,7 +258,6 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
 
         @Override
         public void onClick(View view) {
-            Log.e("USER UUID",user.getUuid());
             Intent intent = ChatActivity.newIntent(context, user.getUuid(), user.getPhoto_url(),VIEW_TYPE);
             context.startActivity(intent);
         }
