@@ -615,7 +615,7 @@ Photos that do not meet the above requirements will be deleted by the Administra
     <string name="accept_msg_string">Are you sure you want to delete this message?</string>
     <string name="edit_message_title">Edit</string>
     <string name="typing">typing...</string>
-    <string name="favorite_chat">Add user in favorites</string>
+    <string name="favorite_chat">Add in favorites</string>
     <string name="favoritelist">Favorites</string>
     <string name="unfavorite_msg_text">Delete from favorite?</string>
     <string name="list_block_admin">Time-blocked by admin</string>
@@ -624,28 +624,36 @@ Photos that do not meet the above requirements will be deleted by the Administra
     <string name="cancel_verified">Cancel verify</string>
     <string name="perm_block_account_title">Permanent blocked</string>
     <string name="unblock_account_perm">Unblock account (permanent)</string>
-    <string name="date_birth">Choose date of birth</string>
+    <string name="date_birth">Add age</string>
     <string name="go_chat_btn_title">Write to administration</string>
     <string name="go_complain_btn_title">Complain</string>
     <string name="complain_completed">the complaint was successfully sent</string>
     <string name="advertising_title">Advertising of goods and services</string>
     <string name="fishing_title">Fishing</string>
     <string name="illegal_substance_title">Sale of illegal drugs</string>
-    <string name="obscene_content_title">Obscene content</string>
+    <string name="obscene_content_title">Intimacy services</string>
     <string name="extrimism_title">Extremism or nationalism</string>
     <string name="pornographic_content_title">Pornographic content</string>
-    <string name="illegal_photos_title">Another`s photos</string>
+    <string name="illegal_photos_title">Invalid photos in profile</string>
+    <string name="underage">Underage user</string>
     <string name="fake_profile_title">Fake profile</string>
-    <string name="false_age">Wrong age</string>
+    <string name="false_age">age</string>
     <string name="false_location">Wrong location</string>
     <string name="married">Married</string>
     <string name="threats_title">Threats or insults</string>
-    <string name="another_reason_title">Another reason</string>
+    <string name="another_reason_title">Another</string>
+    <string name="wrong">Wrong:</string>
+    <string name="false_country">country</string>
+    <string name="false_city">city</string>
+    <string name="false_country_and_country">country and city</string>
+    <string name="false_name">name</string>
 
     <string name="complaint_beginning">Complaint!\n Subject: </string>
     <string name="complaint_ending">\n Name: </string>
 
     <string name="complaint_id" translatable="false"> \n id: </string>
-    <string name="was">Was</string>
+    <string name="was">was</string>
     <string name="in">in</string>
+    <string name="sure_block_user">Block user </string>
+    <string name="sure_delete_user">Are you sure want to delete chat with</string>
 </resources>

@@ -91,13 +91,13 @@ public class CancelDialog extends DialogFragment {
         Log.e("width", String.valueOf(width));
         if (width>1000) {
             if (type_dialog==BlockListFragment.TYPE_DIALOG)
-                window.setLayout(800, ViewGroup.LayoutParams.WRAP_CONTENT);
+                window.setLayout(820, ViewGroup.LayoutParams.WRAP_CONTENT);
             else
                 window.setLayout(750, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
         else {
             if (type_dialog==BlockListFragment.TYPE_DIALOG)
-                window.setLayout(550, ViewGroup.LayoutParams.WRAP_CONTENT);
+                window.setLayout(570, ViewGroup.LayoutParams.WRAP_CONTENT);
             else
                 window.setLayout(500, ViewGroup.LayoutParams.WRAP_CONTENT);
         }

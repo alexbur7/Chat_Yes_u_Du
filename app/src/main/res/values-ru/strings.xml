@@ -558,7 +558,7 @@
  - некачественные (с нарушением резкости, освещения и т.д.);\n
  - уже существующие в профиле или очень похожие на них;\n
  - чужие\n
- - на которых не видно или нет вообще пользователя;\n
+ - на которых не видно или вообще нет пользователя;\n
  - на которых лицо видно плохо, или видна только часть лица;\n
  - цветов,животных,насекомых,пейзажей,зданий,сооружений и т.д.;\n
  - эротического и порнографического содержания;\n
@@ -584,7 +584,7 @@
     <string name="delete_my_message">Удалить у себя</string>
     <string name="accept_msg_string">Вы точно хотите удалить это сообщение?</string>
     <string name="typing">набирает...</string>
-    <string name="favorite_chat">Добавить пользователя в избранные</string>
+    <string name="favorite_chat">Добавить в избранные</string>
     <string name="favoritelist">Избранные</string>
     <string name="unfavorite_msg_text">Удалить из избранных?</string>
     <string name="list_block_admin">Заблокированные временно</string>
@@ -593,25 +593,33 @@
     <string name="accept_unblock_string">Вы действительно хотите разблокировать аккаунт?</string>
     <string name="verified">Подтвердить аккаунт</string>
     <string name="cancel_verified">Отменить подтверждение</string>
-    <string name="date_birth">Выбере свою дату рождения</string>
+    <string name="date_birth">Добавить возраст</string>
     <string name="complain_completed">Жалоба успешно отправлена!</string>
     <string name="go_chat_btn_title">Написать в администрацию</string>
     <string name="go_complain_btn_title">Пожаловаться</string>
     <string name="advertising_title">Реклама или спам</string>
     <string name="fishing_title">Мошенничество</string>
     <string name="illegal_substance_title">Продажа запрещенных препаратов</string>
-    <string name="obscene_content_title">Непристойное содержание</string>
+    <string name="obscene_content_title">Интим-услуги</string>
     <string name="extrimism_title">Экстремизм или национализм</string>
     <string name="pornographic_content_title">Эротика или порнография</string>
-    <string name="illegal_photos_title">Чужие фотографии</string>
+    <string name="illegal_photos_title">Недопустимые фото в профиле</string>
     <string name="fake_profile_title">Фиктивные данные</string>
-    <string name="false_age">Неверный возраст</string>
-    <string name="false_location">Неверное местоположение</string>
-    <string name="married">Состоящий(ая) в браке</string>
+    <string name="false_age">возраст</string>
+    <string name="false_location">Неверное место проживания</string>
+    <string name="married">Состоит в браке</string>
     <string name="threats_title">Оскорбления или угрозы</string>
-    <string name="another_reason_title">Другая причина</string>
+    <string name="underage">Несовершеннолетний пользователь</string>
+    <string name="another_reason_title">Другое</string>
+    <string name="false_country">страна</string>
+    <string name="wrong">Ненастоящие:</string>
+    <string name="false_city">город</string>
+    <string name="false_country_and_country">страна и город</string>
+    <string name="false_name">имя</string>
     <string name="complaint_beginning">Жалоба!\n Тема: </string>
     <string name="complaint_ending">\n На </string>
-    <string name="was">Был</string>
+    <string name="was">был</string>
     <string name="in">в</string>
+    <string name="sure_block_user">Заблокировать пользователя </string>
+    <string name="sure_delete_user">Вы действительно хотите удалить чат с </string>
 </resources>

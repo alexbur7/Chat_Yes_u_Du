@@ -15,7 +15,6 @@
         android:background="@color/chat_text"/>
 
     <Button
-        android:layout_marginTop="4dp"
         android:id="@+id/go_complain_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

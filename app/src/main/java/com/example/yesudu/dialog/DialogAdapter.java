@@ -71,15 +71,21 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.DialogHold
 
         @Override
         public void onClick(View v) {
-            if (complainCode!=ComplainDialog.FAKE_BTN_CODE) {
-                dismissable.onDismiss(dismissable.chooseOption(complainCode));
-                Toast.makeText(context, context.getString(R.string.complain_completed), Toast.LENGTH_SHORT).show();
-            }
-            else {
+            if (complainCode==ComplainDialog.FAKE_BTN_CODE){
                 dialog.dismiss();
                 ComplainDialog fakeDataDialog = new ComplainDialog(ComplainDialog.FAKE_COMPLAIN_CODE);
                 fakeDataDialog.setTargetFragment(fragment,COMPLAIN_REQUEST);
                 fakeDataDialog.show(manager,null);
+            }
+           /* else if (complainCode==ComplainDialog.WRONG_LOCATION){
+                dialog.dismiss();
+                ComplainDialog fakeLocationDialog = new ComplainDialog(ComplainDialog.FAKE_LOCATION_COMPLAIN_CODE);
+                fakeLocationDialog.setTargetFragment(fragment,COMPLAIN_REQUEST);
+                fakeLocationDialog.show(manager,null);
+            }*/
+            else {
+                dismissable.onDismiss(dismissable.chooseOption(complainCode));
+               // Toast.makeText(context, context.getString(R.string.complain_completed), Toast.LENGTH_SHORT).show();
             }
         }
     }

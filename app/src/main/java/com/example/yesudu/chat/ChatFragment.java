@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.yesudu.R;
 import com.example.yesudu.account.User;
+import com.example.yesudu.dialog.AcceptDialog;
 import com.example.yesudu.dialog.ComplainDialog;
 import com.example.yesudu.dialog.GoToAdminDialog;
 import com.example.yesudu.dialog.EditMessageDialog;
@@ -42,6 +44,8 @@ public class ChatFragment extends ChatBaseFragment {
     public static final String KEY_TO_RECEIVER_PHOTO_URL = "recevierPHOTO_URL";
     public static final int GO_TO_ADMIN_REQUEST = 1010;
     public static final int COMPLAIN_REQUEST = 2020;
+    public static final int KEY_ACCEPT_BLOCK_USER=101;
+    public static final int KEY_ACCEPT_DELETE_CHAT=102;
     private ValueEventListener setChatListener;
     private String seenText;
     private DatabaseReference referenceWriting;
@@ -70,7 +74,6 @@ public class ChatFragment extends ChatBaseFragment {
         receiverPhotoUrl = getArguments().getString(KEY_TO_RECEIVER_PHOTO_URL);
         toolbar=v.findViewById(R.id.toolbarFr);
         verifiedImage = v.findViewById(R.id.verified_image_chat);
-        setToolbarToAcc();
         complainView =v.findViewById(R.id.complain_button);
         complainView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +89,7 @@ public class ChatFragment extends ChatBaseFragment {
             complainView.setVisibility(View.GONE);
             toolbar.setEnabled(false);
         }
+        else setToolbarToAcc();
         statusText = v.findViewById(R.id.online_text_in_chat);
         recyclerView = v.findViewById(R.id.list_of_messages);
         fab= v.findViewById(R.id.fab);
@@ -180,11 +184,15 @@ public class ChatFragment extends ChatBaseFragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.delete_chat:{
-                        deleteChat();
+                        AcceptDialog acceptDialog = new AcceptDialog(reference,deleteMessageListener,KEY_ACCEPT_DELETE_CHAT,receiverUuid,username.getText().toString());
+                        acceptDialog.show(getFragmentManager(),null);
+                        //deleteChat();
                         return true;
                     }
                     case R.id.block_chat:{
-                        blockChat();
+                        AcceptDialog acceptDialog = new AcceptDialog(reference,blockChatListener,KEY_ACCEPT_BLOCK_USER,receiverUuid,username.getText().toString());
+                        acceptDialog.show(getFragmentManager(),null);
+                        //blockChat();
                         return true;
                     }
                 }
@@ -350,7 +358,7 @@ public class ChatFragment extends ChatBaseFragment {
                        statusText.setText(R.string.typing);
                     }
                     else if (user.getStatus().equals(getResources().getString(R.string.label_offline)))
-                        statusText.setText(getActivity().getString(R.string.was)+" " + DateFormat.format("dd MMMM", user.getOnline_time())+" "+
+                        statusText.setText(getActivity().getString(R.string.was)+" " + DateFormat.format("dd MMMM yyyy", user.getOnline_time())+" "+
                                 getActivity().getString(R.string.in)+" "+DateFormat.format("HH:mm", user.getOnline_time()));
                     else statusText.setText(user.getStatus());
                     username.setText(user.getName());
@@ -429,13 +437,17 @@ public class ChatFragment extends ChatBaseFragment {
                     };
                 }
             }
+            else if (requestCode == COMPLAIN_REQUEST){
+                if (!data.getStringExtra(ComplainDialog.COMPLAIN_CODE).equals(getActivity().getString(R.string.another_reason_title))) {
+                    String complaint = getActivity().getString(R.string.complaint_beginning) + "  " + data.getStringExtra(ComplainDialog.COMPLAIN_CODE) +
+                            getActivity().getString(R.string.complaint_ending) + "  " + username.getText() +
+                            getActivity().getString(R.string.complaint_id) + "  " + receiverUuid;
 
-            if (requestCode == COMPLAIN_REQUEST){
-                String complaint=getActivity().getString(R.string.complaint_beginning)+"  "+data.getStringExtra(ComplainDialog.COMPLAIN_CODE)+
-                        getActivity().getString(R.string.complaint_ending)+"  "+username.getText()+
-                        getActivity().getString(R.string.complaint_id)+"  "+receiverUuid;
-
-                sendToAdmin(complaint);
+                    sendToAdmin(complaint);
+                }
+                else {
+                    activity.goToAdmin();
+                }
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -447,13 +459,14 @@ public class ChatFragment extends ChatBaseFragment {
                 .setValue(new ChatMessage(str,
                         User.getCurrentUser().getName(),User.getCurrentUser().getUuid(),getActivity().getString(R.string.admin_key),getActivity().getString(R.string.not_seen_text),
                         getActivity().getString(R.string.not_seen_text),receiverPhotoUrl,"no delete","no delete","no"));
+        Toast.makeText(getActivity(), getActivity().getString(R.string.complain_completed), Toast.LENGTH_SHORT).show();
     }
 
     public interface CallBack{
         void goToAdmin();
     }
 
-    private void blockChat(){
+    /*private void blockChat(){
             blockChatListener = reference.child(generateKey()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -500,6 +513,6 @@ public class ChatFragment extends ChatBaseFragment {
 
                 }
             });
-    }
+    }*/
 
 }

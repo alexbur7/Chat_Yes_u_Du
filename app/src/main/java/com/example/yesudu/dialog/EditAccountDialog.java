@@ -21,7 +21,6 @@ import com.example.yesudu.R;
 import com.example.yesudu.account.User;
 import com.example.yesudu.reg_and_login_utils.RegisterFragment;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -33,7 +32,7 @@ import static android.app.Activity.RESULT_OK;
 public class EditAccountDialog extends DialogFragment {
     private static final int CALENDAR_REQUEST=11;
 
-    private EditText nameText;
+    //private EditText nameText;
     private EditText surnameText;
     private Spinner countrySpinner;
     private EditText cityText;
@@ -41,8 +40,8 @@ public class EditAccountDialog extends DialogFragment {
     //private EditText ageText;
     private EditText aboutText;
     private Spinner sexSpinner;
-    private Button editAge;
-    private Date dateOfBirth;
+    //private Button editAge;
+    //private Date dateOfBirth;
 
     private ArrayAdapter<CharSequence> countryAdapter;
     private ArrayAdapter<CharSequence> regionAdapter;
@@ -51,9 +50,9 @@ public class EditAccountDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.edit_dialog,null);
-        nameText = view.findViewById(R.id.name);
-        nameText.setText(User.getCurrentUser().getName());
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.edit_account_dialog,null);
+        //nameText = view.findViewById(R.id.name);
+        //nameText.setText(User.getCurrentUser().getName());
         surnameText = view.findViewById(R.id.surname);
         surnameText.setText(User.getCurrentUser().getSurname());
         cityText = view.findViewById(R.id.city);
@@ -118,7 +117,7 @@ public class EditAccountDialog extends DialogFragment {
        // ageText = view.findViewById(R.id.age);
         //ageText.setText(User.getCurrentUser().getAge());
 
-        editAge = view.findViewById(R.id.edit_birth_call_calendar);
+        /*editAge = view.findViewById(R.id.edit_birth_call_calendar);
         editAge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,7 +125,7 @@ public class EditAccountDialog extends DialogFragment {
                 dialog.setTargetFragment(EditAccountDialog.this,CALENDAR_REQUEST);
                 dialog.show(getFragmentManager(),null);
             }
-        });
+        });*/
 
 
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
@@ -145,13 +144,13 @@ public class EditAccountDialog extends DialogFragment {
     private void updateUser(){
         final  String country = String.valueOf(countrySpinner.getSelectedItemPosition());
         final  String region = String.valueOf(regionSpinner.getSelectedItemPosition());
-        Calendar calendar =Calendar.getInstance();
+        /*Calendar calendar =Calendar.getInstance();
         calendar.setTime(dateOfBirth);
         RegisterFragment.AgeCalculation ageCalculation = new RegisterFragment.AgeCalculation();
         ageCalculation.getCurrentDate();
         ageCalculation.setDateOfBirth(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        final String age = String.valueOf(ageCalculation.calculateYear());
-        if (nameText.getText().toString().isEmpty()  || cityText.getText().toString().isEmpty() || ageCalculation.calculateYear()<0
+        final String age = String.valueOf(ageCalculation.calculateYear());*/
+        if (cityText.getText().toString().isEmpty()
                  || country.equals("0") ||(country.equals("1") && region.equals("0")
                 || (country.equals("2") && region.equals("0"))|| (country.equals("3") && region.equals("0")))){
             Toast.makeText(getActivity(),R.string.reject_update,Toast.LENGTH_SHORT).show();
@@ -159,8 +158,8 @@ public class EditAccountDialog extends DialogFragment {
         }
         else {
             HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("name", nameText.getText().toString());
-            User.getCurrentUser().setName(nameText.getText().toString());
+            //hashMap.put("name", nameText.getText().toString());
+            //User.getCurrentUser().setName(nameText.getText().toString());
             hashMap.put("surname", surnameText.getText().toString());
             User.getCurrentUser().setSurname(surnameText.getText().toString());
             hashMap.put("city", cityText.getText().toString());
@@ -173,20 +172,20 @@ public class EditAccountDialog extends DialogFragment {
             User.getCurrentUser().setSex(sexSpinner.getSelectedItem().toString());
            // hashMap.put("age", ageText.getText().toString());
             //User.getCurrentUser().setAge(ageText.getText().toString());
-            hashMap.put("age", age);
-            User.getCurrentUser().setAge(age);
-            hashMap.put("dateBirthday", dateOfBirth.getTime());
-            User.getCurrentUser().setDateBirthday(dateOfBirth.getTime());
+            //hashMap.put("age", age);
+            //User.getCurrentUser().setAge(age);
+            //hashMap.put("dateBirthday", dateOfBirth.getTime());
+            //User.getCurrentUser().setDateBirthday(dateOfBirth.getTime());
             hashMap.put("about",aboutText.getText().toString());
             User.getCurrentUser().setAbout(aboutText.getText().toString());
             FirebaseDatabase.getInstance().getReference("users").child(User.getCurrentUser().getUuid()).updateChildren(hashMap);
         }
     }
 
-    @Override
+   /* @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == CALENDAR_REQUEST && resultCode == RESULT_OK){
             dateOfBirth = (Date) data.getSerializableExtra(CalendarDialog.EXTRA_DATE);
         }
-    }
+    }*/
 }

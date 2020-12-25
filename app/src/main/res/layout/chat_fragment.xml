@@ -74,7 +74,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_gravity="end|center"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:background="?attr/colorAccent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/admin_icon" />

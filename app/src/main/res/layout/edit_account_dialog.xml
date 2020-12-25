@@ -12,11 +12,11 @@
             android:layout_gravity="center_horizontal"
             android:padding="20dp">
 
-            <EditText
+            <!--<EditText
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/name_hint"/>
+                android:hint="@string/name_hint"/>!-->
 
             <EditText
                 android:id="@+id/surname"
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/age_reg_hint"
-                android:inputType="number" />!-->
+                android:inputType="number" />
 
             <Button
                 android:id="@+id/edit_birth_call_calendar"
@@ -66,7 +66,7 @@
                 android:background="@drawable/edit_button"
                 android:text="@string/date_birth"
                 android:textColor="@color/chat_text"
-                />
+                />!-->
 
             <EditText
                 android:layout_marginTop="8dp"

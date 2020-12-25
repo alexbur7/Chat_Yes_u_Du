@@ -163,7 +163,7 @@ public class ChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage, Cha
             messageText.setText(model.getMessageText());
             messageUser.setText(model.getFromUser());
 
-            messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)",
+            messageTime.setText(DateFormat.format("dd MMMM HH:mm",
                     model.getMessageTime()));
 
             if (model.getImage_url() != null) {

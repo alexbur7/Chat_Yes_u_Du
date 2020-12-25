@@ -18,10 +18,13 @@ import androidx.fragment.app.DialogFragment;
 import com.example.yesudu.R;
 import com.example.yesudu.account.fragment.MyAccountFragment;
 import com.example.yesudu.account.User;
+import com.example.yesudu.chat.ChatFragment;
 import com.example.yesudu.chat_list.fragment.AdminPermBlockListFragment;
 import com.example.yesudu.chat_list.fragment.AdminTimeBlockListFragment;
 import com.example.yesudu.reg_and_login_utils.LogActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -37,7 +40,9 @@ public class AcceptDialog extends DialogFragment {
     private ValueEventListener listener;
     private TextView acceptText;
     private String firstKey;
+    private String secondKey;
     private String receiverUuid;
+    private String nameUser;
     int key;
     int user_type;
 
@@ -56,6 +61,14 @@ public class AcceptDialog extends DialogFragment {
         this.receiverUuid= receiverUuid;
     }
 
+    public AcceptDialog(DatabaseReference reference, ValueEventListener listener, int key,String receiverUuid, String nameUser){
+        this.reference = reference;
+        this.listener= listener;
+        this.key=key;
+        this.receiverUuid= receiverUuid;
+        this.nameUser = nameUser;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -70,6 +83,14 @@ public class AcceptDialog extends DialogFragment {
         }
         else if (key==AdminPermBlockListFragment.BLOCK_CODE){
             acceptText.setText(R.string.accept_unblock_string);
+        }
+        else if (key==ChatFragment.KEY_ACCEPT_BLOCK_USER){
+            String sureDelete = getActivity().getString(R.string.sure_block_user);
+            acceptText.setText(sureDelete+" "+nameUser+"?");
+        }
+        else if (key==ChatFragment.KEY_ACCEPT_DELETE_CHAT){
+            String sureDelete = getActivity().getString(R.string.sure_delete_user);
+            acceptText.setText(sureDelete+" "+nameUser+"?");
         }
         else {
             acceptText.setText(R.string.accept_msg_string);
@@ -96,6 +117,13 @@ public class AcceptDialog extends DialogFragment {
                             case AdminPermBlockListFragment.BLOCK_CODE:{
                                 unblockUserPerm();
                             }break;
+                            case ChatFragment.KEY_ACCEPT_BLOCK_USER:{
+                                blockChat();
+                            }
+                            break;
+                            case ChatFragment.KEY_ACCEPT_DELETE_CHAT:{
+                                deleteChat();
+                            }
                         }
                     }
                 })
@@ -191,12 +219,69 @@ public class AcceptDialog extends DialogFragment {
         this.dismiss();
     }
 
+    private void blockChat(){
+        listener = reference.child(generateKey()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1:snapshot.getChildren()){
+                    if (snapshot1.getKey().equals("firstBlock") && User.getCurrentUser().getUuid().equals(firstKey)){
+                        HashMap<String,Object> map = new HashMap<>();
+                        map.put("firstBlock","block");
+                        snapshot.getRef().updateChildren(map);
+                    }
+                    else if (snapshot1.getKey().equals("secondBlock") && User.getCurrentUser().getUuid().equals(secondKey)){
+                        HashMap<String,Object> map = new HashMap<>();
+                        map.put("secondBlock","block");
+                        snapshot.getRef().updateChildren(map);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+    }
+
+    private void deleteChat(){
+        listener=reference.child(generateKey()).child("message").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1:snapshot.getChildren()){
+                    if (User.getCurrentUser().getUuid().equals(firstKey)) {
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("firstDelete", "delete");
+                        snapshot1.getRef().updateChildren(hashMap);
+                    }
+                    else {
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("secondDelete", "delete");
+                        snapshot1.getRef().updateChildren(hashMap);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (listener !=null && key==ChatFragment.KEY_ACCEPT_DELETE_CHAT) reference.child(generateKey()).child("message").removeEventListener(listener);
+        if (listener != null && key==ChatFragment.KEY_ACCEPT_BLOCK_USER) reference.child(generateKey()).removeEventListener(listener);
+    }
+
     private String generateKey(){
         ArrayList<String> templist=new ArrayList<>();
         templist.add(User.getCurrentUser().getUuid());
         templist.add(receiverUuid);
         Collections.sort(templist);
         firstKey =templist.get(0);
+        secondKey = templist.get(1);
         return templist.get(0)+templist.get(1);
     }
 }
