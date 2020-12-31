@@ -264,7 +264,8 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
                 User user = snapshot.getValue(User.class);
                 try {
                     if (user.getStatus().equals(getResources().getString(R.string.label_offline)))
-                        statusText.setText(user.getStatus() + ": " + DateFormat.format("dd-MM-yyyy (HH:mm)", user.getOnline_time()));
+                        statusText.setText(getActivity().getString(R.string.was)+" " + DateFormat.format("dd MMMM yyyy", user.getOnline_time())+" "+
+                                getActivity().getString(R.string.in)+" "+DateFormat.format("HH:mm", user.getOnline_time()));
                     else statusText.setText(user.getStatus());
                     username.setText(user.getName());
                 } catch (Exception e) {

@@ -439,11 +439,30 @@ public class ChatFragment extends ChatBaseFragment {
             }
             else if (requestCode == COMPLAIN_REQUEST){
                 if (!data.getStringExtra(ComplainDialog.COMPLAIN_CODE).equals(getActivity().getString(R.string.another_reason_title))) {
-                    String complaint = getActivity().getString(R.string.complaint_beginning) + "  " + data.getStringExtra(ComplainDialog.COMPLAIN_CODE) +
+                    String complaint= data.getStringExtra(ComplainDialog.COMPLAIN_CODE);
+                    if (complaint.equals(getActivity().getString(R.string.false_name))
+                        || complaint.equals(getActivity().getString(R.string.false_age))
+                        || complaint.equals(getActivity().getString(R.string.false_city))
+                        || complaint.equals(getActivity().getString(R.string.false_country))
+                        || complaint.equals(getActivity().getString(R.string.false_country_and_country))){
+                        complaint = getActivity().getString(R.string.wrong)+" "+data.getStringExtra(ComplainDialog.COMPLAIN_CODE);
+                    }
+                    else if(!complaint.equals(getActivity().getString(R.string.advertising_title))
+                        && !complaint.equals(getActivity().getString(R.string.fishing_title))
+                        && !complaint.equals(getActivity().getString(R.string.illegal_substance_title))
+                        && !complaint.equals(getActivity().getString(R.string.obscene_content_title))
+                        && !complaint.equals(getActivity().getString(R.string.extrimism_title))
+                        && !complaint.equals(getActivity().getString(R.string.pornographic_content_title))
+                        && !complaint.equals(getActivity().getString(R.string.threats_title))
+                        && !complaint.equals(getActivity().getString(R.string.married))
+                    ){
+                        complaint = getActivity().getString(R.string.illegal_photos)+" "+data.getStringExtra(ComplainDialog.COMPLAIN_CODE);
+                    }
+                    String text_complaint = getActivity().getString(R.string.complaint_beginning) + "  " + complaint +
                             getActivity().getString(R.string.complaint_ending) + "  " + username.getText() +
                             getActivity().getString(R.string.complaint_id) + "  " + receiverUuid;
 
-                    sendToAdmin(complaint);
+                    sendToAdmin(text_complaint);
                 }
                 else {
                     activity.goToAdmin();

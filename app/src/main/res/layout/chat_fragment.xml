@@ -51,10 +51,10 @@
                     >
                     <TextView
                         android:id="@+id/username_text"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/chat_text"
-                        android:layout_marginLeft="23dp"
+                        android:layout_marginLeft="12dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -62,10 +62,9 @@
                         android:id="@+id/online_text_in_chat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="23dp"
+                        android:layout_marginLeft="12dp"
                         android:layout_marginTop="3dp"
                         android:textColor="@color/chat_text"
-                        android:textSize="14dp"
                         android:textStyle="italic" />
                 </LinearLayout>
 

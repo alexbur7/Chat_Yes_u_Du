@@ -134,11 +134,11 @@ public class AdminChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage
                 clickMessage(v,getRef(position),model.getMessageText(),EditMessageDialog.TYPE_OF_MSG_MY);
             else clickMessage(v,getRef(position),model.getMessageText(),EditMessageDialog.TYPE_OF_MSG_NOT_MY);
         }
-        //TODO подходящее название
+
         private void createMessage(ChatMessage model) {
             messageText.setText(model.getMessageText());
             messageUser.setText(model.getFromUser());
-            messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm)", model.getMessageTime()));
+            messageTime.setText(DateFormat.format("dd MMMM yyyy HH:mm", model.getMessageTime()));
             if (model.getImage_url() != null) {
                 Glide.with(context).load(model.getImage_url()).into(imageSend);
                 setClickListenerOnImage(model, imageSend);

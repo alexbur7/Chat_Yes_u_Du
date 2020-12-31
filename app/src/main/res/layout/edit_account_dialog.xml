@@ -16,14 +16,14 @@
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/name_hint"/>!-->
+                android:hint="@string/name_hint"/>
 
             <EditText
                 android:id="@+id/surname"
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/surname_hint"/>
+                android:hint="@string/surname_hint"/>!-->
 
             <Spinner
                 android:id="@+id/country"
@@ -43,13 +43,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/city_hint"/>
-            <Spinner
+            <!--<Spinner
                 android:id="@+id/spinner_sex_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:entries="@array/sex_for_spinner"/>
-            <!--<EditText
+            <EditText
                 android:id="@+id/age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

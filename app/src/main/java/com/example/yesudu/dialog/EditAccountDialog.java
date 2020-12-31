@@ -33,13 +33,13 @@ public class EditAccountDialog extends DialogFragment {
     private static final int CALENDAR_REQUEST=11;
 
     //private EditText nameText;
-    private EditText surnameText;
+    //private EditText surnameText;
     private Spinner countrySpinner;
     private EditText cityText;
     private Spinner regionSpinner;
     //private EditText ageText;
     private EditText aboutText;
-    private Spinner sexSpinner;
+   // private Spinner sexSpinner;
     //private Button editAge;
     //private Date dateOfBirth;
 
@@ -53,13 +53,13 @@ public class EditAccountDialog extends DialogFragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.edit_account_dialog,null);
         //nameText = view.findViewById(R.id.name);
         //nameText.setText(User.getCurrentUser().getName());
-        surnameText = view.findViewById(R.id.surname);
-        surnameText.setText(User.getCurrentUser().getSurname());
+       // surnameText = view.findViewById(R.id.surname);
+        //surnameText.setText(User.getCurrentUser().getSurname());
         cityText = view.findViewById(R.id.city);
         cityText.setText(User.getCurrentUser().getCity());
         aboutText=view.findViewById(R.id.about_edit_text);
         aboutText.setText(User.getCurrentUser().getAbout());
-        sexSpinner = view.findViewById(R.id.spinner_sex_edit);
+        //sexSpinner = view.findViewById(R.id.spinner_sex_edit);
         countrySpinner = view.findViewById(R.id.country);
         regionSpinner = view.findViewById(R.id.region);
         regionAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.region_filter_rus, android.R.layout.simple_spinner_item);
@@ -111,9 +111,9 @@ public class EditAccountDialog extends DialogFragment {
 
         countrySpinner.setSelection(Integer.parseInt(User.getCurrentUser().getCountry()));
 
-        if (User.getCurrentUser().getSex().equals(getResources().getStringArray(R.array.sex_for_spinner)[0]))
-            sexSpinner.setSelection(0);
-        else sexSpinner.setSelection(1);
+       // if (User.getCurrentUser().getSex().equals(getResources().getStringArray(R.array.sex_for_spinner)[0]))
+        //    sexSpinner.setSelection(0);
+        //else sexSpinner.setSelection(1);
        // ageText = view.findViewById(R.id.age);
         //ageText.setText(User.getCurrentUser().getAge());
 
@@ -160,16 +160,16 @@ public class EditAccountDialog extends DialogFragment {
             HashMap<String, Object> hashMap = new HashMap<>();
             //hashMap.put("name", nameText.getText().toString());
             //User.getCurrentUser().setName(nameText.getText().toString());
-            hashMap.put("surname", surnameText.getText().toString());
-            User.getCurrentUser().setSurname(surnameText.getText().toString());
+          //  hashMap.put("surname", surnameText.getText().toString());
+           // User.getCurrentUser().setSurname(surnameText.getText().toString());
             hashMap.put("city", cityText.getText().toString());
             User.getCurrentUser().setCity(cityText.getText().toString());
             hashMap.put("country",  String.valueOf(countrySpinner.getSelectedItemPosition()));
             User.getCurrentUser().setCountry(String.valueOf(countrySpinner.getSelectedItemPosition()));
             hashMap.put("region", String.valueOf(regionSpinner.getSelectedItemPosition()));
             User.getCurrentUser().setRegion(String.valueOf(regionSpinner.getSelectedItemPosition()));
-            hashMap.put("sex", sexSpinner.getSelectedItem().toString());
-            User.getCurrentUser().setSex(sexSpinner.getSelectedItem().toString());
+            //hashMap.put("sex", sexSpinner.getSelectedItem().toString());
+            //User.getCurrentUser().setSex(sexSpinner.getSelectedItem().toString());
            // hashMap.put("age", ageText.getText().toString());
             //User.getCurrentUser().setAge(ageText.getText().toString());
             //hashMap.put("age", age);

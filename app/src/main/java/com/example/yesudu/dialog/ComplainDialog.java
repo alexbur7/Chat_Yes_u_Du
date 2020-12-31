@@ -25,7 +25,7 @@ public class ComplainDialog extends DialogFragment implements Dismissable {
 
     public static final int BASE_COMPLAIN_CODE = 10;
     public static final int FAKE_COMPLAIN_CODE = 20;
-    public static final int FAKE_LOCATION_COMPLAIN_CODE = 30;
+    public static final int FAKE_PHOTO_COMPLAIN_CODE = 30;
 
     public static final int ADVERTISING_BTN_CODE =-111;
     public static final int FISHING_BTN_CODE =-222;
@@ -45,6 +45,25 @@ public class ComplainDialog extends DialogFragment implements Dismissable {
     public static final int WRONG_COUNTRY_AND_CITY= -1006;
     public static final int WRONG_NAME = -1007;
     public static final int UNDERAGE_USER = -1008;
+
+    public static final int FAR_PHOTO = -1009;
+    public static final int SUBSTANDARD = -1010;
+    public static final int ALREADY_EXISTING = -1011;
+    public static final int OTHER_PEOPLE = -1012;
+    public static final int NOT_VISIBLE_USER = -1013;
+    public static final int POORLY_VISIBLE = -1014;
+    public static final int ANY_THINGS = -1015;
+    public static final int PORNO_PHOTO = -1016;
+    public static final int GROUP_PHOTO = -1017;
+    public static final int BABY_PHOTO = -1018;
+    public static final int IRRELEVANT = -1019;
+    public static final int IN_SUNGLASSES = -1020;
+    public static final int TILTED_IN_PROFILE = -1021;
+    public static final int PARTS_OF_USER = -1022;
+    public static final int CONTAINING_SCENES = -1023;
+    public static final int NON_ORIGINAL = -1024;
+    public static final int BLACK_AND_WHITE_PHOTOS = -1025;
+    public static final int WRONG_SEX = -1026;
     public static final String COMPLAIN_CODE="complain_code";
     private RecyclerView recView;
     private int codeTypeRecView;
@@ -72,6 +91,11 @@ public class ComplainDialog extends DialogFragment implements Dismissable {
         wrongText = v.findViewById(R.id.wrong_textView);
         if (codeTypeRecView==FAKE_COMPLAIN_CODE){
             wrongText.setVisibility(View.VISIBLE);
+            wrongText.setText(R.string.wrong);
+        }
+        else if (codeTypeRecView == FAKE_PHOTO_COMPLAIN_CODE){
+            wrongText.setVisibility(View.VISIBLE);
+            wrongText.setText(R.string.illegal_photos);
         }
         initRecyclerView(v, codeTypeRecView);
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
@@ -106,10 +130,30 @@ public class ComplainDialog extends DialogFragment implements Dismissable {
         else if (codeTypeRecView ==FAKE_COMPLAIN_CODE){
             codes.add(WRONG_NAME);
             codes.add(WRONG_AGE);
+            codes.add(WRONG_SEX);
             codes.add(WRONG_COUNTRY);
             codes.add(WRONG_CITY);
             codes.add(WRONG_COUNTRY_AND_CITY);
             //codes.add(WRONG_LOCATION);
+        }
+        else  if (codeTypeRecView == FAKE_PHOTO_COMPLAIN_CODE){
+            codes.add(FAR_PHOTO);
+            codes.add(SUBSTANDARD);
+            codes.add(ALREADY_EXISTING);
+            codes.add(OTHER_PEOPLE);
+            codes.add(NOT_VISIBLE_USER);
+            codes.add(POORLY_VISIBLE);
+            codes.add(ANY_THINGS);
+            codes.add(PORNO_PHOTO);
+            codes.add(GROUP_PHOTO);
+            codes.add(BABY_PHOTO);
+            codes.add(IRRELEVANT);
+            codes.add(IN_SUNGLASSES);
+            codes.add(TILTED_IN_PROFILE);
+            codes.add(PARTS_OF_USER);
+            codes.add(CONTAINING_SCENES);
+            codes.add(NON_ORIGINAL);
+            codes.add(BLACK_AND_WHITE_PHOTOS);
         }
        /* else if (codeTypeRecView == FAKE_LOCATION_COMPLAIN_CODE){
             codes.add(WRONG_COUNTRY);
@@ -183,8 +227,62 @@ public class ComplainDialog extends DialogFragment implements Dismissable {
             case WRONG_NAME:{
                 return getActivity().getString(R.string.false_name);
             }
-            case  UNDERAGE_USER:{
+            case UNDERAGE_USER:{
                 return getActivity().getString(R.string.underage);
+            }
+            case FAR_PHOTO:{
+                return getActivity().getString(R.string.far_photo);
+            }
+            case SUBSTANDARD:{
+                return getActivity().getString(R.string.substandard);
+            }
+            case ALREADY_EXISTING:{
+                return getActivity().getString(R.string.already_existing);
+            }
+            case OTHER_PEOPLE:{
+                return getActivity().getString(R.string.other_people);
+            }
+            case NOT_VISIBLE_USER:{
+                return getActivity().getString(R.string.not_visible_user);
+            }
+            case POORLY_VISIBLE:{
+                return getActivity().getString(R.string.poorly_visible);
+            }
+            case ANY_THINGS:{
+                return getActivity().getString(R.string.any_things);
+            }
+            case PORNO_PHOTO:{
+                return getActivity().getString(R.string.porno_photo);
+            }
+            case GROUP_PHOTO:{
+                return getActivity().getString(R.string.group_photos);
+            }
+            case BABY_PHOTO:{
+                return getActivity().getString(R.string.baby_photos);
+            }
+            case IRRELEVANT:{
+                return getActivity().getString(R.string.irrelevant);
+            }
+            case IN_SUNGLASSES:{
+                return getActivity().getString(R.string.in_sunglasses);
+            }
+            case TILTED_IN_PROFILE:{
+                return getActivity().getString(R.string.tilted_in_profile);
+            }
+            case PARTS_OF_USER:{
+                return getActivity().getString(R.string.parts_of_user);
+            }
+            case CONTAINING_SCENES:{
+                return getActivity().getString(R.string.containing_scenes);
+            }
+            case NON_ORIGINAL:{
+                return getActivity().getString(R.string.non_original);
+            }
+            case BLACK_AND_WHITE_PHOTOS:{
+                return getActivity().getString(R.string.black_and_white_photos);
+            }
+            case WRONG_SEX:{
+                return getActivity().getString(R.string.label_sex);
             }
             default:return null;
         }
