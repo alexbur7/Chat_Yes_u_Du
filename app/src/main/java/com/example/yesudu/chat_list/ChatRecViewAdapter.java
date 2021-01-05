@@ -182,6 +182,7 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
                                             else
                                                 view.setText(message.getMessageText());
                                             if(message.getFirstKey().equals(context.getString(R.string.not_seen_text))){
+                                                //TODO здесь красится лейаут
                                                 linearLayout.setBackgroundResource(R.color.no_seen);
                                             }
                                             if(message.getSecondKey().equals(context.getString(R.string.seen_text)) || message.getFirstKey().equals(context.getString(R.string.seen_text))) linearLayout.setBackgroundColor(Color.WHITE);
@@ -373,5 +374,4 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
             activity.finish();
         }
     }
-
 }

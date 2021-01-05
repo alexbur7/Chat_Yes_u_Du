@@ -84,6 +84,7 @@ public class AdminChatFragment extends ChatBaseFragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         });
+
         if (User.getCurrentUser().getAdmin_block().equals("block")){
             input.setText(getResources().getString(R.string.blocked_by_admin));
             input.setEnabled(false);
@@ -166,8 +167,7 @@ public class AdminChatFragment extends ChatBaseFragment {
         recyclerView.setAnimation(null);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-        if (adapter!=null)
-            adapter.notifyDataSetChanged();
+        if (adapter!=null) adapter.notifyDataSetChanged();
     }
 
 

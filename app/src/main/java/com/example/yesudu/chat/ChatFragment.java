@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.text.Editable;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +55,7 @@ public class ChatFragment extends ChatBaseFragment {
     private ImageView verifiedImage;
     private ValueEventListener blockChatListener;
     private ValueEventListener deleteMessageListener;
+    private ValueEventListener adminMessagesListener;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -140,7 +141,41 @@ public class ChatFragment extends ChatBaseFragment {
         });
 
 
+        //TODO доделать
+        adminMessagesListener=reference.child(generateKeyToAdminChat()).child("message").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1:snapshot.getChildren()){
+                    ChatMessage message=snapshot1.getValue(ChatMessage.class);
+                    if (User.getCurrentUser().getUuid().equals(firstKey)){
+                        if (message.getFromUserUUID().equals(secondKey)){
+                            if (message.getFirstKey().equals(getActivity().getString(R.string.not_seen_text))){
+                                Log.e("TUT_AD_MESS","new Message from admin");
+                                complainView.setBackgroundResource(R.color.no_seen);
+                            }
+                        }
+                    }
+                    else if (User.getCurrentUser().getUuid().equals(secondKey)){
+                        if (message.getFromUserUUID().equals(firstKey)){
+                            Log.d("TUT_NULL?", String.valueOf(message.getSecondKey()));
+                            if (message.getSecondKey().equals("no seen")){
+                                Log.e("TUT_AD_MESS","new Message from admin");
+                                complainView.setBackgroundResource(R.color.no_seen);
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         if (User.getCurrentUser().getAdmin_block().equals("block") && !receiverUuid.equals(getActivity().getString(R.string.admin_key))){
+            //TODO Сюда вочкнуть картинку на блокировку
             input.setText(getActivity().getString(R.string.blocked_by_admin));
             blockClick();
         }
@@ -387,6 +422,7 @@ public class ChatFragment extends ChatBaseFragment {
         setWriting("unwriting");
         if (deleteMessageListener !=null) reference.child(generateKey()).child("message").removeEventListener(deleteMessageListener);
         if (blockChatListener != null) reference.child(generateKey()).removeEventListener(blockChatListener);
+        if (adminMessagesListener !=null) reference.child(generateKeyToAdminChat()).child("message").removeEventListener(adminMessagesListener);
     }
 
     @Override
