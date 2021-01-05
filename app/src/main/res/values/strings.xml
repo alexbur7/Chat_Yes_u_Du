@@ -728,5 +728,7 @@ Photos that do not meet the above requirements will be deleted by the Administra
     <string name="illegal_photos">Illegal photo:</string>
     <string name="delete_image">Delete photo</string>
     <string name="impossible_main_photo">You can not delete main photo, only update in account</string>
+    <string name="blocked_by_admin_on_chatlist_title">This user has been blocked by admin</string>
+    <string name="perm_blocked_by_admin_on_chatlist_title">this user is permanently blocked</string>
     <string name="blocked_by_admin_user">User was block of admin</string>
 </resources>

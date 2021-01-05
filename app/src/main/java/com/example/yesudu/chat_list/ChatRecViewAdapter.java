@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -22,6 +24,7 @@ import com.example.yesudu.account.UserAccountActivity;
 import com.example.yesudu.chat.ChatActivity;
 import com.example.yesudu.chat.ChatMessage;
 import com.example.yesudu.chat_list.fragment.BlockListFragment;
+import com.example.yesudu.chat_list.fragment.FilteredChatListFragment;
 import com.example.yesudu.dialog.CancelDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,7 +42,7 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
     private Context context;
     private FragmentManager fragmentManager;
     private int viewType;
-    private String filtered;
+    public static String filtered;
     private int type_dialog;
 
     public ChatRecViewAdapter(List<User> list, Context context, FragmentManager manager,int viewType){
@@ -119,12 +122,13 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
         private TextView userText;
         private TextView userStatus;
         private ImageView verifiedImage;
+        private ImageView blockedUserImage;
         private CircleImageView photoImageView;
         protected Context context;
         protected FragmentManager fragmentManager;
         private LinearLayout linearLayout;
 
-        public ChatHolder(@NonNull View itemView,Context context,FragmentManager manager) {
+        public ChatHolder(@NonNull View itemView, Context context, FragmentManager manager) {
             super(itemView);
             linearLayout = itemView.findViewById(R.id.chat_list_item_layout);
             this.context=context;
@@ -135,6 +139,7 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
             userStatus = itemView.findViewById(R.id.text_online_list);
             photoImageView = itemView.findViewById(R.id.circle_image_user);
             verifiedImage = itemView.findViewById(R.id.verified_image_item);
+            blockedUserImage=itemView.findViewById(R.id.blocked_image_item);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }
@@ -204,6 +209,15 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
         void onBind(User user){
             this.user=user;
             userName.setText(user.getName());
+            if (filtered.equals(FilteredChatListFragment.FILTER_VIEW_TYPE)) {
+                if (user.getPerm_block().equals("block")) {
+                    setBlockedListeners(context.getString(R.string.perm_blocked_by_admin_on_chatlist_title));
+                    blockedUserImage.setVisibility(View.VISIBLE);
+                } else if (user.getAdmin_block().equals("block")) {
+                    setBlockedListeners(context.getString(R.string.blocked_by_admin_on_chatlist_title));
+                    blockedUserImage.setVisibility(View.VISIBLE);
+                }
+            }
             if (user.getPhoto_url().equals("default")){
                 photoImageView.setImageResource(R.drawable.unnamed);
             }
@@ -218,6 +232,15 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
                 verifiedImage.setVisibility(View.VISIBLE);
             }
             else verifiedImage.setVisibility(View.INVISIBLE);
+        }
+
+        private void setBlockedListeners(String text){
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context,text,Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         @Override
