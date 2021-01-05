@@ -52,7 +52,7 @@ public class ChatFragment extends ChatBaseFragment {
     private ChatMessageAdapter adapter;
     private ValueEventListener seenListener;
     private boolean setChatListenerConnected;
-    private ImageView verifiedImage, blockUserImage;
+    private ImageView verifiedImage, blockUserImage, notificationAdminImage;
     private ValueEventListener blockChatListener;
     private ValueEventListener deleteMessageListener;
     private String firstKeyToAdmin, secondKeyToAdmin, block_user;
@@ -78,6 +78,7 @@ public class ChatFragment extends ChatBaseFragment {
         toolbar=v.findViewById(R.id.toolbarFr);
         verifiedImage = v.findViewById(R.id.verified_image_chat);
         blockUserImage = v.findViewById(R.id.block_image_chat);
+        notificationAdminImage = v.findViewById(R.id.notification_admin);
         complainView =v.findViewById(R.id.complain_button);
         complainView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,15 +154,17 @@ public class ChatFragment extends ChatBaseFragment {
                     if (User.getCurrentUser().getUuid().equals(firstKeyToAdmin)){
                         if (message.getFromUserUUID().equals(secondKeyToAdmin)){
                             if (message.getFirstSeen().equals(getActivity().getString(R.string.not_seen_text))){
-                                complainView.setBackgroundResource(R.color.no_seen);
+                                notificationAdminImage.setVisibility(View.VISIBLE);
                             }
+                            else notificationAdminImage.setVisibility(View.INVISIBLE);
                         }
                     }
                     else if (User.getCurrentUser().getUuid().equals(secondKeyToAdmin)){
                         if (message.getFromUserUUID().equals(firstKeyToAdmin)){
                             if (message.getSecondSeen().equals(getActivity().getString(R.string.not_seen_text))){
-                                complainView.setBackgroundResource(R.color.no_seen);
+                                notificationAdminImage.setVisibility(View.VISIBLE);
                             }
+                            else notificationAdminImage.setVisibility(View.INVISIBLE);
                         }
                     }
                 }
