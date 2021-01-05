@@ -647,7 +647,7 @@
     <string name="delete_all_message">Удалить у всех</string>
     <string name="delete_my_message">Удалить у себя</string>
     <string name="accept_msg_string">Вы точно хотите удалить это сообщение?</string>
-    <string name="typing">набирает...</string>
+    <string name="typing">пишет...</string>
     <string name="favorite_chat">Добавить в избранные</string>
     <string name="favoritelist">Избранные</string>
     <string name="unfavorite_msg_text">Удалить из избранных?</string>
@@ -705,4 +705,5 @@
     <string name="black_and_white_photos">Черно-белые</string>
     <string name="illegal_photos">Недопустимые фото:</string>
     <string name="delete_image">Удалить фото</string>
+    <string name="impossible_main_photo">Вы не можете удалить главную фотографию, только поменять в аккаунте</string>
 </resources>

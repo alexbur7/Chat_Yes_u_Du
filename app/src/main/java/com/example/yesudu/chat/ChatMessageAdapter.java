@@ -123,7 +123,7 @@ public class ChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage, Cha
                     createMessage(model);
 
                     ImageView seenImage = v.findViewById(R.id.seen_image);
-                    if (!model.getSecondKey().equals(context.getString(R.string.not_seen_text)) && !model.getToUserUUID().equals(context.getString(R.string.admin_key))) {
+                    if (!model.getSecondSeen().equals(context.getString(R.string.not_seen_text)) && !model.getToUserUUID().equals(context.getString(R.string.admin_key))) {
                         try {
                             seenImage.setImageResource(R.drawable.seen_image);
                             seenImage.setVisibility(View.VISIBLE);
@@ -140,7 +140,7 @@ public class ChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage, Cha
                     createMessage(model);
 
                     ImageView seenImage = v.findViewById(R.id.seen_image);
-                    if (!model.getFirstKey().equals(context.getString(R.string.not_seen_text))) {
+                    if (!model.getFirstSeen().equals(context.getString(R.string.not_seen_text))) {
                         try {
                             seenImage.setImageResource(R.drawable.seen_image);
                             seenImage.setVisibility(View.VISIBLE);

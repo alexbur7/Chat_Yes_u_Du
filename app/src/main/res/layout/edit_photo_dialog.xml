@@ -7,9 +7,10 @@
     android:orientation="vertical">
 
     <CheckBox android:id="@+id/check_delete_photo"
-        style="@android:style/TextAppearance.Large"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="16dp"
+    android:textColor="@color/edit_dialog_text"
+    android:textSize="16dp"
     android:text="@string/delete_image" />
 </LinearLayout>

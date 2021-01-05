@@ -21,7 +21,7 @@ public class PhotoViewPager extends BaseActivity {
     private static final String POSITION_PHOTO_KEY = "position_image";
     private ViewPager photoViewPager;
     private List<String> photoUrl;
-    private int i;
+    private int position_photo;
 
 
     public static Intent newIntent(Context context, ArrayList<String> photoUrl, int position){
@@ -42,7 +42,7 @@ public class PhotoViewPager extends BaseActivity {
         setContentView(R.layout.gallery_view_pager);
         photoViewPager = findViewById(R.id.gallery_view_pager);
         photoUrl = getIntent().getStringArrayListExtra(LIST_PHOTO_KEY);
-        i=getIntent().getIntExtra(POSITION_PHOTO_KEY,0);
+        position_photo =getIntent().getIntExtra(POSITION_PHOTO_KEY,0);
         photoViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager(),FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @NonNull
             @Override
@@ -57,7 +57,7 @@ public class PhotoViewPager extends BaseActivity {
                 return photoUrl.size();
             }
         });
-        photoViewPager.setCurrentItem(i);
+        photoViewPager.setCurrentItem(position_photo);
     }
 
     @Override

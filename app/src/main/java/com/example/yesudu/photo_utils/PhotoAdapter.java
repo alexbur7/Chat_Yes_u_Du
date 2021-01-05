@@ -2,6 +2,7 @@ package com.example.yesudu.photo_utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,11 +115,14 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoHolder>
         @Override
         public boolean onLongClick(View v) {
             if (v.getId()==R.id.photo_item){
-                if (urlPhotos.size()<2){
+                if (urlPhotos.get(0).equals(url)){
+                    Toast.makeText(context,R.string.impossible_main_photo, Toast.LENGTH_SHORT).show();
+                }
+                else if (urlPhotos.size()<3){
                     Toast.makeText(context,context.getString(R.string.you_cannot_delete_photo),Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    EditPhotoDialog deletePhotoDialog = new EditPhotoDialog(url, userId, i + 1);
+                    EditPhotoDialog deletePhotoDialog = new EditPhotoDialog(url, userId, i);
                     //Log.e("GALLERY HOLDER TARGET", String.valueOf(manager.findFragmentById(R.id.fragment_container) instanceof MyGalleryFragment));
                     deletePhotoDialog.setTargetFragment(manager.findFragmentById(R.id.fragment_container), MyGalleryFragment.DELETE_IMAGE_REQUEST);
                     deletePhotoDialog.show(manager, null);

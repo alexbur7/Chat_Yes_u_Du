@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Message;
 import android.text.Editable;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -149,7 +148,7 @@ public class ChatFragment extends ChatBaseFragment {
                     ChatMessage message=snapshot1.getValue(ChatMessage.class);
                     if (User.getCurrentUser().getUuid().equals(firstKey)){
                         if (message.getFromUserUUID().equals(secondKey)){
-                            if (message.getFirstKey().equals(getActivity().getString(R.string.not_seen_text))){
+                            if (message.getFirstSeen().equals(getActivity().getString(R.string.not_seen_text))){
                                 Log.e("TUT_AD_MESS","new Message from admin");
                                 complainView.setBackgroundResource(R.color.no_seen);
                             }
@@ -157,8 +156,8 @@ public class ChatFragment extends ChatBaseFragment {
                     }
                     else if (User.getCurrentUser().getUuid().equals(secondKey)){
                         if (message.getFromUserUUID().equals(firstKey)){
-                            Log.d("TUT_NULL?", String.valueOf(message.getSecondKey()));
-                            if (message.getSecondKey().equals("no seen")){
+                            Log.d("TUT_NULL?", String.valueOf(message.getSecondSeen()));
+                            if (message.getSecondSeen().equals("no seen")){
                                 Log.e("TUT_AD_MESS","new Message from admin");
                                 complainView.setBackgroundResource(R.color.no_seen);
                             }

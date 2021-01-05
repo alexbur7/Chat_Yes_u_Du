@@ -168,7 +168,7 @@ public abstract class AccountFragment extends Fragment {
         lookAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = GalleryActivity.newIntent(getActivity(),user.getUuid()
+                Intent intent = GalleryActivity.newIntent(getActivity(),user.getUuid(),user.getPhoto_url()
                         ,user.getPhoto_url1(),user.getPhoto_url2(),user.getPhoto_url3());
                 startActivity(intent);
             }

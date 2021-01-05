@@ -9,22 +9,22 @@ public class ChatMessage {
     private String fromUserUUID;
     private String toUserUUID;
     private long messageTime;
-    private String firstKey;
-    private String secondKey;
+    private String firstSeen;
+    private String secondSeen;
     private String image_url;
     private String firstDelete;
     private String secondDelete;
     private String edited;
 
-    public ChatMessage(String messageText, String fromUser,String fromUserUUID,String toUserUUID,
-                       String firstKey, String secondKey, String image_url, String firstDelete,String secondDelete,String edited) {
+    public ChatMessage(String messageText, String fromUser, String fromUserUUID, String toUserUUID,
+                       String firstSeen, String secondSeen, String image_url, String firstDelete, String secondDelete, String edited) {
         this.messageText = messageText;
         this.fromUser = fromUser;
         this.fromUserUUID =fromUserUUID;
         this.toUserUUID=toUserUUID;
         messageTime = new Date().getTime();
-        this.firstKey=firstKey;
-        this.secondKey = secondKey;
+        this.firstSeen = firstSeen;
+        this.secondSeen = secondSeen;
         this.image_url = image_url;
         this.firstDelete = firstDelete;
         this.secondDelete = secondDelete;
@@ -73,20 +73,20 @@ public class ChatMessage {
         this.toUserUUID = toUserName;
     }
 
-    public String getFirstKey() {
-        return firstKey;
+    public String getFirstSeen() {
+        return firstSeen;
     }
 
-    public void setFirstKey(String firstKey) {
-        this.firstKey = firstKey;
+    public void setFirstSeen(String firstSeen) {
+        this.firstSeen = firstSeen;
     }
 
-    public String getSecondKey() {
-        return secondKey;
+    public String getSecondSeen() {
+        return secondSeen;
     }
 
-    public void setSecondKey(String secondKey) {
-        this.secondKey = secondKey;
+    public void setSecondSeen(String secondSeen) {
+        this.secondSeen = secondSeen;
     }
 
     public String getImage_url() {

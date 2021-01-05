@@ -88,7 +88,6 @@ public class EditPhotoDialog extends DialogFragment {
                 FirebaseDatabase.getInstance().getReference("users").child(userId).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Log.e("DELETE COMPLETED", String.valueOf(EditPhotoDialog.class));
                         sendResult(RESULT_OK, imageNumber);
                     }
                 });

@@ -727,4 +727,5 @@ Photos that do not meet the above requirements will be deleted by the Administra
     <string name="black_and_white_photos">Black and white photos</string>
     <string name="illegal_photos">Illegal photo:</string>
     <string name="delete_image">Delete photo</string>
+    <string name="impossible_main_photo">You can not delete main photo, only update in account</string>
 </resources>

@@ -168,10 +168,10 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
                                             else {
                                                 view.setText(message.getMessageText());
                                             }
-                                            if(message.getSecondKey().equals(context.getString(R.string.not_seen_text))){
+                                            if(message.getSecondSeen().equals(context.getString(R.string.not_seen_text))){
                                                 linearLayout.setBackgroundResource(R.color.no_seen);
                                             }
-                                            if(message.getSecondKey().equals(context.getString(R.string.seen_text)) || message.getFirstKey().equals(context.getString(R.string.seen_text))) linearLayout.setBackgroundColor(Color.WHITE);
+                                            if(message.getSecondSeen().equals(context.getString(R.string.seen_text)) || message.getFirstSeen().equals(context.getString(R.string.seen_text))) linearLayout.setBackgroundColor(Color.WHITE);
                                         }
                                     } else {
                                         if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid()) && message.getFromUserUUID().equals(id) ||
@@ -181,11 +181,11 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
                                             }
                                             else
                                                 view.setText(message.getMessageText());
-                                            if(message.getFirstKey().equals(context.getString(R.string.not_seen_text))){
+                                            if(message.getFirstSeen().equals(context.getString(R.string.not_seen_text))){
                                                 //TODO здесь красится лейаут
                                                 linearLayout.setBackgroundResource(R.color.no_seen);
                                             }
-                                            if(message.getSecondKey().equals(context.getString(R.string.seen_text)) || message.getFirstKey().equals(context.getString(R.string.seen_text))) linearLayout.setBackgroundColor(Color.WHITE);
+                                            if(message.getSecondSeen().equals(context.getString(R.string.seen_text)) || message.getFirstSeen().equals(context.getString(R.string.seen_text))) linearLayout.setBackgroundColor(Color.WHITE);
                                         }
                                     }
                                 }
