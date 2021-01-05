@@ -706,4 +706,5 @@
     <string name="illegal_photos">Недопустимые фото:</string>
     <string name="delete_image">Удалить фото</string>
     <string name="impossible_main_photo">Вы не можете удалить главную фотографию, только поменять в аккаунте</string>
+    <string name="blocked_by_admin_user">Пользователь был заблокирован Администрацией</string>
 </resources>

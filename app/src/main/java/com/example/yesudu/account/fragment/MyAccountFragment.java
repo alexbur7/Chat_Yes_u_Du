@@ -129,7 +129,7 @@ public class MyAccountFragment extends AccountFragment {
             }
             break;
             case R.id.chat_administrator:{
-                Intent intent = ChatActivity.newIntent(getActivity(),User.getCurrentUser().getUuid(),User.getCurrentUser().getPhoto_url(),3);
+                Intent intent = ChatActivity.newIntent(getActivity(),User.getCurrentUser().getUuid(),User.getCurrentUser().getPhoto_url(),"unblock",3);
                 startActivity(intent);
             }
             break;

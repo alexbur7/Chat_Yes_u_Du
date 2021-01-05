@@ -41,6 +41,7 @@ import java.util.HashMap;
 public class ChatFragment extends ChatBaseFragment {
     public static final String KEY_TO_RECEIVER_UUID="recevierID";
     public static final String KEY_TO_RECEIVER_PHOTO_URL = "recevierPHOTO_URL";
+    public static final String KEY_TO_BLOCK_USER= "block_user";
     public static final int GO_TO_ADMIN_REQUEST = 1010;
     public static final int COMPLAIN_REQUEST = 2020;
     public static final int KEY_ACCEPT_BLOCK_USER=101;
@@ -51,10 +52,10 @@ public class ChatFragment extends ChatBaseFragment {
     private ChatMessageAdapter adapter;
     private ValueEventListener seenListener;
     private boolean setChatListenerConnected;
-    private ImageView verifiedImage;
+    private ImageView verifiedImage, blockUserImage;
     private ValueEventListener blockChatListener;
     private ValueEventListener deleteMessageListener;
-    private String firstKeyToAdmin, secondKeyToAdmin;
+    private String firstKeyToAdmin, secondKeyToAdmin, block_user;
     private ValueEventListener adminMessagesListener;
 
     @Override
@@ -73,8 +74,10 @@ public class ChatFragment extends ChatBaseFragment {
         View v=inflater.inflate(R.layout.chat_fragment,container,false);
         receiverUuid=getArguments().getString(KEY_TO_RECEIVER_UUID);
         receiverPhotoUrl = getArguments().getString(KEY_TO_RECEIVER_PHOTO_URL);
+        block_user = getArguments().getString(KEY_TO_BLOCK_USER);
         toolbar=v.findViewById(R.id.toolbarFr);
         verifiedImage = v.findViewById(R.id.verified_image_chat);
+        blockUserImage = v.findViewById(R.id.block_image_chat);
         complainView =v.findViewById(R.id.complain_button);
         complainView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +153,6 @@ public class ChatFragment extends ChatBaseFragment {
                     if (User.getCurrentUser().getUuid().equals(firstKeyToAdmin)){
                         if (message.getFromUserUUID().equals(secondKeyToAdmin)){
                             if (message.getFirstSeen().equals(getActivity().getString(R.string.not_seen_text))){
-                                Log.e("tut_admin_message","new Message from admin");
                                 complainView.setBackgroundResource(R.color.no_seen);
                             }
                         }
@@ -158,7 +160,6 @@ public class ChatFragment extends ChatBaseFragment {
                     else if (User.getCurrentUser().getUuid().equals(secondKeyToAdmin)){
                         if (message.getFromUserUUID().equals(firstKeyToAdmin)){
                             if (message.getSecondSeen().equals(getActivity().getString(R.string.not_seen_text))){
-                                Log.e("tut_admin_message","new Message from admin");
                                 complainView.setBackgroundResource(R.color.no_seen);
                             }
                         }
@@ -175,6 +176,11 @@ public class ChatFragment extends ChatBaseFragment {
 
         if (User.getCurrentUser().getAdmin_block().equals("block") && !receiverUuid.equals(getActivity().getString(R.string.admin_key))){
             input.setText(getActivity().getString(R.string.blocked_by_admin));
+            blockClick();
+        }
+        else if (block_user.equals("block")){
+            input.setText(getActivity().getString(R.string.blocked_by_admin_user));
+            blockUserImage.setVisibility(View.VISIBLE);
             blockClick();
         }
 
@@ -372,11 +378,12 @@ public class ChatFragment extends ChatBaseFragment {
         return templist.get(0)+templist.get(1);
     }
 
-    public static ChatFragment newInstance(String toUserUUID, String photo_url){
+    public static ChatFragment newInstance(String toUserUUID, String photo_url, String block_user){
         ChatFragment fragment = new ChatFragment();
         Bundle bundle = new Bundle();
         bundle.putString(KEY_TO_RECEIVER_UUID, toUserUUID);
         bundle.putString(KEY_TO_RECEIVER_PHOTO_URL,photo_url);
+        bundle.putString(KEY_TO_BLOCK_USER, block_user);
         fragment.setArguments(bundle);
         return fragment;
     }

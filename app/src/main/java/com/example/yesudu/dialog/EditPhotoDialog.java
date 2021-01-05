@@ -71,9 +71,9 @@ public class EditPhotoDialog extends DialogFragment {
         int width = size.x;
 
         if (width>1000) {
-            getDialog().getWindow().setLayout(800, ViewGroup.LayoutParams.WRAP_CONTENT);
+            getDialog().getWindow().setLayout(700, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
-        else getDialog().getWindow().setLayout(500, ViewGroup.LayoutParams.WRAP_CONTENT);
+        else getDialog().getWindow().setLayout(400, ViewGroup.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
 
     }

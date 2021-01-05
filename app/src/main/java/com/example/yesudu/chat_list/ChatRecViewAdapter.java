@@ -222,7 +222,7 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
 
         @Override
         public void onClick(View view) {
-            Intent intent = ChatActivity.newIntent(context, user.getUuid(), user.getPhoto_url(), VIEW_TYPE);
+            Intent intent = ChatActivity.newIntent(context, user.getUuid(), user.getPhoto_url(),user.getAdmin_block(), VIEW_TYPE);
             context.startActivity(intent);
         }
 
@@ -253,7 +253,7 @@ public class ChatRecViewAdapter extends RecyclerView.Adapter<ChatRecViewAdapter.
 
         @Override
         public void onClick(View view) {
-            Intent intent = ChatActivity.newIntent(context, user.getUuid(), user.getPhoto_url(),VIEW_TYPE);
+            Intent intent = ChatActivity.newIntent(context, user.getUuid(), user.getPhoto_url(),user.getAdmin_block(),VIEW_TYPE);
             context.startActivity(intent);
         }
 

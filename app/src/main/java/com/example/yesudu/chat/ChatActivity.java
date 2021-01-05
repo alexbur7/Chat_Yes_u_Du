@@ -9,6 +9,7 @@ import com.example.yesudu.chat_list.ChatRecViewAdapter;
 import com.example.yesudu.photo_utils.PhotoViewPagerItemFragment;
 import com.example.yesudu.R;
 
+import static com.example.yesudu.chat.ChatFragment.KEY_TO_BLOCK_USER;
 import static com.example.yesudu.chat.ChatFragment.KEY_TO_RECEIVER_PHOTO_URL;
 import static com.example.yesudu.chat.ChatFragment.KEY_TO_RECEIVER_UUID;
 
@@ -20,20 +21,21 @@ public class ChatActivity extends BaseActivity implements ChatFragment.CallBack 
     @Override
     public Fragment getFragment() {
         if (getIntent().getExtras().getInt(KEY_TO_VIEW_TYPE)==3){
-            return ChatFragment.newInstance(getResources().getString(R.string.admin_key),"default");
+            return ChatFragment.newInstance(getResources().getString(R.string.admin_key),"default","unblock");
         }
         else if (!(getIntent().getExtras().getInt(KEY_TO_VIEW_TYPE) == ChatRecViewAdapter.AdminChatHolder.VIEW_TYPE)) {
-            return ChatFragment.newInstance(getIntent().getStringExtra(KEY_TO_RECEIVER_UUID), getIntent().getStringExtra(KEY_TO_RECEIVER_PHOTO_URL));
+            return ChatFragment.newInstance(getIntent().getStringExtra(KEY_TO_RECEIVER_UUID), getIntent().getStringExtra(KEY_TO_RECEIVER_PHOTO_URL),getIntent().getStringExtra(KEY_TO_BLOCK_USER));
         }
         else {
             return AdminChatFragment.newInstance(getIntent().getStringExtra(KEY_TO_RECEIVER_UUID), getIntent().getStringExtra(KEY_TO_RECEIVER_PHOTO_URL));
         }
     }
 
-    public static Intent newIntent(Context context, String toUserUUID, String photo_url, int viewType){
+    public static Intent newIntent(Context context, String toUserUUID, String photo_url,String blockUser, int viewType){
         Intent intent=new Intent(context,ChatActivity.class);
         intent.putExtra(KEY_TO_RECEIVER_UUID,toUserUUID);
         intent.putExtra(KEY_TO_RECEIVER_PHOTO_URL,photo_url);
+        intent.putExtra(KEY_TO_BLOCK_USER, blockUser);
         intent.putExtra(KEY_TO_VIEW_TYPE,viewType);
         return intent;
     }
@@ -66,7 +68,7 @@ public class ChatActivity extends BaseActivity implements ChatFragment.CallBack 
 
     @Override
     public void goToAdmin() {
-        ChatFragment fragment= ChatFragment.newInstance(getResources().getString(R.string.admin_key),"default");
+        ChatFragment fragment= ChatFragment.newInstance(getResources().getString(R.string.admin_key),"default", "unblock");
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
     }
 }

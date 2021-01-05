@@ -33,6 +33,14 @@
                     android:layout_below="@+id/textView"
                     android:layout_centerHorizontal="true"
                    />
+                    <ImageView
+                        android:id="@+id/block_image_chat"
+                        android:layout_width="16.65dp"
+                        android:layout_height="16.65dp"
+                        android:layout_gravity="top|end"
+                        android:visibility="invisible"
+                        android:src="@drawable/icon_block_user"
+                        />
                 <ImageView
                     android:id="@+id/verified_image_chat"
                     android:layout_width="11.65dp"
