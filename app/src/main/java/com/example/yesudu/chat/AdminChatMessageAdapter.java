@@ -138,7 +138,11 @@ public class AdminChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage
         private void createMessage(ChatMessage model) {
             messageText.setText(model.getMessageText());
             messageUser.setText(model.getFromUser());
-            messageTime.setText(DateFormat.format("dd MMMM yyyy HH:mm", model.getMessageTime()));
+            String dateDayMonthYear = (String) DateFormat.format("dd MMMM yyyy HH:mm", model.getMessageTime());
+            if (dateDayMonthYear.charAt(0) == '0') {
+                dateDayMonthYear = dateDayMonthYear.substring(1);
+            }
+            messageTime.setText(dateDayMonthYear);
             if (model.getImage_url() != null) {
                 Glide.with(context).load(model.getImage_url()).into(imageSend);
                 setClickListenerOnImage(model, imageSend);

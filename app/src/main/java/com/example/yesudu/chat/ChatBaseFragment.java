@@ -286,6 +286,7 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
 
 
 
+
     protected abstract void setWriting(String writing);
 
     protected void setChatListener() {

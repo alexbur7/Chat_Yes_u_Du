@@ -80,7 +80,7 @@ public class FilteredChatListFragment extends ChatListFragment {
                     filterUsersByRegion(users,user);
                     //filterUsersByPhoto(users,user);
                 }
-                //TODO:умный if для разделения холдеров
+
                 ChatRecViewAdapter adapter = new ChatRecViewAdapter(users,getActivity(),getFragmentManager(),ChatRecViewAdapter.ChatHolder.VIEW_TYPE,FILTER_VIEW_TYPE);
                 chatRecView.setAdapter(adapter);
                 ref.removeEventListener(this);

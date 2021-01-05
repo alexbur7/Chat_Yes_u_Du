@@ -19,19 +19,19 @@
 
     <item
         android:id="@+id/delete_image_menu"
-        android:title="@string/delete_image"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/delete_image1_menu"
         android:title="@string/delete_image1"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/delete_image2_menu"
+        android:id="@+id/delete_image1_menu"
         android:title="@string/delete_image2"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/delete_image3_menu"
+        android:id="@+id/delete_image2_menu"
         android:title="@string/delete_image3"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/delete_image3_menu"
+        android:title="@string/delete_image4"
         app:showAsAction="never"/>
 
     <item

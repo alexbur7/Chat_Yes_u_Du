@@ -2,6 +2,7 @@ package com.example.yesudu.chat;
 
 import android.content.Context;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,7 +79,6 @@ public class ChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage, Cha
     }
 
 
-    //TODO подходящее название
     @Override
     public void setMessageLayout(ChatMessage chatMessage) {
         if (chatMessage.getFromUserUUID().equals(User.getCurrentUser().getUuid()) && chatMessage.getImage_url() == null) {
@@ -163,8 +163,11 @@ public class ChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage, Cha
             messageText.setText(model.getMessageText());
             messageUser.setText(model.getFromUser());
 
-            messageTime.setText(DateFormat.format("dd MMMM yyyy HH:mm",
-                    model.getMessageTime()));
+            String dateDayMonthYear = (String) DateFormat.format("dd MMMM yyyy HH:mm", model.getMessageTime());
+            if (dateDayMonthYear.charAt(0) == '0') {
+                dateDayMonthYear = dateDayMonthYear.substring(1);
+            }
+            messageTime.setText(dateDayMonthYear);
 
             if (model.getImage_url() != null) {
                 Glide.with(context).load(model.getImage_url()).into(imageSend);

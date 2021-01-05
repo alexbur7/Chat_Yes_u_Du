@@ -22,7 +22,6 @@ public class AdminTimeBlockListFragment extends ChatListFragment {
 
         @Override
         void setLayoutManagerForRecView() {
-            //TODO хороший стринг
             //toolbar.setTitle(R.string.);
             chatRecView.setLayoutManager(new GridLayoutManager(getActivity(),3));
         }

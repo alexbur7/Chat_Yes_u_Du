@@ -54,6 +54,7 @@ public class ChatFragment extends ChatBaseFragment {
     private ImageView verifiedImage;
     private ValueEventListener blockChatListener;
     private ValueEventListener deleteMessageListener;
+    private String firstKeyToAdmin, secondKeyToAdmin;
     private ValueEventListener adminMessagesListener;
 
     @Override
@@ -146,19 +147,18 @@ public class ChatFragment extends ChatBaseFragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snapshot1:snapshot.getChildren()){
                     ChatMessage message=snapshot1.getValue(ChatMessage.class);
-                    if (User.getCurrentUser().getUuid().equals(firstKey)){
-                        if (message.getFromUserUUID().equals(secondKey)){
+                    if (User.getCurrentUser().getUuid().equals(firstKeyToAdmin)){
+                        if (message.getFromUserUUID().equals(secondKeyToAdmin)){
                             if (message.getFirstSeen().equals(getActivity().getString(R.string.not_seen_text))){
-                                Log.e("TUT_AD_MESS","new Message from admin");
+                                Log.e("tut_admin_message","new Message from admin");
                                 complainView.setBackgroundResource(R.color.no_seen);
                             }
                         }
                     }
-                    else if (User.getCurrentUser().getUuid().equals(secondKey)){
-                        if (message.getFromUserUUID().equals(firstKey)){
-                            Log.d("TUT_NULL?", String.valueOf(message.getSecondSeen()));
-                            if (message.getSecondSeen().equals("no seen")){
-                                Log.e("TUT_AD_MESS","new Message from admin");
+                    else if (User.getCurrentUser().getUuid().equals(secondKeyToAdmin)){
+                        if (message.getFromUserUUID().equals(firstKeyToAdmin)){
+                            if (message.getSecondSeen().equals(getActivity().getString(R.string.not_seen_text))){
+                                Log.e("tut_admin_message","new Message from admin");
                                 complainView.setBackgroundResource(R.color.no_seen);
                             }
                         }
@@ -174,7 +174,6 @@ public class ChatFragment extends ChatBaseFragment {
 
 
         if (User.getCurrentUser().getAdmin_block().equals("block") && !receiverUuid.equals(getActivity().getString(R.string.admin_key))){
-            //TODO Сюда вочкнуть картинку на блокировку
             input.setText(getActivity().getString(R.string.blocked_by_admin));
             blockClick();
         }
@@ -275,9 +274,9 @@ public class ChatFragment extends ChatBaseFragment {
                                         (message.getFromUserUUID().equals(getArguments().getString(KEY_TO_RECEIVER_UUID)) && message.getToUserUUID().equals(User.getCurrentUser().getUuid()))) {
                                     HashMap<String, Object> hashMap = new HashMap<>();
                                     if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(firstKey)))
-                                        hashMap.put("firstKey", seenText);
+                                        hashMap.put("firstSeen", seenText);
                                     else if ((message.getToUserUUID().equals(User.getCurrentUser().getUuid())) && (User.getCurrentUser().getUuid().equals(secondKey)))
-                                        hashMap.put("secondKey", seenText);
+                                        hashMap.put("secondSeen", seenText);
                                     snapshot3.getRef().updateChildren(hashMap);
                                 }
                             }
@@ -368,8 +367,8 @@ public class ChatFragment extends ChatBaseFragment {
         templist.add(User.getCurrentUser().getUuid());
         templist.add(getActivity().getString(R.string.admin_key));
         Collections.sort(templist);
-        firstKey=templist.get(0);
-        secondKey = templist.get(1);
+        firstKeyToAdmin=templist.get(0);
+        secondKeyToAdmin = templist.get(1);
         return templist.get(0)+templist.get(1);
     }
 
@@ -382,6 +381,8 @@ public class ChatFragment extends ChatBaseFragment {
         return fragment;
     }
 
+
+    @Override
     protected void setStatus(){
         FirebaseDatabase.getInstance().getReference("users").child(receiverUuid).addValueEventListener(new ValueEventListener() {
             @Override
@@ -391,9 +392,15 @@ public class ChatFragment extends ChatBaseFragment {
                     if (user.getTyping().equals(User.getCurrentUser().getUuid()) && user.getAdmin_block().equals("unblock")){
                        statusText.setText(R.string.typing);
                     }
-                    else if (user.getStatus().equals(getResources().getString(R.string.label_offline)))
-                        statusText.setText(getActivity().getString(R.string.was)+" " + DateFormat.format("dd MMMM yyyy", user.getOnline_time())+" "+
-                                getActivity().getString(R.string.in)+" "+DateFormat.format("HH:mm", user.getOnline_time()));
+                    else if (user.getStatus().equals(getResources().getString(R.string.label_offline))) {
+                        String dateDayMonthYear = (String) DateFormat.format("dd MMMM yyyy", user.getOnline_time());
+                        if (dateDayMonthYear.charAt(0) == '0') {
+                            dateDayMonthYear = dateDayMonthYear.substring(1);
+
+                        }
+                        statusText.setText(getActivity().getString(R.string.was) + " " + dateDayMonthYear + " " +
+                                getActivity().getString(R.string.in) + " " + DateFormat.format("HH:mm", user.getOnline_time()));
+                    }
                     else statusText.setText(user.getStatus());
                     username.setText(user.getName());
                     if (user.getVerified().equals("yes")){
