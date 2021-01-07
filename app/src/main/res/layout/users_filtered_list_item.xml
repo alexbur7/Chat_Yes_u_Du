@@ -34,11 +34,10 @@
 
             <ImageView
                 android:id="@+id/blocked_image_item"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_gravity="top|end"
-                android:layout_marginRight="5.2dp"
-                android:layout_marginTop="2.65dp"
+                android:layout_marginRight="2dp"
                 android:visibility="invisible"
                 android:src="@drawable/icon_block_user"/>
 
