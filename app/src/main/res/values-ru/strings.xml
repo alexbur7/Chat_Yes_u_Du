@@ -707,4 +707,6 @@
     <string name="delete_image">Удалить фото</string>
     <string name="impossible_main_photo">Вы не можете удалить главную фотографию, только поменять в аккаунте</string>
     <string name="blocked_by_admin_user">Пользователь был заблокирован Администрацией</string>
+    <string name="blocked_by_admin_on_chatlist_title">Этот пользователь был заблокирован Администрацией</string>
+    <string name="perm_blocked_by_admin_on_chatlist_title">этот пользователь временно заблокирован</string>
 </resources>

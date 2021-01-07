@@ -147,7 +147,8 @@
             android:layout_marginStart="46dp"
             android:layout_marginLeft="2dp"
             android:layout_toLeftOf="@id/fab"
-            android:layout_toRightOf="@+id/send_image_button">
+            android:layout_toRightOf="@+id/send_image_button"
+            android:layout_alignParentLeft="true">
 
             <EditText
                 android:id="@+id/input"

@@ -81,7 +81,8 @@
                         android:layout_toEndOf="@+id/circle_image_user"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentEnd="true"
-                        tools:ignore="NotSibling" />
+                        tools:ignore="NotSibling"
+                        android:layout_alignParentRight="true" />
                 </LinearLayout>
                 <TextView
                     android:id="@+id/text_online_list"
