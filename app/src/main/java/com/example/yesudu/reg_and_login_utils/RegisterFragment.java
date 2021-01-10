@@ -199,6 +199,10 @@ public class RegisterFragment extends Fragment{
         final  String password = passwordEditText.getText().toString();
         final  String sex = sexSpinner.getSelectedItem().toString();
         final  String region = String.valueOf(regionSpinner.getSelectedItemPosition());
+        if (dateOfBirth == null){
+            Toast.makeText(getActivity(), R.string.reject_reg, Toast.LENGTH_SHORT).show();
+            return;
+        }
         Calendar calendar =Calendar.getInstance();
         calendar.setTime(dateOfBirth);
         AgeCalculation ageCalculation = new AgeCalculation ();

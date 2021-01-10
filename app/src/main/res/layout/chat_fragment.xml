@@ -90,14 +90,14 @@
                 android:src="@drawable/admin_icon" />
                 <ImageView
                     android:id="@+id/notification_admin"
-                    android:layout_width="27dp"
-                    android:layout_height="27dp"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
                     android:src="@drawable/icon_notification_admin"
                     android:layout_gravity="end|center"
-                    android:layout_marginLeft="2dp"
                     android:layout_marginTop="6dp"
+                    android:layout_marginRight="4dp"
                     android:visibility="invisible"
-                    android:layout_marginStart="2dp" />
+                    android:layout_marginEnd="4dp" />
                 </FrameLayout>
             </androidx.appcompat.widget.Toolbar>
         </FrameLayout>

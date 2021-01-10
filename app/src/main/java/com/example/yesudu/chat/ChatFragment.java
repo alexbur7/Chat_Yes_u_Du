@@ -83,10 +83,14 @@ public class ChatFragment extends ChatBaseFragment {
         complainView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                GoToAdminDialog dialog=new GoToAdminDialog();
-                dialog.setTargetFragment(ChatFragment.this, GO_TO_ADMIN_REQUEST);
-                dialog.show(getFragmentManager(),null);
+                if (notificationAdminImage.getVisibility() == View.VISIBLE){
+                    activity.goToAdmin();
+                }
+                else {
+                    GoToAdminDialog dialog = new GoToAdminDialog();
+                    dialog.setTargetFragment(ChatFragment.this, GO_TO_ADMIN_REQUEST);
+                    dialog.show(getFragmentManager(), null);
+                }
                 //activity.goToAdmin();
             }
         });

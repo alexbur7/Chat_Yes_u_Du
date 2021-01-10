@@ -264,9 +264,9 @@ Profile photos should be clear and close-up.\n
  - containing advertisements;\n
  - non-original (frames, inscriptions, hearts, flowers, etc.);\n
  - black and white;\n
-
+\n
 Photos that do not meet the above requirements will be deleted by the Administration, and the account will be blocked until valid photos are uploaded. For re-uploading previously rejected photos, your account will be blocked for a period of 3 days.\n
-
+\n
  4.User verification. \n
 Verification is the confirmation by the user of the data posted in the profile.\n
 
@@ -731,4 +731,5 @@ Photos that do not meet the above requirements will be deleted by the Administra
     <string name="blocked_by_admin_on_chatlist_title">This user has been blocked by admin</string>
     <string name="perm_blocked_by_admin_on_chatlist_title">this user is permanently blocked</string>
     <string name="blocked_by_admin_user">User was block of admin</string>
+    <string name="enter_date_birthday">Enter date birhday</string>
 </resources>
