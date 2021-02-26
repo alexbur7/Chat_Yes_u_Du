@@ -64,6 +64,7 @@
         android:layout_marginLeft="12dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="16dp"
         android:text="@string/country_label"/>
     <Spinner
         android:id="@+id/country_spinner"
@@ -75,6 +76,7 @@
         android:layout_marginLeft="12dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="16dp"
         android:text="@string/region_label"/>
 
     <Spinner
@@ -104,7 +106,7 @@
                 android:inputType="number"
                 android:layout_margin="8dp"
                 android:hint="@string/age_reg_hint"/>!-->
-    <Button
+   <!-- <Button
         android:id="@+id/call_calendar_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -114,6 +116,14 @@
         android:background="@drawable/edit_button"
         android:text="@string/date_birth"
         android:textColor="@color/chat_text"
+        />!-->
+             <TextView
+        android:id="@+id/call_calendar_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:text="@string/date_birth"
+        android:textSize="16dp"
         />
 
     <EditText

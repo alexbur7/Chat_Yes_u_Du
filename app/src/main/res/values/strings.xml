@@ -10,7 +10,7 @@
     <string name="city_hint">City*</string>
     <string name="reg_button_text">Register</string>
     <string name="login_button_text">Log in</string>
-    <string name="reject_reg">Enter all graphs with *</string>
+    <string name="reject_reg">Fill in all required registration fields</string>
     <string name="is_successful">Registration is successful</string>
     <string name="is_not_successful">Registration is not successful</string>
     <string name="failed_login">False email or password</string>
@@ -95,8 +95,8 @@
     <string name="about_hint">Tell about yourself</string>
     <string name="set_photo">Set photo</string>
     <string name="about">About:</string>
-    <string name="verify_text">We will send the verification message on this email</string>
-    <string name="required_photos">Put photos, it is require for registration</string>
+    <string name="verify_text">To complete registration, follow the link sent to your email address</string>
+    <string name="required_photos">Download photos, it is require for registration</string>
     <string name="reject_update">You entered empty important strings.Update rejected</string>
     <string name="gallery_text">Gallery</string>
     <string name="admin">Administration</string>
@@ -731,5 +731,7 @@ Photos that do not meet the above requirements will be deleted by the Administra
     <string name="blocked_by_admin_on_chatlist_title">This user has been blocked by admin</string>
     <string name="perm_blocked_by_admin_on_chatlist_title">this user is permanently blocked</string>
     <string name="blocked_by_admin_user">User was block of admin</string>
-    <string name="enter_date_birthday">Enter date birhday</string>
+    <string name="enter_date_birthday">Add age</string>
+    <string name="enter_true_age">Enter true age</string>
+    <string name="age_was_add">Age add</string>
 </resources>

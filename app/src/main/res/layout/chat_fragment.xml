@@ -85,19 +85,21 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_gravity="end|center"
+                android:layout_marginTop="4dp"
                 android:background="?attr/colorAccent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/admin_icon" />
-                <ImageView
-                    android:id="@+id/notification_admin"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:src="@drawable/icon_notification_admin"
-                    android:layout_gravity="end|center"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginRight="4dp"
-                    android:visibility="invisible"
-                    android:layout_marginEnd="4dp" />
+
+                    <ImageView
+                        android:id="@+id/notification_admin"
+                        android:layout_width="6dp"
+                        android:layout_height="8dp"
+                        android:layout_gravity="end|center"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="7.5dp"
+                        android:layout_marginRight="7.5dp"
+                        android:src="@drawable/icon_notification_admin"
+                        android:visibility="invisible" />
                 </FrameLayout>
             </androidx.appcompat.widget.Toolbar>
         </FrameLayout>

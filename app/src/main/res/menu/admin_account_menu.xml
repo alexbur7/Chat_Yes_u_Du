@@ -43,9 +43,4 @@
         android:id="@+id/perm_block_admin"
         android:title="@string/perm_block_account_title"
         app:showAsAction="never" />
-
-    <item
-        android:id="@+id/favorite_add"
-        android:title="@string/favorite_chat"
-        app:showAsAction="never"/>
 </menu>

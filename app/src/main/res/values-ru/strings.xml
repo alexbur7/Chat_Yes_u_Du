@@ -9,7 +9,7 @@
     <string name="city_hint">Город*</string>
     <string name="reg_button_text">Регистрация</string>
     <string name="login_button_text">Вход</string>
-    <string name="reject_reg">Заполните все графы со звездочкой *</string>
+    <string name="reject_reg">Заполните все обязательный поля регистрации</string>
     <string name="is_successful">Регистрация выполнена</string>
     <string name="is_not_successful">Регистрация не выполнена</string>
     <string name="failed_login">Неверный email или пароль</string>
@@ -94,8 +94,8 @@
     <string name="incorrect_old_password">Неверный прошлый пароль</string>
     <string name="saved_password">Сохранить</string>
     <string name="about">О себе:</string>
-    <string name="verify_text">На указанную почту будет выслано письмо для потверждения электронной почты</string>
-    <string name="required_photos">Выберите фотографии,они обязательны для регистрации</string>
+    <string name="verify_text">Для завершения регистрации пройдите по ссылке, отправленной на ваш email</string>
+    <string name="required_photos">Загрузите фотографии,они обязательны для регистрации</string>
     <string name="reject_update">Вы назначили пустыми обязательные поля.Изменения не приняты</string>
     <string name="look_all">Посмотреть все</string>
     <string name="you_photo">Прежде чем загрузить фотографии, ознакомьтесь пожалуйста с требованиями.</string>
@@ -709,5 +709,7 @@
     <string name="blocked_by_admin_user">Пользователь был заблокирован Администрацией</string>
     <string name="blocked_by_admin_on_chatlist_title">Этот пользователь был заблокирован Администрацией</string>
     <string name="perm_blocked_by_admin_on_chatlist_title">этот пользователь временно заблокирован</string>
-    <string name="enter_date_birthday">Введите дату рождения</string>
+    <string name="enter_date_birthday">Добавьте возраст</string>
+    <string name="enter_true_age">Введите настоящий возраст</string>
+    <string name="age_was_add">Возраст добавлен</string>
 </resources>

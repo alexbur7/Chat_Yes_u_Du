@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.yesudu">
+    package="com.yes_u_du.zuyger">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -13,26 +13,26 @@
         android:roundIcon="@drawable/chat_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.yesudu.account.MyAccountActivity" />
-        <activity android:name="com.example.yesudu.chat_list.activity.BlockListActivity" />
-        <activity android:name="com.example.yesudu.chat_list.activity.FavoriteListActivity"/>
-        <activity android:name="com.example.yesudu.chat_list.activity.AdminActivity"
-            android:parentActivityName="com.example.yesudu.account.MyAccountActivity"/>
-        <activity android:name="com.example.yesudu.account.UserAccountActivity"
-            android:parentActivityName="com.example.yesudu.chat.ChatActivity"/>
-        <activity android:name="com.example.yesudu.chat_list.activity.AdminBlockListActivity"
-            android:parentActivityName="com.example.yesudu.account.UserAccountActivity"/>
+        <activity android:name="com.yes_u_du.zuyger.account.MyAccountActivity" />
+        <activity android:name="com.yes_u_du.zuyger.chat_list.activity.BlockListActivity" />
+        <activity android:name="com.yes_u_du.zuyger.chat_list.activity.FavoriteListActivity"/>
+        <activity android:name="com.yes_u_du.zuyger.chat_list.activity.AdminActivity"
+            android:parentActivityName="com.yes_u_du.zuyger.account.MyAccountActivity"/>
+        <activity android:name="com.yes_u_du.zuyger.account.UserAccountActivity"
+            android:parentActivityName="com.yes_u_du.zuyger.chat.ChatActivity"/>
+        <activity android:name="com.yes_u_du.zuyger.chat_list.activity.AdminBlockListActivity"
+            android:parentActivityName="com.yes_u_du.zuyger.account.UserAccountActivity"/>
         <activity
-            android:name="com.example.yesudu.chat.ChatActivity"
-            android:parentActivityName="com.example.yesudu.account.MyAccountActivity"/>
-        <activity android:name="com.example.yesudu.photo_utils.PhotoViewPager"
-            android:parentActivityName="com.example.yesudu.photo_utils.GalleryActivity"/>
-        <activity android:name="com.example.yesudu.rules_and_policy.InformationListActivity"/>
-        <activity android:name="com.example.yesudu.rules_and_policy.InformationActivity"/>
-        <activity android:name="com.example.yesudu.photo_utils.GalleryActivity"/>
-        <activity android:name="com.example.yesudu.reg_and_login_utils.ResetPasswordActivity"
-            android:parentActivityName="com.example.yesudu.account.MyAccountActivity"/>
-        <activity android:name="com.example.yesudu.reg_and_login_utils.LogActivity">
+            android:name="com.yes_u_du.zuyger.chat.ChatActivity"
+            android:parentActivityName="com.yes_u_du.zuyger.account.MyAccountActivity"/>
+        <activity android:name="com.yes_u_du.zuyger.photo_utils.PhotoViewPager"
+            android:parentActivityName="com.yes_u_du.zuyger.photo_utils.GalleryActivity"/>
+        <activity android:name="com.yes_u_du.zuyger.rules_and_policy.InformationListActivity"/>
+        <activity android:name="com.yes_u_du.zuyger.rules_and_policy.InformationActivity"/>
+        <activity android:name="com.yes_u_du.zuyger.photo_utils.GalleryActivity"/>
+        <activity android:name="com.yes_u_du.zuyger.reg_and_login_utils.ResetPasswordActivity"
+            android:parentActivityName="com.yes_u_du.zuyger.account.MyAccountActivity"/>
+        <activity android:name="com.yes_u_du.zuyger.reg_and_login_utils.LogActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
