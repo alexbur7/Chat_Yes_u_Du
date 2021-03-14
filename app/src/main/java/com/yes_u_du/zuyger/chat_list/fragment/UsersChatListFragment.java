@@ -14,6 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.yes_u_du.zuyger.dialog.FilterDialog;
 import com.yes_u_du.zuyger.R;
 import com.yes_u_du.zuyger.account.User;
@@ -34,7 +37,13 @@ public class UsersChatListFragment extends ChatListFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View v = super.onCreateView(inflater,container,savedInstanceState);
+        MobileAds.initialize(getActivity(), (OnInitializationCompleteListener) initializationStatus -> {
+        });
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+        adView.setVisibility(View.VISIBLE);
+        return v;
     }
 
     @Override

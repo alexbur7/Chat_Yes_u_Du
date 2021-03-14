@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.yes_u_du.zuyger.R;
 import com.yes_u_du.zuyger.account.User;
 import com.yes_u_du.zuyger.dialog.AcceptDialog;
@@ -67,6 +71,8 @@ public class ChatFragment extends ChatBaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setChatListenerConnected=false;
+        MobileAds.initialize(getActivity(), (OnInitializationCompleteListener) initializationStatus -> {
+        });
         delete_string =getResources().getString(R.string.delete_users);
         admin_string=getResources().getString(R.string.admin);
         seenText= getResources().getString(R.string.seen_text);
@@ -148,7 +154,6 @@ public class ChatFragment extends ChatBaseFragment {
         });
 
 
-        //TODO доделать
         adminMessagesListener=reference.child(generateKeyToAdminChat()).child("message").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -196,6 +201,10 @@ public class ChatFragment extends ChatBaseFragment {
         }
         else setStatus();
         displayChatMessages();
+
+        adView = v.findViewById(R.id.adViewChat);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
         return v;
     }
 
@@ -470,6 +479,8 @@ public class ChatFragment extends ChatBaseFragment {
             setWriting("unwriting");
         }else if (!s.toString().equals(getActivity().getString(R.string.blocked_chat)) && !s.toString().equals(getActivity().getString(R.string.blocked_by_admin))){
             setWriting(receiverUuid);
+            Log.d("tut_writing", "tuttttt");
+            adView.setVisibility(View.GONE);
         }
     }
 

@@ -111,10 +111,10 @@ public class AdminAccountFragment extends AccountFragment {
                 startActivity(intent);
                 getActivity().finish();
             }break;
-            /*case R.id.favorite_add:{
+            case R.id.favorite_add:{
                 favoriteChat();
             }
-            break;*/
+            break;
         }
         return true;
     }

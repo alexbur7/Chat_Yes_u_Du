@@ -3,6 +3,7 @@ package com.yes_u_du.zuyger.chat_list.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.yes_u_du.zuyger.dialog.FilterDialog;
 import com.yes_u_du.zuyger.R;
 import com.yes_u_du.zuyger.account.User;
@@ -30,7 +35,13 @@ public class FilteredChatListFragment extends ChatListFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View v = super.onCreateView(inflater,container,savedInstanceState);
+        MobileAds.initialize(getActivity(), (OnInitializationCompleteListener) initializationStatus -> {
+        });
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+        adView.setVisibility(View.VISIBLE);
+        return v;
     }
 
 
@@ -50,6 +61,7 @@ public class FilteredChatListFragment extends ChatListFragment {
     private void getFilterInfoAndFilter(Intent data) {
         String nameFilter=data.getStringExtra(FilterDialog.KEY_TO_NAME_FILTER);
         String sexFilter=data.getStringExtra(FilterDialog.KEY_TO_SEX_FILTER);
+        Log.d("tut_filter", sexFilter);
         String ageFilter=data.getStringExtra(FilterDialog.KEY_TO_AGE_FILTER);
         String cityFilter=data.getStringExtra(FilterDialog.KEY_TO_CITY_FILTER);
         String onlineFilter=data.getStringExtra(FilterDialog.KEY_TO_ONLINE_FILTER);

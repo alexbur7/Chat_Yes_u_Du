@@ -22,6 +22,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdView;
 import com.yes_u_du.zuyger.dialog.EditMessageDialog;
 import com.yes_u_du.zuyger.photo_utils.PhotoViewPagerItemFragment;
 import com.yes_u_du.zuyger.R;
@@ -73,6 +74,7 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
     public boolean isEditing;
     protected String delete_string;
     protected String admin_string;
+    protected AdView adView;
 
 
     @Override

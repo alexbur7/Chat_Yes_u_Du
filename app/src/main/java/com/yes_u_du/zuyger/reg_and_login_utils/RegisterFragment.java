@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -201,7 +202,7 @@ public class RegisterFragment extends Fragment{
         }
 
         if (name.isEmpty() || city.isEmpty() || email.isEmpty() || password.isEmpty() || sex.isEmpty() || country.equals("0") ||(country.equals("1") && region.equals("0")
-                 || (country.equals("2") && region.equals("0"))|| (country.equals("3") && region.equals("0")))){
+                 || (country.equals("2") && region.equals("0"))|| (country.equals("4") && region.equals("0")))){
             Toast.makeText(getActivity(),R.string.reject_reg,Toast.LENGTH_SHORT).show();
             return;
         }
@@ -246,6 +247,7 @@ public class RegisterFragment extends Fragment{
                     ref.child("photo_url3").setValue("default");
                     ref.child("region").setValue(region);
                     ref.child("sex").setValue(sex);
+                    Log.d("tut_register", sex);
                     ref.child("age").setValue(age);
                     ref.child("status").setValue(status_offline);
                     ref.child(getActivity().getResources().getString(R.string.admin_key)).setValue("false");
