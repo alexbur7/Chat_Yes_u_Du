@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdView;
 import com.yes_u_du.zuyger.dialog.FilterDialog;
 import com.yes_u_du.zuyger.R;
 import com.yes_u_du.zuyger.chat_list.Updatable;
@@ -24,6 +25,7 @@ public abstract class ChatListFragment extends Fragment implements Updatable {
     public static final int KEY_DELETE_DIAOG=-1;
     protected RecyclerView chatRecView;
     protected Toolbar toolbar;
+    protected AdView adView;
 
     protected void getToolbarMenu(){
         toolbar.inflateMenu(R.menu.filter_users_menu);
@@ -32,9 +34,10 @@ public abstract class ChatListFragment extends Fragment implements Updatable {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.chat_users_list,container,false);
+        View v=inflater.inflate(R.layout.fragment_users_list,container,false);
         chatRecView = v.findViewById(R.id.chat_recycler_view);
         toolbar=v.findViewById(R.id.toolbarFr);
+        adView =v.findViewById(R.id.adViewListUser);
         getToolbarMenu();
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override

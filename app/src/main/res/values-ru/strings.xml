@@ -9,7 +9,7 @@
     <string name="city_hint">Город*</string>
     <string name="reg_button_text">Регистрация</string>
     <string name="login_button_text">Вход</string>
-    <string name="reject_reg">Заполните все обязательный поля регистрации</string>
+    <string name="reject_reg">Заполните все обязательные поля регистрации</string>
     <string name="is_successful">Регистрация выполнена</string>
     <string name="is_not_successful">Регистрация не выполнена</string>
     <string name="failed_login">Неверный email или пароль</string>

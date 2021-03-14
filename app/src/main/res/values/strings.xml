@@ -734,4 +734,7 @@ Photos that do not meet the above requirements will be deleted by the Administra
     <string name="enter_date_birthday">Add age</string>
     <string name="enter_true_age">Enter true age</string>
     <string name="age_was_add">Age add</string>
+   <!--<string name="banner_ad_unit_id" translatable="false">ca-app-pub-7303999107197653/4611397305</string>!-->
+    <string name="banner_ad_unit_id" translatable="false"> ca-app-pub-3940256099942544/6300978111</string>
+
 </resources>

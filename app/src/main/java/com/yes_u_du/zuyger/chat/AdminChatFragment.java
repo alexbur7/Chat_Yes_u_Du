@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.yes_u_du.zuyger.R;
 import com.yes_u_du.zuyger.account.User;
 import com.yes_u_du.zuyger.dialog.EditMessageDialog;
@@ -35,6 +38,8 @@ public class AdminChatFragment extends ChatBaseFragment {
         setChatListenerConnected=false;
 
         View v=inflater.inflate(R.layout.chat_fragment,container,false);
+        MobileAds.initialize(getActivity(), (OnInitializationCompleteListener) initializationStatus -> {
+        });
         receiverUuid=getArguments().getString(KEY_TO_RECEIVER_UUID);
         receiverPhotoUrl = getArguments().getString(KEY_TO_RECEIVER_PHOTO_URL);
         toolbar=v.findViewById(R.id.toolbarFr);
@@ -98,6 +103,9 @@ public class AdminChatFragment extends ChatBaseFragment {
         }
         else setStatus();
         displayChatMessages();
+        adView = v.findViewById(R.id.adViewChat);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
         return v;
     }
 

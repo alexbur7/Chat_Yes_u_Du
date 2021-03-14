@@ -3,6 +3,7 @@
     package="com.yes_u_du.zuyger">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -13,6 +14,12 @@
         android:roundIcon="@drawable/chat_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent"/>
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7303999107197653~9125357381"/>
         <activity android:name="com.yes_u_du.zuyger.account.MyAccountActivity" />
         <activity android:name="com.yes_u_du.zuyger.chat_list.activity.BlockListActivity" />
         <activity android:name="com.yes_u_du.zuyger.chat_list.activity.FavoriteListActivity"/>

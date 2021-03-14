@@ -17,6 +17,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.yes_u_du.zuyger.photo_utils.GalleryActivity;
 import com.yes_u_du.zuyger.photo_utils.PhotoAdapter;
 import com.yes_u_du.zuyger.photo_utils.PhotoViewPagerItemFragment;
@@ -50,9 +55,11 @@ public abstract class AccountFragment extends Fragment {
     protected ValueEventListener favoriteChatListener;
     protected String firstKey,secondKey;
 
+
     private String[] countryArray;
     private String[] regionArray;
 
+    private AdView adView;
     private Button lookAll;
     private ImageView verifiedImage;
 
@@ -61,6 +68,8 @@ public abstract class AccountFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_account,container,false);
+        MobileAds.initialize(getActivity(), (OnInitializationCompleteListener) initializationStatus -> {
+        });
         nameTextView=v.findViewById(R.id.my_name_text);
         verifiedImage = v.findViewById(R.id.verified_image_account);
         photoImageView = v.findViewById(R.id.photo_view);
@@ -68,13 +77,40 @@ public abstract class AccountFragment extends Fragment {
         textRecView=v.findViewById(R.id.text_recycler_view);
         toolbar=v.findViewById(R.id.toolbarFr);
         lookAll = v.findViewById(R.id.look_all_button);
+        adView = v.findViewById(R.id.adViewAccount);
         referenceUsers = FirebaseDatabase.getInstance().getReference("users");
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
         countryArray=getActivity().getResources().getStringArray(R.array.country_filter);
         setToolbar();
         setUser();
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
         //setPhotoImageView();
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adView != null) {
+            adView.resume();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        if (adView != null) {
+            adView.pause();
+        }
+        super.onPause();
+    }
+    @Override
+    public void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+        super.onDestroy();
     }
 
     abstract void setToolbar();
