@@ -202,9 +202,9 @@ public class ChatFragment extends ChatBaseFragment {
         else setStatus();
         displayChatMessages();
 
-        adView = v.findViewById(R.id.adViewChat);
+       /* adView = v.findViewById(R.id.adViewChat);
         AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
+        adView.loadAd(adRequest);*/
         return v;
     }
 
@@ -480,7 +480,7 @@ public class ChatFragment extends ChatBaseFragment {
         }else if (!s.toString().equals(getActivity().getString(R.string.blocked_chat)) && !s.toString().equals(getActivity().getString(R.string.blocked_by_admin))){
             setWriting(receiverUuid);
             Log.d("tut_writing", "tuttttt");
-            adView.setVisibility(View.GONE);
+            //adView.setVisibility(View.GONE);
         }
     }
 

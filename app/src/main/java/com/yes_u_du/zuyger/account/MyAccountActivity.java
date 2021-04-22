@@ -17,10 +17,7 @@ public class MyAccountActivity extends BaseActivity implements UsersChatListFrag
     public static final int CODE_FILTER=1;
 
 
-    @Override
-    public Fragment getFragment() {
-        return new ChatAndAccPager();
-    }
+
 
     @Override
     protected void onPause() {
@@ -49,5 +46,10 @@ public class MyAccountActivity extends BaseActivity implements UsersChatListFrag
             else super.onBackPressed();
         }
         else super.onBackPressed();
+    }
+
+    @Override
+    public Fragment getFragment() {
+        return new ChatAndAccPager();
     }
 }

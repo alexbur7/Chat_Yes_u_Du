@@ -103,9 +103,9 @@ public class AdminChatFragment extends ChatBaseFragment {
         }
         else setStatus();
         displayChatMessages();
-        adView = v.findViewById(R.id.adViewChat);
+       /* adView = v.findViewById(R.id.adViewChat);
         AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
+        adView.loadAd(adRequest);*/
         return v;
     }
 

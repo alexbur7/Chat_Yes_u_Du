@@ -2,6 +2,7 @@ package com.yes_u_du.zuyger.chat;
 
 import android.content.Context;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,6 +91,8 @@ public class ChatMessageAdapter extends FirebaseRecyclerAdapter<ChatMessage, Cha
             mModelLayout = R.layout.chat_list_item_left;
         }
     }
+
+
 
     @Override
     public String generateKey() {

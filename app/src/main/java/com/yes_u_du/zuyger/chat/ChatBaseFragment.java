@@ -74,7 +74,7 @@ public abstract class ChatBaseFragment extends Fragment implements View.OnClickL
     public boolean isEditing;
     protected String delete_string;
     protected String admin_string;
-    protected AdView adView;
+    //protected AdView adView;
 
 
     @Override
