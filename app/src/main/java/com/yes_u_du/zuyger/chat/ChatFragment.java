@@ -521,6 +521,7 @@ public class ChatFragment extends ChatBaseFragment {
                         && !complaint.equals(getActivity().getString(R.string.pornographic_content_title))
                         && !complaint.equals(getActivity().getString(R.string.threats_title))
                         && !complaint.equals(getActivity().getString(R.string.married))
+                        && !complaint.equals(getActivity().getString(R.string.underage))
                     ){
                         complaint = getActivity().getString(R.string.illegal_photos)+" "+data.getStringExtra(ComplainDialog.COMPLAIN_CODE);
                     }

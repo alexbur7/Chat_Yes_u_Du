@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -83,7 +84,7 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.DialogHold
             }
             else {
                 dismissable.onDismiss(dismissable.chooseOption(complainCode));
-               // Toast.makeText(context, context.getString(R.string.complain_completed), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, context.getString(R.string.complain_completed), Toast.LENGTH_SHORT).show();
             }
         }
     }
